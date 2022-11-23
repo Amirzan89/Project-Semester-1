@@ -24,6 +24,7 @@ public class Gambar {
     private static final ImageIcon icWindow = Application.getWindowIcon();
     
     private static final String DIREKTORY_ICONS = "src\\resources\\image\\icons\\";
+    private static final String DIREKTORY_ICON = "src\\resources\\image\\gambar_icon\\";
     
     public static Image getWindowIcon(){
         return icWindow.getImage();

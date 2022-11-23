@@ -3,6 +3,7 @@ package com.window.panels;
 import com.manage.Chart;
 import com.manage.Message;
 import com.manage.Waktu;
+import com.data.db.Database;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import org.jfree.chart.ChartFactory;
@@ -21,20 +22,17 @@ import org.jfree.data.statistics.HistogramDataset;
 
 /**
  *
- * @author Gemastik Lightning
+ * @author Amirzan Fikri P
  */
 public class Dashboard extends javax.swing.JPanel {
-
+    private final Database db = new Database();
     private final Chart chart = new Chart();
-    
     private final Waktu waktu = new Waktu();
-    
     public Dashboard() {
         initComponents();
-        
 //        this.chart.showPieChart(this.pnlPieChart, "Presentase Penjualan Produk", 40, 20, 15, 25);
 //        this.chart.lineChartPenjualan(this.pnlLineChart);
-        this.showLineChart();
+//        this.showLineChart();
         
         // mengupdate waktu
         new Thread(new Runnable(){
@@ -52,6 +50,7 @@ public class Dashboard extends javax.swing.JPanel {
                 }
             }
         }).start();
+//        this.lblPembeli.setText(Integer.toString(db.getJumlahData("laporan_pendapatan",String.format("WHERE tanggal = '" +waktu.getCurrentDate()+"' "))));
     }
 
     @SuppressWarnings("unchecked")
@@ -59,10 +58,14 @@ public class Dashboard extends javax.swing.JPanel {
     private void initComponents() {
 
         lblDate = new javax.swing.JLabel();
-        pembeli = new javax.swing.JLabel();
-        saldo = new javax.swing.JLabel();
-        pemasukan = new javax.swing.JLabel();
-        pengeluaran = new javax.swing.JLabel();
+        lblPembeli = new javax.swing.JLabel();
+        lblSaldo = new javax.swing.JLabel();
+        lblPpemasukan = new javax.swing.JLabel();
+        lblPengeluaran = new javax.swing.JLabel();
+        lblMakanan = new javax.swing.JLabel();
+        lblMinuman = new javax.swing.JLabel();
+        lblAtk = new javax.swing.JLabel();
+        lblSnack = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -71,21 +74,29 @@ public class Dashboard extends javax.swing.JPanel {
 
         lblDate.setText("-");
         add(lblDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 140, 260, 20));
+        add(lblPembeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 80, 160, 20));
+        add(lblSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 160, 20));
+        add(lblPpemasukan, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 150, 20));
+        add(lblPengeluaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 80, 170, 20));
 
-        pembeli.setText("jLabel1");
-        add(pembeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 80, 60, 20));
+        lblMakanan.setBackground(new java.awt.Color(10, 255, 108));
+        lblMakanan.setOpaque(true);
+        add(lblMakanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 350, 40, 35));
 
-        saldo.setText("jLabel1");
-        add(saldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 60, 20));
+        lblMinuman.setBackground(new java.awt.Color(2, 99, 255));
+        lblMinuman.setOpaque(true);
+        add(lblMinuman, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 195, 40, 35));
 
-        pemasukan.setText("jLabel1");
-        add(pemasukan, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 80, 60, 20));
+        lblAtk.setBackground(new java.awt.Color(255, 233, 35));
+        lblAtk.setOpaque(true);
+        add(lblAtk, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 250, 40, 35));
 
-        pengeluaran.setText("jLabel1");
-        add(pengeluaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 60, 20));
+        lblSnack.setBackground(new java.awt.Color(255, 51, 102));
+        lblSnack.setOpaque(true);
+        add(lblSnack, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 300, 40, 35));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar/app-dashboard-075.png"))); // NOI18N
-        add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 973, 768));
     }// </editor-fold>//GEN-END:initComponents
 
     public void showPieChart(){
@@ -208,10 +219,14 @@ public class Dashboard extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
+    private javax.swing.JLabel lblAtk;
     private javax.swing.JLabel lblDate;
-    private javax.swing.JLabel pemasukan;
-    private javax.swing.JLabel pembeli;
-    private javax.swing.JLabel pengeluaran;
-    private javax.swing.JLabel saldo;
+    private javax.swing.JLabel lblMakanan;
+    private javax.swing.JLabel lblMinuman;
+    private javax.swing.JLabel lblPembeli;
+    private javax.swing.JLabel lblPengeluaran;
+    private javax.swing.JLabel lblPpemasukan;
+    private javax.swing.JLabel lblSaldo;
+    private javax.swing.JLabel lblSnack;
     // End of variables declaration//GEN-END:variables
 }

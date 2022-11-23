@@ -44,7 +44,7 @@ public class MainWindow extends javax.swing.JFrame {
         this.setExtendedState(this.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
         this.lblNamaUser.setText(this.user.getCurrentLoginName());
         this.btns = new JLabel[]{
-            this.btnDashboard, this.btnSupplier, this.btnPembeli, this.btnBarang,
+            this.btnDashboard, this.btnSupplier, this.btnBarang,
             this.btnTrJual, this.btnTrBeli, this.btnLpJual, this.btnLpBeli, this.btnLogout
         };
         this.activated = this.btnDashboard;
@@ -65,13 +65,15 @@ public class MainWindow extends javax.swing.JFrame {
     private void setActivatedButton(JLabel activated){
         this.activated = activated;
         // set menjadi activated
+//        activated.setOpaque(true);
 //       activated.setOpaque(true);
 //       activated.setBackground(new Color(166,203,227));
 //       activated.setForeground(new Color(0,0,0));
 //       activated.setIcon("");
         // mereset warna button/label
-        for(JLabel btn : btns){
+//        for(JLabel btn : btns){
 //            if(btn != this.activated){
+//                btn.setOpaque(false);
 //                btn.setOpaque(false);
 //                btn.setBackground(new Color(0,0,0,0));
 //                btn.setForeground(new Color(255,255,255));
@@ -80,7 +82,7 @@ public class MainWindow extends javax.swing.JFrame {
 //                }
 //            }
 //            
-        }
+//        }
     }
     
     private void hoverButton(JLabel[] btns){
@@ -130,19 +132,20 @@ public class MainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
         pnlMain = new javax.swing.JPanel();
         btnLogout = new javax.swing.JLabel();
         btnTrBeli = new javax.swing.JLabel();
-        btnPembeli = new javax.swing.JLabel();
         btnTrJual = new javax.swing.JLabel();
         btnLpBeli = new javax.swing.JLabel();
         btnSupplier = new javax.swing.JLabel();
         btnLpJual = new javax.swing.JLabel();
         btnBarang = new javax.swing.JLabel();
+        btnPembeli = new javax.swing.JLabel();
         lblNamaUser = new javax.swing.JLabel();
         btnDashboard = new javax.swing.JLabel();
-        background = new javax.swing.JLabel();
         pnlMenu = new javax.swing.JPanel();
+        background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -160,14 +163,15 @@ public class MainWindow extends javax.swing.JFrame {
 
         pnlMain.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-logout-075.png"))); // NOI18N
         btnLogout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLogoutMouseClicked(evt);
             }
         });
-        pnlMain.add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 710, 60, 30));
+        pnlMain.add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 680, 80, 30));
 
-        btnTrBeli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Transaksi_beli-aktif-075.png"))); // NOI18N
+        btnTrBeli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Transaksi_beli-075.png"))); // NOI18N
         btnTrBeli.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnTrBeliMouseClicked(evt);
@@ -175,15 +179,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         pnlMain.add(btnTrBeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 363, -1, -1));
 
-        btnPembeli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-dataPembeli-aktif-075.png"))); // NOI18N
-        btnPembeli.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnPembeliMouseClicked(evt);
-            }
-        });
-        pnlMain.add(btnPembeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 234, -1, -1));
-
-        btnTrJual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Transaksi_jual-aktif-075.png"))); // NOI18N
+        btnTrJual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Transaksi_jual-075.png"))); // NOI18N
         btnTrJual.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnTrJualMouseClicked(evt);
@@ -191,7 +187,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         pnlMain.add(btnTrJual, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 428, -1, -1));
 
-        btnLpBeli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Laporan_pengeluaran-aktif-075.png"))); // NOI18N
+        btnLpBeli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Laporan_pengeluaran-075.png"))); // NOI18N
         btnLpBeli.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLpBeliMouseClicked(evt);
@@ -199,7 +195,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         pnlMain.add(btnLpBeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 570, -1, -1));
 
-        btnSupplier.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-dataSupplier-aktif-075.png"))); // NOI18N
+        btnSupplier.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-dataSupplier-075.png"))); // NOI18N
         btnSupplier.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnSupplierMouseClicked(evt);
@@ -207,7 +203,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         pnlMain.add(btnSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 299, -1, -1));
 
-        btnLpJual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Laporan_pemasukan-aktif-075.png"))); // NOI18N
+        btnLpJual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Laporan_pemasukan-075.png"))); // NOI18N
         btnLpJual.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLpJualMouseClicked(evt);
@@ -215,40 +211,38 @@ public class MainWindow extends javax.swing.JFrame {
         });
         pnlMain.add(btnLpJual, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 492, -1, -1));
 
-        btnBarang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-dataBarang-aktif-075.png"))); // NOI18N
+        btnBarang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-dataBarang-075.png"))); // NOI18N
         btnBarang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnBarangMouseClicked(evt);
             }
         });
         pnlMain.add(btnBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 170, -1, -1));
+
+        btnPembeli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-dataPembeli-075.png"))); // NOI18N
+        btnPembeli.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPembeliMouseClicked(evt);
+            }
+        });
+        pnlMain.add(btnPembeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 235, -1, -1));
         pnlMain.add(lblNamaUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 50, 60, 20));
 
-        btnDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Dashboard-aktif-075.png"))); // NOI18N
+        btnDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Dashboard-075.png"))); // NOI18N
         btnDashboard.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnDashboardMouseClicked(evt);
             }
         });
         pnlMain.add(btnDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 105, -1, -1));
+        pnlMain.add(pnlMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 0, 973, 769));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar/app-mainWindow-075.png"))); // NOI18N
         pnlMain.add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        javax.swing.GroupLayout pnlMenuLayout = new javax.swing.GroupLayout(pnlMenu);
-        pnlMenu.setLayout(pnlMenuLayout);
-        pnlMenuLayout.setHorizontalGroup(
-            pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 970, Short.MAX_VALUE)
-        );
-        pnlMenuLayout.setVerticalGroup(
-            pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 770, Short.MAX_VALUE)
-        );
+        jScrollPane1.setViewportView(pnlMain);
 
-        pnlMain.add(pnlMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 970, 770));
-
-        getContentPane().add(pnlMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1081, 768));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -266,15 +260,15 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void btnDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDashboardMouseClicked
-//        this.lblMenuName.setText("Dashboard");
+        //        this.lblMenuName.setText("Dashboard");
         this.setTitle("Dashboard");
         this.setActivatedButton(this.btnDashboard);
-        
+
         // menghaspus panel lama
         pnlMenu.removeAll();
         pnlMenu.repaint();
         pnlMenu.revalidate();
-        
+
         // menambahkan panel baru
         pnlMenu.add(new com.window.panels.Dashboard());
         pnlMenu.repaint();
@@ -282,20 +276,110 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDashboardMouseClicked
 
     private void btnBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBarangMouseClicked
-//        this.lblMenuName.setText("Data Barang");
+        //        this.lblMenuName.setText("Data Barang");
         this.setTitle("Data Barang");
         this.setActivatedButton(this.btnBarang);
-        
+
         // menghapus panel lama
         pnlMenu.removeAll();
         pnlMenu.repaint();
         pnlMenu.revalidate();
-        
+
         // menambahkan panel baru
         pnlMenu.add(new DataBarang());
         pnlMenu.repaint();
         pnlMenu.revalidate();
     }//GEN-LAST:event_btnBarangMouseClicked
+
+    private void btnLpJualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLpJualMouseClicked
+        //        this.lblMenuName.setText("Laporan Jual");
+        this.setTitle("Laporan Jual");
+        this.setActivatedButton(this.btnLpJual);
+
+        // menghapus panel lama
+        pnlMenu.removeAll();
+        pnlMenu.repaint();
+        pnlMenu.revalidate();
+
+        // menambahkan panel baru
+        pnlMenu.add(new LaporanJual());
+        pnlMenu.repaint();
+        pnlMenu.revalidate();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLpJualMouseClicked
+
+    private void btnSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSupplierMouseClicked
+        //        this.lblMenuName.setText("Data Supplier");
+        this.setTitle("Data Supplier");
+        this.setActivatedButton(this.btnSupplier);
+
+        // menghapus panel lama
+        pnlMenu.removeAll();
+        pnlMenu.repaint();
+        pnlMenu.revalidate();
+
+        // menambahkan panel baru
+        pnlMenu.add(new DataSupplier());
+        pnlMenu.repaint();
+        pnlMenu.revalidate();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSupplierMouseClicked
+
+    private void btnLpBeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLpBeliMouseClicked
+        //        this.lblMenuName.setText("Laporan Beli");
+        this.setTitle("Laporan Beli");
+        this.setActivatedButton(this.btnLpBeli);
+
+        // menghapus panel lama
+        pnlMenu.removeAll();
+        pnlMenu.repaint();
+        pnlMenu.revalidate();
+
+        // menambahkan panel baru
+        pnlMenu.add(new LaporanBeli());
+        pnlMenu.repaint();
+        pnlMenu.revalidate();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLpBeliMouseClicked
+
+    private void btnTrJualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrJualMouseClicked
+        //        this.lblMenuName.setText("Transaksi Jual");
+        this.setTitle("Transaksi Jual");
+        this.setActivatedButton(this.btnTrJual);
+
+        // menghapus panel lama
+        pnlMenu.removeAll();
+        pnlMenu.repaint();
+        pnlMenu.revalidate();
+
+        // menambahkan panel baru
+        pnlMenu.add(new TransaksiJual());
+        pnlMenu.repaint();
+        pnlMenu.revalidate();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTrJualMouseClicked
+
+    private void btnTrBeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrBeliMouseClicked
+        //        this.lblMenuName.setText("Transaksi Beli");
+        this.setTitle("Transaksi Beli");
+        this.setActivatedButton(this.btnTrBeli);
+
+        // menghapus panel lama
+        pnlMenu.removeAll();
+        pnlMenu.repaint();
+        pnlMenu.revalidate();
+
+        // menambahkan panel baru
+        pnlMenu.add(new TransaksiBeli());
+        pnlMenu.repaint();
+        pnlMenu.revalidate();
+    }//GEN-LAST:event_btnTrBeliMouseClicked
+
+    private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
+        Audio.play(Audio.SOUND_WARNING);
+        new ConfirmLogout(this, true).setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLogoutMouseClicked
 
     private void btnPembeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPembeliMouseClicked
 //        this.lblMenuName.setText("Data Pembeli");
@@ -311,98 +395,7 @@ public class MainWindow extends javax.swing.JFrame {
         pnlMenu.add(new DataPembeli());
         pnlMenu.repaint();
         pnlMenu.revalidate();
-// TODO add your handling code here:
     }//GEN-LAST:event_btnPembeliMouseClicked
-
-    private void btnSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSupplierMouseClicked
-//        this.lblMenuName.setText("Data Supplier");
-        this.setTitle("Data Supplier");
-        this.setActivatedButton(this.btnSupplier);
-        
-        // menghapus panel lama
-        pnlMenu.removeAll();
-        pnlMenu.repaint();
-        pnlMenu.revalidate();
-        
-        // menambahkan panel baru
-        pnlMenu.add(new DataSupplier());
-        pnlMenu.repaint();
-        pnlMenu.revalidate();
-// TODO add your handling code here:
-    }//GEN-LAST:event_btnSupplierMouseClicked
-
-    private void btnTrBeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrBeliMouseClicked
-//        this.lblMenuName.setText("Transaksi Beli");
-        this.setTitle("Transaksi Beli");
-        this.setActivatedButton(this.btnTrBeli);
-        
-        // menghapus panel lama
-        pnlMenu.removeAll();
-        pnlMenu.repaint();
-        pnlMenu.revalidate();
-        
-        // menambahkan panel baru
-        pnlMenu.add(new TransaksiBeli());
-        pnlMenu.repaint();
-        pnlMenu.revalidate();
-    }//GEN-LAST:event_btnTrBeliMouseClicked
-
-    private void btnTrJualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrJualMouseClicked
-//        this.lblMenuName.setText("Transaksi Jual");
-        this.setTitle("Transaksi Jual");
-        this.setActivatedButton(this.btnTrJual);
-        
-        // menghapus panel lama
-        pnlMenu.removeAll();
-        pnlMenu.repaint();
-        pnlMenu.revalidate();
-        
-        // menambahkan panel baru
-        pnlMenu.add(new TransaksiJual());
-        pnlMenu.repaint();
-        pnlMenu.revalidate();
-// TODO add your handling code here:
-    }//GEN-LAST:event_btnTrJualMouseClicked
-
-    private void btnLpJualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLpJualMouseClicked
-//        this.lblMenuName.setText("Laporan Jual");
-        this.setTitle("Laporan Jual");
-        this.setActivatedButton(this.btnLpJual);
-        
-        // menghapus panel lama
-        pnlMenu.removeAll();
-        pnlMenu.repaint();
-        pnlMenu.revalidate();
-        
-        // menambahkan panel baru
-        pnlMenu.add(new LaporanJual());
-        pnlMenu.repaint();
-        pnlMenu.revalidate();
-// TODO add your handling code here:
-    }//GEN-LAST:event_btnLpJualMouseClicked
-
-    private void btnLpBeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLpBeliMouseClicked
-//        this.lblMenuName.setText("Laporan Beli");
-        this.setTitle("Laporan Beli");
-        this.setActivatedButton(this.btnLpBeli);
-        
-        // menghapus panel lama
-        pnlMenu.removeAll();
-        pnlMenu.repaint();
-        pnlMenu.revalidate();
-        
-        // menambahkan panel baru
-        pnlMenu.add(new LaporanBeli());
-        pnlMenu.repaint();
-        pnlMenu.revalidate();
-// TODO add your handling code here:
-    }//GEN-LAST:event_btnLpBeliMouseClicked
-
-    private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
-        Audio.play(Audio.SOUND_WARNING);
-        new ConfirmLogout(this, true).setVisible(true);
-// TODO add your handling code here:
-    }//GEN-LAST:event_btnLogoutMouseClicked
 
     public static void main(String args[]) {
 
@@ -437,6 +430,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel btnSupplier;
     private javax.swing.JLabel btnTrBeli;
     private javax.swing.JLabel btnTrJual;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblNamaUser;
     private javax.swing.JPanel pnlMain;
     private javax.swing.JPanel pnlMenu;

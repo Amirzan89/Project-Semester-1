@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Achmad Baihaqi
+ * @author Amirzan FIkri
  */
 public class DataPembeli extends javax.swing.JPanel {
     
