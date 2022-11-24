@@ -47,10 +47,10 @@ public class LoginWindow extends javax.swing.JFrame {
         pnlMain = new javax.swing.JPanel();
         inpUsername = new javax.swing.JTextField();
         lblMinimaze = new javax.swing.JLabel();
-        btnLogin = new javax.swing.JButton();
         lblClose = new javax.swing.JLabel();
         inpPassword = new javax.swing.JPasswordField();
-        jLabel1 = new javax.swing.JLabel();
+        btnLogin = new javax.swing.JLabel();
+        background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("umkm\n");
@@ -71,7 +71,6 @@ public class LoginWindow extends javax.swing.JFrame {
 
         pnlMain.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        inpUsername.setText("username");
         inpUsername.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         inpUsername.setOpaque(false);
         inpUsername.addActionListener(new java.awt.event.ActionListener() {
@@ -98,15 +97,6 @@ public class LoginWindow extends javax.swing.JFrame {
             }
         });
         pnlMain.add(lblMinimaze, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 0, 30, 28));
-
-        btnLogin.setBorder(null);
-        btnLogin.setOpaque(false);
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoginActionPerformed(evt);
-            }
-        });
-        pnlMain.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 365, 200, 20));
 
         lblClose.setBackground(new java.awt.Color(50, 51, 55));
         lblClose.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -135,8 +125,16 @@ public class LoginWindow extends javax.swing.JFrame {
         });
         pnlMain.add(inpPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 310, 250, 30));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar/app-login-050.png"))); // NOI18N
-        pnlMain.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        btnLogin.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLoginMouseClicked(evt);
+            }
+        });
+        pnlMain.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(335, 363, 212, 25));
+
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar/app-login-050.png"))); // NOI18N
+        pnlMain.add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         getContentPane().add(pnlMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 510));
 
@@ -160,41 +158,6 @@ public class LoginWindow extends javax.swing.JFrame {
     private void inpUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inpUsernameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inpUsernameActionPerformed
-
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        try{
-            idUser = this.inpUsername.getText();
-            password = this.inpPassword.getText();
-            boolean login = user.login(idUser,password);
-            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-            if(login){
-                Audio.play(Audio.SOUND_INFO);
-                JOptionPane.showMessageDialog(this, "Login Berhasil!\n\nSelamat datang "+ user.getData(UserLevels.PETUGAS.name(),"nama_petugas","WHERE id_petugas = '" + this.idUser + "'"));
-                // membuka window dashboard
-                java.awt.EventQueue.invokeLater(new Runnable(){
-                    @Override
-                    public void run(){
-                        new MainWindow().setVisible(true);
-                    }
-                });
-                
-                // menutup koneksi dan window
-                user.closeConnection();
-                this.dispose();
-            }else{
-                this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                // mereset textfield jika login gagal
-                this.inpUsername.setText("");
-                this.inpPassword.setText("");
-            }
-        }catch(IOException | AuthenticationException | SQLException ex){
-            this.inpUsername.setText("");
-            this.inpPassword.setText("");
-            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            // menampilkan pesan error
-            Message.showException(this, ex, true);
-        }
-    }//GEN-LAST:event_btnLoginActionPerformed
 
     private void lblCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseClicked
         Application.closeApplication();
@@ -224,6 +187,41 @@ public class LoginWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_inpPasswordActionPerformed
 
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
+        try{
+            idUser = this.inpUsername.getText();
+            password = this.inpPassword.getText();
+            boolean login = user.login(idUser,password);
+            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            if(login){
+                Audio.play(Audio.SOUND_INFO);
+                JOptionPane.showMessageDialog(this, "Login Berhasil!\n\nSelamat datang "+ user.getData(UserLevels.PETUGAS.name(),"nama_petugas","WHERE id_petugas = '" + this.idUser + "'"));
+                // membuka window dashboard
+                java.awt.EventQueue.invokeLater(new Runnable(){
+                    @Override
+                    public void run(){
+                        new MainWindow().setVisible(true);
+                    }
+                });
+
+                // menutup koneksi dan window
+                user.closeConnection();
+                this.dispose();
+            }else{
+                this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                // mereset textfield jika login gagal
+                this.inpUsername.setText("");
+                this.inpPassword.setText("");
+            }
+        }catch(IOException | AuthenticationException | SQLException ex){
+            this.inpUsername.setText("");
+            this.inpPassword.setText("");
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            // menampilkan pesan error
+            Message.showException(this, ex, true);
+        }
+    }//GEN-LAST:event_btnLoginMouseClicked
+
     public static void main(String args[]) {
         
         try {
@@ -247,10 +245,10 @@ public class LoginWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLogin;
+    private javax.swing.JLabel background;
+    private javax.swing.JLabel btnLogin;
     private javax.swing.JPasswordField inpPassword;
     private javax.swing.JTextField inpUsername;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblClose;
     private javax.swing.JLabel lblMinimaze;
     private javax.swing.JPanel pnlMain;
