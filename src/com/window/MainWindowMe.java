@@ -1,6 +1,5 @@
 package com.window;
 
-import com.data.app.Log;
 import com.media.Audio;
 import com.media.Gambar;
 import com.users.Users;
@@ -12,23 +11,17 @@ import com.window.panels.LaporanBeli;
 import com.window.panels.LaporanJual;
 import com.window.panels.TransaksiBeli;
 import com.window.panels.TransaksiJual;
-import com.window.test.Dashboard;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.LayoutManager;
-import java.awt.RenderingHints;
+import com.window.panels.Dashboard;
 import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /**
  *
- * @author Gemastik Lightning
+ * @author Achmad Baihaqi
  */
-public class MainWindow extends javax.swing.JFrame {
-    
+public class MainWindowMe extends javax.swing.JFrame {
+
+
     private final Users user = new Users();
     
     private final Dashboard dashboard = new Dashboard();
@@ -37,13 +30,14 @@ public class MainWindow extends javax.swing.JFrame {
     
     private JLabel[] btns;
     
-    public MainWindow() {
+    public MainWindowMe() {
         initComponents();
         
         this.setTitle("Dashboard");
         this.setIconImage(Gambar.getWindowIcon());
-        this.setExtendedState(this.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
-        this.lblNamaUser.setText(this.user.getCurrentLoginName());
+//        this.setExtendedState(this.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
+        this.setLocationRelativeTo(null);
+//        this.lblNamaUser.setText(this.user.getCurrentLoginName());
         this.btns = new JLabel[]{
             this.btnDashboard, this.btnSupplier, this.btnBarang,
             this.btnTrJual, this.btnTrBeli, this.btnLpJual, this.btnLpBeli, this.btnLogout
@@ -61,6 +55,7 @@ public class MainWindow extends javax.swing.JFrame {
         
         this.setActivatedButton(btnDashboard);
         this.hoverButton(btns);
+        this.setResizable(false);
     }
     
     private void setActivatedButton(JLabel activated){
@@ -129,87 +124,46 @@ public class MainWindow extends javax.swing.JFrame {
         }
     }
     
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         pnlMain = new javax.swing.JPanel();
-        btnLogout = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        pnlMenu = new javax.swing.JPanel();
+        btnBarang = new javax.swing.JLabel();
+        btnDashboard = new javax.swing.JLabel();
+        btnPembeli = new javax.swing.JLabel();
+        btnSupplier = new javax.swing.JLabel();
         btnTrBeli = new javax.swing.JLabel();
         btnTrJual = new javax.swing.JLabel();
-        btnLpBeli = new javax.swing.JLabel();
-        btnSupplier = new javax.swing.JLabel();
         btnLpJual = new javax.swing.JLabel();
-        btnBarang = new javax.swing.JLabel();
-        btnPembeli = new javax.swing.JLabel();
-        lblNamaUser = new javax.swing.JLabel();
-        btnDashboard = new javax.swing.JLabel();
-        pnlMenu = new javax.swing.JPanel();
-        background = new javax.swing.JLabel();
+        btnLpBeli = new javax.swing.JLabel();
+        btnLogout = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
-        });
 
         pnlMain.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-logout-075.png"))); // NOI18N
-        btnLogout.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnLogoutMouseClicked(evt);
-            }
-        });
-        pnlMain.add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 680, 80, 30));
+        pnlMenu.setLayout(new java.awt.CardLayout());
 
-        btnTrBeli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Transaksi_beli-075.png"))); // NOI18N
-        btnTrBeli.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnTrBeliMouseClicked(evt);
-            }
-        });
-        pnlMain.add(btnTrBeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 363, -1, -1));
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 990, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(pnlMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 790, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
 
-        btnTrJual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Transaksi_jual-075.png"))); // NOI18N
-        btnTrJual.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnTrJualMouseClicked(evt);
-            }
-        });
-        pnlMain.add(btnTrJual, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 428, -1, -1));
-
-        btnLpBeli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Laporan_pengeluaran-075.png"))); // NOI18N
-        btnLpBeli.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnLpBeliMouseClicked(evt);
-            }
-        });
-        pnlMain.add(btnLpBeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 570, -1, -1));
-
-        btnSupplier.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-dataSupplier-075.png"))); // NOI18N
-        btnSupplier.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnSupplierMouseClicked(evt);
-            }
-        });
-        pnlMain.add(btnSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 299, -1, -1));
-
-        btnLpJual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Laporan_pemasukan-075.png"))); // NOI18N
-        btnLpJual.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnLpJualMouseClicked(evt);
-            }
-        });
-        pnlMain.add(btnLpJual, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 492, -1, -1));
+        pnlMain.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 990, -1));
 
         btnBarang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-dataBarang-075.png"))); // NOI18N
         btnBarang.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -219,15 +173,6 @@ public class MainWindow extends javax.swing.JFrame {
         });
         pnlMain.add(btnBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 170, -1, -1));
 
-        btnPembeli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-dataPembeli-075.png"))); // NOI18N
-        btnPembeli.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnPembeliMouseClicked(evt);
-            }
-        });
-        pnlMain.add(btnPembeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 235, -1, -1));
-        pnlMain.add(lblNamaUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 50, 60, 20));
-
         btnDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Dashboard-075.png"))); // NOI18N
         btnDashboard.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -235,10 +180,65 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         pnlMain.add(btnDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 105, -1, -1));
-        pnlMain.add(pnlMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 0, 973, 769));
 
-        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar/app-mainWindow-075.png"))); // NOI18N
-        pnlMain.add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        btnPembeli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-dataPembeli-075.png"))); // NOI18N
+        btnPembeli.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPembeliMouseClicked(evt);
+            }
+        });
+        pnlMain.add(btnPembeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 235, -1, -1));
+
+        btnSupplier.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-dataSupplier-075.png"))); // NOI18N
+        btnSupplier.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSupplierMouseClicked(evt);
+            }
+        });
+        pnlMain.add(btnSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 300, -1, -1));
+
+        btnTrBeli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Transaksi_beli-075.png"))); // NOI18N
+        btnTrBeli.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnTrBeliMouseClicked(evt);
+            }
+        });
+        pnlMain.add(btnTrBeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 365, -1, -1));
+
+        btnTrJual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Transaksi_jual-075.png"))); // NOI18N
+        btnTrJual.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnTrJualMouseClicked(evt);
+            }
+        });
+        pnlMain.add(btnTrJual, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 430, -1, -1));
+
+        btnLpJual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Laporan_pemasukan-075.png"))); // NOI18N
+        btnLpJual.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLpJualMouseClicked(evt);
+            }
+        });
+        pnlMain.add(btnLpJual, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 495, -1, -1));
+
+        btnLpBeli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Laporan_pengeluaran-075.png"))); // NOI18N
+        btnLpBeli.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLpBeliMouseClicked(evt);
+            }
+        });
+        pnlMain.add(btnLpBeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 570, -1, -1));
+
+        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-logout-075.png"))); // NOI18N
+        btnLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLogoutMouseClicked(evt);
+            }
+        });
+        pnlMain.add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 700, 80, 30));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar/app-mainWindow-075.png"))); // NOI18N
+        pnlMain.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, -1));
 
         jScrollPane1.setViewportView(pnlMain);
 
@@ -246,27 +246,33 @@ public class MainWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1080, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+    private void btnBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBarangMouseClicked
+        //        this.lblMenuName.setText("Data Barang");
+        this.setTitle("Data Barang");
+//        this.setActivatedButton(this.btnBarang);
 
-    }//GEN-LAST:event_formWindowOpened
+        // menghapus panel lama
+        pnlMenu.removeAll();
+        pnlMenu.repaint();
+        pnlMenu.revalidate();
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-
-    }//GEN-LAST:event_formWindowClosed
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-
-    }//GEN-LAST:event_formWindowClosing
+        // menambahkan panel baru
+        pnlMenu.add(new DataBarang());
+        pnlMenu.repaint();
+        pnlMenu.revalidate();
+    }//GEN-LAST:event_btnBarangMouseClicked
 
     private void btnDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDashboardMouseClicked
         //        this.lblMenuName.setText("Dashboard");
@@ -284,10 +290,10 @@ public class MainWindow extends javax.swing.JFrame {
         pnlMenu.revalidate();
     }//GEN-LAST:event_btnDashboardMouseClicked
 
-    private void btnBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBarangMouseClicked
-        //        this.lblMenuName.setText("Data Barang");
-        this.setTitle("Data Barang");
-        this.setActivatedButton(this.btnBarang);
+    private void btnPembeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPembeliMouseClicked
+        //        this.lblMenuName.setText("Data Pembeli");
+        this.setTitle("Data Pembeli");
+        this.setActivatedButton(this.btnPembeli);
 
         // menghapus panel lama
         pnlMenu.removeAll();
@@ -295,27 +301,10 @@ public class MainWindow extends javax.swing.JFrame {
         pnlMenu.revalidate();
 
         // menambahkan panel baru
-        pnlMenu.add(new DataBarang());
+        pnlMenu.add(new DataPembeli());
         pnlMenu.repaint();
         pnlMenu.revalidate();
-    }//GEN-LAST:event_btnBarangMouseClicked
-
-    private void btnLpJualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLpJualMouseClicked
-        //        this.lblMenuName.setText("Laporan Jual");
-        this.setTitle("Laporan Jual");
-        this.setActivatedButton(this.btnLpJual);
-
-        // menghapus panel lama
-        pnlMenu.removeAll();
-        pnlMenu.repaint();
-        pnlMenu.revalidate();
-
-        // menambahkan panel baru
-        pnlMenu.add(new LaporanJual());
-        pnlMenu.repaint();
-        pnlMenu.revalidate();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLpJualMouseClicked
+    }//GEN-LAST:event_btnPembeliMouseClicked
 
     private void btnSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSupplierMouseClicked
         //        this.lblMenuName.setText("Data Supplier");
@@ -334,10 +323,10 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSupplierMouseClicked
 
-    private void btnLpBeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLpBeliMouseClicked
-        //        this.lblMenuName.setText("Laporan Beli");
-        this.setTitle("Laporan Beli");
-        this.setActivatedButton(this.btnLpBeli);
+    private void btnTrBeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrBeliMouseClicked
+        //        this.lblMenuName.setText("Transaksi Beli");
+        this.setTitle("Transaksi Beli");
+        this.setActivatedButton(this.btnTrBeli);
 
         // menghapus panel lama
         pnlMenu.removeAll();
@@ -345,11 +334,10 @@ public class MainWindow extends javax.swing.JFrame {
         pnlMenu.revalidate();
 
         // menambahkan panel baru
-        pnlMenu.add(new LaporanBeli());
+        pnlMenu.add(new TransaksiBeli());
         pnlMenu.repaint();
         pnlMenu.revalidate();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLpBeliMouseClicked
+    }//GEN-LAST:event_btnTrBeliMouseClicked
 
     private void btnTrJualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrJualMouseClicked
         //        this.lblMenuName.setText("Transaksi Jual");
@@ -368,10 +356,10 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnTrJualMouseClicked
 
-    private void btnTrBeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrBeliMouseClicked
-        //        this.lblMenuName.setText("Transaksi Beli");
-        this.setTitle("Transaksi Beli");
-        this.setActivatedButton(this.btnTrBeli);
+    private void btnLpJualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLpJualMouseClicked
+        //        this.lblMenuName.setText("Laporan Jual");
+        this.setTitle("Laporan Jual");
+        this.setActivatedButton(this.btnLpJual);
 
         // menghapus panel lama
         pnlMenu.removeAll();
@@ -379,10 +367,28 @@ public class MainWindow extends javax.swing.JFrame {
         pnlMenu.revalidate();
 
         // menambahkan panel baru
-        pnlMenu.add(new TransaksiBeli());
+        pnlMenu.add(new LaporanJual());
         pnlMenu.repaint();
         pnlMenu.revalidate();
-    }//GEN-LAST:event_btnTrBeliMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLpJualMouseClicked
+
+    private void btnLpBeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLpBeliMouseClicked
+        //        this.lblMenuName.setText("Laporan Beli");
+        this.setTitle("Laporan Beli");
+        this.setActivatedButton(this.btnLpBeli);
+
+        // menghapus panel lama
+        pnlMenu.removeAll();
+        pnlMenu.repaint();
+        pnlMenu.revalidate();
+
+        // menambahkan panel baru
+        pnlMenu.add(new LaporanBeli());
+        pnlMenu.repaint();
+        pnlMenu.revalidate();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLpBeliMouseClicked
 
     private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
         Audio.play(Audio.SOUND_WARNING);
@@ -390,24 +396,11 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLogoutMouseClicked
 
-    private void btnPembeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPembeliMouseClicked
-//        this.lblMenuName.setText("Data Pembeli");
-        this.setTitle("Data Pembeli");
-        this.setActivatedButton(this.btnPembeli);
-        
-        // menghapus panel lama
-        pnlMenu.removeAll();
-        pnlMenu.repaint();
-        pnlMenu.revalidate();
-        
-        // menambahkan panel baru
-        pnlMenu.add(new DataPembeli());
-        pnlMenu.repaint();
-        pnlMenu.revalidate();
-    }//GEN-LAST:event_btnPembeliMouseClicked
-
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
-        Log.createLog();
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -416,20 +409,21 @@ public class MainWindow extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindowMe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
             public void run() {
-                new MainWindow().setVisible(true);
+                new MainWindowMe().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel background;
     private javax.swing.JLabel btnBarang;
     private javax.swing.JLabel btnDashboard;
     private javax.swing.JLabel btnLogout;
@@ -439,60 +433,10 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel btnSupplier;
     private javax.swing.JLabel btnTrBeli;
     private javax.swing.JLabel btnTrJual;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblNamaUser;
     private javax.swing.JPanel pnlMain;
     private javax.swing.JPanel pnlMenu;
     // End of variables declaration//GEN-END:variables
-}
-
-class RoundedPanel extends JPanel{
-    
-    private Color backgroundColor;
-    private int cornerRadius = 15;
-    
-    public RoundedPanel(LayoutManager layout, int radius){
-        super(layout);
-        cornerRadius = radius;
-    }
-    
-    public RoundedPanel(LayoutManager layout, int radius, Color bgColor){
-        super(layout);
-        cornerRadius = radius;
-        backgroundColor = bgColor;
-    }
-    
-    public RoundedPanel(int radius){
-        super();
-        cornerRadius = radius;
-    }
-    
-    public RoundedPanel(int radius, Color bgColor){
-        super();
-        cornerRadius = radius;
-        this.backgroundColor = bgColor;
-    }
-    
-    @Override
-    protected void paintComponent(Graphics g){
-        super.paintComponent(g);
-        Dimension arcs = new Dimension(cornerRadius, cornerRadius);
-        int width = getWidth();
-        int height = getHeight();
-        Graphics2D graphics = (Graphics2D) g;
-        
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        
-        // mengambar rounded panel with borders
-        if(backgroundColor != null){
-            graphics.setColor(getBackground());
-        }else{
-            graphics.setColor(getBackground());
-        }
-        
-        graphics.fillRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
-        graphics.setColor(getForeground());
-        graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height);
-    }
-    
 }

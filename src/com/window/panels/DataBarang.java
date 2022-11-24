@@ -277,7 +277,7 @@ public class DataBarang extends javax.swing.JPanel {
 
         btnAdd.setBackground(new java.awt.Color(41, 180, 50));
         btnAdd.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdd.setBorder(null);
+        btnAdd.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnAdd.setOpaque(false);
         btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -296,7 +296,7 @@ public class DataBarang extends javax.swing.JPanel {
 
         btnEdit.setBackground(new java.awt.Color(34, 119, 237));
         btnEdit.setForeground(new java.awt.Color(255, 255, 255));
-        btnEdit.setBorder(null);
+        btnEdit.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnEdit.setMaximumSize(new java.awt.Dimension(109, 25));
         btnEdit.setMinimumSize(new java.awt.Dimension(109, 25));
         btnEdit.setOpaque(false);
@@ -318,7 +318,7 @@ public class DataBarang extends javax.swing.JPanel {
 
         btnDel.setBackground(new java.awt.Color(220, 41, 41));
         btnDel.setForeground(new java.awt.Color(255, 255, 255));
-        btnDel.setBorder(null);
+        btnDel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnDel.setOpaque(false);
         btnDel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -398,11 +398,11 @@ public class DataBarang extends javax.swing.JPanel {
     }//GEN-LAST:event_tablDataKeyPressed
 
     private void btnEditMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseEntered
-        this.btnEdit.setIcon(Gambar.getIcon("ic-data-edit-entered.png"));
+//        this.btnEdit.setIcon(Gambar.getIcon("ic-data-edit-entered.png"));
     }//GEN-LAST:event_btnEditMouseEntered
 
     private void btnEditMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseExited
-        this.btnEdit.setIcon(Gambar.getIcon("ic-data-edit.png"));
+//        this.btnEdit.setIcon(Gambar.getIcon("ic-data-edit.png"));
     }//GEN-LAST:event_btnEditMouseExited
 
     private void inpCariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inpCariKeyTyped
@@ -449,12 +449,18 @@ public class DataBarang extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDelActionPerformed
 
     private void btnDelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDelMouseExited
-        this.btnDel.setIcon(Gambar.getIcon("ic-data-hapus.png"));
+//        this.btnDel.setIcon(Gambar.getIcon("ic-data-hapus.png"));
     }//GEN-LAST:event_btnDelMouseExited
 
     private void btnDelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDelMouseEntered
-        this.btnDel.setIcon(Gambar.getIcon("ic-data-hapus-entered.png"));
+//        this.btnDel.setIcon(Gambar.getIcon("ic-data-hapus-entered.png"));
     }//GEN-LAST:event_btnDelMouseEntered
+
+    private void inpCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inpCariActionPerformed
+        String key = this.inpCari.getText();
+        this.keyword = "WHERE id_barang LIKE '%"+key+"%' OR nama_barang LIKE '%"+key+"%'";
+        this.updateTabel();
+    }//GEN-LAST:event_inpCariActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // membuka window input pembeli
@@ -473,18 +479,12 @@ public class DataBarang extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnAddMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseExited
-        this.btnAdd.setIcon(Gambar.getIcon("ic-data-tambah.png"));
+//        this.btnAdd.setIcon(Gambar.getIcon("ic-data-tambah.png"));
     }//GEN-LAST:event_btnAddMouseExited
 
     private void btnAddMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseEntered
-        this.btnAdd.setIcon(Gambar.getIcon("ic-data-tambah-entered.png"));
+//        this.btnAdd.setIcon(Gambar.getIcon("ic-data-tambah-entered.png"));
     }//GEN-LAST:event_btnAddMouseEntered
-
-    private void inpCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inpCariActionPerformed
-        String key = this.inpCari.getText();
-        this.keyword = "WHERE id_barang LIKE '%"+key+"%' OR nama_barang LIKE '%"+key+"%'";
-        this.updateTabel();
-    }//GEN-LAST:event_inpCariActionPerformed
 //UPDATE pembukuan.barang1 SET nama_barang = 'susu' WHERE id_barang = 'BG002'
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;

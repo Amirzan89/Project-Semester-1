@@ -6,6 +6,7 @@ import com.data.db.Database;
 import com.media.Gambar;
 import com.users.Users;
 import com.window.MainWindow;
+import com.window.MainWindowMe;
 import javax.swing.JOptionPane;
 
 
@@ -65,6 +66,7 @@ public class SplashWindow extends javax.swing.JFrame {
                             val = 51;
                             db.startConnection();
                             db.closeConnection();
+                            val = 100;
                         }else if(val >= 50 && val < 60){
                             delay = 60;
                             lblMessage.setText("  Menghubungkan ke Database Server...");
@@ -100,7 +102,7 @@ public class SplashWindow extends javax.swing.JFrame {
                         java.awt.EventQueue.invokeLater(new Runnable(){
                             @Override
                             public void run(){
-                                new MainWindow().setVisible(true);
+                                new MainWindowMe().setVisible(true);
                             }
                         });
                             // jika user login dengan level admin atau petugas
@@ -171,7 +173,7 @@ public class SplashWindow extends javax.swing.JFrame {
         lblTop.setText("Simple Buy");
 
         lblLogoApp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblLogoApp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/icons/ic-app-splashwindow.png"))); // NOI18N
+        lblLogoApp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/icons/ic-splashwindow-logosmkn1kts.png"))); // NOI18N
 
         lblLoadVal.setForeground(new java.awt.Color(255, 255, 255));
         lblLoadVal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
