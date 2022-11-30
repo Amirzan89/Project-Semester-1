@@ -58,13 +58,29 @@ public class LaporanBeli extends javax.swing.JPanel {
     public LaporanBeli() {
         initComponents();
         
-        this.btnPrint.setUI(new javax.swing.plaf.basic.BasicButtonUI());
-        this.btnEdit.setUI(new javax.swing.plaf.basic.BasicButtonUI());
+//        this.btnPrint.setUI(new javax.swing.plaf.basic.BasicButtonUI());
+//        this.btnEdit.setUI(new javax.swing.plaf.basic.BasicButtonUI());
         this.btnDel.setUI(new javax.swing.plaf.basic.BasicButtonUI());
         
-        this.tabelData.setRowHeight(29);
-        this.tabelData.getTableHeader().setBackground(new java.awt.Color(255,255,255));
-        this.tabelData.getTableHeader().setForeground(new java.awt.Color(0, 0, 0));
+        this.tabelDataS.setRowHeight(29);
+        this.tabelDataS.getTableHeader().setBackground(new java.awt.Color(255,255,255));
+        this.tabelDataS.getTableHeader().setForeground(new java.awt.Color(0, 0, 0));
+        
+        this.tabelDataH.setRowHeight(29);
+        this.tabelDataH.getTableHeader().setBackground(new java.awt.Color(255,255,255));
+        this.tabelDataH.getTableHeader().setForeground(new java.awt.Color(0, 0, 0));
+        
+        this.tabelDataM.setRowHeight(29);
+        this.tabelDataM.getTableHeader().setBackground(new java.awt.Color(255,255,255));
+        this.tabelDataM.getTableHeader().setForeground(new java.awt.Color(0, 0, 0));
+        
+        this.tabelDataB.setRowHeight(29);
+        this.tabelDataB.getTableHeader().setBackground(new java.awt.Color(255,255,255));
+        this.tabelDataB.getTableHeader().setForeground(new java.awt.Color(0, 0, 0));
+        
+//        this.tabelDataT.setRowHeight(29);
+//        this.tabelDataT.getTableHeader().setBackground(new java.awt.Color(255,255,255));
+//        this.tabelDataT.getTableHeader().setForeground(new java.awt.Color(0, 0, 0));
         
         JLabel[] lbls = new JLabel[]{
             this.valIDPengeluaran, this.valIDTransaksi, this.valNamaBarang, this.valNamaKaryawan, this.valNamaSupplier, 
@@ -103,10 +119,14 @@ public class LaporanBeli extends javax.swing.JPanel {
             });
         }
         
-        this.showLineChart1();
-        this.showLineChart2();
+//        this.showLineChart1();
+//        this.showLineChart2();
         
-        this.updateTabel();
+        this.updateTabelS();
+//        this.updateTabelH();
+//        this.updateTabelM();
+//        this.updateTabelB();
+//        this.updateTabelT();
     }
     
     public void showPieChart(){
@@ -165,10 +185,10 @@ public class LaporanBeli extends javax.swing.JPanel {
         lineRenderer.setSeriesPaint(0, lineChartColor);
         
          //create chartPanel to display chart(graph)
-        ChartPanel lineChartPanel = new ChartPanel(linechart);
-        tabChartMinggu.removeAll();
-        tabChartMinggu.add(lineChartPanel, BorderLayout.CENTER);
-        tabChartMinggu.validate();
+//        ChartPanel lineChartPanel = new ChartPanel(linechart);
+//        tabChartMinggu.removeAll();
+//        tabChartMinggu.add(lineChartPanel, BorderLayout.CENTER);
+//        tabChartMinggu.validate();
     }
     
     public void showLineChart2(){
@@ -195,10 +215,10 @@ public class LaporanBeli extends javax.swing.JPanel {
         lineRenderer.setSeriesPaint(0, lineChartColor);
         
          //create chartPanel to display chart(graph)
-        ChartPanel lineChartPanel = new ChartPanel(linechart);
-        tabChartBulan.removeAll();
-        tabChartBulan.add(lineChartPanel, BorderLayout.CENTER);
-        tabChartBulan.validate();
+//        ChartPanel lineChartPanel = new ChartPanel(linechart);
+//        tabChartBulan.removeAll();
+//        tabChartBulan.add(lineChartPanel, BorderLayout.CENTER);
+//        tabChartBulan.validate();
     }
 
     public void showHistogram(){
@@ -220,10 +240,10 @@ public class LaporanBeli extends javax.swing.JPanel {
 
         
         
-        ChartPanel barpChartPanel2 = new ChartPanel(chart);
-        tabChartBulan.removeAll();
-        tabChartBulan.add(barpChartPanel2, BorderLayout.CENTER);
-        tabChartBulan.validate();
+//        ChartPanel barpChartPanel2 = new ChartPanel(chart);
+//        tabChartBulan.removeAll();
+//        tabChartBulan.add(barpChartPanel2, BorderLayout.CENTER);
+//        tabChartBulan.validate();
     }
 
     public void showBarChart(){
@@ -278,8 +298,8 @@ public class LaporanBeli extends javax.swing.JPanel {
         return null;
     }
     
-    private void updateTabel(){
-        this.tabelData.setModel(new javax.swing.table.DefaultTableModel(
+    private void updateTabelS(){
+        this.tabelDataS.setModel(new javax.swing.table.DefaultTableModel(
             getData(),
             new String [] {
                 "ID Pendapatan", "Nama Barang", "Jumlah Barang", "Total Pendapatan", "Tanggal"
@@ -294,10 +314,74 @@ public class LaporanBeli extends javax.swing.JPanel {
             }
         });
     }
+    private void updateTabelH(){
+        this.tabelDataH.setModel(new javax.swing.table.DefaultTableModel(
+            getData(),
+            new String [] {
+                "ID Pendapatan", "Nama Barang", "Jumlah Barang", "Total Pendapatan", "Tanggal"
+            }
+        ){
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+    }
+    private void updateTabelM(){
+        this.tabelDataM.setModel(new javax.swing.table.DefaultTableModel(
+            getData(),
+            new String [] {
+                "ID Pendapatan", "Nama Barang", "Jumlah Barang", "Total Pendapatan", "Tanggal"
+            }
+        ){
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+    }
+    private void updateTabelB(){
+        this.tabelDataB.setModel(new javax.swing.table.DefaultTableModel(
+            getData(),
+            new String [] {
+                "ID Pendapatan", "Nama Barang", "Jumlah Barang", "Total Pendapatan", "Tanggal"
+            }
+        ){
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+    }
+//    private void updateTabelT(){
+//        this.tabelDataT.setModel(new javax.swing.table.DefaultTableModel(
+//            getData(),
+//            new String [] {
+//                "ID Pendapatan", "Nama Barang", "Jumlah Barang", "Total Pendapatan", "Tanggal"
+//            }
+//        ){
+//            boolean[] canEdit = new boolean [] {
+//                false, false, false, false, false
+//            };
+//            @Override
+//            public boolean isCellEditable(int rowIndex, int columnIndex) {
+//                return canEdit [columnIndex];
+//            }
+//        });
+//    }
     
     private void showData(){
         // mendapatkan data-data
-        this.idTr = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 0).toString().replace("LPG", "TRB");
+        this.idTr = this.tabelDataS.getValueAt(this.tabelDataS.getSelectedRow(), 0).toString().replace("LPG", "TRB");
         this.idPd = this.idTr.replace("TRB", "LPG");
         this.namaSupplier = this.supplier.getNama(this.trb.getIdSupplier(this.idTr));
         this.namaPetugas = this.petugas.getNama(this.trb.getIdPetugas(this.idTr));
@@ -323,45 +407,115 @@ public class LaporanBeli extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tabelData = new javax.swing.JTable();
-        inpCari = new javax.swing.JTextField();
-        lblCari = new javax.swing.JLabel();
-        pnlDataPengeluaran = new javax.swing.JPanel();
-        lblDataPengeluaran = new javax.swing.JLabel();
-        lblIDPengeluaran = new javax.swing.JLabel();
-        lblIDTransaksi = new javax.swing.JLabel();
-        lblNamaSupplier = new javax.swing.JLabel();
-        lblNamaKaryawan = new javax.swing.JLabel();
-        lblNamaBrg = new javax.swing.JLabel();
-        lblJenisBrg = new javax.swing.JLabel();
-        lblHarga = new javax.swing.JLabel();
-        lblJumlahBrg = new javax.swing.JLabel();
         valIDPengeluaran = new javax.swing.JLabel();
         valIDTransaksi = new javax.swing.JLabel();
-        valNamaSupplier = new javax.swing.JLabel();
         valNamaKaryawan = new javax.swing.JLabel();
+        valNamaSupplier = new javax.swing.JLabel();
         valNamaBarang = new javax.swing.JLabel();
         valJenisBrg = new javax.swing.JLabel();
         valJumlahBrg = new javax.swing.JLabel();
         valHarga = new javax.swing.JLabel();
-        lblTanggal = new javax.swing.JLabel();
         valTanggal = new javax.swing.JLabel();
-        tabPengeluaran = new javax.swing.JTabbedPane();
-        tabChartMinggu = new javax.swing.JPanel();
-        tabChartBulan = new javax.swing.JPanel();
-        lineBottom = new javax.swing.JSeparator();
-        btnPrint = new javax.swing.JButton();
-        btnEdit = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
+        inpCari = new javax.swing.JTextField();
+        tabLaporan = new javax.swing.JTabbedPane();
+        lpSemua = new javax.swing.JScrollPane();
+        tabelDataS = new javax.swing.JTable();
+        lpHarian = new javax.swing.JScrollPane();
+        tabelDataH = new javax.swing.JTable();
+        lpMingguan = new javax.swing.JScrollPane();
+        tabelDataM = new javax.swing.JTable();
+        lpBulanan = new javax.swing.JScrollPane();
+        tabelDataB = new javax.swing.JTable();
+        background = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(957, 650));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tabelData.setBackground(new java.awt.Color(255, 255, 255));
-        tabelData.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
-        tabelData.setForeground(new java.awt.Color(0, 0, 0));
-        tabelData.setModel(new javax.swing.table.DefaultTableModel(
+        valIDPengeluaran.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        valIDPengeluaran.setForeground(new java.awt.Color(0, 0, 0));
+        valIDPengeluaran.setText(":");
+        add(valIDPengeluaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 100, 200, 36));
+
+        valIDTransaksi.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        valIDTransaksi.setForeground(new java.awt.Color(0, 0, 0));
+        valIDTransaksi.setText(":");
+        add(valIDTransaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 164, 200, 36));
+
+        valNamaKaryawan.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        valNamaKaryawan.setForeground(new java.awt.Color(0, 0, 0));
+        valNamaKaryawan.setText(":");
+        add(valNamaKaryawan, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 228, 200, 36));
+
+        valNamaSupplier.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        valNamaSupplier.setForeground(new java.awt.Color(0, 0, 0));
+        valNamaSupplier.setText(":");
+        add(valNamaSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 292, 200, 37));
+
+        valNamaBarang.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        valNamaBarang.setForeground(new java.awt.Color(0, 0, 0));
+        valNamaBarang.setText(":");
+        valNamaBarang.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        add(valNamaBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 357, 200, 36));
+
+        valJenisBrg.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        valJenisBrg.setForeground(new java.awt.Color(0, 0, 0));
+        valJenisBrg.setText(":");
+        add(valJenisBrg, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 422, 200, 36));
+
+        valJumlahBrg.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        valJumlahBrg.setForeground(new java.awt.Color(0, 0, 0));
+        valJumlahBrg.setText(":");
+        add(valJumlahBrg, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 486, 200, 37));
+
+        valHarga.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        valHarga.setForeground(new java.awt.Color(0, 0, 0));
+        valHarga.setText(":");
+        valHarga.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        add(valHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 550, 200, 37));
+
+        valTanggal.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        valTanggal.setForeground(new java.awt.Color(0, 0, 0));
+        valTanggal.setText(":");
+        add(valTanggal, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 615, 200, 37));
+
+        btnDel.setBackground(new java.awt.Color(220, 41, 41));
+        btnDel.setForeground(new java.awt.Color(255, 255, 255));
+        btnDel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnDel.setOpaque(false);
+        btnDel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDelMouseExited(evt);
+            }
+        });
+        btnDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelActionPerformed(evt);
+            }
+        });
+        add(btnDel, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 712, 150, 49));
+
+        inpCari.setBackground(new java.awt.Color(255, 255, 255));
+        inpCari.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        inpCari.setForeground(new java.awt.Color(0, 0, 0));
+        inpCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                inpCariKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                inpCariKeyTyped(evt);
+            }
+        });
+        add(inpCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 66, 255, -1));
+
+        tabelDataS.setBackground(new java.awt.Color(255, 255, 255));
+        tabelDataS.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
+        tabelDataS.setForeground(new java.awt.Color(0, 0, 0));
+        tabelDataS.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"PG0001", "Aqua 1L", "25", "Rp. 125.000.00", "1 Oktober 2022"},
                 {"PG0002", "Coca Cola", "20", "Rp. 80.000.00", "1 Oktober 2022"},
@@ -391,315 +545,189 @@ public class LaporanBeli extends javax.swing.JPanel {
                 "ID Pengeluaran", "Nama Barang", "Jumlah Barang", "Total Pengeluaran", "Tanggal"
             }
         ));
-        tabelData.setGridColor(new java.awt.Color(0, 0, 0));
-        tabelData.setSelectionBackground(new java.awt.Color(26, 164, 250));
-        tabelData.setSelectionForeground(new java.awt.Color(250, 246, 246));
-        tabelData.getTableHeader().setReorderingAllowed(false);
-        tabelData.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabelDataS.setGridColor(new java.awt.Color(0, 0, 0));
+        tabelDataS.setSelectionBackground(new java.awt.Color(26, 164, 250));
+        tabelDataS.setSelectionForeground(new java.awt.Color(250, 246, 246));
+        tabelDataS.getTableHeader().setReorderingAllowed(false);
+        tabelDataS.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelDataMouseClicked(evt);
+                tabelDataSMouseClicked(evt);
             }
         });
-        tabelData.addKeyListener(new java.awt.event.KeyAdapter() {
+        tabelDataS.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                tabelDataKeyPressed(evt);
+                tabelDataSKeyPressed(evt);
             }
         });
-        jScrollPane2.setViewportView(tabelData);
+        lpSemua.setViewportView(tabelDataS);
 
-        inpCari.setBackground(new java.awt.Color(255, 255, 255));
-        inpCari.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        inpCari.setForeground(new java.awt.Color(0, 0, 0));
-        inpCari.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                inpCariKeyReleased(evt);
+        tabLaporan.addTab("Semua", lpSemua);
+
+        tabelDataH.setBackground(new java.awt.Color(255, 255, 255));
+        tabelDataH.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
+        tabelDataH.setForeground(new java.awt.Color(0, 0, 0));
+        tabelDataH.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"PG0001", "Aqua 1L", "25", "Rp. 125.000.00", "1 Oktober 2022"},
+                {"PG0002", "Coca Cola", "20", "Rp. 80.000.00", "1 Oktober 2022"},
+                {"PG0003", "Aqua 500ml", "30", "Rp. 100.000.00", "1 Oktober 2022"},
+                {"PG0004", "Pulpen Snowman", "30", "Rp. 75.000.00", "1 Oktober 2022"},
+                {"PG0005", "Sprite", "15", "Rp. 48.000.00", "1 Oktober 2022"},
+                {"PG0006", "Indomilk", "5", "Rp. 40.000.00", "1 Oktober 2022"},
+                {"PG0007", "Nabati Wafer", "15", "Rp. 52.000.00", "1 Oktober 2022"},
+                {"PG0008", "Ichi Ocha 350ml", "15", "Rp. 30.000.00", "1 Oktober 2022"},
+                {"PG0009", "Oreo", "15", "Rp. 30.000.00", "1 Oktober 2022"},
+                {"PG0010", "Kertas HVS", "800", "Rp. 200.000.00", "1 Oktober 2022"},
+                {"PG0011", "Kertas Folio", "900", "Rp. 237.000.00", "1 Oktober 2022"},
+                {"PG0012", "Spidol Hitam", "15", "Rp. 30.000.00", "9 Oktober 2022"},
+                {"PG0013", "Spidol Merah", "15", "Rp. 37.500.00", "9 Oktober 2022"},
+                {"PG0014", "Spidol Biru", "15", "Rp. 37.500.00", "9 Oktober 2022"},
+                {"PG0015", "Nabati Wafer", "15", "Rp. 52.500.00", "9 Oktober 2022"},
+                {"PG0016", "Roti", "20", "Rp. 20.000.00", "9 Oktober 2022"},
+                {"PG0017", "Sprite", "20", "Rp. 60.000.00", "9 Oktober 2022"},
+                {"PG0018", "Yupi", "15", "Rp. 37.500.00", "9 Oktober 2022"},
+                {"PG0019", "Teh Pucuk", "15", "Rp. 60.000.00", "9 Oktober 2022"},
+                {"PG0020", "Coca Cola", "15", "Rp. 60.000.00", "9 Oktober 2022"},
+                {"PG0021", "Ichi Ocha 350ml", "15", "Rp. 30.000.00", "9 Oktober 2022"},
+                {"PG0022", "Yupi", "10", "Rp. 25.000.00", "9 Oktober 2022"},
+                {"PG0023", "Aqua 500ml", "15", "Rp. 75.000.00", "9 Oktober 2022"}
+            },
+            new String [] {
+                "ID Pengeluaran", "Nama Barang", "Jumlah Barang", "Total Pengeluaran", "Tanggal"
             }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                inpCariKeyTyped(evt);
-            }
-        });
-
-        lblCari.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        lblCari.setForeground(new java.awt.Color(237, 12, 12));
-        lblCari.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCari.setText("Cari ID Pengeluaran :");
-
-        pnlDataPengeluaran.setBackground(new java.awt.Color(255, 255, 255));
-        pnlDataPengeluaran.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(11, 114, 238), 3));
-
-        lblDataPengeluaran.setBackground(new java.awt.Color(11, 114, 238));
-        lblDataPengeluaran.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        lblDataPengeluaran.setForeground(new java.awt.Color(255, 255, 255));
-        lblDataPengeluaran.setText("  Detail Pengeluaran");
-        lblDataPengeluaran.setOpaque(true);
-
-        lblIDPengeluaran.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        lblIDPengeluaran.setForeground(new java.awt.Color(0, 0, 0));
-        lblIDPengeluaran.setText("ID Pengeluaran");
-
-        lblIDTransaksi.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        lblIDTransaksi.setForeground(new java.awt.Color(0, 0, 0));
-        lblIDTransaksi.setText("ID Transaksi");
-
-        lblNamaSupplier.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        lblNamaSupplier.setForeground(new java.awt.Color(0, 0, 0));
-        lblNamaSupplier.setText("Nama Supplier");
-
-        lblNamaKaryawan.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        lblNamaKaryawan.setForeground(new java.awt.Color(0, 0, 0));
-        lblNamaKaryawan.setText("Nama Karyawan");
-
-        lblNamaBrg.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        lblNamaBrg.setForeground(new java.awt.Color(0, 0, 0));
-        lblNamaBrg.setText("Nama Barang");
-
-        lblJenisBrg.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        lblJenisBrg.setForeground(new java.awt.Color(0, 0, 0));
-        lblJenisBrg.setText("Jenis Barang");
-
-        lblHarga.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        lblHarga.setForeground(new java.awt.Color(0, 0, 0));
-        lblHarga.setText("Total Harga");
-
-        lblJumlahBrg.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        lblJumlahBrg.setForeground(new java.awt.Color(0, 0, 0));
-        lblJumlahBrg.setText("Jumlah Barang");
-
-        valIDPengeluaran.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        valIDPengeluaran.setForeground(new java.awt.Color(0, 0, 0));
-        valIDPengeluaran.setText(":");
-
-        valIDTransaksi.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        valIDTransaksi.setForeground(new java.awt.Color(0, 0, 0));
-        valIDTransaksi.setText(":");
-
-        valNamaSupplier.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        valNamaSupplier.setForeground(new java.awt.Color(0, 0, 0));
-        valNamaSupplier.setText(":");
-
-        valNamaKaryawan.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        valNamaKaryawan.setForeground(new java.awt.Color(0, 0, 0));
-        valNamaKaryawan.setText(":");
-
-        valNamaBarang.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        valNamaBarang.setForeground(new java.awt.Color(0, 0, 0));
-        valNamaBarang.setText(":");
-
-        valJenisBrg.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        valJenisBrg.setForeground(new java.awt.Color(0, 0, 0));
-        valJenisBrg.setText(":");
-
-        valJumlahBrg.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        valJumlahBrg.setForeground(new java.awt.Color(0, 0, 0));
-        valJumlahBrg.setText(":");
-
-        valHarga.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        valHarga.setForeground(new java.awt.Color(0, 0, 0));
-        valHarga.setText(":");
-
-        lblTanggal.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        lblTanggal.setForeground(new java.awt.Color(0, 0, 0));
-        lblTanggal.setText("Tanggal");
-
-        valTanggal.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        valTanggal.setForeground(new java.awt.Color(0, 0, 0));
-        valTanggal.setText(":");
-
-        javax.swing.GroupLayout pnlDataPengeluaranLayout = new javax.swing.GroupLayout(pnlDataPengeluaran);
-        pnlDataPengeluaran.setLayout(pnlDataPengeluaranLayout);
-        pnlDataPengeluaranLayout.setHorizontalGroup(
-            pnlDataPengeluaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblDataPengeluaran, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(pnlDataPengeluaranLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlDataPengeluaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblHarga, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                    .addComponent(lblJumlahBrg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblJenisBrg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblNamaBrg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblNamaKaryawan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblNamaSupplier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblIDTransaksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblIDPengeluaran, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblTanggal, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlDataPengeluaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(valIDPengeluaran, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(valIDTransaksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(valNamaSupplier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(valNamaKaryawan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(valNamaBarang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(valJenisBrg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(valJumlahBrg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(valHarga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(valTanggal, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        pnlDataPengeluaranLayout.setVerticalGroup(
-            pnlDataPengeluaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlDataPengeluaranLayout.createSequentialGroup()
-                .addComponent(lblDataPengeluaran, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(pnlDataPengeluaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblIDPengeluaran)
-                    .addComponent(valIDPengeluaran))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlDataPengeluaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblIDTransaksi)
-                    .addComponent(valIDTransaksi))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlDataPengeluaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNamaSupplier)
-                    .addComponent(valNamaSupplier))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlDataPengeluaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNamaKaryawan)
-                    .addComponent(valNamaKaryawan))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlDataPengeluaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNamaBrg)
-                    .addComponent(valNamaBarang))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlDataPengeluaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblJenisBrg)
-                    .addComponent(valJenisBrg))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlDataPengeluaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblJumlahBrg)
-                    .addComponent(valJumlahBrg))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlDataPengeluaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblHarga)
-                    .addComponent(valHarga))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlDataPengeluaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTanggal)
-                    .addComponent(valTanggal))
-                .addGap(0, 14, Short.MAX_VALUE))
-        );
-
-        tabChartMinggu.setLayout(new java.awt.BorderLayout());
-        tabPengeluaran.addTab("Minggu Ini", tabChartMinggu);
-
-        tabChartBulan.setLayout(new java.awt.BorderLayout());
-        tabPengeluaran.addTab("Bulan Ini", tabChartBulan);
-
-        lineBottom.setBackground(new java.awt.Color(0, 0, 0));
-        lineBottom.setForeground(new java.awt.Color(0, 0, 0));
-
-        btnPrint.setBackground(new java.awt.Color(41, 180, 50));
-        btnPrint.setForeground(new java.awt.Color(255, 255, 255));
-        btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/icons/ic-data-tambah.png"))); // NOI18N
-        btnPrint.setText("Print Data");
-        btnPrint.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnPrintMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnPrintMouseExited(evt);
+        ));
+        tabelDataH.setGridColor(new java.awt.Color(0, 0, 0));
+        tabelDataH.setSelectionBackground(new java.awt.Color(26, 164, 250));
+        tabelDataH.setSelectionForeground(new java.awt.Color(250, 246, 246));
+        tabelDataH.getTableHeader().setReorderingAllowed(false);
+        tabelDataH.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelDataHMouseClicked(evt);
             }
         });
-        btnPrint.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrintActionPerformed(evt);
+        tabelDataH.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tabelDataHKeyPressed(evt);
             }
         });
+        lpHarian.setViewportView(tabelDataH);
 
-        btnEdit.setBackground(new java.awt.Color(34, 119, 237));
-        btnEdit.setForeground(new java.awt.Color(255, 255, 255));
-        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/icons/ic-data-edit.png"))); // NOI18N
-        btnEdit.setText("Edit Data");
-        btnEdit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnEditMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnEditMouseExited(evt);
-            }
-        });
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditActionPerformed(evt);
-            }
-        });
+        tabLaporan.addTab("Harian", lpHarian);
 
-        btnDel.setBackground(new java.awt.Color(220, 41, 41));
-        btnDel.setForeground(new java.awt.Color(255, 255, 255));
-        btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/icons/ic-data-hapus.png"))); // NOI18N
-        btnDel.setText("Hapus Data");
-        btnDel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnDelMouseEntered(evt);
+        tabelDataM.setBackground(new java.awt.Color(255, 255, 255));
+        tabelDataM.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
+        tabelDataM.setForeground(new java.awt.Color(0, 0, 0));
+        tabelDataM.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"PG0001", "Aqua 1L", "25", "Rp. 125.000.00", "1 Oktober 2022"},
+                {"PG0002", "Coca Cola", "20", "Rp. 80.000.00", "1 Oktober 2022"},
+                {"PG0003", "Aqua 500ml", "30", "Rp. 100.000.00", "1 Oktober 2022"},
+                {"PG0004", "Pulpen Snowman", "30", "Rp. 75.000.00", "1 Oktober 2022"},
+                {"PG0005", "Sprite", "15", "Rp. 48.000.00", "1 Oktober 2022"},
+                {"PG0006", "Indomilk", "5", "Rp. 40.000.00", "1 Oktober 2022"},
+                {"PG0007", "Nabati Wafer", "15", "Rp. 52.000.00", "1 Oktober 2022"},
+                {"PG0008", "Ichi Ocha 350ml", "15", "Rp. 30.000.00", "1 Oktober 2022"},
+                {"PG0009", "Oreo", "15", "Rp. 30.000.00", "1 Oktober 2022"},
+                {"PG0010", "Kertas HVS", "800", "Rp. 200.000.00", "1 Oktober 2022"},
+                {"PG0011", "Kertas Folio", "900", "Rp. 237.000.00", "1 Oktober 2022"},
+                {"PG0012", "Spidol Hitam", "15", "Rp. 30.000.00", "9 Oktober 2022"},
+                {"PG0013", "Spidol Merah", "15", "Rp. 37.500.00", "9 Oktober 2022"},
+                {"PG0014", "Spidol Biru", "15", "Rp. 37.500.00", "9 Oktober 2022"},
+                {"PG0015", "Nabati Wafer", "15", "Rp. 52.500.00", "9 Oktober 2022"},
+                {"PG0016", "Roti", "20", "Rp. 20.000.00", "9 Oktober 2022"},
+                {"PG0017", "Sprite", "20", "Rp. 60.000.00", "9 Oktober 2022"},
+                {"PG0018", "Yupi", "15", "Rp. 37.500.00", "9 Oktober 2022"},
+                {"PG0019", "Teh Pucuk", "15", "Rp. 60.000.00", "9 Oktober 2022"},
+                {"PG0020", "Coca Cola", "15", "Rp. 60.000.00", "9 Oktober 2022"},
+                {"PG0021", "Ichi Ocha 350ml", "15", "Rp. 30.000.00", "9 Oktober 2022"},
+                {"PG0022", "Yupi", "10", "Rp. 25.000.00", "9 Oktober 2022"},
+                {"PG0023", "Aqua 500ml", "15", "Rp. 75.000.00", "9 Oktober 2022"}
+            },
+            new String [] {
+                "ID Pengeluaran", "Nama Barang", "Jumlah Barang", "Total Pengeluaran", "Tanggal"
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnDelMouseExited(evt);
+        ));
+        tabelDataM.setGridColor(new java.awt.Color(0, 0, 0));
+        tabelDataM.setSelectionBackground(new java.awt.Color(26, 164, 250));
+        tabelDataM.setSelectionForeground(new java.awt.Color(250, 246, 246));
+        tabelDataM.getTableHeader().setReorderingAllowed(false);
+        tabelDataM.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelDataMMouseClicked(evt);
             }
         });
-        btnDel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDelActionPerformed(evt);
+        tabelDataM.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tabelDataMKeyPressed(evt);
             }
         });
+        lpMingguan.setViewportView(tabelDataM);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnlDataPengeluaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tabPengeluaran, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblCari, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(inpCari, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)))
-                    .addComponent(lineBottom)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEdit)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDel)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(pnlDataPengeluaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tabPengeluaran))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(inpCari)
-                            .addComponent(lblCari, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)))
-                .addGap(15, 15, 15)
-                .addComponent(lineBottom, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnPrint, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
+        tabLaporan.addTab("Mingguan", lpMingguan);
+
+        tabelDataB.setBackground(new java.awt.Color(255, 255, 255));
+        tabelDataB.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
+        tabelDataB.setForeground(new java.awt.Color(0, 0, 0));
+        tabelDataB.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"PG0001", "Aqua 1L", "25", "Rp. 125.000.00", "1 Oktober 2022"},
+                {"PG0002", "Coca Cola", "20", "Rp. 80.000.00", "1 Oktober 2022"},
+                {"PG0003", "Aqua 500ml", "30", "Rp. 100.000.00", "1 Oktober 2022"},
+                {"PG0004", "Pulpen Snowman", "30", "Rp. 75.000.00", "1 Oktober 2022"},
+                {"PG0005", "Sprite", "15", "Rp. 48.000.00", "1 Oktober 2022"},
+                {"PG0006", "Indomilk", "5", "Rp. 40.000.00", "1 Oktober 2022"},
+                {"PG0007", "Nabati Wafer", "15", "Rp. 52.000.00", "1 Oktober 2022"},
+                {"PG0008", "Ichi Ocha 350ml", "15", "Rp. 30.000.00", "1 Oktober 2022"},
+                {"PG0009", "Oreo", "15", "Rp. 30.000.00", "1 Oktober 2022"},
+                {"PG0010", "Kertas HVS", "800", "Rp. 200.000.00", "1 Oktober 2022"},
+                {"PG0011", "Kertas Folio", "900", "Rp. 237.000.00", "1 Oktober 2022"},
+                {"PG0012", "Spidol Hitam", "15", "Rp. 30.000.00", "9 Oktober 2022"},
+                {"PG0013", "Spidol Merah", "15", "Rp. 37.500.00", "9 Oktober 2022"},
+                {"PG0014", "Spidol Biru", "15", "Rp. 37.500.00", "9 Oktober 2022"},
+                {"PG0015", "Nabati Wafer", "15", "Rp. 52.500.00", "9 Oktober 2022"},
+                {"PG0016", "Roti", "20", "Rp. 20.000.00", "9 Oktober 2022"},
+                {"PG0017", "Sprite", "20", "Rp. 60.000.00", "9 Oktober 2022"},
+                {"PG0018", "Yupi", "15", "Rp. 37.500.00", "9 Oktober 2022"},
+                {"PG0019", "Teh Pucuk", "15", "Rp. 60.000.00", "9 Oktober 2022"},
+                {"PG0020", "Coca Cola", "15", "Rp. 60.000.00", "9 Oktober 2022"},
+                {"PG0021", "Ichi Ocha 350ml", "15", "Rp. 30.000.00", "9 Oktober 2022"},
+                {"PG0022", "Yupi", "10", "Rp. 25.000.00", "9 Oktober 2022"},
+                {"PG0023", "Aqua 500ml", "15", "Rp. 75.000.00", "9 Oktober 2022"}
+            },
+            new String [] {
+                "ID Pengeluaran", "Nama Barang", "Jumlah Barang", "Total Pengeluaran", "Tanggal"
+            }
+        ));
+        tabelDataB.setGridColor(new java.awt.Color(0, 0, 0));
+        tabelDataB.setSelectionBackground(new java.awt.Color(26, 164, 250));
+        tabelDataB.setSelectionForeground(new java.awt.Color(250, 246, 246));
+        tabelDataB.getTableHeader().setReorderingAllowed(false);
+        tabelDataB.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelDataBMouseClicked(evt);
+            }
+        });
+        tabelDataB.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tabelDataBKeyPressed(evt);
+            }
+        });
+        lpBulanan.setViewportView(tabelDataB);
+
+        tabLaporan.addTab("Bulanan", lpBulanan);
+
+        add(tabLaporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 90, 505, 600));
+
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar/app-laporan-pengeluaran-075.png"))); // NOI18N
+        background.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
         int status;
         boolean delete;
         // mengecek apakah ada data yang dipilih atau tidak
-        if(tabelData.getSelectedRow() > -1){
+        if(tabelDataS.getSelectedRow() > -1){
             // membuka confirm dialog untuk menghapus data
             Audio.play(Audio.SOUND_INFO);
             status = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus '" + this.idTr + "' ?", "Confirm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -714,7 +742,7 @@ public class LaporanBeli extends javax.swing.JPanel {
                     if(delete){
                         Message.showInformation(this, "Data berhasil dihapus!");
                         // mengupdate tabel
-                        this.updateTabel();
+                        this.updateTabelS();
                     }else{
                         Message.showInformation(this, "Data gagal dihapus!");
                     }
@@ -726,32 +754,6 @@ public class LaporanBeli extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnDelActionPerformed
 
-    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
-        Audio.play(Audio.SOUND_INFO);
-        CetakLaporan cetak = new CetakLaporan(null, true);
-        cetak.setVisible(true);
-    }//GEN-LAST:event_btnPrintActionPerformed
-
-    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        Message.showInformation(this, "Sedang tidak tersedia untuk saat ini!");
-    }//GEN-LAST:event_btnEditActionPerformed
-
-    private void btnPrintMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintMouseEntered
-        this.btnPrint.setIcon(Gambar.getIcon("ic-data-tambah-entered.png"));
-    }//GEN-LAST:event_btnPrintMouseEntered
-
-    private void btnPrintMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintMouseExited
-        this.btnPrint.setIcon(Gambar.getIcon("ic-data-tambah.png"));  
-    }//GEN-LAST:event_btnPrintMouseExited
-
-    private void btnEditMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseEntered
-        this.btnEdit.setIcon(Gambar.getIcon("ic-data-edit-entered.png"));
-    }//GEN-LAST:event_btnEditMouseEntered
-
-    private void btnEditMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseExited
-        this.btnEdit.setIcon(Gambar.getIcon("ic-data-edit.png"));
-    }//GEN-LAST:event_btnEditMouseExited
-
     private void btnDelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDelMouseEntered
         this.btnDel.setIcon(Gambar.getIcon("ic-data-hapus-entered.png"));
     }//GEN-LAST:event_btnDelMouseEntered
@@ -760,62 +762,76 @@ public class LaporanBeli extends javax.swing.JPanel {
         this.btnDel.setIcon(Gambar.getIcon("ic-data-hapus.png"));
     }//GEN-LAST:event_btnDelMouseExited
 
-    private void tabelDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataMouseClicked
-        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-        // menampilkan data pembeli
-        this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow(), 0).toString();
-        this.showData();
-        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-    }//GEN-LAST:event_tabelDataMouseClicked
-
-    private void tabelDataKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDataKeyPressed
-        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-        if(evt.getKeyCode() == KeyEvent.VK_UP){
-            this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow() - 1, 0).toString();
-            this.showData();
-        }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
-            this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow() + 1, 0).toString();
-            this.showData();
-        }
-        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-    }//GEN-LAST:event_tabelDataKeyPressed
-
     private void inpCariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inpCariKeyTyped
         String key = this.inpCari.getText();
         this.keyword = "WHERE id_tr_beli LIKE '%"+key+"%' OR id_barang LIKE '%"+key+"%'";
-        this.updateTabel();
+        this.updateTabelS();
     }//GEN-LAST:event_inpCariKeyTyped
 
     private void inpCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inpCariKeyReleased
         String key = this.inpCari.getText();
         this.keyword = "WHERE id_tr_beli LIKE '%"+key+"%' OR id_barang LIKE '%"+key+"%'";
-        this.updateTabel();
+        this.updateTabelS();
     }//GEN-LAST:event_inpCariKeyReleased
+
+    private void tabelDataBKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDataBKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabelDataBKeyPressed
+
+    private void tabelDataBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataBMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabelDataBMouseClicked
+
+    private void tabelDataMKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDataMKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabelDataMKeyPressed
+
+    private void tabelDataMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataMMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabelDataMMouseClicked
+
+    private void tabelDataHKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDataHKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabelDataHKeyPressed
+
+    private void tabelDataHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataHMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabelDataHMouseClicked
+
+    private void tabelDataSKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDataSKeyPressed
+        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        if(evt.getKeyCode() == KeyEvent.VK_UP){
+            this.idSelected = this.tabelDataS.getValueAt(tabelDataS.getSelectedRow() - 1, 0).toString();
+            this.showData();
+        }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
+            this.idSelected = this.tabelDataS.getValueAt(tabelDataS.getSelectedRow() + 1, 0).toString();
+            this.showData();
+        }
+        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_tabelDataSKeyPressed
+
+    private void tabelDataSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataSMouseClicked
+        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        // menampilkan data pembeli
+        this.idSelected = this.tabelDataS.getValueAt(tabelDataS.getSelectedRow(), 0).toString();
+        this.showData();
+        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_tabelDataSMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel background;
     private javax.swing.JButton btnDel;
-    private javax.swing.JButton btnEdit;
-    private javax.swing.JButton btnPrint;
     private javax.swing.JTextField inpCari;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel lblCari;
-    private javax.swing.JLabel lblDataPengeluaran;
-    private javax.swing.JLabel lblHarga;
-    private javax.swing.JLabel lblIDPengeluaran;
-    private javax.swing.JLabel lblIDTransaksi;
-    private javax.swing.JLabel lblJenisBrg;
-    private javax.swing.JLabel lblJumlahBrg;
-    private javax.swing.JLabel lblNamaBrg;
-    private javax.swing.JLabel lblNamaKaryawan;
-    private javax.swing.JLabel lblNamaSupplier;
-    private javax.swing.JLabel lblTanggal;
-    private javax.swing.JSeparator lineBottom;
-    private javax.swing.JPanel pnlDataPengeluaran;
-    private javax.swing.JPanel tabChartBulan;
-    private javax.swing.JPanel tabChartMinggu;
-    private javax.swing.JTabbedPane tabPengeluaran;
-    private javax.swing.JTable tabelData;
+    private javax.swing.JScrollPane lpBulanan;
+    private javax.swing.JScrollPane lpHarian;
+    private javax.swing.JScrollPane lpMingguan;
+    private javax.swing.JScrollPane lpSemua;
+    private javax.swing.JTabbedPane tabLaporan;
+    private javax.swing.JTable tabelDataB;
+    private javax.swing.JTable tabelDataH;
+    private javax.swing.JTable tabelDataM;
+    private javax.swing.JTable tabelDataS;
     private javax.swing.JLabel valHarga;
     private javax.swing.JLabel valIDPengeluaran;
     private javax.swing.JLabel valIDTransaksi;

@@ -156,7 +156,7 @@ public class DataPembeli extends javax.swing.JPanel {
             }            
         }
         
-        this.chart.showPieChart(this.pieChart, "Produk yang dibeli " + this.namaPembeli, new Font("Ebrima", 1, 18), values[0], values[1], values[2], values[3]);
+//        this.chart.showPieChart(this.pieChart, "Produk yang dibeli " + this.namaPembeli, new Font("Ebrima", 1, 18), values[0], values[1], values[2], values[3]);
     }
     
     private String gachaFavorite(){
@@ -192,7 +192,6 @@ public class DataPembeli extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pieChart = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelData = new javax.swing.JTable();
         inpCari = new javax.swing.JTextField();
@@ -207,16 +206,11 @@ public class DataPembeli extends javax.swing.JPanel {
         btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
-        background = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(957, 650));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        pieChart.setBackground(new java.awt.Color(255, 255, 255));
-        pieChart.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        pieChart.setLayout(new java.awt.BorderLayout());
-        add(pieChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 230, 250));
 
         tabelData.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
         tabelData.setModel(new javax.swing.table.DefaultTableModel(
@@ -267,11 +261,11 @@ public class DataPembeli extends javax.swing.JPanel {
 
         valIDPembeli.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valIDPembeli.setText(":");
-        add(valIDPembeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 93, 230, 25));
+        add(valIDPembeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 116, 200, 44));
 
         valNamaPembeli.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valNamaPembeli.setText(":");
-        add(valNamaPembeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 128, 225, 25));
+        add(valNamaPembeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 190, 200, 44));
 
         valNoTelp.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valNoTelp.setText(":");
@@ -286,31 +280,31 @@ public class DataPembeli extends javax.swing.JPanel {
                 valNoTelpMouseExited(evt);
             }
         });
-        add(valNoTelp, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 162, 225, 25));
+        add(valNoTelp, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 263, 200, 44));
 
         valAlamat.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valAlamat.setText(":");
-        add(valAlamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 196, 225, 25));
+        add(valAlamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 336, 200, 45));
 
         valFavorite.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valFavorite.setText(":");
-        add(valFavorite, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 231, 225, 25));
+        add(valFavorite, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 410, 200, 44));
 
         valPembelian.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valPembelian.setText(":");
-        add(valPembelian, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 265, 225, 25));
+        add(valPembelian, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 483, 200, 45));
 
         valUang.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valUang.setText(":");
-        add(valUang, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 300, 225, 25));
+        add(valUang, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 557, 200, 44));
 
         valLast.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valLast.setText(":");
-        add(valLast, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 335, 225, 25));
+        add(valLast, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 630, 200, 45));
 
         btnAdd.setBackground(new java.awt.Color(41, 180, 50));
         btnAdd.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdd.setBorder(null);
+        btnAdd.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnAdd.setOpaque(false);
         btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -329,7 +323,7 @@ public class DataPembeli extends javax.swing.JPanel {
 
         btnEdit.setBackground(new java.awt.Color(34, 119, 237));
         btnEdit.setForeground(new java.awt.Color(255, 255, 255));
-        btnEdit.setBorder(null);
+        btnEdit.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnEdit.setOpaque(false);
         btnEdit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -348,7 +342,7 @@ public class DataPembeli extends javax.swing.JPanel {
 
         btnDel.setBackground(new java.awt.Color(220, 41, 41));
         btnDel.setForeground(new java.awt.Color(255, 255, 255));
-        btnDel.setBorder(null);
+        btnDel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnDel.setOpaque(false);
         btnDel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -365,8 +359,8 @@ public class DataPembeli extends javax.swing.JPanel {
         });
         add(btnDel, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 712, 150, 49));
 
-        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar/app-dataPembeli-075.png"))); // NOI18N
-        add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar/app-dataPembeli-075.png"))); // NOI18N
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
@@ -525,13 +519,12 @@ public class DataPembeli extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel background;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnEdit;
     private javax.swing.JTextField inpCari;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JPanel pieChart;
     private javax.swing.JTable tabelData;
     private javax.swing.JLabel valAlamat;
     private javax.swing.JLabel valFavorite;

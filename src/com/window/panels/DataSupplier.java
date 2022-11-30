@@ -201,10 +201,12 @@ public class DataSupplier extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tabelData = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelHistori = new javax.swing.JTable();
+        lblCari = new javax.swing.JLabel();
+        btnAdd = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
+        btnDel = new javax.swing.JButton();
         inpCari = new javax.swing.JTextField();
         valIDSupplier = new javax.swing.JLabel();
         valNamaSupplier = new javax.swing.JLabel();
@@ -213,11 +215,151 @@ public class DataSupplier extends javax.swing.JPanel {
         valBrgSupplier = new javax.swing.JLabel();
         valUang = new javax.swing.JLabel();
         valLast = new javax.swing.JLabel();
-        lblCari = new javax.swing.JLabel();
-        btnAdd = new javax.swing.JButton();
-        btnEdit = new javax.swing.JButton();
-        btnDel = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabelData = new javax.swing.JTable();
         background = new javax.swing.JLabel();
+
+        tabelHistori.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
+        tabelHistori.setForeground(new java.awt.Color(0, 0, 0));
+        tabelHistori.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"PG0001", "Aqua 1 L", "5", "Rp. 15.000"},
+                {"PG0002", "Nabati Wafer", "7", "Rp. 17.500"},
+                {"PG0003", "Pulpen Snowman", "14", "Rp. 35.000"},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID Pengeluaran", "Nama Barang", "Jumlah", "Total Harga"
+            }
+        ));
+        tabelHistori.setGridColor(new java.awt.Color(0, 0, 0));
+        tabelHistori.setSelectionBackground(new java.awt.Color(26, 164, 250));
+        tabelHistori.setSelectionForeground(new java.awt.Color(250, 246, 246));
+        tabelHistori.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(tabelHistori);
+
+        lblCari.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
+        lblCari.setForeground(new java.awt.Color(237, 12, 12));
+        lblCari.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCari.setText("Cari ID / Nama Supplier :");
+
+        setBackground(new java.awt.Color(255, 255, 255));
+        setPreferredSize(new java.awt.Dimension(957, 650));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnAdd.setBackground(new java.awt.Color(41, 180, 50));
+        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdd.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnAdd.setOpaque(false);
+        btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAddMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAddMouseExited(evt);
+            }
+        });
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
+        add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 712, 153, 49));
+
+        btnEdit.setBackground(new java.awt.Color(34, 119, 237));
+        btnEdit.setForeground(new java.awt.Color(255, 255, 255));
+        btnEdit.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnEdit.setOpaque(false);
+        btnEdit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnEditMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnEditMouseExited(evt);
+            }
+        });
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
+        add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 712, 147, 48));
+
+        btnDel.setBackground(new java.awt.Color(220, 41, 41));
+        btnDel.setForeground(new java.awt.Color(255, 255, 255));
+        btnDel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnDel.setOpaque(false);
+        btnDel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDelMouseExited(evt);
+            }
+        });
+        btnDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelActionPerformed(evt);
+            }
+        });
+        add(btnDel, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 712, 147, 47));
+
+        inpCari.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        inpCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                inpCariKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                inpCariKeyTyped(evt);
+            }
+        });
+        add(inpCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 73, 200, 35));
+
+        valIDSupplier.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        valIDSupplier.setForeground(new java.awt.Color(0, 0, 0));
+        valIDSupplier.setText(":");
+        add(valIDSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 116, 200, 47));
+
+        valNamaSupplier.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        valNamaSupplier.setForeground(new java.awt.Color(0, 0, 0));
+        valNamaSupplier.setText(":");
+        add(valNamaSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 201, 200, 47));
+
+        valNoTelp.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        valNoTelp.setForeground(new java.awt.Color(0, 0, 0));
+        valNoTelp.setText(":");
+        valNoTelp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                valNoTelpMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                valNoTelpMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                valNoTelpMouseExited(evt);
+            }
+        });
+        add(valNoTelp, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 286, 200, 47));
+
+        valAlamat.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        valAlamat.setForeground(new java.awt.Color(0, 0, 0));
+        valAlamat.setText(":");
+        add(valAlamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 370, 200, 47));
+
+        valBrgSupplier.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        valBrgSupplier.setForeground(new java.awt.Color(0, 0, 0));
+        valBrgSupplier.setText(":");
+        add(valBrgSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 455, 200, 47));
+
+        valUang.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        valUang.setForeground(new java.awt.Color(0, 0, 0));
+        valUang.setText(":");
+        add(valUang, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 540, 200, 47));
+
+        valLast.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        valLast.setForeground(new java.awt.Color(0, 0, 0));
+        valLast.setText(":");
+        add(valLast, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 625, 200, 47));
 
         tabelData.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
         tabelData.setForeground(new java.awt.Color(0, 0, 0));
@@ -248,139 +390,7 @@ public class DataSupplier extends javax.swing.JPanel {
         });
         jScrollPane3.setViewportView(tabelData);
 
-        tabelHistori.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
-        tabelHistori.setForeground(new java.awt.Color(0, 0, 0));
-        tabelHistori.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"PG0001", "Aqua 1 L", "5", "Rp. 15.000"},
-                {"PG0002", "Nabati Wafer", "7", "Rp. 17.500"},
-                {"PG0003", "Pulpen Snowman", "14", "Rp. 35.000"},
-                {null, null, null, null}
-            },
-            new String [] {
-                "ID Pengeluaran", "Nama Barang", "Jumlah", "Total Harga"
-            }
-        ));
-        tabelHistori.setGridColor(new java.awt.Color(0, 0, 0));
-        tabelHistori.setSelectionBackground(new java.awt.Color(26, 164, 250));
-        tabelHistori.setSelectionForeground(new java.awt.Color(250, 246, 246));
-        tabelHistori.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(tabelHistori);
-
-        inpCari.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        inpCari.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                inpCariKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                inpCariKeyTyped(evt);
-            }
-        });
-
-        valIDSupplier.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        valIDSupplier.setForeground(new java.awt.Color(0, 0, 0));
-        valIDSupplier.setText(":");
-
-        valNamaSupplier.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        valNamaSupplier.setForeground(new java.awt.Color(0, 0, 0));
-        valNamaSupplier.setText(":");
-
-        valNoTelp.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        valNoTelp.setForeground(new java.awt.Color(0, 0, 0));
-        valNoTelp.setText(":");
-        valNoTelp.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                valNoTelpMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                valNoTelpMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                valNoTelpMouseExited(evt);
-            }
-        });
-
-        valAlamat.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        valAlamat.setForeground(new java.awt.Color(0, 0, 0));
-        valAlamat.setText(":");
-
-        valBrgSupplier.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        valBrgSupplier.setForeground(new java.awt.Color(0, 0, 0));
-        valBrgSupplier.setText(":");
-
-        valUang.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        valUang.setForeground(new java.awt.Color(0, 0, 0));
-        valUang.setText(":");
-
-        valLast.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        valLast.setForeground(new java.awt.Color(0, 0, 0));
-        valLast.setText(":");
-
-        lblCari.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        lblCari.setForeground(new java.awt.Color(237, 12, 12));
-        lblCari.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCari.setText("Cari ID / Nama Supplier :");
-
-        setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(957, 650));
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btnAdd.setBackground(new java.awt.Color(41, 180, 50));
-        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdd.setBorder(null);
-        btnAdd.setOpaque(false);
-        btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnAddMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnAddMouseExited(evt);
-            }
-        });
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
-        add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 712, 153, 49));
-
-        btnEdit.setBackground(new java.awt.Color(34, 119, 237));
-        btnEdit.setForeground(new java.awt.Color(255, 255, 255));
-        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/icons/ic-data-edit.png"))); // NOI18N
-        btnEdit.setText("Edit Data");
-        btnEdit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnEditMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnEditMouseExited(evt);
-            }
-        });
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditActionPerformed(evt);
-            }
-        });
-        add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 380, -1, -1));
-
-        btnDel.setBackground(new java.awt.Color(220, 41, 41));
-        btnDel.setForeground(new java.awt.Color(255, 255, 255));
-        btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/icons/ic-data-hapus.png"))); // NOI18N
-        btnDel.setText("Hapus Data");
-        btnDel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnDelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnDelMouseExited(evt);
-            }
-        });
-        btnDel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDelActionPerformed(evt);
-            }
-        });
-        add(btnDel, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, -1, -1));
+        add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 110, 500, 570));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar/app-dataSupplier-075.png"))); // NOI18N
         add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));

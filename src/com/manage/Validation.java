@@ -439,16 +439,16 @@ public class Validation {
         return false;
     }
 
-    public static boolean isMetodeBayar(String metode){
-        switch(metode){
-            case "CASH" : return true;
-            case "E-WALLET" : return true;
-            default : 
-                Audio.play(Audio.SOUND_WARNING);
-                JOptionPane.showMessageDialog(null, "'" + metode + "' Metode pembayaran tidak valid!", "Pesan", JOptionPane.WARNING_MESSAGE);
-                return false;
-        }
-    }
+//    public static boolean isMetodeBayar(String metode){
+//        switch(metode){
+//            case "CASH" : return true;
+//            case "E-WALLET" : return true;
+//            default : 
+//                Audio.play(Audio.SOUND_WARNING);
+//                JOptionPane.showMessageDialog(null, "'" + metode + "' Metode pembayaran tidak valid!", "Pesan", JOptionPane.WARNING_MESSAGE);
+//                return false;
+//        }
+//    }
     
     public static void main(String[] args) {
         System.out.println(Validation.isIdUser("KY001"));

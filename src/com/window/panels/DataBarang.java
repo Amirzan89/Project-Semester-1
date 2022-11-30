@@ -198,10 +198,10 @@ public class DataBarang extends javax.swing.JPanel {
         lineRenderer.setSeriesPaint(0, lineChartColor);
         
          //create chartPanel to display chart(graph)
-        ChartPanel lineChartPanel = new ChartPanel(linechart);
-        lineChart.removeAll();
-        lineChart.add(lineChartPanel, BorderLayout.CENTER);
-        lineChart.validate();
+//        ChartPanel lineChartPanel = new ChartPanel(linechart);
+//        lineChart.removeAll();
+//        lineChart.add(lineChartPanel, BorderLayout.CENTER);
+//        lineChart.validate();
     }
     
     @SuppressWarnings("unchecked")
@@ -219,7 +219,6 @@ public class DataBarang extends javax.swing.JPanel {
         valNamaBarang = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelData = new javax.swing.JTable();
-        lineChart = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JToggleButton();
         btnDel = new javax.swing.JToggleButton();
@@ -229,15 +228,16 @@ public class DataBarang extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(957, 650));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        add(valIDBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 95, 220, 20));
-        add(valPenghasilan, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 347, 220, 20));
-        add(valPjln, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 285, 220, 20));
-        add(valJenis, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 158, 220, 20));
-        add(valPjlnMinggu, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 316, 220, 20));
-        add(valHargaJual, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 253, 220, 20));
-        add(valHargaBeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 220, 20));
-        add(valStok, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 190, 220, 20));
-        add(valNamaBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 126, 220, 20));
+        add(valIDBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 182, 190, 37));
+        add(valPenghasilan, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 633, 190, 37));
+        add(valPjln, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 504, 190, 37));
+        add(valJenis, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 440, 190, 37));
+        add(valPjlnMinggu, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 569, 190, 37));
+        add(valHargaJual, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 247, 190, 37));
+        add(valHargaBeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 375, 190, 37));
+        add(valStok, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 311, 190, 37));
+        add(valNamaBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 117, 190, 37));
+        valNamaBarang.getAccessibleContext().setAccessibleName(":");
 
         tabelData.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
         tabelData.setForeground(new java.awt.Color(0, 0, 0));
@@ -269,11 +269,6 @@ public class DataBarang extends javax.swing.JPanel {
         jScrollPane2.setViewportView(tabelData);
 
         add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, 510, 580));
-
-        lineChart.setBackground(new java.awt.Color(255, 255, 255));
-        lineChart.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lineChart.setLayout(new java.awt.BorderLayout());
-        add(lineChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 400, 270));
 
         btnAdd.setBackground(new java.awt.Color(41, 180, 50));
         btnAdd.setForeground(new java.awt.Color(255, 255, 255));
@@ -493,7 +488,6 @@ public class DataBarang extends javax.swing.JPanel {
     private javax.swing.JToggleButton btnEdit;
     private javax.swing.JTextField inpCari;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JPanel lineChart;
     private javax.swing.JTable tabelData;
     private javax.swing.JLabel valHargaBeli;
     private javax.swing.JLabel valHargaJual;

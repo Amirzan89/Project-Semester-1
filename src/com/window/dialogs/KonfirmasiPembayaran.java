@@ -48,7 +48,7 @@ public class KonfirmasiPembayaran extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
     }
     
-    public void putValueJual(String namaTrJual, String idPetugas, String idPembeli, String idBarang, String jmlBrg, String metodeByr, String ttlHarga, String tanggal){
+    public void putValueJual(String namaTrJual, String idPetugas, String idPembeli, String idBarang, String jmlBrg, String ttlHarga, String tanggal){
         // mendapatkan data
         this.idTr = trj.createIDTransaksi();
         this.namaTr = namaTrJual;
@@ -58,16 +58,16 @@ public class KonfirmasiPembayaran extends javax.swing.JDialog {
         this.idBarang = idBarang;
         this.namaBarang = this.barang.getNamaBarang(idBarang);
         this.jumlah = jmlBrg;
-        this.metodeBayar = metodeByr;
+//        this.metodeBayar = metodeByr;
         this.totalHarga = ttlHarga;
         this.tgl = tanggal;
         
         // menampilkan data
         this.lblNama.setText("Nama Pembeli");
-        this.showData(this.idTr, this.namaPembeli, this.namaBarang, this.jumlah, this.totalHarga, this.metodeBayar);
+        this.showData(this.idTr, this.namaPembeli, this.namaBarang, this.jumlah, this.totalHarga);
     }
     
-    public void putValueBeli(String namaTrBeli, String idPetugas, String idSupplier, String idBarang, String jmlBrg, String metodeByr, String ttlHarga, String tanggal){
+    public void putValueBeli(String namaTrBeli, String idPetugas, String idSupplier, String idBarang, String jmlBrg, String ttlHarga, String tanggal){
         // mendapatkan data
         this.idTr = trj.createIDTransaksi();
         this.namaTr = namaTrBeli;
@@ -77,23 +77,22 @@ public class KonfirmasiPembayaran extends javax.swing.JDialog {
         this.idBarang = idBarang;
         this.namaBarang = this.barang.getNamaBarang(idBarang);
         this.jumlah = jmlBrg;
-        this.metodeBayar = metodeByr;
         this.totalHarga = ttlHarga;
         this.tgl = tanggal;
         
         // menampilkan data
         this.lblNama.setText("Nama Supplier");
-        this.showData(this.idTr, this.namaSupplier, this.namaBarang, this.jumlah, this.totalHarga, this.metodeBayar);
+        this.showData(this.idTr, this.namaSupplier, this.namaBarang, this.jumlah, this.totalHarga);
     }
     
-    private void showData(String id, String nama, String namaBrg, String jml, String ttlHrg, String metode){
+    private void showData(String id, String nama, String namaBrg, String jml, String ttlHrg){
         this.setTitle("Transaksi dari " + nama);
         valID.setText("<html><p>:&nbsp;"+id+"</p></html>");
         valNama.setText("<html><p>:&nbsp;"+nama+"</p></html>");
         valNamaBrg.setText("<html><p>:&nbsp;"+namaBrg+"</p></html>");
         valJumlah.setText("<html><p>:&nbsp;"+jml+"</p></html>");
         valTotalHarga.setText("<html><p>:&nbsp;"+text.toMoneyCase(ttlHrg)+"</p></html>");
-        valMetode.setText("<html><p>:&nbsp;"+text.toCapitalize(metode)+"</p></html>");
+//        valMetode.setText("<html><p>:&nbsp;"+text.toCapitalize(metode)+"</p></html>");
     }
     
     public boolean isUpdated(){
@@ -127,9 +126,7 @@ public class KonfirmasiPembayaran extends javax.swing.JDialog {
         lblJumlah = new javax.swing.JLabel();
         valJumlah = new javax.swing.JLabel();
         valTotalHarga = new javax.swing.JLabel();
-        lblMetode = new javax.swing.JLabel();
         lblHarga = new javax.swing.JLabel();
-        valMetode = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -218,17 +215,9 @@ public class KonfirmasiPembayaran extends javax.swing.JDialog {
         valTotalHarga.setForeground(new java.awt.Color(0, 0, 0));
         valTotalHarga.setText(": Rp. 3.000.00");
 
-        lblMetode.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        lblMetode.setForeground(new java.awt.Color(0, 0, 0));
-        lblMetode.setText("Metode Bayar");
-
         lblHarga.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         lblHarga.setForeground(new java.awt.Color(0, 0, 0));
         lblHarga.setText("Total Harga");
-
-        valMetode.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        valMetode.setForeground(new java.awt.Color(0, 0, 0));
-        valMetode.setText(": E-Wallet");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -262,11 +251,7 @@ public class KonfirmasiPembayaran extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(valTotalHarga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblMetode, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(valMetode, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE))))
+                        .addComponent(valTotalHarga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addComponent(lblTop, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel1Layout.setVerticalGroup(
@@ -296,11 +281,7 @@ public class KonfirmasiPembayaran extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblHarga, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
                     .addComponent(valTotalHarga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblMetode, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-                    .addComponent(valMetode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(27, 27, 27)
+                .addGap(71, 71, 71)
                 .addComponent(lineBottom, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -350,7 +331,7 @@ public class KonfirmasiPembayaran extends javax.swing.JDialog {
         boolean save;
         switch(this.opsi){
             case OPSI_JUAL : {
-                save = this.trj.addTransaksiJual(namaTr, idPetugas, idPembeli, idBarang, jumlah, metodeBayar, totalHarga, tgl);
+                save = this.trj.addTransaksiJual(namaTr, idPetugas, idPembeli, idBarang, jumlah, totalHarga, tgl);
                 if(save){
                     Message.showInformation(this, "Transaksi berhasil!");
                     this.isUpdated = true;
@@ -371,7 +352,7 @@ public class KonfirmasiPembayaran extends javax.swing.JDialog {
                         this.idSupplier, 
                         idBarang, 
                         jumlah, 
-                        metodeBayar, 
+//                        metodeBayar, 
                         totalHarga, 
                         tgl);
                 if(save){
@@ -428,7 +409,6 @@ public class KonfirmasiPembayaran extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblHarga;
     private javax.swing.JLabel lblJumlah;
-    private javax.swing.JLabel lblMetode;
     private javax.swing.JLabel lblNama;
     private javax.swing.JLabel lblNamaBrg;
     private javax.swing.JLabel lblTop;
@@ -437,7 +417,6 @@ public class KonfirmasiPembayaran extends javax.swing.JDialog {
     private javax.swing.JSeparator lineTop;
     private javax.swing.JLabel valID;
     private javax.swing.JLabel valJumlah;
-    private javax.swing.JLabel valMetode;
     private javax.swing.JLabel valNama;
     private javax.swing.JLabel valNamaBrg;
     private javax.swing.JLabel valTotalHarga;

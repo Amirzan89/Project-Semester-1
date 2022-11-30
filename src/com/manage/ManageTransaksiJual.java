@@ -73,24 +73,24 @@ public class ManageTransaksiJual extends Database{
         return this.createIDTransaksi().replace("TRJ", "LPD");
     }
     
-    public boolean addTransaksiJual(String namaTrJual, String idPetugas, String idPembeli, String idBarang, String jmlBrg, String metodeByr, String ttlHarga, String tanggal){
+    public boolean addTransaksiJual(String namaTrJual, String idPetugas, String idPembeli, String idBarang, String jmlBrg, String ttlHarga, String tanggal){
         PreparedStatement pst;
         String idTrj = this.createIDTransaksi(), idLaporan = this.createIDLaporan();
         try {
             // validasi data sebelum ditambahkan
-            if(this.validateAddTransaksiJual(idTrj, namaTrJual, idPetugas, idPembeli, idBarang, jmlBrg, metodeByr, ttlHarga, tanggal)){
+            if(this.validateAddTransaksiJual(idTrj, namaTrJual, idPetugas, idPembeli, idBarang, jmlBrg,  ttlHarga, tanggal)){
                 Log.addLog(String.format("Menambahkan data transaksi jual dengan ID Transaksi '%s' ", idTrj));
                 // menambahkan data kedalam Database
-                pst = this.conn.prepareStatement("INSERT INTO transaksi_jual VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                pst = this.conn.prepareStatement("INSERT INTO transaksi_jual VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
                 pst.setString(1, idTrj);
                 pst.setString(2, namaTrJual);
                 pst.setString(3, idPetugas);
                 pst.setString(4, idPembeli);
                 pst.setString(5, idBarang);
                 pst.setInt(6, Integer.parseInt(jmlBrg));
-                pst.setString(7, metodeByr);
-                pst.setInt(8, Integer.parseInt(ttlHarga));
-                pst.setString(9, tanggal);
+//                pst.setString(7, metodeByr);
+                pst.setInt(7, Integer.parseInt(ttlHarga));
+                pst.setString(8, tanggal);
                 
                 // mengekusi query
                 if(pst.executeUpdate() > 0){
@@ -122,7 +122,7 @@ public class ManageTransaksiJual extends Database{
         return false;
     }
     
-    public boolean validateAddTransaksiJual(String idTrj, String namaTrJual, String idPetugas, String idPembeli, String idBarang, String jmlBrg, String metodeByr, String ttlHarga, String tanggal){
+    public boolean validateAddTransaksiJual(String idTrj, String namaTrJual, String idPetugas, String idPembeli, String idBarang, String jmlBrg, String ttlHarga, String tanggal){
         boolean vIdTrj, vNamaTrJual = true, vIdPetugas, vIdPembeli, vIdBarang, vJmlBrg, vMetodeByr, vTtlHarga, vTanggal;
         
         // mengecek id transaksi valid atau tidak
@@ -161,11 +161,11 @@ public class ManageTransaksiJual extends Database{
         }
         
         // mengecek apakah metode bayar valid atau tidak
-        if(Validation.isMetodeBayar(metodeByr)){
-            vMetodeByr = true;
-        }else{
-            throw new InValidUserDataException("'" + metodeByr + "'Metode bayar tersebut tidak valid.");
-        }
+//        if(Validation.isMetodeBayar(metodeByr)){
+//            vMetodeByr = true;
+//        }else{
+//            throw new InValidUserDataException("'" + metodeByr + "'Metode bayar tersebut tidak valid.");
+//        }
         
         // mengecek apakah total harga valid atau tidak
         if(Validation.isNumber(ttlHarga)){
@@ -181,7 +181,7 @@ public class ManageTransaksiJual extends Database{
             throw new InValidUserDataException("'" + tanggal + "'Tanggal penjualan tersebut tidak valid.");
         }
         
-        return vIdTrj && vNamaTrJual && vIdPetugas && vIdPembeli && vIdBarang && vJmlBrg && vMetodeByr && vTtlHarga && vTanggal;
+        return vIdTrj && vNamaTrJual && vIdPetugas && vIdPembeli && vIdBarang && vJmlBrg && vTtlHarga && vTanggal;
     }
     
     public boolean deleteTransaksiJual(String idTrj){
@@ -313,7 +313,7 @@ public class ManageTransaksiJual extends Database{
 //                tr.validateAddTransaksiJual("TRJ0001", "Test", "PG001", "PB289", "BG003", "1", "E-WALLET", "10", "2022-08-19")
 //        );
         
-        boolean isSuccess = tr.addTransaksiJual("sok tau", "PG004", "PB123", "BG011", "9", "E-WALLET", "15000", "2022-10-20");
+        boolean isSuccess = tr.addTransaksiJual("sok tau", "PG004", "PB123", "BG011", "9", "15000", "2022-10-20");
         System.out.println(isSuccess);
 //        System.out.println(tr.deleteTransaksiJual("TRJ0005"));
 //        System.out.println(tr.deleteTransaksiJual("TRJ0007"));

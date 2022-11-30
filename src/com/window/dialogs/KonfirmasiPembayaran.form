@@ -81,11 +81,6 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="valTotalHarga" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="lblMetode" min="-2" pref="133" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="valMetode" pref="365" max="32767" attributes="0"/>
-                      </Group>
                   </Group>
               </Group>
               <Component id="lblTop" alignment="0" min="-2" pref="540" max="-2" attributes="0"/>
@@ -123,12 +118,7 @@
                       <Component id="lblHarga" alignment="0" pref="26" max="32767" attributes="0"/>
                       <Component id="valTotalHarga" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="lblMetode" alignment="0" pref="26" max="32767" attributes="0"/>
-                      <Component id="valMetode" alignment="0" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
                   <Component id="lineBottom" min="-2" pref="10" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -310,17 +300,6 @@
             <Property name="text" type="java.lang.String" value=": Rp. 3.000.00"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblMetode">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="16" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Metode Bayar"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="lblHarga">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -330,17 +309,6 @@
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Total Harga"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="valMetode">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="16" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value=": E-Wallet"/>
           </Properties>
         </Component>
       </SubComponents>

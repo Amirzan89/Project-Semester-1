@@ -1,7 +1,10 @@
 package com.manage;
 
 import com.data.app.Log;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.StringTokenizer;
 
 /**
@@ -64,7 +67,129 @@ public class Waktu {
                 c.get(Calendar.DAY_OF_MONTH) // mendapatkan tanggal
         );
     }
-    
+    public Date[] weekk(int a,int b) throws ParseException{
+        SimpleDateFormat formatTanggal = new SimpleDateFormat("dd-MM-yyyy");
+        Calendar calendar = Calendar.getInstance(); //tanggal sekarang
+        Calendar c1 = Calendar.getInstance();
+        Date tanggal[] = new Date[2];
+        Date awal = new Date();
+        Date akhir = new Date();
+        Date senin = new Date();
+//        c1.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),a);
+        c1.set(calendar.get(Calendar.YEAR), b,a);
+        System.out.println("tanggal hari ini "+ c1.getTime());
+        int max = c1.getActualMaximum(Calendar.DATE);
+        int sisa = max-a;
+        int harike = c1.get(Calendar.DAY_OF_WEEK)-1;
+        if(max == 28||max == 29){
+            if(a <= 6){
+                    System.out.println("hari ini kurang dari 6");
+                if(harike == 1){
+                    //done 
+                    System.out.println(" logic true");
+                    awal = c1.getTime();
+                    c1.add(Calendar.DATE,6);
+                    akhir = c1.getTime();
+                }else{
+                    //done 
+                    System.out.println(" logic false");
+                    c1.add(Calendar.DATE,-harike+1);
+                    awal = c1.getTime();
+                    c1.add(Calendar.DATE,6);
+                    akhir = c1.getTime();
+                }
+            }else if(a > 6 && sisa >= 6){
+                    System.out.println("hari ini lebih dari 6");
+                if(harike == 1){
+                    //done 
+                    System.out.println(" logic true");
+                    awal = c1.getTime();
+                    c1.add(Calendar.DATE,6);
+                    akhir = c1.getTime();
+                }else{
+                    //done 
+                    System.out.println(" logic false");
+                    c1.add(Calendar.DATE,-harike+1);
+                    awal = c1.getTime();
+                    c1.add(Calendar.DATE,6);
+                    akhir = c1.getTime();
+                }
+            }else{
+                    System.out.println("hari tua");
+                if(harike == 1){
+                    //done 
+                    System.out.println(" logic true");
+                    awal = c1.getTime();
+                    System.out.println("sisa hari "+sisa);
+                    c1.set(calendar.get(Calendar.YEAR),b,max);
+                    akhir = c1.getTime();
+                }else{
+                    System.out.println(" logic false");
+                    c1.add(Calendar.DATE,-harike+1);
+                    awal = c1.getTime();
+                    System.out.println("sisa hari "+sisa);
+                    c1.set(calendar.get(Calendar.YEAR),b,max);
+                    akhir = c1.getTime();
+                }
+            }
+        }else{
+            if(a <= 6){
+                    System.out.println("hari ini kurang dari 6");
+                if(harike == 1){
+                    //done 
+                    System.out.println(" logic true");
+                    awal = c1.getTime();
+                    c1.add(Calendar.DATE,6);
+                    akhir = c1.getTime();
+                }else{
+                    //done 
+                    System.out.println(" logic false");
+                    c1.add(Calendar.DATE,-harike+1);
+                    awal = c1.getTime();
+                    c1.add(Calendar.DATE,6);
+                    akhir = c1.getTime();
+                }
+            }else if(a > 6 && sisa >= 6){
+                    System.out.println("hari ini lebih dari 6");
+                if(harike == 1){
+                    //done 
+                    System.out.println(" logic true");
+                    awal = c1.getTime();
+                    c1.add(Calendar.DATE,6);
+                    akhir = c1.getTime();
+                }else{
+                    //done 
+                    System.out.println(" logic false");
+                    c1.add(Calendar.DATE,-harike+1);
+                    awal = c1.getTime();
+                    c1.add(Calendar.DATE,6);
+                    akhir = c1.getTime();
+                }
+            }else{
+                    System.out.println("hari tua");
+                if(harike == 1){
+                    //done 
+                    System.out.println(" logic true");
+                    awal = c1.getTime();
+                    System.out.println("sisa hari "+sisa);
+                    c1.set(calendar.get(Calendar.YEAR),b,max);
+                    akhir = c1.getTime();
+                }else{
+                    System.out.println(" logic false");
+                    c1.add(Calendar.DATE,-harike+1);
+                    awal = c1.getTime();
+                    System.out.println("sisa hari "+sisa);
+                    c1.set(calendar.get(Calendar.YEAR),b,max);
+                    akhir = c1.getTime();
+                }
+            }
+        }
+        System.out.println("tanggal senin adalah "+awal);
+        System.out.println("tanggal terakhir adalah "+akhir);
+        tanggal[0] = awal;
+        tanggal[1] = awal;
+        return tanggal;
+    }
     public String getNamaHari(int dayOfWeek){
         switch(kalender.get(Calendar.DAY_OF_WEEK)){
             case Calendar.SUNDAY: return "Minggu";
