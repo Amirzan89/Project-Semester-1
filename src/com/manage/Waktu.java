@@ -67,6 +67,15 @@ public class Waktu {
                 c.get(Calendar.DAY_OF_MONTH) // mendapatkan tanggal
         );
     }
+    public String[] getMinggu (int a,int b) throws ParseException{
+        SimpleDateFormat formatTanggal = new SimpleDateFormat("dd-MM-yyyy");
+        Date tanggal[] = new Date[2];
+        tanggal = weekk(a,b);
+        String[] data = new String[2];
+        data[0] = formatTanggal.format(tanggal[0]);
+        data[1] = formatTanggal.format(tanggal[1]);
+        return data;
+    }
     public Date[] weekk(int a,int b) throws ParseException{
         SimpleDateFormat formatTanggal = new SimpleDateFormat("dd-MM-yyyy");
         Calendar calendar = Calendar.getInstance(); //tanggal sekarang
@@ -75,8 +84,11 @@ public class Waktu {
         Date awal = new Date();
         Date akhir = new Date();
         Date senin = new Date();
-//        c1.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),a);
-        c1.set(calendar.get(Calendar.YEAR), b,a);
+        if(b <= -1){
+            c1.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),a);            
+        }else{
+            c1.set(calendar.get(Calendar.YEAR), b,a);
+        }
         System.out.println("tanggal hari ini "+ c1.getTime());
         int max = c1.getActualMaximum(Calendar.DATE);
         int sisa = max-a;
@@ -121,14 +133,22 @@ public class Waktu {
                     System.out.println(" logic true");
                     awal = c1.getTime();
                     System.out.println("sisa hari "+sisa);
-                    c1.set(calendar.get(Calendar.YEAR),b,max);
+                    if(b <= -1){
+                        c1.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),max);
+                    }else{
+                        c1.set(calendar.get(Calendar.YEAR),b,max);
+                    }
                     akhir = c1.getTime();
                 }else{
                     System.out.println(" logic false");
                     c1.add(Calendar.DATE,-harike+1);
                     awal = c1.getTime();
                     System.out.println("sisa hari "+sisa);
-                    c1.set(calendar.get(Calendar.YEAR),b,max);
+                    if(b <= -1){
+                        c1.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),max);
+                    }else{
+                        c1.set(calendar.get(Calendar.YEAR),b,max);
+                    }
                     akhir = c1.getTime();
                 }
             }
@@ -172,14 +192,22 @@ public class Waktu {
                     System.out.println(" logic true");
                     awal = c1.getTime();
                     System.out.println("sisa hari "+sisa);
-                    c1.set(calendar.get(Calendar.YEAR),b,max);
+                    if(b <= -1){
+                        c1.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),max);
+                    }else{
+                        c1.set(calendar.get(Calendar.YEAR),b,max);
+                    }
                     akhir = c1.getTime();
                 }else{
                     System.out.println(" logic false");
                     c1.add(Calendar.DATE,-harike+1);
                     awal = c1.getTime();
                     System.out.println("sisa hari "+sisa);
-                    c1.set(calendar.get(Calendar.YEAR),b,max);
+                    if(b <= -1){
+                        c1.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),max);
+                    }else{
+                        c1.set(calendar.get(Calendar.YEAR),b,max);
+                    }
                     akhir = c1.getTime();
                 }
             }
@@ -187,7 +215,7 @@ public class Waktu {
         System.out.println("tanggal senin adalah "+awal);
         System.out.println("tanggal terakhir adalah "+akhir);
         tanggal[0] = awal;
-        tanggal[1] = awal;
+        tanggal[1] = akhir;
         return tanggal;
     }
     public String getNamaHari(int dayOfWeek){

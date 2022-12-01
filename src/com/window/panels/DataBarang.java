@@ -228,15 +228,15 @@ public class DataBarang extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(957, 650));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        add(valIDBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 182, 190, 37));
-        add(valPenghasilan, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 633, 190, 37));
-        add(valPjln, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 504, 190, 37));
-        add(valJenis, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 440, 190, 37));
-        add(valPjlnMinggu, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 569, 190, 37));
-        add(valHargaJual, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 247, 190, 37));
-        add(valHargaBeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 375, 190, 37));
-        add(valStok, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 311, 190, 37));
-        add(valNamaBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 117, 190, 37));
+        add(valIDBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 117, 190, 37));
+        add(valPenghasilan, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 633, 190, 37));
+        add(valPjln, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 504, 190, 37));
+        add(valJenis, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 247, 190, 37));
+        add(valPjlnMinggu, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 569, 190, 37));
+        add(valHargaJual, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 440, 190, 37));
+        add(valHargaBeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 375, 190, 37));
+        add(valStok, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 311, 190, 37));
+        add(valNamaBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 182, 190, 37));
         valNamaBarang.getAccessibleContext().setAccessibleName(":");
 
         tabelData.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
@@ -347,6 +347,7 @@ public class DataBarang extends javax.swing.JPanel {
         add(inpCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 76, 185, 23));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar/app-dataBarang-075.png"))); // NOI18N
+        background.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
         

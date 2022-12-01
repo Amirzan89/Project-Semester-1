@@ -13,6 +13,9 @@ import com.window.panels.TransaksiBeli;
 import com.window.panels.TransaksiJual;
 import com.window.panels.Dashboard;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 
 /**
@@ -37,7 +40,7 @@ public class MainWindowMe extends javax.swing.JFrame {
         this.setIconImage(Gambar.getWindowIcon());
 //        this.setExtendedState(this.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
-//        this.lblNamaUser.setText(this.user.getCurrentLoginName());
+        this.lblNamaUser.setText(this.user.getCurrentLogin().toUpperCase());
         this.btns = new JLabel[]{
             this.btnDashboard, this.btnSupplier, this.btnBarang,
             this.btnTrJual, this.btnTrBeli, this.btnLpJual, this.btnLpBeli, this.btnLogout
@@ -133,6 +136,7 @@ public class MainWindowMe extends javax.swing.JFrame {
         pnlMain = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         pnlMenu = new javax.swing.JPanel();
+        lblNamaUser = new javax.swing.JLabel();
         btnBarang = new javax.swing.JLabel();
         btnDashboard = new javax.swing.JLabel();
         btnPembeli = new javax.swing.JLabel();
@@ -142,7 +146,7 @@ public class MainWindowMe extends javax.swing.JFrame {
         btnLpJual = new javax.swing.JLabel();
         btnLpBeli = new javax.swing.JLabel();
         btnLogout = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -164,6 +168,10 @@ public class MainWindowMe extends javax.swing.JFrame {
         );
 
         pnlMain.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 990, -1));
+
+        lblNamaUser.setForeground(new java.awt.Color(0, 0, 0));
+        lblNamaUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        pnlMain.add(lblNamaUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 50, 50, 16));
 
         btnBarang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-dataBarang-075.png"))); // NOI18N
         btnBarang.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -237,8 +245,8 @@ public class MainWindowMe extends javax.swing.JFrame {
         });
         pnlMain.add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 700, 80, 30));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar/app-mainWindow-075.png"))); // NOI18N
-        pnlMain.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, -1));
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar/app-mainWindow-075.png"))); // NOI18N
+        pnlMain.add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, -1));
 
         jScrollPane1.setViewportView(pnlMain);
 
@@ -366,8 +374,12 @@ public class MainWindowMe extends javax.swing.JFrame {
         pnlMenu.repaint();
         pnlMenu.revalidate();
 
-        // menambahkan panel baru
-        pnlMenu.add(new LaporanJual());
+        try {
+            // menambahkan panel baru
+            pnlMenu.add(new LaporanJual());
+        } catch (ParseException ex) {
+            Logger.getLogger(MainWindowMe.class.getName()).log(Level.SEVERE, null, ex);
+        }
         pnlMenu.repaint();
         pnlMenu.revalidate();
         // TODO add your handling code here:
@@ -383,8 +395,12 @@ public class MainWindowMe extends javax.swing.JFrame {
         pnlMenu.repaint();
         pnlMenu.revalidate();
 
-        // menambahkan panel baru
-        pnlMenu.add(new LaporanBeli());
+        try {
+            // menambahkan panel baru
+            pnlMenu.add(new LaporanBeli());
+        } catch (ParseException ex) {
+            Logger.getLogger(MainWindowMe.class.getName()).log(Level.SEVERE, null, ex);
+        }
         pnlMenu.repaint();
         pnlMenu.revalidate();
         // TODO add your handling code here:
@@ -424,6 +440,7 @@ public class MainWindowMe extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel background;
     private javax.swing.JLabel btnBarang;
     private javax.swing.JLabel btnDashboard;
     private javax.swing.JLabel btnLogout;
@@ -433,9 +450,9 @@ public class MainWindowMe extends javax.swing.JFrame {
     private javax.swing.JLabel btnSupplier;
     private javax.swing.JLabel btnTrBeli;
     private javax.swing.JLabel btnTrJual;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblNamaUser;
     private javax.swing.JPanel pnlMain;
     private javax.swing.JPanel pnlMenu;
     // End of variables declaration//GEN-END:variables

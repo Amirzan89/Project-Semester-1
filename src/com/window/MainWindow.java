@@ -20,6 +20,9 @@ import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -301,20 +304,24 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBarangMouseClicked
 
     private void btnLpJualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLpJualMouseClicked
-        //        this.lblMenuName.setText("Laporan Jual");
-        this.setTitle("Laporan Jual");
-        this.setActivatedButton(this.btnLpJual);
-
-        // menghapus panel lama
-        pnlMenu.removeAll();
-        pnlMenu.repaint();
-        pnlMenu.revalidate();
-
-        // menambahkan panel baru
-        pnlMenu.add(new LaporanJual());
-        pnlMenu.repaint();
-        pnlMenu.revalidate();
-        // TODO add your handling code here:
+        try {
+            //        this.lblMenuName.setText("Laporan Jual");
+            this.setTitle("Laporan Jual");
+            this.setActivatedButton(this.btnLpJual);
+            
+            // menghapus panel lama
+            pnlMenu.removeAll();
+            pnlMenu.repaint();
+            pnlMenu.revalidate();
+            
+            // menambahkan panel baru
+            pnlMenu.add(new LaporanJual());
+            pnlMenu.repaint();
+            pnlMenu.revalidate();
+            // TODO add your handling code here:
+        } catch (ParseException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnLpJualMouseClicked
 
     private void btnSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSupplierMouseClicked
@@ -344,8 +351,12 @@ public class MainWindow extends javax.swing.JFrame {
         pnlMenu.repaint();
         pnlMenu.revalidate();
 
-        // menambahkan panel baru
-        pnlMenu.add(new LaporanBeli());
+        try {
+            // menambahkan panel baru
+            pnlMenu.add(new LaporanBeli());
+        } catch (ParseException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
         pnlMenu.repaint();
         pnlMenu.revalidate();
         // TODO add your handling code here:

@@ -4,8 +4,11 @@ import com.manage.Chart;
 import com.manage.Message;
 import com.manage.Waktu;
 import com.data.db.Database;
+import com.manage.Text;
 import java.awt.BorderLayout;
 import java.awt.Color;
+//import static java.awt.SystemColor.text;
+import java.sql.*;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -28,8 +31,10 @@ public class Dashboard extends javax.swing.JPanel {
     private final Database db = new Database();
     private final Chart chart = new Chart();
     private final Waktu waktu = new Waktu();
+    private final Text text = new Text();
     public Dashboard() {
         initComponents();
+        showMain();
 //        this.chart.showPieChart(this.pnlPieChart, "Presentase Penjualan Produk", 40, 20, 15, 25);
 //        this.chart.lineChartPenjualan(this.pnlLineChart);
 //        this.showLineChart();
@@ -58,14 +63,18 @@ public class Dashboard extends javax.swing.JPanel {
     private void initComponents() {
 
         lblDate = new javax.swing.JLabel();
-        lblPembeli = new javax.swing.JLabel();
         lblSaldo = new javax.swing.JLabel();
-        lblPpemasukan = new javax.swing.JLabel();
+        lblPemasukan = new javax.swing.JLabel();
         lblPengeluaran = new javax.swing.JLabel();
+        lblPembeli = new javax.swing.JLabel();
         lblMakanan = new javax.swing.JLabel();
         lblMinuman = new javax.swing.JLabel();
         lblAtk = new javax.swing.JLabel();
         lblSnack = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabelData = new javax.swing.JTable();
+        pnlLineChart = new javax.swing.JPanel();
+        pnlPieChart = new javax.swing.JPanel();
         background = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -74,10 +83,18 @@ public class Dashboard extends javax.swing.JPanel {
 
         lblDate.setText("-");
         add(lblDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 140, 260, 20));
-        add(lblPembeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 80, 160, 20));
+
+        lblSaldo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         add(lblSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 160, 20));
-        add(lblPpemasukan, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 150, 20));
+
+        lblPemasukan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        add(lblPemasukan, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 155, 20));
+
+        lblPengeluaran.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         add(lblPengeluaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 80, 170, 20));
+
+        lblPembeli.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        add(lblPembeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 80, 160, 20));
 
         lblMakanan.setBackground(new java.awt.Color(10, 255, 108));
         lblMakanan.setOpaque(true);
@@ -95,10 +112,129 @@ public class Dashboard extends javax.swing.JPanel {
         lblSnack.setOpaque(true);
         add(lblSnack, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 300, 40, 35));
 
+        tabelData.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
+        tabelData.setForeground(new java.awt.Color(0, 0, 0));
+        tabelData.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID Barang", "Nama Barang", "Jenis", "Stok"
+            }
+        ));
+        tabelData.setGridColor(new java.awt.Color(0, 0, 0));
+        tabelData.setSelectionBackground(new java.awt.Color(26, 164, 250));
+        tabelData.setSelectionForeground(new java.awt.Color(250, 246, 246));
+        tabelData.getTableHeader().setReorderingAllowed(false);
+        tabelData.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelDataMouseClicked(evt);
+            }
+        });
+        tabelData.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tabelDatatablDataKeyPressed(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tabelData);
+
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, 940, 260));
+
+        pnlLineChart.setBackground(new java.awt.Color(255, 255, 255));
+        pnlLineChart.setForeground(new java.awt.Color(226, 226, 0));
+        pnlLineChart.setLayout(new java.awt.BorderLayout());
+        add(pnlLineChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 430, 210));
+
+        pnlPieChart.setBackground(new java.awt.Color(255, 255, 255));
+        pnlPieChart.setForeground(new java.awt.Color(255, 255, 0));
+        pnlPieChart.setLayout(new java.awt.BorderLayout());
+        add(pnlPieChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 190, 260, 210));
+
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar/app-dashboard-075.png"))); // NOI18N
         add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 973, 768));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tabelDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataMouseClicked
+//        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+//        // menampilkan data pembeli
+//        this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow(), 0).toString();
+//        this.showData();
+//        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_tabelDataMouseClicked
+
+    private void tabelDatatablDataKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDatatablDataKeyPressed
+//        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+//        if(evt.getKeyCode() == KeyEvent.VK_UP){
+//            this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow() - 1, 0).toString();
+//            this.showData();
+//        }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
+//            this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow() + 1, 0).toString();
+//            this.showData();
+//        }
+//        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_tabelDatatablDataKeyPressed
+    private void showMain(){
+        String tanggal = waktu.getCurrentDate();
+        System.out.println("tanggal "+ tanggal);
+        String tSaldo = text.toMoneyCase(Integer.toString(db.sumData("saldo", "jumlah_saldo", "WHERE id_saldo = 'S001'")));
+        String tPemasukan = text.toMoneyCase(Integer.toString(db.sumData("laporan_pendapatan", "total_harga", "WHERE tanggal = '"+tanggal+"'")));
+        String tPengeluaran = text.toMoneyCase(Integer.toString(db.sumData("laporan_pengeluaran", "total_harga", "WHERE tanggal = '"+"2022-10-22"+"'")));
+        String tPembeli = Integer.toString(db.sumData("laporan_pengeluaran", "total_harga", "WHERE tanggal = '"+tanggal+"'"));
+        lblSaldo.setText(tSaldo);
+        lblPemasukan.setText(tPemasukan);
+        lblPengeluaran.setText(tPengeluaran);
+        lblPembeli.setText(tPembeli);
+        System.out.println("saldo "+tSaldo);
+        System.out.println("pemasukan "+tPemasukan);
+        System.out.println("pengeluaran "+tPengeluaran);
+        System.out.println("pembeli "+tPembeli);
+    }
+    private Object[][] getData(){
+//        try{
+//            Object obj[][];
+//            int rows = 0;
+//            String sql = "SELECT , nama_barang, jenis_barang, stok, harga_beli, harga_jual FROM barang " + keyword;
+//            // mendefinisikan object berdasarkan total rows dan cols yang ada didalam tabel
+//            obj = new Object[barang.getJumlahData("barang", keyword)][6];
+//            // mengeksekusi query
+//            barang.res = barang.stat.executeQuery(sql);
+//            // mendapatkan semua data yang ada didalam tabel
+//            while(barang.res.next()){
+//                // menyimpan data dari tabel ke object
+//                obj[rows][0] = barang.res.getString("id_barang");
+//                obj[rows][1] = barang.res.getString("nama_barang");
+//                obj[rows][2] = text.toCapitalize(barang.res.getString("jenis_barang"));
+//                obj[rows][3] = barang.res.getString("stok");
+//                obj[rows][4] = text.toMoneyCase(barang.res.getString("harga_beli"));
+//                obj[rows][5] = text.toMoneyCase(barang.res.getString("harga_jual"));
+//                rows++; // rows akan bertambah 1 setiap selesai membaca 1 row pada tabel
+//            }
+//            return obj;
+//        }catch(SQLException ex){
+//            Message.showException(this, "Terjadi kesalahan saat mengambil data dari database\n" + ex.getMessage(), ex, true);
+//        }
+        return null;
+    }
+    
+    private void updateTabel(){
+        this.tabelData.setModel(new javax.swing.table.DefaultTableModel(
+            getData(),
+            new String [] {
+                "Nama Transaksi", "Total Harga", "Jenis Transaksi", "Tanggal"
+            }
+        ){
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+    }
     public void showPieChart(){
         
         //create dataset
@@ -219,14 +355,18 @@ public class Dashboard extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblAtk;
     private javax.swing.JLabel lblDate;
     private javax.swing.JLabel lblMakanan;
     private javax.swing.JLabel lblMinuman;
+    private javax.swing.JLabel lblPemasukan;
     private javax.swing.JLabel lblPembeli;
     private javax.swing.JLabel lblPengeluaran;
-    private javax.swing.JLabel lblPpemasukan;
     private javax.swing.JLabel lblSaldo;
     private javax.swing.JLabel lblSnack;
+    private javax.swing.JPanel pnlLineChart;
+    private javax.swing.JPanel pnlPieChart;
+    private javax.swing.JTable tabelData;
     // End of variables declaration//GEN-END:variables
 }

@@ -147,12 +147,15 @@ public class Database {
     public int sumData(String tabel, String field, String kondisi){
         try{
             String query = "SELECT SUM("+field+") AS total FROM " + tabel + " " + kondisi;
+            System.out.println(query);
             res = stat.executeQuery(query);
             if(res.next()){
                 return res.getInt("total");
             }
         }catch(SQLException ex){
             Message.showException(this, "Terjadi Kesalahan!\n\nError message : "+ex.getMessage(), ex, true);
+        }catch(NullPointerException n){
+            return 0;
         }
         return -1;
     }

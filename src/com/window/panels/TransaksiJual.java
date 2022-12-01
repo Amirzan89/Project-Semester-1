@@ -250,7 +250,7 @@ public class TransaksiJual extends javax.swing.JPanel {
         inpNamaPetugas.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         inpNamaPetugas.setForeground(new java.awt.Color(0, 0, 0));
         inpNamaPetugas.setText(":");
-        add(inpNamaPetugas, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 209, 200, 55));
+        add(inpNamaPetugas, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 210, 200, 55));
 
         inpNamaPembeli.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         inpNamaPembeli.setForeground(new java.awt.Color(0, 0, 0));

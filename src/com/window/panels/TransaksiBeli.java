@@ -546,7 +546,7 @@ public class TransaksiBeli extends javax.swing.JPanel {
         KonfirmasiPembayaran konfirmasi = new KonfirmasiPembayaran(null, true, KonfirmasiPembayaran.OPSI_BELI);
         konfirmasi.putValueBeli(namaTr, idPetugas, idSupplier, idBarang, Integer.toString(this.jumlah), Integer.toString(this.totalHarga), this.waktu.getCurrentDate());
         konfirmasi.setVisible(true);
-        
+//        konfirmasi.
         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
         // mengecek apakah transaksi jadi menambahkan data atau tidak
         if(konfirmasi.isUpdated()){

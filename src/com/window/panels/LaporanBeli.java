@@ -16,8 +16,10 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.text.ParseException;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -55,7 +57,7 @@ public class LaporanBeli extends javax.swing.JPanel {
     /**
      * Creates new form Dashboard
      */
-    public LaporanBeli() {
+    public LaporanBeli() throws ParseException {
         initComponents();
         
 //        this.btnPrint.setUI(new javax.swing.plaf.basic.BasicButtonUI());
@@ -121,12 +123,28 @@ public class LaporanBeli extends javax.swing.JPanel {
         
 //        this.showLineChart1();
 //        this.showLineChart2();
-        
-        this.updateTabelS();
-//        this.updateTabelH();
-//        this.updateTabelM();
-//        this.updateTabelB();
-//        this.updateTabelT();
+        int hari = waktu.getTanggal();
+        String minggu[] = waktu.getMinggu(hari, -1);
+        System.out.println("hari awal "+minggu[0]);
+        System.out.println("hari akhir "+minggu[1]);
+        int bulan = waktu.getBulan()+1;
+        int tahun = waktu.getTahun();
+        System.out.println("hari "+hari);
+        System.out.println("bulan "+bulan);
+        System.out.println("tahun "+tahun);
+        this.updateTabel(tabelDataS);
+        keyword = "WHERE tanggal = '"+tahun+"-"+bulan+"-"+hari+"'";
+//        SELECT * FROM gemastik_lightning.laporan_pengeluaran WHERE tanggal = '2022-10-22'
+        this.updateTabel(tabelDataH);
+        keyword = "WHERE (tanggal BETWEEN '"+minggu[0]+"' AND '"+minggu[1]+"')";
+//        SELECT * FROM gemastik_lightning.laporan_pengeluaran WHERE (tanggal BETWEEN '2022-10-22' AND '2022-10-23');
+        this.updateTabel(tabelDataM);
+        keyword = "WHERE MONTH(tanggal) = '"+bulan+"'";
+//        SELECT * FROM gemastik_lightning.laporan_pengeluaran WHERE MONTH(tanggal) = '11'
+        this.updateTabel(tabelDataB);
+        keyword = "WHERE YEAR(tanggal) = '"+tahun+"'";
+//        SELECT * FROM gemastik_lightning.laporan_pengeluaran WHERE YEAR(tanggal) = '2022'
+        this.updateTabel(tabelDataT);
     }
     
     public void showPieChart(){
@@ -277,6 +295,7 @@ public class LaporanBeli extends javax.swing.JPanel {
             int rows = 0;
             String sql = "SELECT id_tr_beli, id_barang, jumlah_brg, total_hrg, tanggal FROM transaksi_beli " + keyword + " ORDER BY id_tr_beli DESC";
             // mendefinisikan object berdasarkan total rows dan cols yang ada didalam tabel
+            System.out.println(sql);
             obj = new Object[trb.getJumlahData("transaksi_beli", keyword)][5];
             // mengeksekusi query
             trb.res = trb.stat.executeQuery(sql);
@@ -298,8 +317,8 @@ public class LaporanBeli extends javax.swing.JPanel {
         return null;
     }
     
-    private void updateTabelS(){
-        this.tabelDataS.setModel(new javax.swing.table.DefaultTableModel(
+    private void updateTabel(JTable tabelData){
+        tabelData.setModel(new javax.swing.table.DefaultTableModel(
             getData(),
             new String [] {
                 "ID Pendapatan", "Nama Barang", "Jumlah Barang", "Total Pendapatan", "Tanggal"
@@ -314,74 +333,9 @@ public class LaporanBeli extends javax.swing.JPanel {
             }
         });
     }
-    private void updateTabelH(){
-        this.tabelDataH.setModel(new javax.swing.table.DefaultTableModel(
-            getData(),
-            new String [] {
-                "ID Pendapatan", "Nama Barang", "Jumlah Barang", "Total Pendapatan", "Tanggal"
-            }
-        ){
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-    }
-    private void updateTabelM(){
-        this.tabelDataM.setModel(new javax.swing.table.DefaultTableModel(
-            getData(),
-            new String [] {
-                "ID Pendapatan", "Nama Barang", "Jumlah Barang", "Total Pendapatan", "Tanggal"
-            }
-        ){
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-    }
-    private void updateTabelB(){
-        this.tabelDataB.setModel(new javax.swing.table.DefaultTableModel(
-            getData(),
-            new String [] {
-                "ID Pendapatan", "Nama Barang", "Jumlah Barang", "Total Pendapatan", "Tanggal"
-            }
-        ){
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-    }
-//    private void updateTabelT(){
-//        this.tabelDataT.setModel(new javax.swing.table.DefaultTableModel(
-//            getData(),
-//            new String [] {
-//                "ID Pendapatan", "Nama Barang", "Jumlah Barang", "Total Pendapatan", "Tanggal"
-//            }
-//        ){
-//            boolean[] canEdit = new boolean [] {
-//                false, false, false, false, false
-//            };
-//            @Override
-//            public boolean isCellEditable(int rowIndex, int columnIndex) {
-//                return canEdit [columnIndex];
-//            }
-//        });
-//    }
-    
-    private void showData(){
+    private void showData(JTable tabel){
         // mendapatkan data-data
-        this.idTr = this.tabelDataS.getValueAt(this.tabelDataS.getSelectedRow(), 0).toString().replace("LPG", "TRB");
+        this.idTr = tabel.getValueAt(tabel.getSelectedRow(), 0).toString().replace("LPG", "TRB");
         this.idPd = this.idTr.replace("TRB", "LPG");
         this.namaSupplier = this.supplier.getNama(this.trb.getIdSupplier(this.idTr));
         this.namaPetugas = this.petugas.getNama(this.trb.getIdPetugas(this.idTr));
@@ -419,14 +373,21 @@ public class LaporanBeli extends javax.swing.JPanel {
         btnDel = new javax.swing.JButton();
         inpCari = new javax.swing.JTextField();
         tabLaporan = new javax.swing.JTabbedPane();
+        LPSEMUA = new javax.swing.JPanel();
         lpSemua = new javax.swing.JScrollPane();
         tabelDataS = new javax.swing.JTable();
+        LPHARIAN = new javax.swing.JPanel();
         lpHarian = new javax.swing.JScrollPane();
         tabelDataH = new javax.swing.JTable();
+        LPMINGGUAN = new javax.swing.JPanel();
         lpMingguan = new javax.swing.JScrollPane();
         tabelDataM = new javax.swing.JTable();
+        LPBULANAN = new javax.swing.JPanel();
         lpBulanan = new javax.swing.JScrollPane();
         tabelDataB = new javax.swing.JTable();
+        LPTAHUNAN = new javax.swing.JPanel();
+        lpTahunan = new javax.swing.JScrollPane();
+        tabelDataT = new javax.swing.JTable();
         background = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -512,6 +473,8 @@ public class LaporanBeli extends javax.swing.JPanel {
         });
         add(inpCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 66, 255, -1));
 
+        LPSEMUA.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         tabelDataS.setBackground(new java.awt.Color(255, 255, 255));
         tabelDataS.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
         tabelDataS.setForeground(new java.awt.Color(0, 0, 0));
@@ -561,7 +524,11 @@ public class LaporanBeli extends javax.swing.JPanel {
         });
         lpSemua.setViewportView(tabelDataS);
 
-        tabLaporan.addTab("Semua", lpSemua);
+        LPSEMUA.add(lpSemua, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 540));
+
+        tabLaporan.addTab("Semua", LPSEMUA);
+
+        LPHARIAN.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tabelDataH.setBackground(new java.awt.Color(255, 255, 255));
         tabelDataH.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
@@ -612,7 +579,11 @@ public class LaporanBeli extends javax.swing.JPanel {
         });
         lpHarian.setViewportView(tabelDataH);
 
-        tabLaporan.addTab("Harian", lpHarian);
+        LPHARIAN.add(lpHarian, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 520));
+
+        tabLaporan.addTab("Harian", LPHARIAN);
+
+        LPMINGGUAN.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tabelDataM.setBackground(new java.awt.Color(255, 255, 255));
         tabelDataM.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
@@ -663,7 +634,11 @@ public class LaporanBeli extends javax.swing.JPanel {
         });
         lpMingguan.setViewportView(tabelDataM);
 
-        tabLaporan.addTab("Mingguan", lpMingguan);
+        LPMINGGUAN.add(lpMingguan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 530));
+
+        tabLaporan.addTab("Mingguan", LPMINGGUAN);
+
+        LPBULANAN.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tabelDataB.setBackground(new java.awt.Color(255, 255, 255));
         tabelDataB.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
@@ -714,7 +689,64 @@ public class LaporanBeli extends javax.swing.JPanel {
         });
         lpBulanan.setViewportView(tabelDataB);
 
-        tabLaporan.addTab("Bulanan", lpBulanan);
+        LPBULANAN.add(lpBulanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 540));
+
+        tabLaporan.addTab("Bulanan", LPBULANAN);
+
+        LPTAHUNAN.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tabelDataT.setBackground(new java.awt.Color(255, 255, 255));
+        tabelDataT.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
+        tabelDataT.setForeground(new java.awt.Color(0, 0, 0));
+        tabelDataT.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"PG0001", "Aqua 1L", "25", "Rp. 125.000.00", "1 Oktober 2022"},
+                {"PG0002", "Coca Cola", "20", "Rp. 80.000.00", "1 Oktober 2022"},
+                {"PG0003", "Aqua 500ml", "30", "Rp. 100.000.00", "1 Oktober 2022"},
+                {"PG0004", "Pulpen Snowman", "30", "Rp. 75.000.00", "1 Oktober 2022"},
+                {"PG0005", "Sprite", "15", "Rp. 48.000.00", "1 Oktober 2022"},
+                {"PG0006", "Indomilk", "5", "Rp. 40.000.00", "1 Oktober 2022"},
+                {"PG0007", "Nabati Wafer", "15", "Rp. 52.000.00", "1 Oktober 2022"},
+                {"PG0008", "Ichi Ocha 350ml", "15", "Rp. 30.000.00", "1 Oktober 2022"},
+                {"PG0009", "Oreo", "15", "Rp. 30.000.00", "1 Oktober 2022"},
+                {"PG0010", "Kertas HVS", "800", "Rp. 200.000.00", "1 Oktober 2022"},
+                {"PG0011", "Kertas Folio", "900", "Rp. 237.000.00", "1 Oktober 2022"},
+                {"PG0012", "Spidol Hitam", "15", "Rp. 30.000.00", "9 Oktober 2022"},
+                {"PG0013", "Spidol Merah", "15", "Rp. 37.500.00", "9 Oktober 2022"},
+                {"PG0014", "Spidol Biru", "15", "Rp. 37.500.00", "9 Oktober 2022"},
+                {"PG0015", "Nabati Wafer", "15", "Rp. 52.500.00", "9 Oktober 2022"},
+                {"PG0016", "Roti", "20", "Rp. 20.000.00", "9 Oktober 2022"},
+                {"PG0017", "Sprite", "20", "Rp. 60.000.00", "9 Oktober 2022"},
+                {"PG0018", "Yupi", "15", "Rp. 37.500.00", "9 Oktober 2022"},
+                {"PG0019", "Teh Pucuk", "15", "Rp. 60.000.00", "9 Oktober 2022"},
+                {"PG0020", "Coca Cola", "15", "Rp. 60.000.00", "9 Oktober 2022"},
+                {"PG0021", "Ichi Ocha 350ml", "15", "Rp. 30.000.00", "9 Oktober 2022"},
+                {"PG0022", "Yupi", "10", "Rp. 25.000.00", "9 Oktober 2022"},
+                {"PG0023", "Aqua 500ml", "15", "Rp. 75.000.00", "9 Oktober 2022"}
+            },
+            new String [] {
+                "ID Pengeluaran", "Nama Barang", "Jumlah Barang", "Total Pengeluaran", "Tanggal"
+            }
+        ));
+        tabelDataT.setGridColor(new java.awt.Color(0, 0, 0));
+        tabelDataT.setSelectionBackground(new java.awt.Color(26, 164, 250));
+        tabelDataT.setSelectionForeground(new java.awt.Color(250, 246, 246));
+        tabelDataT.getTableHeader().setReorderingAllowed(false);
+        tabelDataT.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelDataTMouseClicked(evt);
+            }
+        });
+        tabelDataT.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tabelDataTKeyPressed(evt);
+            }
+        });
+        lpTahunan.setViewportView(tabelDataT);
+
+        LPTAHUNAN.add(lpTahunan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 570));
+
+        tabLaporan.addTab("Tahunan", LPTAHUNAN);
 
         add(tabLaporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 90, 505, 600));
 
@@ -742,7 +774,7 @@ public class LaporanBeli extends javax.swing.JPanel {
                     if(delete){
                         Message.showInformation(this, "Data berhasil dihapus!");
                         // mengupdate tabel
-                        this.updateTabelS();
+                        this.updateTabel(tabelDataS);
                     }else{
                         Message.showInformation(this, "Data gagal dihapus!");
                     }
@@ -765,47 +797,84 @@ public class LaporanBeli extends javax.swing.JPanel {
     private void inpCariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inpCariKeyTyped
         String key = this.inpCari.getText();
         this.keyword = "WHERE id_tr_beli LIKE '%"+key+"%' OR id_barang LIKE '%"+key+"%'";
-        this.updateTabelS();
+        this.updateTabel(tabelDataS);
     }//GEN-LAST:event_inpCariKeyTyped
 
     private void inpCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inpCariKeyReleased
         String key = this.inpCari.getText();
         this.keyword = "WHERE id_tr_beli LIKE '%"+key+"%' OR id_barang LIKE '%"+key+"%'";
-        this.updateTabelS();
+        this.updateTabel(tabelDataS);
     }//GEN-LAST:event_inpCariKeyReleased
 
     private void tabelDataBKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDataBKeyPressed
-        // TODO add your handling code here:
+        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        if(evt.getKeyCode() == KeyEvent.VK_UP){
+            this.idSelected = this.tabelDataB.getValueAt(tabelDataB.getSelectedRow() - 1, 0).toString();
+            this.showData(tabelDataB);
+        }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
+            this.idSelected = this.tabelDataB.getValueAt(tabelDataB.getSelectedRow() + 1, 0).toString();
+            this.showData(tabelDataB);
+        }
+        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_tabelDataBKeyPressed
 
     private void tabelDataBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataBMouseClicked
-        // TODO add your handling code here:
+        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        // menampilkan data pembeli
+        this.idSelected = this.tabelDataB.getValueAt(tabelDataB.getSelectedRow(), 0).toString();
+        this.showData(tabelDataB);
+        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_tabelDataBMouseClicked
 
     private void tabelDataMKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDataMKeyPressed
-        // TODO add your handling code here:
+        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        if(evt.getKeyCode() == KeyEvent.VK_UP){
+            this.idSelected = this.tabelDataM.getValueAt(tabelDataM.getSelectedRow() - 1, 0).toString();
+            this.showData(tabelDataM);
+        }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
+            this.idSelected = this.tabelDataM.getValueAt(tabelDataM.getSelectedRow() + 1, 0).toString();
+            this.showData(tabelDataM);
+        }
+        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_tabelDataMKeyPressed
 
     private void tabelDataMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataMMouseClicked
         // TODO add your handling code here:
+        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        // menampilkan data pembeli
+        this.idSelected = this.tabelDataM.getValueAt(tabelDataM.getSelectedRow(), 0).toString();
+        this.showData(tabelDataM);
+        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_tabelDataMMouseClicked
 
     private void tabelDataHKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDataHKeyPressed
-        // TODO add your handling code here:
+        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        if(evt.getKeyCode() == KeyEvent.VK_UP){
+            this.idSelected = this.tabelDataH.getValueAt(tabelDataH.getSelectedRow() - 1, 0).toString();
+            this.showData(tabelDataH);
+        }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
+            this.idSelected = this.tabelDataH.getValueAt(tabelDataH.getSelectedRow() + 1, 0).toString();
+            this.showData(tabelDataH);
+        }
+        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_tabelDataHKeyPressed
 
     private void tabelDataHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataHMouseClicked
-        // TODO add your handling code here:
+        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        // menampilkan data pembeli
+        this.idSelected = this.tabelDataH.getValueAt(tabelDataH.getSelectedRow(), 0).toString();
+        this.showData(tabelDataH);
+        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_tabelDataHMouseClicked
 
     private void tabelDataSKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDataSKeyPressed
         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
         if(evt.getKeyCode() == KeyEvent.VK_UP){
             this.idSelected = this.tabelDataS.getValueAt(tabelDataS.getSelectedRow() - 1, 0).toString();
-            this.showData();
+            this.showData(tabelDataS);
         }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
             this.idSelected = this.tabelDataS.getValueAt(tabelDataS.getSelectedRow() + 1, 0).toString();
-            this.showData();
+            this.showData(tabelDataS);
         }
         this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_tabelDataSKeyPressed
@@ -814,12 +883,37 @@ public class LaporanBeli extends javax.swing.JPanel {
         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
         // menampilkan data pembeli
         this.idSelected = this.tabelDataS.getValueAt(tabelDataS.getSelectedRow(), 0).toString();
-        this.showData();
+        this.showData(tabelDataS);
         this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_tabelDataSMouseClicked
 
+    private void tabelDataTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataTMouseClicked
+        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        // menampilkan data pembeli
+        this.idSelected = this.tabelDataT.getValueAt(tabelDataT.getSelectedRow(), 0).toString();
+        this.showData(tabelDataT);
+        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_tabelDataTMouseClicked
+
+    private void tabelDataTKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDataTKeyPressed
+        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        if(evt.getKeyCode() == KeyEvent.VK_UP){
+            this.idSelected = this.tabelDataT.getValueAt(tabelDataT.getSelectedRow() - 1, 0).toString();
+            this.showData(tabelDataT);
+        }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
+            this.idSelected = this.tabelDataT.getValueAt(tabelDataT.getSelectedRow() + 1, 0).toString();
+            this.showData(tabelDataT);
+        }
+        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_tabelDataTKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel LPBULANAN;
+    private javax.swing.JPanel LPHARIAN;
+    private javax.swing.JPanel LPMINGGUAN;
+    private javax.swing.JPanel LPSEMUA;
+    private javax.swing.JPanel LPTAHUNAN;
     private javax.swing.JLabel background;
     private javax.swing.JButton btnDel;
     private javax.swing.JTextField inpCari;
@@ -827,11 +921,13 @@ public class LaporanBeli extends javax.swing.JPanel {
     private javax.swing.JScrollPane lpHarian;
     private javax.swing.JScrollPane lpMingguan;
     private javax.swing.JScrollPane lpSemua;
+    private javax.swing.JScrollPane lpTahunan;
     private javax.swing.JTabbedPane tabLaporan;
     private javax.swing.JTable tabelDataB;
     private javax.swing.JTable tabelDataH;
     private javax.swing.JTable tabelDataM;
     private javax.swing.JTable tabelDataS;
+    private javax.swing.JTable tabelDataT;
     private javax.swing.JLabel valHarga;
     private javax.swing.JLabel valIDPengeluaran;
     private javax.swing.JLabel valIDTransaksi;
