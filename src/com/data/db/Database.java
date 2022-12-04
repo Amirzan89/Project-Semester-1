@@ -150,11 +150,13 @@ public class Database {
             System.out.println(query);
             res = stat.executeQuery(query);
             if(res.next()){
+                System.out.println("Query telah dieksekusi "+res.getInt("total"));
                 return res.getInt("total");
             }
         }catch(SQLException ex){
             Message.showException(this, "Terjadi Kesalahan!\n\nError message : "+ex.getMessage(), ex, true);
         }catch(NullPointerException n){
+//            n.printStackTrace();
             return 0;
         }
         return -1;

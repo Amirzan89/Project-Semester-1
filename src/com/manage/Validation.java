@@ -162,7 +162,7 @@ public class Validation {
     public static boolean isTanggal(String tanggal){
         return new Waktu().isTanggal(tanggal);
     }
-    
+    //
     /**
      * @param bulan
      * @param tahun

@@ -100,8 +100,9 @@ public class DataPembeli extends javax.swing.JPanel {
         try{
             Object[][] obj;
             int rows = 0;
-            String sql = "SELECT id_pembeli, nama_pembeli, no_telp, alamat FROM pembeli " + keyword;
+            String sql = "SELECT DISTINCT id_pembeli, nama_pembeli, no_telp, alamat FROM pembeli " + keyword;
             // mendefinisikan object berdasarkan total rows dan cols yang ada didalam tabel
+            System.out.println(sql);
             obj = new Object[pembeli.getJumlahData("pembeli", keyword)][4];
             // mengeksekusi query
             pembeli.res = pembeli.stat.executeQuery(sql);

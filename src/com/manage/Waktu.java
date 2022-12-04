@@ -105,9 +105,8 @@ public class Waktu {
                 }else{
                     //done 
                     System.out.println(" logic false");
-                    c1.add(Calendar.DATE,-harike+1);
                     awal = c1.getTime();
-                    c1.add(Calendar.DATE,6);
+                    c1.add(Calendar.DATE,-harike+7);
                     akhir = c1.getTime();
                 }
             }else if(a > 6 && sisa >= 6){
@@ -164,9 +163,8 @@ public class Waktu {
                 }else{
                     //done 
                     System.out.println(" logic false");
-                    c1.add(Calendar.DATE,-harike+1);
                     awal = c1.getTime();
-                    c1.add(Calendar.DATE,6);
+                    c1.add(Calendar.DATE,-harike+7);
                     akhir = c1.getTime();
                 }
             }else if(a > 6 && sisa >= 6){

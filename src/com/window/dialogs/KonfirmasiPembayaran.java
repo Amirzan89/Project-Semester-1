@@ -69,7 +69,7 @@ public class KonfirmasiPembayaran extends javax.swing.JDialog {
     
     public void putValueBeli(String namaTrBeli, String idPetugas, String idSupplier, String idBarang, String jmlBrg, String ttlHarga, String tanggal){
         // mendapatkan data
-        this.idTr = trj.createIDTransaksi();
+        this.idTr = trb.createIDTransaksi();
         this.namaTr = namaTrBeli;
         this.idPetugas = idPetugas;
         this.idSupplier = idSupplier;
@@ -332,12 +332,14 @@ public class KonfirmasiPembayaran extends javax.swing.JDialog {
         switch(this.opsi){
             case OPSI_JUAL : {
                 save = this.trj.addTransaksiJual(namaTr, idPetugas, idPembeli, idBarang, jumlah, totalHarga, tgl);
+                System.out.println("save "+save);
                 if(save){
                     Message.showInformation(this, "Transaksi berhasil!");
                     this.isUpdated = true;
                     // mengurangi stok dari barang
-                    this.stok = Integer.parseInt(this.barang.getStok(this.idBarang)) - Integer.parseInt(this.jumlah);
-                    this.barang.setStok(this.idBarang, Integer.toString(stok));
+                    //jika menggunakan trigger maka comment code dibawah ini 
+//                    this.stok = Integer.parseInt(this.barang.getStok(this.idBarang)) - Integer.parseInt(this.jumlah);
+//                    this.barang.setStok(this.idBarang, Integer.toString(stok));
                     // menutup koneksi dan window
                     this.closeConn();
                     this.dispose();
@@ -355,12 +357,14 @@ public class KonfirmasiPembayaran extends javax.swing.JDialog {
 //                        metodeBayar, 
                         totalHarga, 
                         tgl);
+                System.out.println("save "+save);
                 if(save){
                     Message.showInformation(this, "Transaksi berhasil!");
                     this.isUpdated = true;
                     // mengurangi stok dari barang
-                    this.stok = Integer.parseInt(this.barang.getStok(this.idBarang)) + Integer.parseInt(this.jumlah);
-                    this.barang.setStok(this.idBarang, Integer.toString(stok));
+                    // jika menggunakan trigger maka comment code dibawah ini
+//                    this.stok = Integer.parseInt(this.barang.getStok(this.idBarang)) + Integer.parseInt(this.jumlah);
+//                    this.barang.setStok(this.idBarang, Integer.toString(stok));
                     // menutup koneksi dan window
                     this.closeConn();
                     this.dispose();

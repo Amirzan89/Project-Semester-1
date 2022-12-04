@@ -4,11 +4,17 @@ import com.manage.Chart;
 import com.manage.Message;
 import com.manage.Waktu;
 import com.data.db.Database;
+import com.manage.Barang;
+import com.manage.ManageTransaksiBeli;
+import com.manage.ManageTransaksiJual;
 import com.manage.Text;
 import java.awt.BorderLayout;
 import java.awt.Color;
 //import static java.awt.SystemColor.text;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -29,9 +35,24 @@ import org.jfree.data.statistics.HistogramDataset;
  */
 public class Dashboard extends javax.swing.JPanel {
     private final Database db = new Database();
+    
+    private final ManageTransaksiBeli trb = new ManageTransaksiBeli();
+    
+    private final ManageTransaksiJual trj = new ManageTransaksiJual();
+    
+    private final Barang barang = new Barang();
     private final Chart chart = new Chart();
+    
     private final Waktu waktu = new Waktu();
+    
     private final Text text = new Text();
+    
+    DateFormat tanggalMilis = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+    private final DateFormat tanggalFull = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss ");
+    private final DateFormat date = new SimpleDateFormat("dd-MM-yyyy");
+    private final DateFormat time = new SimpleDateFormat("ss:mm:hh");
+    private final DateFormat timeMillis = new SimpleDateFormat("ss.SSS:mm:hh");
+    private String keyword = "";
     public Dashboard() {
         initComponents();
         showMain();
@@ -57,6 +78,54 @@ public class Dashboard extends javax.swing.JPanel {
         }).start();
 //        this.lblPembeli.setText(Integer.toString(db.getJumlahData("laporan_pendapatan",String.format("WHERE tanggal = '" +waktu.getCurrentDate()+"' "))));
     }
+//    private Object[][] getData() throws ParseException{
+//        try{
+//            java.util.Date tanggalData = new java.util.Date();
+//            Object obj[][];
+//            int rows = 0;
+//            String sql = "SELECT id_tr_beli, id_barang, jumlah_brg, total_hrg, tanggal FROM transaksi_beli " + keyword + " ORDER BY id_tr_beli DESC";
+//            // mendefinisikan object berdasarkan total rows dan cols yang ada didalam tabel
+//            System.out.println(sql);
+//            obj = new Object[trb.getJumlahData("transaksi_beli", keyword)][6];
+//            // mengeksekusi query
+//            trb.res = trb.stat.executeQuery(sql);
+//            // mendapatkan semua data yang ada didalam tabel
+//            while(trb.res.next()){
+//                // menyimpan data dari tabel ke object
+//                obj[rows][0] = trb.res.getString("id_tr_beli").replace("TRB", "LPG");
+//                obj[rows][1] = barang.getNamaBarang(trb.res.getString("id_barang"));
+//                obj[rows][2] = trb.res.getString("jumlah_brg");
+//                obj[rows][3] = text.toMoneyCase(trb.res.getString("total_hrg"));
+//                tanggalData = tanggalMilis.parse(trb.res.getString("tanggal"));
+//                obj[rows][4] = date.format(tanggalData);
+//                obj[rows][5] = time.format(tanggalData);
+//                rows++; // rows akan bertambah 1 setiap selesai membaca 1 row pada tabel
+//            }
+//            rows = 0;
+//            sql = "SELECT id_tr_jual, id_barang, jumlah_brg, total_hrg, tanggal FROM transaksi_jual " + keyword + " ORDER BY id_tr_jual DESC";
+//            System.out.println(sql);
+//            obj = new Object[trj.getJumlahData("transaksi_jual", keyword)][6];
+//            // mengeksekusi query
+//            trj.res = trj.stat.executeQuery(sql);
+//            // mendapatkan semua data yang ada didalam tabel
+//            while(trj.res.next()){
+//                // menyimpan data dari tabel ke object
+//                obj[rows][0] = trj.res.getString("id_tr_jual").replace("TRJ", "LPD");
+//                obj[rows][1] = barang.getNamaBarang(trj.res.getString("id_barang"));
+//                obj[rows][2] = trj.res.getString("jumlah_brg");
+//                obj[rows][3] = text.toMoneyCase(trj.res.getString("total_hrg"));
+//                tanggalData = tanggalMilis.parse(trj.res.getString("tanggal"));
+//                obj[rows][4] = date.format(tanggalData);
+//                obj[rows][5] = time.format(tanggalData);
+//                rows++; // rows akan bertambah 1 setiap selesai membaca 1 row pada tabel
+//            }
+//            return obj;
+//        }catch(SQLException ex){
+//            ex.printStackTrace();
+//            Message.showException(this, "Terjadi kesalahan saat mengambil data dari database\n" + ex.getMessage(), ex, true);
+//        }
+//        return null;
+//    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -192,34 +261,7 @@ public class Dashboard extends javax.swing.JPanel {
         System.out.println("pengeluaran "+tPengeluaran);
         System.out.println("pembeli "+tPembeli);
     }
-    private Object[][] getData(){
-//        try{
-//            Object obj[][];
-//            int rows = 0;
-//            String sql = "SELECT , nama_barang, jenis_barang, stok, harga_beli, harga_jual FROM barang " + keyword;
-//            // mendefinisikan object berdasarkan total rows dan cols yang ada didalam tabel
-//            obj = new Object[barang.getJumlahData("barang", keyword)][6];
-//            // mengeksekusi query
-//            barang.res = barang.stat.executeQuery(sql);
-//            // mendapatkan semua data yang ada didalam tabel
-//            while(barang.res.next()){
-//                // menyimpan data dari tabel ke object
-//                obj[rows][0] = barang.res.getString("id_barang");
-//                obj[rows][1] = barang.res.getString("nama_barang");
-//                obj[rows][2] = text.toCapitalize(barang.res.getString("jenis_barang"));
-//                obj[rows][3] = barang.res.getString("stok");
-//                obj[rows][4] = text.toMoneyCase(barang.res.getString("harga_beli"));
-//                obj[rows][5] = text.toMoneyCase(barang.res.getString("harga_jual"));
-//                rows++; // rows akan bertambah 1 setiap selesai membaca 1 row pada tabel
-//            }
-//            return obj;
-//        }catch(SQLException ex){
-//            Message.showException(this, "Terjadi kesalahan saat mengambil data dari database\n" + ex.getMessage(), ex, true);
-//        }
-        return null;
-    }
-    
-    private void updateTabel(){
+    private void updateTabel() throws ParseException{
         this.tabelData.setModel(new javax.swing.table.DefaultTableModel(
             getData(),
             new String [] {

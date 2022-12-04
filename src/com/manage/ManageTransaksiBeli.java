@@ -1,5 +1,6 @@
 package com.manage;
 
+import com.manage.Waktu;
 import com.data.app.Log;
 import com.data.db.Database;
 import com.data.db.DatabaseTables;
@@ -12,6 +13,9 @@ import java.sql.SQLException;
  * @author Achmad Baihaqi
  */
 public class ManageTransaksiBeli extends Database{
+    
+    private final Waktu waktu = new Waktu();
+    
     private enum TRB{
         ID_TR_BELI, NAMA_TR_BELI, ID_PETUGAS, ID_SUPPLIER, ID_BARANG, 
         JUMLAH_BRG, METODE_BYR, TOTAL_HRG, TANGGAL
@@ -89,12 +93,15 @@ public class ManageTransaksiBeli extends Database{
                 pst.setInt(6, Integer.parseInt(jmlBrg));
 //                pst.setString(7, metodeByr);
                 pst.setInt(7, Integer.parseInt(ttlHarga));
-                pst.setString(8, tanggal);
+                pst.setString(8, waktu.getCurrentDateTime());
   
                 // mengekusi query
                 if(pst.executeUpdate() > 0){
                     // menambahkan laporan pendapatan
-                    return this.addLaporanPengeluaran(idLaporan, namaTrJual, idTrb, tanggal, ttlHarga);
+                    System.out.println("Sudah membuat transaksi beli");
+                    boolean valid = this.addLaporanPengeluaran(idLaporan, namaTrJual, idTrb, tanggal, ttlHarga);
+                    System.out.println("valid pembayaran "+valid);
+                    return valid;
                 }
             }
         } catch (SQLException | InValidUserDataException ex) {
@@ -111,10 +118,13 @@ public class ManageTransaksiBeli extends Database{
             pst.setString(1, idLaporan);
             pst.setString(2, namaLaporan);
             pst.setString(3, idTrj);
-            pst.setString(4, tanggal);
+            pst.setString(4, waktu.getCurrentDateTime());
             pst.setInt(5, Integer.parseInt(ttlHarga));
-            
-            return pst.executeUpdate() > 0;
+            if(pst.executeUpdate()>0){
+                System.out.println("Sudah membuat laporan pengeluaran");
+                return true;
+            }
+//            return pst.executeUpdate() > 0;
         }catch(SQLException ex){
             System.out.println("Error Message : " + ex.getMessage());
         }
