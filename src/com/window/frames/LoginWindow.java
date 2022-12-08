@@ -8,16 +8,23 @@ import com.media.Audio;
 import com.media.Gambar;
 import com.users.UserLevels;
 import com.users.Users;
+<<<<<<< HEAD
 import com.window.MainWindowMe;
+=======
+import com.window.MainWindow;
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
 
 import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.io.IOException;
 import java.sql.SQLException;
+<<<<<<< HEAD
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+=======
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
 import javax.swing.JOptionPane;
 
 /**
@@ -203,11 +210,15 @@ public class LoginWindow extends javax.swing.JFrame {
                 java.awt.EventQueue.invokeLater(new Runnable(){
                     @Override
                     public void run(){
+<<<<<<< HEAD
                         try {
                             new MainWindowMe().setVisible(true);
                         } catch (ParseException ex) {
                             Logger.getLogger(LoginWindow.class.getName()).log(Level.SEVERE, null, ex);
                         }
+=======
+                        new MainWindow().setVisible(true);
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
                     }
                 });
 

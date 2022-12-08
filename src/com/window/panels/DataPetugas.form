@@ -42,7 +42,11 @@
                           </Group>
                       </Group>
                   </Group>
+<<<<<<< HEAD
                   <Component id="jSeparator1" max="32767" attributes="0"/>
+=======
+                  <Component id="jSeparator1" pref="945" max="32767" attributes="0"/>
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
                   <Group type="102" attributes="0">
                       <Component id="btnAdd" min="-2" pref="141" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>

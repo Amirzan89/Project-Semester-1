@@ -34,7 +34,11 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class DataPetugas extends javax.swing.JPanel {
     
+<<<<<<< HEAD
     private final Petugas karyawan = new Petugas();
+=======
+    private final Petugas petugas = new Petugas();
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
     
     private final Internet net = new Internet();
     
@@ -164,6 +168,7 @@ public class DataPetugas extends javax.swing.JPanel {
 
     private Object[][] getData(){
         try{
+<<<<<<< HEAD
             karyawan.startConnection();
             Object[][] obj;
             int rows = 0;
@@ -180,6 +185,24 @@ public class DataPetugas extends javax.swing.JPanel {
                 obj[rows][1] = karyawan.res.getString("nama_karyawan");
                 obj[rows][2] = karyawan.res.getString("no_telp");
                 obj[rows][3] = karyawan.res.getString("alamat");
+=======
+            petugas.startConnection();
+            Object[][] obj;
+            int rows = 0;
+            String sql = "SELECT id_petugas, nama_petugas, no_telp, alamat FROM petugas " + keyword, id;
+            // mendefinisikan object berdasarkan total rows dan cols yang ada didalam tabel
+            obj = new Object[petugas.getJumlahData(DatabaseTables.PETUGAS.name())][4];
+            // mengeksekusi query
+            petugas.res = petugas.stat.executeQuery(sql);
+            // mendapatkan semua data yang ada didalam tabel
+            while(petugas.res.next()){
+                // menyimpan data dari tabel ke object
+                id = petugas.res.getString("id_petugas");
+                obj[rows][0] = id;
+                obj[rows][1] = petugas.res.getString("nama_petugas");
+                obj[rows][2] = petugas.res.getString("no_telp");
+                obj[rows][3] = petugas.res.getString("alamat");
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
                 rows++; // rows akan bertambah 1 setiap selesai membaca 1 row pada tabel
             }
             return obj;
@@ -209,6 +232,7 @@ public class DataPetugas extends javax.swing.JPanel {
     
     public void showData(){
         // mendapatkan data
+<<<<<<< HEAD
         this.namaPetugas = karyawan.getNama(this.idSelected);
         this.noTelp = text.toTelephoneCase(karyawan.getNoTelp(this.idSelected));
         this.alamat = karyawan.getAlamat(this.idSelected);
@@ -216,6 +240,15 @@ public class DataPetugas extends javax.swing.JPanel {
         this.ttlTrBeli = ""+this.karyawan.getJumlahData(DatabaseTables.TRANSAKSI_BELI.name(), "WHERE id_karyawan = '" + this.idSelected + "'");
         this.ttlTrJual = ""+this.karyawan.getJumlahData(DatabaseTables.TRANSAKSI_JUAL.name(), "WHERE id_karyawan = '" + this.idSelected + "'");
         this.last = this.text.toDateCase(this.karyawan.getData(DatabaseTables.TRANSAKSI_JUAL.name(), "tanggal", "WHERE id_karyawan = '" + this.idSelected + "' ORDER BY tanggal DESC"));
+=======
+        this.namaPetugas = petugas.getNama(this.idSelected);
+        this.noTelp = text.toTelephoneCase(petugas.getNoTelp(this.idSelected));
+        this.alamat = petugas.getAlamat(this.idSelected);
+        this.level = text.toCapitalize(petugas.getLevel(this.idSelected).name());
+        this.ttlTrBeli = ""+this.petugas.getJumlahData(DatabaseTables.TRANSAKSI_BELI.name(), "WHERE id_petugas = '" + this.idSelected + "'");
+        this.ttlTrJual = ""+this.petugas.getJumlahData(DatabaseTables.TRANSAKSI_JUAL.name(), "WHERE id_petugas = '" + this.idSelected + "'");
+        this.last = this.text.toDateCase(this.petugas.getData(DatabaseTables.TRANSAKSI_JUAL.name(), "tanggal", "WHERE id_petugas = '" + this.idSelected + "' ORDER BY tanggal DESC"));
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
         
         // menampilkan data
         this.valIDPetugas.setText("<html><p>:&nbsp;"+idSelected+"</p></html>");
@@ -583,13 +616,18 @@ public class DataPetugas extends javax.swing.JPanel {
         boolean delete;
 
         // mengecek apakah user memiliki level admin
+<<<<<<< HEAD
         if(karyawan.isAdmin()){
+=======
+        if(petugas.isAdmin()){
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
             // mengecek apakah ada data yang dipilih atau tidak
             if (tabelData.getSelectedRow() > -1) {
                 // membuka confirm dialog untuk menghapus data
                 Audio.play(Audio.SOUND_INFO);
                 status = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus '" + this.namaPetugas + "' ?", "Confirm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
 
+<<<<<<< HEAD
                 // mengecek pilihan dari karyawan
                 switch (status) {
                     // jika yes maka data akan dihapus
@@ -598,6 +636,16 @@ public class DataPetugas extends javax.swing.JPanel {
                         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
                         delete = this.karyawan.deletePetugas(this.idSelected);
                         // mengecek apakah data karyawan berhasil terhapus atau tidak
+=======
+                // mengecek pilihan dari petugas
+                switch (status) {
+                    // jika yes maka data akan dihapus
+                    case JOptionPane.YES_OPTION:
+                        // menghapus data petugas
+                        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+                        delete = this.petugas.deletePetugas(this.idSelected);
+                        // mengecek apakah data petugas berhasil terhapus atau tidak
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
                         if (delete) {
                             Message.showInformation(this, "Data berhasil dihapus!");
                             // mengupdate tabel
@@ -618,14 +666,23 @@ public class DataPetugas extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // mengecek apakah user memiliki level admin
+<<<<<<< HEAD
         if(karyawan.isAdmin()){
             // membuka window input karyawan
+=======
+        if(petugas.isAdmin()){
+            // membuka window input petugas
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
             Audio.play(Audio.SOUND_INFO);
             InputPetugas tbh = new InputPetugas(null, true, null);
             tbh.setVisible(true);
 
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+<<<<<<< HEAD
             // mengecek apakah karyawan jadi menambahkan data atau tidak
+=======
+            // mengecek apakah petugas jadi menambahkan data atau tidak
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
             if(tbh.isUpdated()){
                 // mengupdate tabel
                 this.updateTabel();
@@ -639,16 +696,27 @@ public class DataPetugas extends javax.swing.JPanel {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // mengecek apakah user memiliki level admin
+<<<<<<< HEAD
         if(karyawan.isAdmin()){
             // mengecek apakah ada data yang dipilih atau tidak
             if(tabelData.getSelectedRow() > -1){
                 // membuka window input karyawan
+=======
+        if(petugas.isAdmin()){
+            // mengecek apakah ada data yang dipilih atau tidak
+            if(tabelData.getSelectedRow() > -1){
+                // membuka window input petugas
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
                 Audio.play(Audio.SOUND_INFO);
                 InputPetugas tbh = new InputPetugas(null, true, this.idSelected);
                 tbh.setVisible(true);
 
                 this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+<<<<<<< HEAD
                 // mengecek apakah karyawan jadi mengedit data atau tidak
+=======
+                // mengecek apakah petugas jadi mengedit data atau tidak
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
                 if(tbh.isUpdated()){
                     // mengupdate tabel dan menampilkan ulang data
                     this.updateTabel();
@@ -732,7 +800,11 @@ public class DataPetugas extends javax.swing.JPanel {
 
     private void inpCariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inpCariKeyTyped
         String key = this.inpCari.getText();
+<<<<<<< HEAD
         this.keyword = "WHERE id_karyawan LIKE '%"+key+"%' OR nama_karyawan LIKE '%"+key+"%'";
+=======
+        this.keyword = "WHERE id_petugas LIKE '%"+key+"%' OR nama_petugas LIKE '%"+key+"%'";
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
         this.updateTabel();
     }//GEN-LAST:event_inpCariKeyTyped
 

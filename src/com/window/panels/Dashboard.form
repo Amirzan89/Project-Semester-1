@@ -156,6 +156,7 @@
                 <Column editable="true" title="Stok" type="java.lang.Object"/>
               </Table>
             </Property>
+<<<<<<< HEAD
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
@@ -180,6 +181,8 @@
                 </Column>
               </TableColumnModel>
             </Property>
+=======
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
             <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>

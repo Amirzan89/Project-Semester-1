@@ -77,13 +77,20 @@ public class ManageTransaksiJual extends Database{
     public boolean addTransaksiJual(String namaTrJual, String idPetugas, String idPembeli, String idBarang, String jmlBrg, String ttlHarga, String tanggal){
         PreparedStatement pst;
         String idTrj = this.createIDTransaksi(), idLaporan = this.createIDLaporan();
+<<<<<<< HEAD
         boolean valid = false;
+=======
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
         try {
             // validasi data sebelum ditambahkan
             if(this.validateAddTransaksiJual(idTrj, namaTrJual, idPetugas, idPembeli, idBarang, jmlBrg,  ttlHarga, tanggal)){
                 Log.addLog(String.format("Menambahkan data transaksi jual dengan ID Transaksi '%s' ", idTrj));
                 // menambahkan data kedalam Database
+<<<<<<< HEAD
                 pst = this.conn.prepareStatement("INSERT INTO transaksi_jual(`id_tr_jual`, `nama_tr_jual`, `id_petugas`, `id_pembeli`, `id_barang`, `jumlah_brg`, `total_hrg`, `tanggal`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+=======
+                pst = this.conn.prepareStatement("INSERT INTO transaksi_jual VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
                 pst.setString(1, idTrj);
                 pst.setString(2, namaTrJual);
                 pst.setString(3, idPetugas);
@@ -93,6 +100,7 @@ public class ManageTransaksiJual extends Database{
 //                pst.setString(7, metodeByr);
                 pst.setInt(7, Integer.parseInt(ttlHarga));
                 pst.setString(8, waktu.getCurrentDateTime());
+<<<<<<< HEAD
                 System.out.println(pst);
                 // mengekusi query
                 if(pst.executeUpdate() > 0){
@@ -102,12 +110,23 @@ public class ManageTransaksiJual extends Database{
                     //comment kode ini jika tidak menggunakan laporan
 //                    boolean valid = this.addLaporanPendapatan(idLaporan, namaTrJual, idTrj, tanggal, ttlHarga);
                     valid = true;
+=======
+                
+                // mengekusi query
+                if(pst.executeUpdate() > 0){
+                    // menambahkan laporan pendapatan
+                    System.out.println("Sudah membuat transaksi jual");
+                    boolean valid = this.addLaporanPendapatan(idLaporan, namaTrJual, idTrj, tanggal, ttlHarga);
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
                     System.out.println("valid pembayaran "+valid);
                     return valid;
                 }
             }
         } catch (SQLException | InValidUserDataException ex) {
+<<<<<<< HEAD
             ex.printStackTrace();
+=======
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
             System.out.println("Error Message : " + ex.getMessage());
         }
         return false;

@@ -329,14 +329,20 @@ public class KonfirmasiPembayaran extends javax.swing.JDialog {
 
     private void btnKonfirmasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKonfirmasiActionPerformed
         boolean save;
+<<<<<<< HEAD
         System.out.println("prepared transaksi");
+=======
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
         switch(this.opsi){
             case OPSI_JUAL : {
                 save = this.trj.addTransaksiJual(namaTr, idPetugas, idPembeli, idBarang, jumlah, totalHarga, tgl);
                 System.out.println("save "+save);
                 if(save){
                     Message.showInformation(this, "Transaksi berhasil!");
+<<<<<<< HEAD
                     System.out.println("transaksi berhasil dilakukan");
+=======
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
                     this.isUpdated = true;
                     // mengurangi stok dari barang
                     //jika menggunakan trigger maka comment code dibawah ini 
@@ -344,12 +350,17 @@ public class KonfirmasiPembayaran extends javax.swing.JDialog {
 //                    this.barang.setStok(this.idBarang, Integer.toString(stok));
                     // menutup koneksi dan window
                     this.closeConn();
+<<<<<<< HEAD
                     System.out.println("PREPARE DISPOSE");
                     this.dispose();
                 }else{
                     System.out.println("transaksi gagal dilakukan");
                 }
                 System.out.println("DI EKSEKUSI setalah jual");
+=======
+                    this.dispose();
+                }
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
                 break;
             }
             case OPSI_BELI : {

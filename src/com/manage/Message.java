@@ -348,12 +348,18 @@ public class Message {
      * @param addLog jika <code>true</code> informasi akan ditambahkan ke log.
      */
     public static void showInformation(Object obj, String msg, boolean addLog){
+<<<<<<< HEAD
         System.out.println("PESIAPAN AUDIO");
         // menampilkan dialog pesan ke layar
         Audio.play(Audio.SOUND_INFO);
         System.out.println("SETELAH EKSEKUSI AUDIO");
         JOptionPane.showMessageDialog(null, msg, "Information", JOptionPane.INFORMATION_MESSAGE);
         System.out.println("PESAN TELAH DITAMPILKAN");
+=======
+        // menampilkan dialog pesan ke layar
+        Audio.play(Audio.SOUND_INFO);
+        JOptionPane.showMessageDialog(null, msg, "Information", JOptionPane.INFORMATION_MESSAGE);
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
         
         // mengecek apakah pesan akan disimpan kedalam log atau tidak
         if(addLog){
@@ -390,6 +396,7 @@ public class Message {
      * @param addLog jika <code>true</code> informasi akan ditambahkan ke log.
      */
     public static void showInformation(Component parent, String msg, boolean addLog){
+<<<<<<< HEAD
         System.out.println("PERSIAPAN AUDIO");
         // menampilkan dialog pesan ke layar
         Audio.play(Audio.SOUND_INFO);
@@ -397,6 +404,12 @@ public class Message {
         JOptionPane.showMessageDialog(parent, msg, "Information", JOptionPane.INFORMATION_MESSAGE);
         
         System.out.println("SETELAH EKSEKUSI OPTION MESSAGE");
+=======
+        // menampilkan dialog pesan ke layar
+        Audio.play(Audio.SOUND_INFO);
+        JOptionPane.showMessageDialog(parent, msg, "Information", JOptionPane.INFORMATION_MESSAGE);
+        
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
         // mengecek apakah pesan akan disimpan kedalam log atau tidak
         if(addLog){
             // jika parent tidak null

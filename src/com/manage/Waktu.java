@@ -76,6 +76,7 @@ public class Waktu {
         data[1] = formatTanggal.format(tanggal[1]);
         return data;
     }
+<<<<<<< HEAD
     public String[] getMinggu1 (int a,int b) throws ParseException{
         SimpleDateFormat formatTanggal = new SimpleDateFormat("yyyy-MM-dd");
         Date tanggal[] = new Date[2];
@@ -85,6 +86,8 @@ public class Waktu {
         data[1] = formatTanggal.format(tanggal[1]);
         return data;
     }
+=======
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
     public Date[] weekk(int a,int b) throws ParseException{
         SimpleDateFormat formatTanggal = new SimpleDateFormat("dd-MM-yyyy");
         Calendar calendar = Calendar.getInstance(); //tanggal sekarang

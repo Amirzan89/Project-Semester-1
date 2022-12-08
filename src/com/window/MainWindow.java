@@ -40,7 +40,11 @@ public class MainWindow extends javax.swing.JFrame {
     
     private JLabel[] btns;
     
+<<<<<<< HEAD
     public MainWindow() throws ParseException {
+=======
+    public MainWindow() {
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
         initComponents();
         
         this.setTitle("Dashboard");
@@ -272,6 +276,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void btnDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDashboardMouseClicked
+<<<<<<< HEAD
         try {
             //        this.lblMenuName.setText("Dashboard");
             this.setTitle("Dashboard");
@@ -289,6 +294,21 @@ public class MainWindow extends javax.swing.JFrame {
         } catch (ParseException ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
+=======
+        //        this.lblMenuName.setText("Dashboard");
+        this.setTitle("Dashboard");
+        this.setActivatedButton(this.btnDashboard);
+
+        // menghaspus panel lama
+        pnlMenu.removeAll();
+        pnlMenu.repaint();
+        pnlMenu.revalidate();
+
+        // menambahkan panel baru
+        pnlMenu.add(new com.window.panels.Dashboard());
+        pnlMenu.repaint();
+        pnlMenu.revalidate();
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
     }//GEN-LAST:event_btnDashboardMouseClicked
 
     private void btnBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBarangMouseClicked
@@ -438,11 +458,15 @@ public class MainWindow extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
+<<<<<<< HEAD
                 try {
                     new MainWindow().setVisible(true);
                 } catch (ParseException ex) {
                     Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
                 }
+=======
+                new MainWindow().setVisible(true);
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
             }
         });
     }

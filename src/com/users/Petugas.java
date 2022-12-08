@@ -16,11 +16,19 @@ public class Petugas extends Users{
     private final Text text = new Text();
     
     public String createID(){
+<<<<<<< HEAD
         return super.createID(UserLevels.KARYAWAN, UserData.ID_KARYAWAN);
     }
     
     public boolean isExistPetugas(String idPetugas){
         return super.isExistID(idPetugas, UserLevels.PETUGAS, UserData.ID_KARYAWAN);
+=======
+        return super.createID(UserLevels.PETUGAS, UserData.ID_PETUGAS);
+    }
+    
+    public boolean isExistPetugas(String idPetugas){
+        return super.isExistID(idPetugas, UserLevels.PETUGAS, UserData.ID_PETUGAS);
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
     }
     
     public final boolean addPetugas(String namaPetugas, String noTelp, String alamat, String pass, UserLevels level){
@@ -36,7 +44,11 @@ public class Petugas extends Users{
                 if(this.validateAddPetugas(idPetugas, namaPetugas, noTelp, alamat, pass, level)){
                     Log.addLog("Menambahkan data petugas dengan nama '" + namaPetugas + "'");
                     // menambahkan data kedalam Database
+<<<<<<< HEAD
                     pst = this.conn.prepareStatement("INSERT INTO karyawan VALUES (?, ?, ?, ?)");
+=======
+                    pst = this.conn.prepareStatement("INSERT INTO petugas VALUES (?, ?, ?, ?)");
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
                     pst.setString(1, idPetugas);
                     pst.setString(2, text.toCapitalize(namaPetugas));
                     pst.setString(3, noTelp);
@@ -68,7 +80,11 @@ public class Petugas extends Users{
         if(Validation.isNamaOrang(namaPetugas)){
             vNama = true;
         }else{
+<<<<<<< HEAD
             throw new InValidUserDataException("'" + namaPetugas + "' Nama Karyawan tersebut tidak valid.");
+=======
+            throw new InValidUserDataException("'" + namaPetugas + "' Nama Petugas tersebut tidak valid.");
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
         }
                 
         // mengecek apakah no hp valid atau tidak
@@ -107,7 +123,11 @@ public class Petugas extends Users{
     }
     
     private String getDataPetugas(String idPetugas, UserData data){
+<<<<<<< HEAD
         return super.getUserData(idPetugas, UserLevels.PETUGAS, data, UserData.ID_KARYAWAN);
+=======
+        return super.getUserData(idPetugas, UserLevels.PETUGAS, data, UserData.ID_PETUGAS);
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
     }
     
     public String getNama(String idPetugas){
@@ -123,7 +143,11 @@ public class Petugas extends Users{
     }
     
     private boolean setDataPetugas(String idPetugas, UserData data, String newValue){
+<<<<<<< HEAD
         return super.setUserData(idPetugas, UserLevels.PETUGAS, data, UserData.ID_KARYAWAN, newValue);
+=======
+        return super.setUserData(idPetugas, UserLevels.PETUGAS, data, UserData.ID_PETUGAS, newValue);
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
     }
     
     public boolean setNama(String idPetugas, String newNama){

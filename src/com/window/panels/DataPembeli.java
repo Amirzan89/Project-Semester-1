@@ -19,6 +19,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
+<<<<<<< HEAD
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,6 +27,9 @@ import java.util.Date;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+=======
+import java.util.Random;
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -47,12 +51,15 @@ public class DataPembeli extends javax.swing.JPanel {
 
     private String idSelected = "", keyword = "", namaPembeli, noTelp, alamat, favorite, ttlPem, ttlUang, last;
     
+<<<<<<< HEAD
     DateFormat tanggalMilis = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
     private final DateFormat tanggalFull = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss ");
     private final DateFormat date = new SimpleDateFormat("dd-MM-yyyy");
     private final DateFormat date1 = new SimpleDateFormat("yyyy-MM-dd");
     private final DateFormat time = new SimpleDateFormat("ss:mm:hh");
     private final DateFormat timeMillis = new SimpleDateFormat("ss.SSS:mm:hh");
+=======
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
     
     public DataPembeli() {
         initComponents();
@@ -177,20 +184,30 @@ public class DataPembeli extends javax.swing.JPanel {
         return this.barang.getNamaBarang(String.format("BG%03d", rand.nextInt(16)+1));
     }
     
+<<<<<<< HEAD
     private void showData() throws ParseException{
         // mendapatkan data
         String tanggalPenuh;
         Date tanggal = new Date();
+=======
+    private void showData(){
+        // mendapatkan data
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
         this.namaPembeli = pembeli.getNama(this.idSelected);
         this.noTelp = text.toTelephoneCase(pembeli.getNoTelp(this.idSelected));
         this.alamat = pembeli.getAlamat(this.idSelected);
         this.ttlPem = ""+this.pembeli.getJumlahData(DatabaseTables.TRANSAKSI_JUAL.name(), "WHERE id_pembeli = '" + this.idSelected + "'");
         this.ttlUang = text.toMoneyCase("" + this.pembeli.sumData(DatabaseTables.TRANSAKSI_JUAL.name(), "total_hrg", String.format("where id_pembeli = '%s'", this.idSelected)));
+<<<<<<< HEAD
         tanggalPenuh = this.pembeli.getData(DatabaseTables.TRANSAKSI_JUAL.name(), "tanggal", "WHERE id_pembeli = '" + this.idSelected + "'  ORDER BY tanggal DESC");
         this.favorite = this.gachaFavorite();
         System.out.println("tanggal "+ tanggalPenuh);
         tanggal = tanggalMilis.parse(tanggalPenuh);
         this.last = date.format(tanggal);
+=======
+        this.last = this.text.toDateCase(this.pembeli.getData(DatabaseTables.TRANSAKSI_JUAL.name(), "tanggal", "WHERE id_pembeli = '" + this.idSelected + "'  ORDER BY tanggal DESC"));
+        this.favorite = this.gachaFavorite();
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
         
         // menampilkan data
         this.valIDPembeli.setText("<html><p>:&nbsp;"+idSelected+"</p></html>");
@@ -432,6 +449,7 @@ public class DataPembeli extends javax.swing.JPanel {
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             // mengecek apakah user jadi mengedit data atau tidak
             if(tbh.isUpdated()){
+<<<<<<< HEAD
                 try {
                     // mengupdate tabel dan menampilkan ulang data
                     this.updateTabel();
@@ -439,6 +457,11 @@ public class DataPembeli extends javax.swing.JPanel {
                 } catch (ParseException ex) {
                     Logger.getLogger(DataPembeli.class.getName()).log(Level.SEVERE, null, ex);
                 }
+=======
+                // mengupdate tabel dan menampilkan ulang data
+                this.updateTabel();
+                this.showData();
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
             }
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }else{
@@ -463,6 +486,7 @@ public class DataPembeli extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDelMouseExited
 
     private void tabelDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataMouseClicked
+<<<<<<< HEAD
         try {
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             // menampilkan data pembeli
@@ -472,11 +496,19 @@ public class DataPembeli extends javax.swing.JPanel {
         } catch (ParseException ex) {
             Logger.getLogger(DataPembeli.class.getName()).log(Level.SEVERE, null, ex);
         }
+=======
+        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        // menampilkan data pembeli
+        this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow(), 0).toString();
+        this.showData();
+        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
     }//GEN-LAST:event_tabelDataMouseClicked
 
     private void tabelDataKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDataKeyPressed
         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
         if(evt.getKeyCode() == KeyEvent.VK_UP){
+<<<<<<< HEAD
             try {
                 this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow() - 1, 0).toString();
                 this.showData();
@@ -490,6 +522,13 @@ public class DataPembeli extends javax.swing.JPanel {
             } catch (ParseException ex) {
                 Logger.getLogger(DataPembeli.class.getName()).log(Level.SEVERE, null, ex);
             }
+=======
+            this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow() - 1, 0).toString();
+            this.showData();
+        }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
+            this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow() + 1, 0).toString();
+            this.showData();
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
         }
         this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_tabelDataKeyPressed

@@ -1,6 +1,9 @@
 package com.window.panels;
 
+<<<<<<< HEAD
 import java.util.Date;
+=======
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
 import com.manage.Chart;
 import com.manage.Message;
 import com.manage.Waktu;
@@ -16,8 +19,11 @@ import java.sql.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+<<<<<<< HEAD
 import java.util.logging.Level;
 import java.util.logging.Logger;
+=======
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -37,11 +43,16 @@ import org.jfree.data.statistics.HistogramDataset;
  * @author Amirzan Fikri P
  */
 public class Dashboard extends javax.swing.JPanel {
+<<<<<<< HEAD
     
     private final Database db = new Database();
     
 //    private final Statement stat = db.stat;
     
+=======
+    private final Database db = new Database();
+    
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
     private final ManageTransaksiBeli trb = new ManageTransaksiBeli();
     
     private final ManageTransaksiJual trj = new ManageTransaksiJual();
@@ -53,6 +64,7 @@ public class Dashboard extends javax.swing.JPanel {
     
     private final Text text = new Text();
     
+<<<<<<< HEAD
     private int hari,bulan, tahun;
     
     DateFormat tanggalMilis = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
@@ -75,6 +87,20 @@ public class Dashboard extends javax.swing.JPanel {
         this.chart.showPieChart(this.pnlPieChart, "Presentase Penjualan Produk", 40, 20, 15, 25);
         this.chart.lineChartPenjualan(this.pnlLineChart);
         this.showLineChart();
+=======
+    DateFormat tanggalMilis = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+    private final DateFormat tanggalFull = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss ");
+    private final DateFormat date = new SimpleDateFormat("dd-MM-yyyy");
+    private final DateFormat time = new SimpleDateFormat("ss:mm:hh");
+    private final DateFormat timeMillis = new SimpleDateFormat("ss.SSS:mm:hh");
+    private String keyword = "";
+    public Dashboard() {
+        initComponents();
+        showMain();
+//        this.chart.showPieChart(this.pnlPieChart, "Presentase Penjualan Produk", 40, 20, 15, 25);
+//        this.chart.lineChartPenjualan(this.pnlLineChart);
+//        this.showLineChart();
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
         
         // mengupdate waktu
         new Thread(new Runnable(){
@@ -93,6 +119,7 @@ public class Dashboard extends javax.swing.JPanel {
             }
         }).start();
 //        this.lblPembeli.setText(Integer.toString(db.getJumlahData("laporan_pendapatan",String.format("WHERE tanggal = '" +waktu.getCurrentDate()+"' "))));
+<<<<<<< HEAD
 //        updateTabel();
     }
     private Statement getStat(){
@@ -270,6 +297,57 @@ public class Dashboard extends javax.swing.JPanel {
         }
         return null;
     }
+=======
+    }
+//    private Object[][] getData() throws ParseException{
+//        try{
+//            java.util.Date tanggalData = new java.util.Date();
+//            Object obj[][];
+//            int rows = 0;
+//            String sql = "SELECT id_tr_beli, id_barang, jumlah_brg, total_hrg, tanggal FROM transaksi_beli " + keyword + " ORDER BY id_tr_beli DESC";
+//            // mendefinisikan object berdasarkan total rows dan cols yang ada didalam tabel
+//            System.out.println(sql);
+//            obj = new Object[trb.getJumlahData("transaksi_beli", keyword)][6];
+//            // mengeksekusi query
+//            trb.res = trb.stat.executeQuery(sql);
+//            // mendapatkan semua data yang ada didalam tabel
+//            while(trb.res.next()){
+//                // menyimpan data dari tabel ke object
+//                obj[rows][0] = trb.res.getString("id_tr_beli").replace("TRB", "LPG");
+//                obj[rows][1] = barang.getNamaBarang(trb.res.getString("id_barang"));
+//                obj[rows][2] = trb.res.getString("jumlah_brg");
+//                obj[rows][3] = text.toMoneyCase(trb.res.getString("total_hrg"));
+//                tanggalData = tanggalMilis.parse(trb.res.getString("tanggal"));
+//                obj[rows][4] = date.format(tanggalData);
+//                obj[rows][5] = time.format(tanggalData);
+//                rows++; // rows akan bertambah 1 setiap selesai membaca 1 row pada tabel
+//            }
+//            rows = 0;
+//            sql = "SELECT id_tr_jual, id_barang, jumlah_brg, total_hrg, tanggal FROM transaksi_jual " + keyword + " ORDER BY id_tr_jual DESC";
+//            System.out.println(sql);
+//            obj = new Object[trj.getJumlahData("transaksi_jual", keyword)][6];
+//            // mengeksekusi query
+//            trj.res = trj.stat.executeQuery(sql);
+//            // mendapatkan semua data yang ada didalam tabel
+//            while(trj.res.next()){
+//                // menyimpan data dari tabel ke object
+//                obj[rows][0] = trj.res.getString("id_tr_jual").replace("TRJ", "LPD");
+//                obj[rows][1] = barang.getNamaBarang(trj.res.getString("id_barang"));
+//                obj[rows][2] = trj.res.getString("jumlah_brg");
+//                obj[rows][3] = text.toMoneyCase(trj.res.getString("total_hrg"));
+//                tanggalData = tanggalMilis.parse(trj.res.getString("tanggal"));
+//                obj[rows][4] = date.format(tanggalData);
+//                obj[rows][5] = time.format(tanggalData);
+//                rows++; // rows akan bertambah 1 setiap selesai membaca 1 row pada tabel
+//            }
+//            return obj;
+//        }catch(SQLException ex){
+//            ex.printStackTrace();
+//            Message.showException(this, "Terjadi kesalahan saat mengambil data dari database\n" + ex.getMessage(), ex, true);
+//        }
+//        return null;
+//    }
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -392,10 +470,17 @@ public class Dashboard extends javax.swing.JPanel {
     private void showMain(){
         String tanggal = waktu.getCurrentDate();
         System.out.println("tanggal "+ tanggal);
+<<<<<<< HEAD
         String tSaldo = text.toMoneyCase(Integer.toString(getTotal("saldo", "jumlah_saldo", "WHERE id_saldo = 'S001'")));
         String tPemasukan = text.toMoneyCase(Integer.toString(getTotal("transaksi_jual", "total_hrg", "WHERE YEAR(tanggal) = '"+tahun+"' AND MONTH(tanggal) = '"+bulan+"' AND DAY(tanggal) = '"+hari+"'")));
         String tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "WHERE YEAR(tanggal) = '"+tahun+"' AND MONTH(tanggal) = '"+bulan+"' AND DAY(tanggal) = '"+hari+"'")));
         String tPembeli = Integer.toString(getTotal("transaksi_jual", "id_pembeli", "WHERE YEAR(tanggal) = '"+tahun+"' AND MONTH(tanggal) = '"+bulan+"' AND DAY(tanggal) = '"+hari+"'"));
+=======
+        String tSaldo = text.toMoneyCase(Integer.toString(db.sumData("saldo", "jumlah_saldo", "WHERE id_saldo = 'S001'")));
+        String tPemasukan = text.toMoneyCase(Integer.toString(db.sumData("laporan_pendapatan", "total_harga", "WHERE tanggal = '"+tanggal+"'")));
+        String tPengeluaran = text.toMoneyCase(Integer.toString(db.sumData("laporan_pengeluaran", "total_harga", "WHERE tanggal = '"+"2022-10-22"+"'")));
+        String tPembeli = Integer.toString(db.sumData("laporan_pengeluaran", "total_harga", "WHERE tanggal = '"+tanggal+"'"));
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
         lblSaldo.setText(tSaldo);
         lblPemasukan.setText(tPemasukan);
         lblPengeluaran.setText(tPengeluaran);
@@ -409,7 +494,11 @@ public class Dashboard extends javax.swing.JPanel {
         this.tabelData.setModel(new javax.swing.table.DefaultTableModel(
             getData(),
             new String [] {
+<<<<<<< HEAD
                 "Nama Transaksi", "Total Harga", "Jenis Transaksi", "Tanggal","Waktu"
+=======
+                "Nama Transaksi", "Total Harga", "Jenis Transaksi", "Tanggal"
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
             }
         ){
             boolean[] canEdit = new boolean [] {
@@ -466,7 +555,11 @@ public class Dashboard extends javax.swing.JPanel {
         //create chart
         JFreeChart linechart = ChartFactory.createLineChart("Penjualan Produk","Hari","Jumlah", 
                 dataset, PlotOrientation.VERTICAL, false,true,false);
+<<<<<<< HEAD
 //        linechart.setTitle(new TextTitle("Penjualan Produk Minggu Ini", new java.awt.Font("Ebrima", 1, 21)));
+=======
+        linechart.setTitle(new TextTitle("Penjualan Produk Minggu Ini", new java.awt.Font("Ebrima", 1, 21)));
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
         
         //create plot object
          CategoryPlot lineCategoryPlot = linechart.getCategoryPlot();

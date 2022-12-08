@@ -7,9 +7,12 @@ import com.media.Gambar;
 import com.users.Users;
 import com.window.MainWindow;
 import com.window.MainWindowMe;
+<<<<<<< HEAD
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+=======
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
 import javax.swing.JOptionPane;
 
 
@@ -105,11 +108,15 @@ public class SplashWindow extends javax.swing.JFrame {
                         java.awt.EventQueue.invokeLater(new Runnable(){
                             @Override
                             public void run(){
+<<<<<<< HEAD
                                 try {
                                     new MainWindowMe().setVisible(true);
                                 } catch (ParseException ex) {
                                     Logger.getLogger(SplashWindow.class.getName()).log(Level.SEVERE, null, ex);
                                 }
+=======
+                                new MainWindowMe().setVisible(true);
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
                             }
                         });
                             // jika user login dengan level admin atau petugas

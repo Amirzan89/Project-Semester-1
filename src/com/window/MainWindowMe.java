@@ -33,7 +33,11 @@ public class MainWindowMe extends javax.swing.JFrame {
     
     private JLabel[] btns;
     
+<<<<<<< HEAD
     public MainWindowMe() throws ParseException {
+=======
+    public MainWindowMe() {
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
         initComponents();
         
         this.setTitle("Dashboard");
@@ -283,6 +287,7 @@ public class MainWindowMe extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBarangMouseClicked
 
     private void btnDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDashboardMouseClicked
+<<<<<<< HEAD
         try {
             //        this.lblMenuName.setText("Dashboard");
             this.setTitle("Dashboard");
@@ -300,6 +305,21 @@ public class MainWindowMe extends javax.swing.JFrame {
         } catch (ParseException ex) {
             Logger.getLogger(MainWindowMe.class.getName()).log(Level.SEVERE, null, ex);
         }
+=======
+        //        this.lblMenuName.setText("Dashboard");
+        this.setTitle("Dashboard");
+        this.setActivatedButton(this.btnDashboard);
+
+        // menghaspus panel lama
+        pnlMenu.removeAll();
+        pnlMenu.repaint();
+        pnlMenu.revalidate();
+
+        // menambahkan panel baru
+        pnlMenu.add(new com.window.panels.Dashboard());
+        pnlMenu.repaint();
+        pnlMenu.revalidate();
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
     }//GEN-LAST:event_btnDashboardMouseClicked
 
     private void btnPembeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPembeliMouseClicked
@@ -438,11 +458,15 @@ public class MainWindowMe extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+<<<<<<< HEAD
                 try {
                     new MainWindowMe().setVisible(true);
                 } catch (ParseException ex) {
                     Logger.getLogger(MainWindowMe.class.getName()).log(Level.SEVERE, null, ex);
                 }
+=======
+                new MainWindowMe().setVisible(true);
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
             }
         });
     }

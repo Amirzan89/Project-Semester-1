@@ -151,14 +151,20 @@ public class Database {
             res = stat.executeQuery(query);
             if(res.next()){
                 System.out.println("Query telah dieksekusi "+res.getInt("total"));
+<<<<<<< HEAD
                 System.out.println("total nya adalah "+res.getInt("total"));
+=======
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
                 return res.getInt("total");
             }
         }catch(SQLException ex){
             Message.showException(this, "Terjadi Kesalahan!\n\nError message : "+ex.getMessage(), ex, true);
         }catch(NullPointerException n){
 //            n.printStackTrace();
+<<<<<<< HEAD
             System.out.println("errorr ");
+=======
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
             return 0;
         }
         return -1;

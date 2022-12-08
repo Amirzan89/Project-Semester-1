@@ -11,7 +11,10 @@ import com.manage.Message;
 import com.manage.Text;
 import com.manage.Validation;
 
+<<<<<<< HEAD
 import com.data.db.Hashing_Algorithm;
+=======
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -61,7 +64,11 @@ import java.util.logging.Logger;
  * <br><br>
  * Akun user pada aplikasi ini dibagi menjadi 3 level antara lain <i>ADMIN</i>, <i>PETUGAS</i> dan <i>SISWA</i>. 
  * Pembagian diperlukan agar menajemen data pada akun jauh lebih mudah. Data akun dari user yang memiliki level 
+<<<<<<< HEAD
  * <i>ADMIN</i> dan <i>PETUGAS</i> akan disimpan pada tabel karyawan. Semetara data dari user yang memiliki level 
+=======
+ * <i>ADMIN</i> dan <i>PETUGAS</i> akan disimpan pada tabel petugas. Semetara data dari user yang memiliki level 
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
  * siswa akan disimpan pada tabel <i>SISWA</i>.
  * 
  * @author Achmad Baihaqi
@@ -69,7 +76,10 @@ import java.util.logging.Logger;
  */
 public class Users extends Database{
     
+<<<<<<< HEAD
 //    Hashing_Algorithm hash = new Hashing_Algorithm();
+=======
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
     private Date date;
     
     private final Text txt = new Text();
@@ -131,6 +141,7 @@ public class Users extends Database{
      *         <strong>False</strong> jika data tidak berhasil ditambahkan. 
      * 
      * @throws SQLException jika terjadi kegagalan saat menambahkan data kedalam <b>Database</b>.
+<<<<<<< HEAD
      * @throws InValidUserDataException jika data dari karyawan tidak valid.
      */
     public final boolean addUser(String idUser, String pass1, UserLevels level) throws SQLException, InValidUserDataException{
@@ -139,11 +150,24 @@ public class Users extends Database{
         PreparedStatement pst;
         // mengecek apakah data yang akan ditambahkan valid atau tidak
         if(this.validateAddUser(idUser, pass1, level)){
+=======
+     * @throws InValidUserDataException jika data dari petugas tidak valid.
+     */
+    public final boolean addUser(String idUser, String pass, UserLevels level) throws SQLException, InValidUserDataException{
+        Log.addLog("Menambahkan user baru dengan ID User '" + idUser + "' dengan level " + level.name());
+        PreparedStatement pst;
+        // mengecek apakah data yang akan ditambahkan valid atau tidak
+        if(this.validateAddUser(idUser, pass, level)){
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
             Log.addLog("Data dari '" + idUser + "' dinyatakan valid.");
             // menambahkan data kedalam Database
             pst = this.conn.prepareStatement("INSERT INTO users VALUES (?, ?, ?)");
             pst.setString(1, idUser);
+<<<<<<< HEAD
             pst.setString(2, pass1);
+=======
+            pst.setString(2, pass);
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
             pst.setString(3, level.name());
             
             // mengekusi query
@@ -352,7 +376,11 @@ public class Users extends Database{
      * @return nama dari akun
      */
     public String getCurrentLoginName(){
+<<<<<<< HEAD
         return this.getData(DatabaseTables.KARYAWAN.name(), "nama_karyawan", "WHERE id_karyawan = '" + this.getCurrentLogin() + "'");
+=======
+        return this.getData(DatabaseTables.PETUGAS.name(), "nama_petugas", "WHERE id_petugas = '" + this.getCurrentLogin() + "'");
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
     }
     
     /**
@@ -444,7 +472,11 @@ public class Users extends Database{
         if(txt.isNumber(nomor)){
             // jika id user belum exist maka id akan 
             switch(level.name()){
+<<<<<<< HEAD
                 case "KARYAWAN" : return String.format("PG%03d", Integer.parseInt(nomor)+1); // level admin dan karyawan
+=======
+                case "PETUGAS" : return String.format("PG%03d", Integer.parseInt(nomor)+1); // level admin dan karyawan
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
                 case "SUPPLIER" : return String.format("SP%03d", Integer.parseInt(nomor)+1);
                 case "PEMBELI" : return String.format("PB%03d", Integer.parseInt(nomor)+1);
                 default : System.out.println("Error!");

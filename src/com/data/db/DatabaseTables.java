@@ -9,7 +9,11 @@ package com.data.db;
 public enum DatabaseTables {
     
     USERS,
+<<<<<<< HEAD
     KARYAWAN,
+=======
+    PETUGAS,
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
     PEMBELI,
     BARANG,
     TRANSAKSI_JUAL,

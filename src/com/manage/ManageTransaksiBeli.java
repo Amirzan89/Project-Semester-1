@@ -79,7 +79,10 @@ public class ManageTransaksiBeli extends Database{
     public boolean addTransaksiBeli(String namaTrJual, String idPetugas, String idSupplier, String idBarang, String jmlBrg, String ttlHarga, String tanggal){
         PreparedStatement pst;
         String idTrb = this.createIDTransaksi(), idLaporan = this.createIDLaporan();
+<<<<<<< HEAD
         boolean valid = false;
+=======
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
         try {
             // validasi data sebelum ditambahkan
             if(this.validateAddTransaksiBeli(idTrb, namaTrJual, idPetugas, idSupplier, idBarang, jmlBrg, ttlHarga, tanggal)){
@@ -100,9 +103,13 @@ public class ManageTransaksiBeli extends Database{
                 if(pst.executeUpdate() > 0){
                     // menambahkan laporan pendapatan
                     System.out.println("Sudah membuat transaksi beli");
+<<<<<<< HEAD
                     //commenc kode ini jika tidak menggunakan laporan 
 //                    boolean valid = this.addLaporanPengeluaran(idLaporan, namaTrJual, idTrb, tanggal, ttlHarga);
                     valid = true;
+=======
+                    boolean valid = this.addLaporanPengeluaran(idLaporan, namaTrJual, idTrb, tanggal, ttlHarga);
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
                     System.out.println("valid pembayaran "+valid);
                     return valid;
                 }

@@ -39,6 +39,7 @@ public class Audio {
      * @param filename file audio yang akan diputar
      */
     public static void play(final String filename){
+<<<<<<< HEAD
         System.out.println("TES FILE AUDIO");
         // mengecek apakah audio sedang digunakan atau tidak, jika sedang digunakan maka audio akan diclose
         System.out.println("PLAYErS : " + players);
@@ -64,18 +65,37 @@ public class Audio {
         }
         
         System.out.println("PERSIAPAN MEMUTAR AUDIO");
+=======
+        
+        // mengecek apakah audio sedang digunakan atau tidak, jika sedang digunakan maka audio akan diclose
+        if(players != null){
+            stop();
+        }
+        // mengambil input audio dari user
+        try{
+            FileInputStream input = new FileInputStream(directory+filename);
+            players = new Player(input);
+        }catch(IOException | JavaLayerException iex){
+            JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat mengambil file audio \nError : " + iex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+        }
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
         // memutar audio
         new Thread(new Runnable(){
             
             @Override
             public void run(){
                 try{
+<<<<<<< HEAD
                     System.out.println("PERSIAPAN MEMUTAR AUDIO ke 2");
                     System.out.println("PLAYErs : " + players.toString());
                     players.play();
                     System.out.println("SETELAH AUDIO DIPUTAR");
                 }catch(JavaLayerException jlex){
                     jlex.printStackTrace();
+=======
+                    players.play();
+                }catch(JavaLayerException jlex){
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
                     JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat akan meutar audio! \nError : " + jlex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
                 }
             }
@@ -89,6 +109,7 @@ public class Audio {
      * Jika object <code>Players</code> tidak kosong maka audio akan dihentikan. 
      */
     public static void stop(){
+<<<<<<< HEAD
         try{
             // mengecek apakah objek players kosong atau tidak
             if(players != null){
@@ -97,6 +118,12 @@ public class Audio {
             }            
         }catch(Exception e){
             e.printStackTrace();
+=======
+        // mengecek apakah objek players kosong atau tidak
+        if(players != null){
+            // menghentikan audio
+            players.close(); 
+>>>>>>> 21a869afb377558e083eb814a6a9f5fd3f862e00
         }
     }
     
