@@ -87,8 +87,34 @@ public class random {
         }
         return null;
     }
+    private static int getTotal(String table, String kolom, String kondisi){
+        try {
+            Statement stat = getStat();
+            int data = 0;
+            String sql = "SELECT SUM("+kolom+") AS total FROM "+table+" "+kondisi;
+            System.out.println("sql sum "+sql);
+            ResultSet res = stat.executeQuery(sql);
+            if(res.next()){
+                System.out.println("data ditemukan");
+                data = res.getInt("total");
+                System.out.println("jumlahnya "+data);
+            }
+            return data;
+        } catch (SQLException ex) {
+//            Logger.getLogger(LaporanJual.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("salah ");
+            ex.printStackTrace();
+        }catch(NullPointerException n){
+//            n.printStackTrace();
+            System.out.println("errorr ");
+            return 0;
+        }
+        return -1;
+    }
     public static void main(String[] args) {
         System.out.println(text.toMoneyCase("-10000"));
+        int januari = getTotal("transaksi_jual","total_hrg","WHERE MONTH(tanggal) = '1'");
+        System.out.println("januari "+januari);
     }
 }
 

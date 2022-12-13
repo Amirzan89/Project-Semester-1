@@ -78,7 +78,6 @@ public class Dashboard extends javax.swing.JPanel {
     public Dashboard() throws ParseException {
         initComponents();
         updateTabel();
-//        start(pnlLineChart);
         this.hari = waktu.getTanggal();
         this.bulan = waktu.getBulan()+1;
         this.tahun = waktu.getTahun();
@@ -215,7 +214,7 @@ public class Dashboard extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblDate.setText("-");
-        add(lblDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 140, 260, 20));
+        add(lblDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 147, 260, 20));
 
         lblSaldo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         add(lblSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 160, 20));
