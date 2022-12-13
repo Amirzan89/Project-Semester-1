@@ -1,5 +1,12 @@
 package com.window.panels;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.stage.Stage;
 import java.util.Date;
 import com.manage.Chart;
 import com.manage.Message;
@@ -20,6 +27,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -62,12 +70,15 @@ public class Dashboard extends javax.swing.JPanel {
     private final DateFormat tanggalFull = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss ");
     private final DateFormat date = new SimpleDateFormat("dd-MM-yyyy");
     private final DateFormat date1 = new SimpleDateFormat("yyyy-MM-dd");
+    private final DateFormat time12 = new SimpleDateFormat("hh:mm:ss");
     private final DateFormat time = new SimpleDateFormat("hh:mm:ss");
     private final DateFormat timeMillis = new SimpleDateFormat("ss.SSS:mm:hh");
     private String keyword = "";
+ 
     public Dashboard() throws ParseException {
         initComponents();
         updateTabel();
+//        start(pnlLineChart);
         this.hari = waktu.getTanggal();
         this.bulan = waktu.getBulan()+1;
         this.tahun = waktu.getTahun();
@@ -80,8 +91,8 @@ public class Dashboard extends javax.swing.JPanel {
         pMinuman = getJenis("MINUMAN");
         pSnack = getJenis("SNACK");
         pAtk = getJenis("ATK");
-        this.chart.showPieChart(this.pnlPieChart, "", 40, 20, 15, 25);
-//        this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
+//        this.chart.showPieChart(this.pnlPieChart, "", 40, 20, 15, 25);
+        this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
         this.chart.lineChartPenjualan(this.pnlLineChart);
         this.showLineChart();
         
@@ -193,10 +204,6 @@ public class Dashboard extends javax.swing.JPanel {
         lblPemasukan = new javax.swing.JLabel();
         lblPengeluaran = new javax.swing.JLabel();
         lblPembeli = new javax.swing.JLabel();
-        lblMakanan = new javax.swing.JLabel();
-        lblMinuman = new javax.swing.JLabel();
-        lblAtk = new javax.swing.JLabel();
-        lblSnack = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelData = new javax.swing.JTable();
         pnlLineChart = new javax.swing.JPanel();
@@ -221,22 +228,6 @@ public class Dashboard extends javax.swing.JPanel {
 
         lblPembeli.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         add(lblPembeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 80, 160, 20));
-
-        lblMakanan.setBackground(new java.awt.Color(10, 255, 108));
-        lblMakanan.setOpaque(true);
-        add(lblMakanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 350, 40, 35));
-
-        lblMinuman.setBackground(new java.awt.Color(2, 99, 255));
-        lblMinuman.setOpaque(true);
-        add(lblMinuman, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 195, 40, 35));
-
-        lblAtk.setBackground(new java.awt.Color(255, 233, 35));
-        lblAtk.setOpaque(true);
-        add(lblAtk, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 250, 40, 35));
-
-        lblSnack.setBackground(new java.awt.Color(255, 51, 102));
-        lblSnack.setOpaque(true);
-        add(lblSnack, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 300, 40, 35));
 
         tabelData.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
         tabelData.setForeground(new java.awt.Color(0, 0, 0));
@@ -292,12 +283,12 @@ public class Dashboard extends javax.swing.JPanel {
         pnlLineChart.setBackground(new java.awt.Color(255, 255, 255));
         pnlLineChart.setForeground(new java.awt.Color(226, 226, 0));
         pnlLineChart.setLayout(new java.awt.BorderLayout());
-        add(pnlLineChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 430, 210));
+        add(pnlLineChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 205, 445, 210));
 
         pnlPieChart.setBackground(new java.awt.Color(255, 255, 255));
         pnlPieChart.setForeground(new java.awt.Color(255, 255, 0));
         pnlPieChart.setLayout(new java.awt.BorderLayout());
-        add(pnlPieChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 190, 260, 210));
+        add(pnlPieChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 205, 420, 210));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar/app-dashboard-075.png"))); // NOI18N
         add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 973, 768));
@@ -328,8 +319,19 @@ public class Dashboard extends javax.swing.JPanel {
     }
     private void updateTabel() throws ParseException{
         try{
+            TableColumnModel model1 = tabelData.getColumnModel();
+            model1.getColumn(0).setMinWidth(35);
+            model1.getColumn(0).setMaxWidth(35);
+            model1.getColumn(3).setMinWidth(100);
+            model1.getColumn(3).setMaxWidth(100);
+            model1.getColumn(4).setMinWidth(80);
+            model1.getColumn(4).setMaxWidth(80);
+            model1.getColumn(5).setMinWidth(80);
+            model1.getColumn(5).setMaxWidth(80);
+            tabelData.setColumnModel(model1);
             Date tanggalData = null;
-            String kolom[] = {"No","Nama Transaksi", "Total Harga", "Jenis Transaksi", "Tanggal","Waktu"},tanggalPenuh,total,ID,data[] = new String[6];
+            Date tanggalData1 = null;
+            String kolom[] = {"No","Nama Transaksi", "Total Harga", "Jenis Transaksi", "Tanggal","Waktu"},waktu,tanggalPenuh,total,ID,data[] = new String[6];
             TableModel model;
 //            model.
             DefaultTableModel tabelModel = new DefaultTableModel(kolom,0){
@@ -367,7 +369,9 @@ public class Dashboard extends javax.swing.JPanel {
                 System.out.println("tanggal nya "+ tanggalData);
                 data[4] = date.format(tanggalData);
                 System.out.println("data ke 4 : "+ data[4]);
-                data[5] = time.format(tanggalData);
+                waktu = time12.format(tanggalData);
+                tanggalData1 = time12.parse(waktu);
+                data[5] = time.format(tanggalData1);
                 System.out.println("data ke 5 : "+ data[5]);
                 tabelModel.addRow(data);
             }
@@ -410,14 +414,18 @@ public class Dashboard extends javax.swing.JPanel {
     public void showLineChart(){
         //create dataset for the graph
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.setValue(170, "Amount", "Kamis");
-        dataset.setValue(150, "Amount", "Jumat");
-        dataset.setValue(80, "Amount", "Sabtu");
-        dataset.setValue(50, "Amount", "Minggu");
-        dataset.setValue(180, "Amount", "Senin");
-        dataset.setValue(200, "Amount", "Selasa");
-        dataset.setValue(200, "Amount", "Rabu");
-        //
+        dataset.addValue(170, "Amount", "Minggu 1");
+        dataset.addValue(150, "Amount", "Minggu 2");
+        dataset.addValue(80, "Amount", "Minggu 3");
+        dataset.addValue(50, "Amount", "Minggu 4");
+//        dataset.setValue(170, "Amount", "Kamis");
+//        dataset.setValue(150, "Amount", "Jumat");
+//        dataset.setValue(80, "Amount", "Sabtu");
+//        dataset.setValue(50, "Amount", "Minggu");
+//        dataset.setValue(180, "Amount", "Senin");
+//        dataset.setValue(200, "Amount", "Selasa");
+//        dataset.setValue(200, "Amount", "Rabu");
+        
         //create chart
         JFreeChart linechart = ChartFactory.createLineChart("","","", 
                 dataset, PlotOrientation.VERTICAL, false,true,false);
@@ -432,12 +440,12 @@ public class Dashboard extends javax.swing.JPanel {
         LineAndShapeRenderer lineRenderer = (LineAndShapeRenderer) lineCategoryPlot.getRenderer();
         Color lineChartColor = new Color(255,2,9);
         lineRenderer.setSeriesPaint(0, lineChartColor);
-        
+//        linechart.
          //create chartPanel to display chart(graph)
         ChartPanel lineChartPanel = new ChartPanel(linechart);
-//        pnlLineChart.removeAll();
-//        pnlLineChart.add(lineChartPanel, BorderLayout.CENTER);
-//        pnlLineChart.validate();
+        pnlLineChart.removeAll();
+        pnlLineChart.add(lineChartPanel, BorderLayout.CENTER);
+        pnlLineChart.validate();
     }
 
     public void showHistogram(){
@@ -497,15 +505,11 @@ public class Dashboard extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel lblAtk;
     private javax.swing.JLabel lblDate;
-    private javax.swing.JLabel lblMakanan;
-    private javax.swing.JLabel lblMinuman;
     private javax.swing.JLabel lblPemasukan;
     private javax.swing.JLabel lblPembeli;
     private javax.swing.JLabel lblPengeluaran;
     private javax.swing.JLabel lblSaldo;
-    private javax.swing.JLabel lblSnack;
     private javax.swing.JPanel pnlLineChart;
     private javax.swing.JPanel pnlPieChart;
     private javax.swing.JTable tabelData;

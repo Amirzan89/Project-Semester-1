@@ -27,8 +27,8 @@ import org.jfree.data.statistics.HistogramDataset;
  */
 public class Chart {
     
-    private final Color C_MAKANAN = new Color(226,226,0), C_MINUMAN = new Color(52,200,38), 
-                        C_SNACK = new Color(255,43,237), C_ATK = new Color(49,165,192),
+    private final Color C_MAKANAN = new Color(10,255,108), C_MINUMAN = new Color(2,99,255), 
+                        C_SNACK = new Color(255,51,102), C_ATK = new Color(255,233,35),
                         BG_CHART = Color.WHITE;
     
     private final Font F_PRODUK = new Font("Ebrima", 1, 22);
@@ -36,12 +36,19 @@ public class Chart {
     public void showPieChart(JPanel panel, String title, Font font, double makanan, double minuman, double snack, double atk){
         
         //create dataset
-        DefaultPieDataset barDataset = new DefaultPieDataset( );
-        barDataset.setValue( "Makanan", new Double(makanan));  
-        barDataset.setValue( "Minuman", new Double(minuman));   
-        barDataset.setValue( "Snack", new Double(snack));    
-        barDataset.setValue( "ATK", new Double(atk));  
-
+        DefaultPieDataset barDataset = new DefaultPieDataset();
+        if(makanan > 1){
+            barDataset.setValue( "Makanan", new Double(makanan));  
+        }
+        if(minuman > 1){
+            barDataset.setValue( "Minuman", new Double(minuman));   
+        }
+        if(snack > 1){
+            barDataset.setValue( "Snack", new Double(snack));    
+        }
+        if(atk > 1){
+            barDataset.setValue( "ATK", new Double(atk));  
+        }
         //create chart
         JFreeChart piechart = ChartFactory.createPieChart("Penjualan Produk",barDataset, false,true,false);//explain
         piechart.setTitle(new TextTitle(title, font));
