@@ -410,13 +410,26 @@ public class Dashboard extends javax.swing.JPanel {
 //        pnlPieChart.validate();
     }
     
-    public void showLineChart(){
+    public void showLineChart() throws ParseException{
         //create dataset for the graph
+//        String Minggu1[] = waktu.getMinggu1(this.hari, -1);
+//        String Minggu2[] = waktu.getMinggu1(this.hari, -1);
+//        String Minggu3[] = waktu.getMinggu1(this.hari, -1);
+//        String Minggu4[] = waktu.getMinggu1(this.hari, -1);
+//        int minggu1 = getTotal("transaksi_jual", "total_hrg", "WHERE (tanggal BETWEEN '"+Minggu1[0]+"' AND '" +Minggu1[1]+"')");
+//        int minggu2 = getTotal("transaksi_jual", "total_hrg", "WHERE (tanggal BETWEEN '"+Minggu2[0]+"' AND '" +Minggu2[1]+"')");
+//        int minggu3 = getTotal("transaksi_jual", "total_hrg", "WHERE (tanggal BETWEEN '"+Minggu3[0]+"' AND '" +Minggu3[1]+"')");
+//        int minggu4 = getTotal("transaksi_jual", "total_hrg", "WHERE (tanggal BETWEEN '"+Minggu4[0]+"' AND '" +Minggu4[1]+"')");
+        
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         dataset.addValue(170, "Amount", "Minggu 1");
         dataset.addValue(150, "Amount", "Minggu 2");
         dataset.addValue(80, "Amount", "Minggu 3");
         dataset.addValue(50, "Amount", "Minggu 4");
+//        dataset.addValue(minggu1, "Amount", "Minggu 1");
+//        dataset.addValue(minggu2, "Amount", "Minggu 2");
+//        dataset.addValue(minggu3, "Amount", "Minggu 3");
+//        dataset.addValue(minggu4, "Amount", "Minggu 4");
 //        dataset.setValue(170, "Amount", "Kamis");
 //        dataset.setValue(150, "Amount", "Jumat");
 //        dataset.setValue(80, "Amount", "Sabtu");
