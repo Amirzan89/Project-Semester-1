@@ -48,17 +48,12 @@ public class TransaksiJual extends javax.swing.JPanel {
         this.inpID.setText("<html><p>:&nbsp;"+this.trj.createIDTransaksi()+"</p></html>");
         this.inpNamaPetugas.setText("<html><p>:&nbsp;"+this.user.getCurrentLoginName()+"</p></html>");
         
-        this.btnAddJumlah.setUI(new javax.swing.plaf.basic.BasicButtonUI());
-        this.btnMinJumlah.setUI(new javax.swing.plaf.basic.BasicButtonUI());
         this.btnBayar.setUI(new javax.swing.plaf.basic.BasicButtonUI());
         this.btnBatal.setUI(new javax.swing.plaf.basic.BasicButtonUI());
         
         this.tabelDataBarang.setRowHeight(29);
         this.tabelDataBarang.getTableHeader().setBackground(new java.awt.Color(255,255,255));
         this.tabelDataBarang.getTableHeader().setForeground(new java.awt.Color(0, 0, 0));
-        this.tabelDataPembeli.setRowHeight(29);
-        this.tabelDataPembeli.getTableHeader().setBackground(new java.awt.Color(255,255,255));
-        this.tabelDataPembeli.getTableHeader().setForeground(new java.awt.Color(0, 0, 0));
         
         this.updateTabelPembeli();
         this.updateTabelBarang();
@@ -221,21 +216,22 @@ public class TransaksiJual extends javax.swing.JPanel {
 
         inpID = new javax.swing.JLabel();
         inpNamaPetugas = new javax.swing.JLabel();
-        inpNamaPembeli = new javax.swing.JLabel();
+        inpIDBarang = new javax.swing.JLabel();
         inpNamaBarang = new javax.swing.JLabel();
+        inpHarga = new javax.swing.JLabel();
         inpTotalHarga = new javax.swing.JLabel();
         inpTanggal = new javax.swing.JLabel();
+        txtTotal = new javax.swing.JLabel();
         inpJumlah = new javax.swing.JTextField();
+        btnEdit = new javax.swing.JButton();
+        btnHapus = new javax.swing.JButton();
         btnBayar = new javax.swing.JButton();
         btnBatal = new javax.swing.JButton();
-        btnAddJumlah = new javax.swing.JButton();
-        btnMinJumlah = new javax.swing.JButton();
         inpCariBarang = new javax.swing.JTextField();
-        inpCariPembeli = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelDataBarang = new javax.swing.JTable();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        tabelDataPembeli = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabelData = new javax.swing.JTable();
         background = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -245,32 +241,38 @@ public class TransaksiJual extends javax.swing.JPanel {
         inpID.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         inpID.setForeground(new java.awt.Color(0, 0, 0));
         inpID.setText(":");
-        add(inpID, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 135, 200, 55));
+        add(inpID, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 68, 200, 32));
 
         inpNamaPetugas.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         inpNamaPetugas.setForeground(new java.awt.Color(0, 0, 0));
         inpNamaPetugas.setText(":");
-        add(inpNamaPetugas, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 210, 200, 55));
+        add(inpNamaPetugas, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 115, 200, 32));
 
-        inpNamaPembeli.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        inpNamaPembeli.setForeground(new java.awt.Color(0, 0, 0));
-        inpNamaPembeli.setText(":");
-        add(inpNamaPembeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 284, 200, 55));
+        inpIDBarang.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        inpIDBarang.setForeground(new java.awt.Color(0, 0, 0));
+        inpIDBarang.setText(": ");
+        add(inpIDBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 162, 200, 32));
 
         inpNamaBarang.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         inpNamaBarang.setForeground(new java.awt.Color(0, 0, 0));
         inpNamaBarang.setText(":");
-        add(inpNamaBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 357, 200, 55));
+        add(inpNamaBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 207, 200, 32));
+
+        inpHarga.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        inpHarga.setForeground(new java.awt.Color(0, 0, 0));
+        inpHarga.setText(":");
+        add(inpHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 255, 200, 32));
 
         inpTotalHarga.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         inpTotalHarga.setForeground(new java.awt.Color(0, 0, 0));
         inpTotalHarga.setText(":");
-        add(inpTotalHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 506, 200, 55));
+        add(inpTotalHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 347, 200, 32));
 
         inpTanggal.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         inpTanggal.setForeground(new java.awt.Color(0, 0, 0));
         inpTanggal.setText(": 15 Oktober 2022 | 17:55");
-        add(inpTanggal, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 580, 200, 55));
+        add(inpTanggal, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 393, 200, 32));
+        add(txtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 666, 160, 22));
 
         inpJumlah.setBackground(new java.awt.Color(255, 255, 255));
         inpJumlah.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
@@ -291,7 +293,51 @@ public class TransaksiJual extends javax.swing.JPanel {
                 inpJumlahKeyTyped(evt);
             }
         });
-        add(inpJumlah, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 447, 30, -1));
+        add(inpJumlah, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 301, 50, 31));
+
+        btnEdit.setBackground(new java.awt.Color(34, 119, 237));
+        btnEdit.setForeground(new java.awt.Color(255, 255, 255));
+        btnEdit.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnEdit.setOpaque(false);
+        btnEdit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEditMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnEditMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnEditMouseExited(evt);
+            }
+        });
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
+        add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(197, 712, 150, 48));
+
+        btnHapus.setBackground(new java.awt.Color(34, 119, 237));
+        btnHapus.setForeground(new java.awt.Color(255, 255, 255));
+        btnHapus.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnHapus.setOpaque(false);
+        btnHapus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnHapusMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnHapusMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnHapusMouseExited(evt);
+            }
+        });
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHapusActionPerformed(evt);
+            }
+        });
+        add(btnHapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(378, 712, 150, 48));
 
         btnBayar.setBackground(new java.awt.Color(34, 119, 237));
         btnBayar.setForeground(new java.awt.Color(255, 255, 255));
@@ -310,13 +356,16 @@ public class TransaksiJual extends javax.swing.JPanel {
                 btnBayarActionPerformed(evt);
             }
         });
-        add(btnBayar, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 669, 149, 48));
+        add(btnBayar, new org.netbeans.lib.awtextra.AbsoluteConstraints(558, 712, 150, 48));
 
         btnBatal.setBackground(new java.awt.Color(220, 41, 41));
         btnBatal.setForeground(new java.awt.Color(255, 255, 255));
         btnBatal.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnBatal.setOpaque(false);
         btnBatal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBatalMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnBatalMouseEntered(evt);
             }
@@ -329,47 +378,7 @@ public class TransaksiJual extends javax.swing.JPanel {
                 btnBatalActionPerformed(evt);
             }
         });
-        add(btnBatal, new org.netbeans.lib.awtextra.AbsoluteConstraints(242, 669, 149, 48));
-
-        btnAddJumlah.setBackground(new java.awt.Color(34, 119, 237));
-        btnAddJumlah.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        btnAddJumlah.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddJumlah.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        btnAddJumlah.setOpaque(false);
-        btnAddJumlah.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnAddJumlahMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnAddJumlahMouseExited(evt);
-            }
-        });
-        btnAddJumlah.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddJumlahActionPerformed(evt);
-            }
-        });
-        add(btnAddJumlah, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 446, 29, 25));
-
-        btnMinJumlah.setBackground(new java.awt.Color(220, 41, 41));
-        btnMinJumlah.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        btnMinJumlah.setForeground(new java.awt.Color(255, 255, 255));
-        btnMinJumlah.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        btnMinJumlah.setOpaque(false);
-        btnMinJumlah.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnMinJumlahMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnMinJumlahMouseExited(evt);
-            }
-        });
-        btnMinJumlah.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMinJumlahActionPerformed(evt);
-            }
-        });
-        add(btnMinJumlah, new org.netbeans.lib.awtextra.AbsoluteConstraints(345, 444, 29, 26));
+        add(btnBatal, new org.netbeans.lib.awtextra.AbsoluteConstraints(737, 712, 150, 48));
 
         inpCariBarang.setBackground(new java.awt.Color(255, 255, 255));
         inpCariBarang.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -389,19 +398,6 @@ public class TransaksiJual extends javax.swing.JPanel {
         });
         add(inpCariBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 75, 310, 25));
         inpCariBarang.getAccessibleContext().setAccessibleDescription("");
-
-        inpCariPembeli.setBackground(new java.awt.Color(255, 255, 255));
-        inpCariPembeli.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        inpCariPembeli.setForeground(new java.awt.Color(0, 0, 0));
-        inpCariPembeli.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                inpCariPembeliKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                inpCariPembeliKeyTyped(evt);
-            }
-        });
-        add(inpCariPembeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 415, 300, 25));
 
         tabelDataBarang.setBackground(new java.awt.Color(255, 255, 255));
         tabelDataBarang.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
@@ -446,193 +442,48 @@ public class TransaksiJual extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(tabelDataBarang);
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, 500, 290));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, 500, 330));
 
-        tabelDataPembeli.setBackground(new java.awt.Color(255, 255, 255));
-        tabelDataPembeli.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
-        tabelDataPembeli.setForeground(new java.awt.Color(0, 0, 0));
-        tabelDataPembeli.setModel(new javax.swing.table.DefaultTableModel(
+        tabelData.setBackground(new java.awt.Color(255, 255, 255));
+        tabelData.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
+        tabelData.setForeground(new java.awt.Color(0, 0, 0));
+        tabelData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "ID Pembeli", "Nama Pembeli", "Alamat"
+                "Tanggal", "ID Log", "ID Barang", "Nama Barang", "Harga", "Jumlah Barang", "Total Harga"
             }
-        ));
-        tabelDataPembeli.setGridColor(new java.awt.Color(0, 0, 0));
-        tabelDataPembeli.setSelectionBackground(new java.awt.Color(26, 164, 250));
-        tabelDataPembeli.setSelectionForeground(new java.awt.Color(250, 246, 246));
-        tabelDataPembeli.getTableHeader().setReorderingAllowed(false);
-        tabelDataPembeli.addMouseListener(new java.awt.event.MouseAdapter() {
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelData.setGridColor(new java.awt.Color(0, 0, 0));
+        tabelData.setSelectionBackground(new java.awt.Color(26, 164, 250));
+        tabelData.setSelectionForeground(new java.awt.Color(250, 246, 246));
+        tabelData.getTableHeader().setReorderingAllowed(false);
+        tabelData.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelDataPembeliMouseClicked(evt);
+                tabelDataMouseClicked(evt);
             }
         });
-        tabelDataPembeli.addKeyListener(new java.awt.event.KeyAdapter() {
+        tabelData.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                tabelDataPembeliKeyPressed(evt);
+                tabelDataKeyPressed(evt);
             }
         });
-        jScrollPane4.setViewportView(tabelDataPembeli);
+        jScrollPane3.setViewportView(tabelData);
 
-        add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 440, 500, 300));
+        add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 930, 200));
 
-        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar/app-transaksi-jual-075.png"))); // NOI18N
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar/app-transaksi-jual-new-075.png"))); // NOI18N
         add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
-        int status;
-        Audio.play(Audio.SOUND_INFO);
-        status = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin membatalkan transaksi?", "Confirm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
-        
-        switch(status){
-            case JOptionPane.YES_OPTION : {
-                // mereset tabel
-                this.updateTabelPembeli();
-                this.updateTabelBarang();
-
-                // mereset input
-                this.resetInput();
-                break;
-            }
-        }
-    }//GEN-LAST:event_btnBatalActionPerformed
-
-    private void inpCariPembeliKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inpCariPembeliKeyTyped
-        String key = this.inpCariPembeli.getText();
-        this.keywordPembeli = "WHERE id_pembeli LIKE '%"+key+"%' OR nama_pembeli LIKE '%"+key+"%'";
-        this.updateTabelPembeli();
-    }//GEN-LAST:event_inpCariPembeliKeyTyped
-
-    private void btnBayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBayarActionPerformed
-        this.idTr = this.trj.createIDTransaksi();
-        this.idPetugas = this.user.getCurrentLogin();
-        
-        // cek apakah ada data pembeli yang dipilih
-        if(this.tabelDataPembeli.getSelectedRow() > -1){
-            // mendapatkan data pembeli
-            this.idPembeli = this.tabelDataPembeli.getValueAt(this.tabelDataPembeli.getSelectedRow(), 0).toString();
-            this.namaPembeli = this.pembeli.getNama(this.idPembeli);
-        }else{
-            Message.showWarning(this, "Tidak ada data pembeli yang dipilih!");
-            return;
-        }
-        
-        // cek apakah ada data barang yang dipilih
-        if(this.tabelDataBarang.getSelectedRow() > -1){
-            // mendapatkan data barang
-            this.idBarang = this.tabelDataBarang.getValueAt(this.tabelDataBarang.getSelectedRow(), 0).toString();
-            this.namaBarang = this.barang.getNamaBarang(this.idBarang);
-            this.jumlah = Integer.parseInt(this.inpJumlah.getText());
-            this.hargaJual = Integer.parseInt(this.barang.getHargaJual(this.idBarang));
-            this.totalHarga = hargaJual * jumlah;
-//            switch(this.inpMetode.getSelectedIndex()){
-//                case 1 : this.metodeBayar = "CASH"; break;
-//                case 2 : this.metodeBayar = "E-WALLET"; break;
-//                default : Message.showWarning(this, "Silahkan pilih metode pembayaran terlebih dahulu!"); return;
-//            }
-            this.namaTr = String.format("%s membeli %s sebanyak %s dengan total harga %s", this.namaPembeli, this.namaBarang, this.jumlah, text.toMoneyCase(""+this.totalHarga));
-        }else{
-            Message.showWarning(this, "Tidak ada data barang yang dipilih!");
-            return;
-        }
-
-        // membuka window konfirmasi pembayaran
-        Audio.play(Audio.SOUND_INFO);
-        KonfirmasiPembayaran konfirmasi = new KonfirmasiPembayaran(null, true, 1);
-        konfirmasi.putValueJual(namaTr, idPetugas, idPembeli, idBarang, Integer.toString(this.jumlah), Integer.toString(this.totalHarga), this.waktu.getCurrentDate());
-        konfirmasi.setVisible(true);
-        
-        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-        // mengecek apakah transaksi jadi menambahkan data atau tidak
-        if(konfirmasi.isUpdated()){
-            // mengupdate tabel
-            this.updateTabelPembeli();
-            this.updateTabelBarang();
-            this.resetInput();
-        }
-        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-    }//GEN-LAST:event_btnBayarActionPerformed
-
-    private void btnAddJumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddJumlahActionPerformed
-        // cek apakah ada data yang dipilih
-        if(this.isSelectedBarang()){
-            // menambahkan jumlah
-            this.jumlah++;
-            // cek apakah jumlah tidak melebihi stok barang
-            if(this.jumlah <= this.stok){
-                // mengupdate total harga
-                this.totalHarga = 0;
-                this.totalHarga = this.hargaJual * this.jumlah;
-                
-                // menampilkan data jumlah dan total harga
-                this.inpJumlah.setText(Integer.toString(this.jumlah));
-                this.inpTotalHarga.setText("<html><p>:&nbsp;"+text.toMoneyCase(Integer.toString(this.totalHarga))+"</p></html>");
-            }else{
-                Message.showWarning(this, String.format("Jumlah barang tidak boleh melebihi stok barang!"));
-            }
-        }else{
-            Message.showWarning(this, "Tidak ada data barang yang dipilih!");
-        }
-    }//GEN-LAST:event_btnAddJumlahActionPerformed
-
-    private void btnMinJumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinJumlahActionPerformed
-        // cek apakah ada data yang dipilih
-        if(this.isSelectedBarang()){
-            // mengurangi jumlah
-            this.jumlah--;
-            // cek apakah jumlah lebih dari 0
-            if(this.jumlah > 0){
-                // mengupdate total harga
-                this.totalHarga = 0;
-                this.totalHarga = this.hargaJual * this.jumlah;
-                
-                // menampilkan data jumlah dan total harga
-                this.inpJumlah.setText(Integer.toString(this.jumlah));
-                this.inpTotalHarga.setText("<html><p>:&nbsp;"+text.toMoneyCase(Integer.toString(this.totalHarga))+"</p></html>");
-            }else{
-                Message.showWarning(this, String.format("Jumlah barang tidak boleh kurang dari 1!", jumlah, stok));
-            }
-        }else{
-            Message.showWarning(this, "Tidak ada data barang yang dipilih!");
-        }
-    }//GEN-LAST:event_btnMinJumlahActionPerformed
-
-    private void btnBayarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBayarMouseEntered
-//        this.btnBayar.setIcon(Gambar.getIcon("ic-pembayaran-pay-entered.png"));
-    }//GEN-LAST:event_btnBayarMouseEntered
-
-    private void btnBayarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBayarMouseExited
-//        this.btnBayar.setIcon(Gambar.getIcon("ic-pembayaran-pay.png"));
-    }//GEN-LAST:event_btnBayarMouseExited
-
-    private void btnBatalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBatalMouseEntered
-//        this.btnBatal.setIcon(Gambar.getIcon("ic-data-hapus-entered.png"));
-    }//GEN-LAST:event_btnBatalMouseEntered
-
-    private void btnBatalMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBatalMouseExited
-//        this.btnBatal.setIcon(Gambar.getIcon("ic-data-hapus.png"));
-    }//GEN-LAST:event_btnBatalMouseExited
-
-    private void btnAddJumlahMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddJumlahMouseEntered
-        this.btnAddJumlah.setForeground(new Color(0, 0, 0));
-    }//GEN-LAST:event_btnAddJumlahMouseEntered
-
-    private void btnAddJumlahMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddJumlahMouseExited
-        this.btnAddJumlah.setForeground(new Color(255, 255, 255));
-    }//GEN-LAST:event_btnAddJumlahMouseExited
-
-    private void btnMinJumlahMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinJumlahMouseEntered
-        this.btnMinJumlah.setForeground(new Color(0, 0, 0));
-    }//GEN-LAST:event_btnMinJumlahMouseEntered
-
-    private void btnMinJumlahMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinJumlahMouseExited
-        this.btnMinJumlah.setForeground(new Color(255, 255, 255));
-    }//GEN-LAST:event_btnMinJumlahMouseExited
 
     private void tabelDataBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataBarangMouseClicked
         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
@@ -653,26 +504,6 @@ public class TransaksiJual extends javax.swing.JPanel {
         }
         this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_tabelDataBarangKeyPressed
-
-    private void tabelDataPembeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataPembeliMouseClicked
-        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-        // menampilkan data pembeli
-        this.idSelectedPembeli = this.tabelDataPembeli.getValueAt(tabelDataPembeli.getSelectedRow(), 0).toString();
-        this.showDataPembeli();
-        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-    }//GEN-LAST:event_tabelDataPembeliMouseClicked
-
-    private void tabelDataPembeliKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDataPembeliKeyPressed
-        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-        if(evt.getKeyCode() == KeyEvent.VK_UP){
-            this.idSelectedPembeli = this.tabelDataPembeli.getValueAt(tabelDataPembeli.getSelectedRow() - 1, 0).toString();
-            this.showDataPembeli();
-        }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
-            this.idSelectedPembeli = this.tabelDataPembeli.getValueAt(tabelDataPembeli.getSelectedRow() + 1, 0).toString();
-            this.showDataPembeli();
-        }
-        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-    }//GEN-LAST:event_tabelDataPembeliKeyPressed
 
     private void inpCariBarangKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inpCariBarangKeyTyped
         String key = this.inpCariBarang.getText();
@@ -731,12 +562,6 @@ public class TransaksiJual extends javax.swing.JPanel {
 //        this.getInputJumlah();
     }//GEN-LAST:event_inpJumlahKeyReleased
 
-    private void inpCariPembeliKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inpCariPembeliKeyReleased
-        String key = this.inpCariPembeli.getText();
-        this.keywordPembeli = "WHERE id_pembeli LIKE '%"+key+"%' OR nama_pembeli LIKE '%"+key+"%'";
-        this.updateTabelPembeli();
-    }//GEN-LAST:event_inpCariPembeliKeyReleased
-
     private void inpCariBarangKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inpCariBarangKeyReleased
         String key = this.inpCariBarang.getText();
         this.keywordBarang = "WHERE id_barang LIKE '%"+key+"%' OR nama_barang LIKE '%"+key+"%'";
@@ -751,25 +576,201 @@ public class TransaksiJual extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_inpJumlahActionPerformed
 
+    private void tabelDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataMouseClicked
+        //        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        //        // menampilkan data supplier
+        //        this.idSelectedSupplier = this.tabelData.getValueAt(tabelData.getSelectedRow(), 0).toString();
+        //        this.showDataSupplier();
+        //        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_tabelDataMouseClicked
+
+    private void tabelDataKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDataKeyPressed
+        //        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        //        if(evt.getKeyCode() == KeyEvent.VK_UP){
+            //            this.idSelectedSupplier = this.tabelData.getValueAt(tabelData.getSelectedRow() - 1, 0).toString();
+            //            this.showDataSupplier();
+            //        }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
+            //            this.idSelectedSupplier = this.tabelData.getValueAt(tabelData.getSelectedRow() + 1, 0).toString();
+            //            this.showDataSupplier();
+            //        }
+        //        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_tabelDataKeyPressed
+
+    private void btnBatalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBatalMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBatalMouseClicked
+
+    private void btnBatalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBatalMouseEntered
+        //        this.btnBatal.setIcon(Gambar.getIcon("ic-data-hapus-entered.png"));
+    }//GEN-LAST:event_btnBatalMouseEntered
+
+    private void btnBatalMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBatalMouseExited
+        //        this.btnBatal.setIcon(Gambar.getIcon("ic-data-hapus.png"));
+    }//GEN-LAST:event_btnBatalMouseExited
+
+    private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
+        int status;
+        Audio.play(Audio.SOUND_INFO);
+        status = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin membatalkan transaksi?", "Confirm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+        System.out.println("status option" +status);
+        switch(status){
+            case JOptionPane.YES_OPTION : {
+                // mereset tabel
+                this.updateTabelSupplier();
+                this.updateTabelBarang();
+                this.updateTabelData();
+                // mereset input
+                this.resetInput();
+                break;
+            }
+        }
+    }//GEN-LAST:event_btnBatalActionPerformed
+
+    private void btnBayarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBayarMouseEntered
+        //        this.btnBeli.setIcon(Gambar.getIcon("ic-pembayaran-pay-entered.png"));
+    }//GEN-LAST:event_btnBayarMouseEntered
+
+    private void btnBayarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBayarMouseExited
+        //        this.btnBeli.setIcon(Gambar.getIcon("ic-pembayaran-pay.png"));
+    }//GEN-LAST:event_btnBayarMouseExited
+
+    private void btnBayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBayarActionPerformed
+        // membuka window konfirmasi pembayaran
+        PreparedStatement pst1;
+        PreparedStatement pst2;
+        String idbarang,namabarang,idsupplier,namasupplier,hbarang,jbarang,totalharga;
+        try{
+            if(tabelData.getRowCount()>0){
+
+                int status;
+                Audio.play(Audio.SOUND_INFO);
+                status = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin melakukan pembayaran ?", "Confirm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+                System.out.println("status option" +status);
+                switch(status){
+                    case JOptionPane.YES_OPTION : {
+                        pst1 = db.conn.prepareStatement("INSERT INTO transaksi_beli VALUES (?, ?, ?, ?, ?)");
+                        pst1.setString(1, idTr);
+                        //                        pst1.setString(2, );
+                        pst1.setString(3, idPetugas);
+                        pst1.setInt(4, this.keseluruhan);
+                        pst1.setString(5, waktu.getCurrentDateTime());
+                        if(pst1.executeUpdate()>0){
+                            System.out.println("Sudah membuat Transaksi Beli");
+                        }
+                        //id_tr_beli,id_supplier,nama_supplier,id_barang,_nama_barang,jenis_barang,harga,jumlah,total_harga
+                        pst2 = db.conn.prepareStatement("INSERT INTO detail_transaksi_beli VALUES (?, ?, ?, ?, ?)");
+
+                        for(int i = 0; i < tabelData.getRowCount(); i++){
+                            idbarang = tabelData.getValueAt(i,4).toString();
+                            pst1.setString(1, this.idTr);
+                            pst1.setString(2, tabelData.getValueAt(i, 2).toString());
+                            pst1.setString(3, tabelData.getValueAt(i, 3).toString());
+                            pst1.setString(4, idbarang);
+                            pst1.setString(5, tabelData.getValueAt(i, 5).toString());
+                            pst1.setString(6, barang.getJenis(idbarang));
+                            pst1.setInt(7, Integer.parseInt(tabelData.getValueAt(i, 6).toString()));
+                            pst1.setInt(8, Integer.parseInt(tabelData.getValueAt(i, 7).toString()));
+                            pst1.setInt(9, Integer.parseInt(tabelData.getValueAt(i, 8).toString()));
+                            if(pst1.executeUpdate()>0){
+                                System.out.println("Sudah membuat Detail Transaksi Beli ke "+ i);
+                            }
+                        }
+                        Message.showInformation(this, "Transaksi berhasil!");
+                        // mereset tabel
+                        this.updateTabelSupplier();
+                        this.updateTabelBarang();
+                        this.updateTabelData();
+                        // mereset input
+                        this.resetInput();
+                        break;
+                    }
+                    case JOptionPane.NO_OPTION : {
+                        System.out.println("Transaksi Dibatalkan");
+                        Message.showInformation(this, "Transaksi Dibatalkan!");
+                        break;
+                    }
+                }
+            }else{
+                Message.showWarning(this, "Tabel Data Transaksi Tidak Boleh Kosong !");
+            }
+        } catch (SQLException | InValidUserDataException ex) {
+            ex.printStackTrace();
+            System.out.println("Error Message : " + ex.getMessage());
+        }
+    }//GEN-LAST:event_btnBayarActionPerformed
+
+    private void btnHapusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHapusMouseClicked
+        DefaultTableModel model = (DefaultTableModel) tabelData.getModel();
+        if(tabelData.getSelectedRow()<0){
+            Message.showWarning(this, "Tidak ada data yang dipilih!");
+        }else{
+            model.removeRow(tabelData.getSelectedRow());
+        }
+    }//GEN-LAST:event_btnHapusMouseClicked
+
+    private void btnHapusMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHapusMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnHapusMouseEntered
+
+    private void btnHapusMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHapusMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnHapusMouseExited
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnHapusActionPerformed
+
+    private void btnEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseClicked
+        String idBarangBaru = tabelDataBarang.getValueAt(tabelDataBarang.getSelectedRow()-1, 0).toString();
+        String stokBaru = inpJumlah.getText();
+        DefaultTableModel model = (DefaultTableModel) tabelData.getModel();
+        if(tabelData.getSelectedRow()<0){
+            Message.showWarning(this, "Tidak ada data yang dipilih!");
+        }else{
+            setrowtotabeldetail(new Object[]{
+                this.idTr,
+                waktu.getCurrentDate(),
+                idBarangBaru,
+                namaBarang,
+                stokBaru,
+                this.hargaBeli,
+                totalHarga,
+            });
+        }
+    }//GEN-LAST:event_btnEditMouseClicked
+
+    private void btnEditMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditMouseEntered
+
+    private void btnEditMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditMouseExited
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
-    private javax.swing.JButton btnAddJumlah;
     private javax.swing.JButton btnBatal;
     private javax.swing.JButton btnBayar;
-    private javax.swing.JButton btnMinJumlah;
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnHapus;
     private javax.swing.JTextField inpCariBarang;
-    private javax.swing.JTextField inpCariPembeli;
+    private javax.swing.JLabel inpHarga;
     private javax.swing.JLabel inpID;
+    private javax.swing.JLabel inpIDBarang;
     private javax.swing.JTextField inpJumlah;
     private javax.swing.JLabel inpNamaBarang;
-    private javax.swing.JLabel inpNamaPembeli;
     private javax.swing.JLabel inpNamaPetugas;
     private javax.swing.JLabel inpTanggal;
     private javax.swing.JLabel inpTotalHarga;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable tabelData;
     private javax.swing.JTable tabelDataBarang;
-    private javax.swing.JTable tabelDataPembeli;
+    private javax.swing.JLabel txtTotal;
     // End of variables declaration//GEN-END:variables
 }

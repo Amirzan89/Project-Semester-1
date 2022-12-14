@@ -39,23 +39,23 @@ public class Audio {
      * @param filename file audio yang akan diputar
      */
     public static void play(final String filename){
-        System.out.println("TES FILE AUDIO");
+//        System.out.println("TES FILE AUDIO");
         // mengecek apakah audio sedang digunakan atau tidak, jika sedang digunakan maka audio akan diclose
-        System.out.println("PLAYErS : " + players);
+//        System.out.println("PLAYErS : " + players);
         if(players != null){
-            System.out.println("PLAYERS TIDAK NULL");
+//            System.out.println("PLAYERS TIDAK NULL");
 //            stop();
-            System.out.println("OLD PLAYERS DI STOP");
+//            System.out.println("OLD PLAYERS DI STOP");
         }
-        System.out.println("MENGAMBIL AUDIO");
+//        System.out.println("MENGAMBIL AUDIO");
         // mengambil input audio dari user
         try{
-            System.out.println("FILE AUDIO : "+new java.io.File(directory+filename).exists());
+//            System.out.println("FILE AUDIO : "+new java.io.File(directory+filename).exists());
             FileInputStream input = new FileInputStream(directory+filename);
-            System.out.println("PERSIAPAN EKSEKUSI AUDIO PLAYER");
+//            System.out.println("PERSIAPAN EKSEKUSI AUDIO PLAYER");
 //            System.out.println(input.);
             players = new Player(input);
-            System.out.println("AUDIO PLAYER SUDAH DIEKSEKUSI");
+//            System.out.println("AUDIO PLAYER SUDAH DIEKSEKUSI");
         }catch(IOException | JavaLayerException iex){
             iex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat mengambil file audio \nError : " + iex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
@@ -63,17 +63,17 @@ public class Audio {
             ex.printStackTrace();
         }
         
-        System.out.println("PERSIAPAN MEMUTAR AUDIO");
+//        System.out.println("PERSIAPAN MEMUTAR AUDIO");
         // memutar audio
         new Thread(new Runnable(){
             
             @Override
             public void run(){
                 try{
-                    System.out.println("PERSIAPAN MEMUTAR AUDIO ke 2");
-                    System.out.println("PLAYErs : " + players.toString());
+//                    System.out.println("PERSIAPAN MEMUTAR AUDIO ke 2");
+//                    System.out.println("PLAYErs : " + players.toString());
                     players.play();
-                    System.out.println("SETELAH AUDIO DIPUTAR");
+//                    System.out.println("SETELAH AUDIO DIPUTAR");
                 }catch(JavaLayerException jlex){
                     jlex.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat akan meutar audio! \nError : " + jlex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
