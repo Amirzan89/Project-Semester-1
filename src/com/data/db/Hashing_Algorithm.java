@@ -1,62 +1,29 @@
 package com.data.db;
-
-import java.io.IOException;
-import java.util.Date;
-import java.util.Random;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
+import java.security.SecureRandom;
+import org.mindrot.jbcrypt.BCrypt;
 public class Hashing_Algorithm {
-//y}
- 
-//public class Main {
- 
-    private static Random rand = new Random((new Date()).getTime());
- 
-    public static void main(String[] args) throws Exception {
- 
-  String st = "secrete";
- 
-  String enc = encrypt(st);
- 
-  System.out.println("Encrypted string :" + enc);
- 
-  System.out.println("Decrypted string :" + decrypt(enc));
- 
+    public String hash(String password) {
+        return BCrypt.hashpw(password, BCrypt.gensalt());
     }
- 
-    public static String encrypt(String str) {
- 
-  BASE64Encoder encoder = new BASE64Encoder();
- 
-  byte[] salt = new byte[8];
- 
-  rand.nextBytes(salt);
- 
-  return encoder.encode(salt) + encoder.encode(str.getBytes());
+    public String hash(String password,int i) {
+        return BCrypt.hashpw(password, BCrypt.gensalt(i));
     }
- 
-    public static String decrypt(String encstr) {
- 
-  if (encstr.length() > 12) {
- 
-String cipher = encstr.substring(12);
- 
-BASE64Decoder decoder = new BASE64Decoder();
- 
-try {
- 
-    return new String(decoder.decodeBuffer(cipher));
- 
-} catch (IOException e) {
- 
-    //  throw new InvalidImplementationException(
- 
-    //Fail
- 
+    public String hash(String password,int i,SecureRandom sr) {
+        return BCrypt.hashpw(password, BCrypt.gensalt(i,sr));
     }
- 
-  }
- 
-  return null;
+    public String hashSalt(String password,String salt) {
+        return BCrypt.hashpw(password, salt);
+    }
+    public String salt() {
+        return BCrypt.gensalt();
+    }
+    public String salt(int i){
+        return BCrypt.gensalt(i);
+    }
+    public String salt(int i, SecureRandom sr){
+        return BCrypt.gensalt(i, sr);
+    }
+    public boolean checkpw(String pass,String hash){
+        return BCrypt.checkpw(pass, hash);
     }
 }

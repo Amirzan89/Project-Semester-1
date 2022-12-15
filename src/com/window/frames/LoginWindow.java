@@ -198,7 +198,7 @@ public class LoginWindow extends javax.swing.JFrame {
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             if(login){
                 Audio.play(Audio.SOUND_INFO);
-                JOptionPane.showMessageDialog(this, "Login Berhasil!\n\nSelamat datang "+ user.getData(UserLevels.KARYAWAN.name(),"nama_karyawan","WHERE id_petugas = '" + this.idUser + "'"));
+                JOptionPane.showMessageDialog(this, "Login Berhasil!\n\nSelamat datang "+ user.getData(UserLevels.KARYAWAN.name(),"nama_karyawan","WHERE id_karyawan = '" + this.idUser + "'"));
                 // membuka window dashboard
                 java.awt.EventQueue.invokeLater(new Runnable(){
                     @Override
@@ -226,6 +226,8 @@ public class LoginWindow extends javax.swing.JFrame {
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             // menampilkan pesan error
             Message.showException(this, ex, true);
+        } catch (Exception ex) {
+            Logger.getLogger(LoginWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnLoginMouseClicked
 

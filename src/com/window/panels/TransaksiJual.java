@@ -43,7 +43,6 @@ public class TransaksiJual extends javax.swing.JPanel {
         initComponents();
         
         this.idTr = this.trj.createIDTransaksi();
-        
         this.inpJumlah.setEditable(false);
         this.inpID.setText("<html><p>:&nbsp;"+this.trj.createIDTransaksi()+"</p></html>");
         this.inpNamaPetugas.setText("<html><p>:&nbsp;"+this.user.getCurrentLoginName()+"</p></html>");
@@ -55,7 +54,6 @@ public class TransaksiJual extends javax.swing.JPanel {
         this.tabelDataBarang.getTableHeader().setBackground(new java.awt.Color(255,255,255));
         this.tabelDataBarang.getTableHeader().setForeground(new java.awt.Color(0, 0, 0));
         
-        this.updateTabelPembeli();
         this.updateTabelBarang();
         
         // mengupdate waktu
@@ -101,24 +99,6 @@ public class TransaksiJual extends javax.swing.JPanel {
         return null;
     }
     
-    private void updateTabelPembeli(){
-        this.tabelDataPembeli.setModel(new javax.swing.table.DefaultTableModel(
-            getDataPembeli(),
-            new String [] {
-                "ID Pembeli", "Nama Pembeli", "No Telephone", "Alamat"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-    }
-    
     private Object[][] getDataBarang(){
         try{
             Object obj[][];
@@ -162,26 +142,10 @@ public class TransaksiJual extends javax.swing.JPanel {
         });
     }
     
-    private boolean isSelectedPembeli(){
-        return this.tabelDataPembeli.getSelectedRow() > - 1;
-    }
-    
     private boolean isSelectedBarang(){
         return this.tabelDataBarang.getSelectedRow() > - 1;
     }
     
-    private void showDataPembeli(){
-        
-        // cek akapah ada data pembeli yg dipilih
-        if(this.isSelectedPembeli()){
-            // mendapatkan data pembeli
-            this.idPembeli = this.idSelectedPembeli;
-            this.namaPembeli = this.pembeli.getNama(this.idPembeli);
-            
-            // menampilkan data pembeli
-            this.inpNamaPembeli.setText("<html><p>:&nbsp;"+this.namaPembeli+"</p></html>");
-        }
-    }
     
     private void showDataBarang(){
         
@@ -203,7 +167,6 @@ public class TransaksiJual extends javax.swing.JPanel {
     }
     
     private void resetInput(){
-        this.inpNamaPembeli.setText("<html><p>:&nbsp;</p></html>");
         this.inpNamaBarang.setText("<html><p>:&nbsp;</p></html>");
         this.inpJumlah.setText("1");
 //        this.inpMetode.setSelectedIndex(0);
@@ -616,7 +579,6 @@ public class TransaksiJual extends javax.swing.JPanel {
         switch(status){
             case JOptionPane.YES_OPTION : {
                 // mereset tabel
-                this.updateTabelSupplier();
                 this.updateTabelBarang();
                 this.updateTabelData();
                 // mereset input

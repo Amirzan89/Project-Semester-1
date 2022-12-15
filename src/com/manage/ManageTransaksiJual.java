@@ -50,13 +50,13 @@ public class ManageTransaksiJual extends Database{
         }catch(SQLException ex){
             Message.showException(this, "Terjadi kesalahan\n" + ex.getMessage(), ex, true);
         }
-        return null;
+        return "kosong";
     }
     
     public String createIDTransaksi(){
         String lastID = this.getLastIDTransaksi(), nomor;
         
-        if(!lastID.equals("")){
+        if(!lastID.equals("kosong")){
             nomor = lastID.substring(3);
         }else{
             nomor = "000";
