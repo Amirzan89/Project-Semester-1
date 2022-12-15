@@ -238,7 +238,7 @@ public class Dashboard extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "No", "Nama Transaksi", "Total Harga", "Jenis Transaksi", "Tanggal", "Waktu"
+                "No", "ID Transaksi", "Total Harga", "Jenis Transaksi", "Tanggal", "Waktu"
             }
         ) {
             boolean[] canEdit = new boolean [] {

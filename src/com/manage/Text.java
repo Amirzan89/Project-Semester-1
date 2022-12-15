@@ -384,7 +384,11 @@ public class Text {
         // jika input bukan sebuah number maka akan mengembalikan nilai 'Rp. -1.00'
         return "Rp. -1.00";
     }
-    
+    public int toIntCase(String moneyCase){
+        String data = moneyCase.substring(4,moneyCase.length()-3).replace(",", "");
+        int value = Integer.parseInt(data);
+        return value;
+    }
     /**
      * Digunakan untuk merubah gaya dari data ttl kedalam gaya date of birth case.
      * Pertama-tama method akan mengecek apakah tempat dan tanggal lahir valid atau tidak.

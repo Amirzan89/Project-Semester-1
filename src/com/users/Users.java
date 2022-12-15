@@ -2,6 +2,7 @@ package com.users;
 
 import com.data.app.Log;
 import com.data.app.Storage;
+import com.data.db.AES;
 import com.data.db.Database;
 import com.data.db.DatabaseTables;
 import com.error.AuthenticationException;
@@ -71,7 +72,7 @@ public class Users extends Database{
     
 //    Hashing_Algorithm hash = new Hashing_Algorithm();
     private Date date;
-    
+    private final Hashing_Algorithm hash = new Hashing_Algorithm();
     private final Text txt = new Text();
     
     /**
@@ -139,15 +140,20 @@ public class Users extends Database{
         PreparedStatement pst;
         // mengecek apakah data yang akan ditambahkan valid atau tidak
         if(this.validateAddUser(idUser, pass1, level)){
-            Log.addLog("Data dari '" + idUser + "' dinyatakan valid.");
-            // menambahkan data kedalam Database
-            pst = this.conn.prepareStatement("INSERT INTO users VALUES (?, ?, ?)");
-            pst.setString(1, idUser);
-            pst.setString(2, pass1);
-            pst.setString(3, level.name());
-            
-            // mengekusi query
-            return pst.executeUpdate() > 0;
+            try {
+                Log.addLog("Data dari '" + idUser + "' dinyatakan valid.");
+                String hashing = hash.hash(pass1, 15);
+                // menambahkan data kedalam Database
+                pst = this.conn.prepareStatement("INSERT INTO users VALUES (?, ?, ?)");
+                pst.setString(1, idUser);
+                pst.setString(2, hashing);
+                pst.setString(3, level.name());
+                
+                // mengekusi query
+                return pst.executeUpdate() > 0;
+            } catch (Exception ex) {
+                Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
         }
         return false;
@@ -268,7 +274,7 @@ public class Users extends Database{
      * @throws AuthenticationException jika user sudah melakukan login.
      * @throws SQLException jika terjadi kesalahan pada <b>Database</b>.
      */
-    public final boolean login(String idUser, String password) throws IOException, AuthenticationException, SQLException{
+    public final boolean login(String idUser, String password) throws IOException, AuthenticationException, SQLException, Exception{
         
         // mengecek apakah idUser dan password valid atau tidak
         if(this.validateLogin(idUser, password)){
@@ -285,7 +291,7 @@ public class Users extends Database{
         return false;
     }
     
-    private boolean validateLogin(String idUser, String password) throws AuthenticationException{
+    private boolean validateLogin(String idUser, String password) throws AuthenticationException, Exception{
 
         // mengecek apakah id user valid atau tidak
         if(!Validation.isIdUser(idUser)){
@@ -296,7 +302,7 @@ public class Users extends Database{
         // mengecek apakah password valid atau tidak
         else if(!Validation.isPassword(password)){
             throw new AuthenticationException("Password yang anda masukan tidak valid.");
-        }else if(!password.equalsIgnoreCase(this.getPassword(idUser))){
+        }else if(!hash.checkpw(password,this.getPassword(idUser))){
             throw new AuthenticationException("Password yang anda masukan tidak cocok.");
         }else{
             return true;
@@ -557,7 +563,8 @@ public class Users extends Database{
         // mengecek apakah password valid atau tidak
         if(Validation.isPassword(newPassword)){
             // mengedit password dari user
-            return this.setUserData(idUser, UserData.PASSWORD, newPassword);
+            String hashing = hash.hash(newPassword, 15);
+            return this.setUserData(idUser, UserData.PASSWORD, hashing);
         }
         // akan menghasilkan error jika password tidak valid
         throw new InValidUserDataException("'" + newPassword + "' Password tersebut tidak valid.");

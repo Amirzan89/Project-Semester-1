@@ -1,9 +1,14 @@
 package random;
+import com.data.db.AES;
 import com.manage.Text;
 import com.data.db.Database;
 import com.data.db.DatabaseTables;
+import com.data.db.Hashing_Algorithm;
 import com.manage.Message;
 import com.media.Audio;
+import com.users.UserLevels;
+import static com.users.UserLevels.ADMIN;
+import com.users.Users;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -15,14 +20,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 public class random {
+    private final static Hashing_Algorithm hash = new Hashing_Algorithm();
     private final static Text text = new Text();
     private final static Database db = new Database();
-    
+    private final static AES aes = new AES();
     private static Statement getStat(){
         try{  
             Class.forName("com.mysql.jdbc.Driver");  
             Connection con=DriverManager.getConnection(  
-                "jdbc:mysql://localhost:3306/gemastik_lightning","root","");  
+                "jdbc:mysql://localhost:3306/bisnis","root","");  
             Statement stmt=con.createStatement();
             
 //            ResultSet rs=stmt.executeQuery("show databases;");  
@@ -34,10 +40,11 @@ public class random {
         }
         return null;
     }
-    public static String getData(String table, String field, String kondisi){
+    public String getData(String table, String field, String kondisi){
         try{
             Statement stat = getStat();
             String sql = "SELECT "+field+" FROM "+table + " " + kondisi;
+            System.out.println(sql);
             ResultSet res = stat.executeQuery(sql);
             if(res.next()){
                 return res.getString(field);
@@ -111,10 +118,42 @@ public class random {
         }
         return -1;
     }
-    public static void main(String[] args) {
-        System.out.println(text.toMoneyCase("-10000"));
-        int januari = getTotal("transaksi_jual","total_hrg","WHERE MONTH(tanggal) = '1'");
-        System.out.println("januari "+januari);
+    private String removeDelim(String num){
+        return num.replaceAll("_", "").replaceAll(",", "").replaceAll("\\.", "");
+    }
+    public boolean isNumber(String str){
+        // jika input null maka akan mengembalikan nilai false
+        if(str == null){
+            return false;
+        }
+        try{
+            Long.parseLong(this.removeDelim(str));
+            return true;
+        }catch(NumberFormatException ex){
+            return false;
+        }
+    }
+    private String toMoneyCase1(String money){
+        // mengecek apakah input adalah sebuah number atau tidak
+        if(this.isNumber(money)){
+            // mengubah menjadi money case
+            return String.format("Rp. %.d,00", Long.parseLong(money));
+        }
+        // jika input bukan sebuah number maka akan mengembalikan nilai 'Rp. -1.00'
+        return "Rp. -1.00";
+    }
+    public static void main(String[] args) throws SQLException, Exception {
+        random random = new random();
+        String password = "Orang@12345";
+//        System.out.println("password asli "+password);
+//        String hash1 = hash.hash(password,15);
+//        System.out.println("hasil hash "+hash1);
+//        boolean hasil = hash.checkpw(password, hash1);
+//        System.out.println("hasil "+hasil);
+        String hashing = random.getData("users", "password", "WHERE id_user = 'PG005'");
+        System.out.println("data password "+hashing);
+        boolean validasi = hash.checkpw(password, hashing);
+        System.out.println("hasil "+validasi);
     }
 }
 
