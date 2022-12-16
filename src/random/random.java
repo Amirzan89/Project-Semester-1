@@ -144,16 +144,37 @@ public class random {
     }
     public static void main(String[] args) throws SQLException, Exception {
         random random = new random();
-        String password = "Orang@12345";
-//        System.out.println("password asli "+password);
-//        String hash1 = hash.hash(password,15);
-//        System.out.println("hasil hash "+hash1);
+        String password = "12345";
+        System.out.println("password asli "+password);
+        String hash1 = "",hashing = "";
+        boolean validasi = false;
+        for(int i = 1; i<10;i++){
+            hashing = random.getData("users", "password", "WHERE id_user = 'PB00"+i+"'");
+            validasi = hash.checkpw(password, hashing);
+            System.out.println("hasil pembeli ke "+i+" : "+validasi);
+        }
+            hashing = random.getData("users", "password", "WHERE id_user = 'PB010'");
+            validasi = hash.checkpw(password, hashing);
+            System.out.println("hasil pembeli ke 10 : "+validasi);
+        for(int i = 2; i<5;i++){
+            hashing = random.getData("users", "password", "WHERE id_user = 'PG00"+i+"'");
+            validasi = hash.checkpw(password, hashing);
+            System.out.println("hasil pegawai ke "+i+" : "+validasi);
+        }
+        for(int i = 1; i<10;i++){
+            hashing = random.getData("users", "password", "WHERE id_user = 'SP00"+i+"'");
+            validasi = hash.checkpw(password, hashing);
+            System.out.println("hasil supplier ke "+i+" : "+validasi);
+        }
+            hashing = random.getData("users", "password", "WHERE id_user = 'SP010'");
+            validasi = hash.checkpw(password, hashing);
+            System.out.println("hasil supplier ke 10 : "+validasi);
+//            hash1 = hash.hash(password,15);
+//            System.out.println("hasil hash "+hash1);
 //        boolean hasil = hash.checkpw(password, hash1);
 //        System.out.println("hasil "+hasil);
-        String hashing = random.getData("users", "password", "WHERE id_user = 'PG005'");
-        System.out.println("data password "+hashing);
-        boolean validasi = hash.checkpw(password, hashing);
-        System.out.println("hasil "+validasi);
+//        System.out.println("data password "+hashing);
+        
     }
 }
 
