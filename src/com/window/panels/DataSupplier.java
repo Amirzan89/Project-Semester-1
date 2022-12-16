@@ -55,14 +55,14 @@ public class DataSupplier extends javax.swing.JPanel {
         this.tabelData.getTableHeader().setBackground(new java.awt.Color(255,255,255));
         this.tabelData.getTableHeader().setForeground(new java.awt.Color(0, 0, 0));
 
-        this.tabelHistori.setRowHeight(29);
-        this.tabelHistori.getTableHeader().setBackground(new java.awt.Color(255,255,255));
-        this.tabelHistori.getTableHeader().setForeground(new java.awt.Color(0, 0, 0));
+//        this.tabelHistori.setRowHeight(29);
+//        this.tabelHistori.getTableHeader().setBackground(new java.awt.Color(255,255,255));
+//        this.tabelHistori.getTableHeader().setForeground(new java.awt.Color(0, 0, 0));
         
         this.btnAdd.setUI(new javax.swing.plaf.basic.BasicButtonUI());
         this.btnEdit.setUI(new javax.swing.plaf.basic.BasicButtonUI());
         this.btnDel.setUI(new javax.swing.plaf.basic.BasicButtonUI());
-        
+        System.out.println("done 1");
         JLabel[] values = {
           this.valIDSupplier, this.valNamaSupplier, this.valNoTelp, this.valAlamat, 
           this.valBrgSupplier, this.valUang, valLast
@@ -99,9 +99,9 @@ public class DataSupplier extends javax.swing.JPanel {
                 }
             });
         
-        this.updateTabel();
-        this.updateTabelHistori();
+//        this.updateTabelHistori();
         }
+        this.updateTabel();
     }
 
     private Object[][] getData(){
@@ -145,6 +145,7 @@ public class DataSupplier extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        System.out.println("done 2");
     }
     
     private Object[][] getDataHistori(){
@@ -197,8 +198,9 @@ public class DataSupplier extends javax.swing.JPanel {
         this.namaSupplier = supplier.getNama(this.idSelected);
         this.noTelp = text.toTelephoneCase(supplier.getNoTelp(this.idSelected));
         this.alamat = supplier.getAlamat(this.idSelected);
-        this.ttBrg = ""+this.supplier.getJumlahData(DatabaseTables.TRANSAKSI_BELI.name(), String.format("WHERE id_supplier='%s'", this.idSelected));
-        this.ttlUang = text.toMoneyCase(""+this.supplier.sumData(DatabaseTables.TRANSAKSI_BELI.name(), "total_hrg", String.format("where id_supplier = '%s'", this.idSelected)));
+        /
+        this.ttBrg = ""+this.supplier.getJumlahData(DatabaseTables.DETAIL_TRANSAKSI_BELI.name(), String.format("WHERE id_supplier='%s'", this.idSelected));
+        this.ttlUang = text.toMoneyCase(""+this.supplier.sumData(DatabaseTables.DETAIL_TRANSAKSI_BELI.name(), "total_harga", String.format("where id_supplier = '%s'", this.idSelected)));
         tanggalPenuh = this.supplier.getData(DatabaseTables.TRANSAKSI_BELI.name(), "tanggal", "WHERE id_supplier = '" + this.idSelected + "'  ORDER BY tanggal DESC");
         if(tanggalPenuh.equals("null")){
             this.last = "Belum Pernah Melakukan Transaksi";
@@ -520,7 +522,6 @@ public class DataSupplier extends javax.swing.JPanel {
             // menampilkan data supplier
             this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow(), 0).toString();
             this.showData();
-            this.updateTabelHistori();
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         } catch (ParseException ex) {
             Logger.getLogger(DataSupplier.class.getName()).log(Level.SEVERE, null, ex);
@@ -533,7 +534,6 @@ public class DataSupplier extends javax.swing.JPanel {
             try {
                 this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow() - 1, 0).toString();
                 this.showData();
-                this.updateTabelHistori();
             } catch (ParseException ex) {
                 Logger.getLogger(DataSupplier.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -541,7 +541,6 @@ public class DataSupplier extends javax.swing.JPanel {
             try {
                 this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow() + 1, 0).toString();
                 this.showData();
-                this.updateTabelHistori();
             } catch (ParseException ex) {
                 Logger.getLogger(DataSupplier.class.getName()).log(Level.SEVERE, null, ex);
             }

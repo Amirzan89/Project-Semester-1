@@ -292,15 +292,17 @@ public class Users extends Database{
     }
     
     private boolean validateLogin(String idUser, String password) throws AuthenticationException, Exception{
-
+        System.out.println("validasi login");
+        String leveluser = getLevel(idUser).name();
         // mengecek apakah id user valid atau tidak
         if(!Validation.isIdUser(idUser)){
             throw new AuthenticationException("'" +idUser + "' ID User tersebut tidak valid.");
         }else if(!this.isExistUser(idUser)){
             throw new AuthenticationException("'" +idUser + "' ID User tersebut tidak dapat ditemukan.");
-        }
+        }else if(!(leveluser.equals("ADMIN") || leveluser.equals("KARYAWAN"))){
+            throw new AuthenticationException("'" +idUser + "' ID User Bukan Admin atau Karyawan.");
         // mengecek apakah password valid atau tidak
-        else if(!Validation.isPassword(password)){
+        }else if(!Validation.isPassword(password)){
             throw new AuthenticationException("Password yang anda masukan tidak valid.");
         }else if(!hash.checkpw(password,this.getPassword(idUser))){
             throw new AuthenticationException("Password yang anda masukan tidak cocok.");

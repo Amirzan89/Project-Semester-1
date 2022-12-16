@@ -81,7 +81,7 @@ public class LoginWindow extends javax.swing.JFrame {
                 inpUsernameActionPerformed(evt);
             }
         });
-        pnlMain.add(inpUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 250, 30));
+        pnlMain.add(inpUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 253, 250, 30));
 
         lblMinimaze.setBackground(new java.awt.Color(50, 50, 55));
         lblMinimaze.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -126,7 +126,7 @@ public class LoginWindow extends javax.swing.JFrame {
                 inpPasswordActionPerformed(evt);
             }
         });
-        pnlMain.add(inpPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 310, 250, 30));
+        pnlMain.add(inpPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 312, 250, 30));
 
         btnLogin.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
