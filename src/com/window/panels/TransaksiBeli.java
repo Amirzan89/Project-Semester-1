@@ -42,13 +42,14 @@ public class TransaksiBeli extends javax.swing.JPanel {
     
     private String keywordSupplier = "", keywordBarang = "", idSelectedSupplier, idSelectedBarang;
     
-    private String idTr, namaTr, namaSupplier, namaBarang, idPetugas, idSupplier, idBarang, metodeBayar, tglNow;
+    private String idTr, namaTr, namaSupplier, namaBarang, idKaryawan, idSupplier, idBarang, metodeBayar, tglNow;
     
     private int jumlah = 0, hargaBeli, totalHarga = 0, stok = 0,keseluruhan = 0;
     
     public TransaksiBeli() {
         initComponents();
         this.idTr = this.trb.createIDTransaksi();
+        this.idKaryawan = this.user.getCurrentLogin();
         this.txtTotal.setText(text.toMoneyCase("0"));
         this.inpJumlah.setText("0");
         this.inpTotalHarga.setText(text.toMoneyCase("0"));
@@ -265,7 +266,6 @@ public class TransaksiBeli extends javax.swing.JPanel {
         this.inpNamaSupplier.setText("<html><p>:&nbsp;</p></html>");
         this.inpNamaBarang.setText("<html><p>:&nbsp;</p></html>");
         this.inpJumlah.setText("1");
-//        this.inpMetode.setSelectedIndex(0);
         this.inpTotalHarga.setText("<html><p>:&nbsp;</p></html>");
     }
     
@@ -461,7 +461,7 @@ public class TransaksiBeli extends javax.swing.JPanel {
         inpNamaSupplier.setText(":");
         add(inpNamaSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 192, 200, 28));
 
-        inpNamaBarang.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        inpNamaBarang.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         inpNamaBarang.setForeground(new java.awt.Color(0, 0, 0));
         inpNamaBarang.setText(":");
         add(inpNamaBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 233, 200, 28));
@@ -646,14 +646,14 @@ public class TransaksiBeli extends javax.swing.JPanel {
                     case JOptionPane.YES_OPTION : {
                         pst1 = db.conn.prepareStatement("INSERT INTO transaksi_beli VALUES (?, ?, ?, ?)");
                         pst1.setString(1, idTr);
-                        pst1.setString(2, idPetugas);
+                        pst1.setString(2, idKaryawan);
                         pst1.setInt(3, text.toIntCase(txtTotal.getText()));
                         pst1.setString(4, waktu.getCurrentDateTime());
                         if(pst1.executeUpdate()>0){
                             System.out.println("Sudah membuat Transaksi Beli");
                         }
                         //id_tr_beli,id_supplier,nama_supplier,id_barang,_nama_barang,jenis_barang,harga,jumlah,total_harga
-                        pst2 = db.conn.prepareStatement("INSERT INTO detail_transaksi_beli VALUES (?, ?, ?, ?, ?)");
+                        pst2 = db.conn.prepareStatement("INSERT INTO detail_transaksi_beli VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
                         
                         for(int i = 0; i < tabelData.getRowCount(); i++){
                             idbarang = tabelData.getValueAt(i,4).toString();
@@ -848,7 +848,7 @@ public class TransaksiBeli extends javax.swing.JPanel {
         DefaultTableModel modelBarang = (DefaultTableModel) tabelDataBarang.getModel();
         boolean error = false, cocokBarang = false,cocokSupplier = false;
         System.out.println("simpan");
-        int tharga = 0,total = 0, idProduk, totalProduk = 0, sisaStok = 0, jumlahB = 0,thargaLama = 0, thargaBaru = 0,baris = -1;
+        int tharga = 0,total = 0, stokSekarang = 0, totalProduk = 0, sisaStok = 0, jumlahB = 0,thargaLama = 0, thargaBaru = 0,baris = -1;
 //        String idProdukBaru = inpIDBarang.getText();
         if (inpTanggal.getText().equals("")) {
             error = true;
@@ -880,12 +880,19 @@ public class TransaksiBeli extends javax.swing.JPanel {
         }
         //
         if (!error) {
+            for(int i = 0; i<tabelDataBarang.getRowCount(); i++){
+                if(tabelDataBarang.getValueAt(i, 0).equals(this.idBarang)){
+                    stokSekarang = Integer.parseInt(tabelDataBarang.getValueAt(i,3).toString());
+                    break;
+                }
+            }
             if (tabelData.getRowCount() >= 1) { //jika tabel ada isinya
                 String idBarangLama = "",idSupplierLama = "",idbarang = "",idsupplier = "",namaSupplierLama = "";
                 int stokLama = 0, stokBaru = 0;
                 System.out.println("id supplier di tabel "+this.idSupplier);
                 System.out.println("id barang di tabel "+this.idBarang);
                 for(int i = 0; i<tabelData.getRowCount(); i++){
+                    //mencari id barang dan id supplier di tabel data
                     idsupplier = tabelData.getValueAt(i, 2).toString();
                     System.out.println("id supplier di baris "+(i+1)+" : "+ idsupplier);
                     idbarang = tabelData.getValueAt(i, 4).toString();
@@ -996,7 +1003,7 @@ public class TransaksiBeli extends javax.swing.JPanel {
                             jumlahB,
                             this.totalHarga
                         });
-                        sisaStok = this.stok - jumlahB;
+                        sisaStok = stokSekarang + jumlahB;
                         System.out.println("sisa stok "+ sisaStok);
                         this.stok = sisaStok;
                     //update total harga keseluruhan
@@ -1031,8 +1038,7 @@ public class TransaksiBeli extends javax.swing.JPanel {
                     //update tabel barang
                     System.out.println("stok tabel "+this.stok);
                     System.out.println("jumlah pesanan "+jumlahB);
-                    sisaStok = this.stok - jumlahB;
-                    this.stok = sisaStok;
+                    sisaStok = stokSekarang + jumlahB;
                     System.out.println("sisa stok "+ sisaStok);
 //                    DefaultTableModel model = (DefaultTableModel) tabelDataBarang.getModel();
                     modelBarang.setValueAt(sisaStok, tabelDataBarang.getSelectedRow(), 3);

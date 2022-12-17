@@ -198,7 +198,7 @@ public class DataSupplier extends javax.swing.JPanel {
         this.namaSupplier = supplier.getNama(this.idSelected);
         this.noTelp = text.toTelephoneCase(supplier.getNoTelp(this.idSelected));
         this.alamat = supplier.getAlamat(this.idSelected);
-        /
+        
         this.ttBrg = ""+this.supplier.getJumlahData(DatabaseTables.DETAIL_TRANSAKSI_BELI.name(), String.format("WHERE id_supplier='%s'", this.idSelected));
         this.ttlUang = text.toMoneyCase(""+this.supplier.sumData(DatabaseTables.DETAIL_TRANSAKSI_BELI.name(), "total_harga", String.format("where id_supplier = '%s'", this.idSelected)));
         tanggalPenuh = this.supplier.getData(DatabaseTables.TRANSAKSI_BELI.name(), "tanggal", "WHERE id_supplier = '" + this.idSelected + "'  ORDER BY tanggal DESC");

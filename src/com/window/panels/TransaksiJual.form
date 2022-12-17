@@ -45,7 +45,7 @@
     <Component class="javax.swing.JLabel" name="inpNamaPetugas">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Dialog" size="16" style="1"/>
+          <Font name="Dialog" size="14" style="1"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
@@ -77,7 +77,7 @@
     <Component class="javax.swing.JLabel" name="inpNamaBarang">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Dialog" size="16" style="1"/>
+          <Font name="Dialog" size="14" style="1"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
@@ -125,7 +125,7 @@
     <Component class="javax.swing.JLabel" name="inpTanggal">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Dialog" size="16" style="1"/>
+          <Font name="Dialog" size="12" style="1"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
@@ -156,20 +156,14 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="1"/>
-        <Property name="disabledTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
-        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inpJumlahActionPerformed"/>
-        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="inpJumlahKeyReleased"/>
         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="inpJumlahKeyTyped"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="250" y="301" width="50" height="31"/>
+          <AbsoluteConstraints x="200" y="300" width="50" height="32"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -195,7 +189,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="630" y="75" width="310" height="25"/>
+          <AbsoluteConstraints x="590" y="53" width="345" height="26"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -205,7 +199,7 @@
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="440" y="100" width="500" height="330"/>
+          <AbsoluteConstraints x="435" y="80" width="500" height="350"/>
         </Constraint>
       </Constraints>
 
@@ -223,103 +217,42 @@
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="5" rowCount="17">
-                <Column editable="true" title="ID Barang" type="java.lang.Object">
-                  <Data value="BG001"/>
-                  <Data value="BG002"/>
-                  <Data value="BG003"/>
-                  <Data value="BG004"/>
-                  <Data value="BG005"/>
-                  <Data value="BG006"/>
-                  <Data value="BG007"/>
-                  <Data value="BG008"/>
-                  <Data value="BG009"/>
-                  <Data value="BG010"/>
-                  <Data value="BG011"/>
-                  <Data value="BG012"/>
-                  <Data value="BG013"/>
-                  <Data value="BG014"/>
-                  <Data value="BG015"/>
-                  <Data value="BG016"/>
-                  <Data value="BG017"/>
-                </Column>
-                <Column editable="true" title="Nama Barang" type="java.lang.Object">
-                  <Data value="Sprite"/>
-                  <Data value="Coca Cola"/>
-                  <Data value="Teh Pucuk"/>
-                  <Data value="Aqua 500ml"/>
-                  <Data value="Aqua 1L"/>
-                  <Data value="Indomilk"/>
-                  <Data value="Kertas Folio"/>
-                  <Data value="Kertas HVS"/>
-                  <Data value="Pulpen Snowman"/>
-                  <Data value="Spidol Hitam"/>
-                  <Data value="Spidol Merah"/>
-                  <Data value="Spidol Biru"/>
-                  <Data value="Yupi"/>
-                  <Data value="Nabati Wafer"/>
-                  <Data value="Oreo"/>
-                  <Data value="Roti"/>
-                  <Data value="Ichi Ocha 350ml"/>
-                </Column>
-                <Column editable="true" title="Jenis" type="java.lang.Object">
-                  <Data value="Minuman"/>
-                  <Data value="Minuman"/>
-                  <Data value="Minuman"/>
-                  <Data value="Minuman"/>
-                  <Data value="Minuman"/>
-                  <Data value="Minuman"/>
-                  <Data value="ATK"/>
-                  <Data value="ATK"/>
-                  <Data value="ATK"/>
-                  <Data value="ATK"/>
-                  <Data value="ATK"/>
-                  <Data value="ATK"/>
-                  <Data value="Snack"/>
-                  <Data value="Snack"/>
-                  <Data value="Snack"/>
-                  <Data value="Snack"/>
-                  <Data value="Minuman"/>
-                </Column>
-                <Column editable="true" title="Stok" type="java.lang.Object">
-                  <Data value="12"/>
-                  <Data value="10"/>
-                  <Data value="10"/>
-                  <Data value="5"/>
-                  <Data value="9"/>
-                  <Data value="11"/>
-                  <Data value="250"/>
-                  <Data value="420"/>
-                  <Data value="23"/>
-                  <Data value="19"/>
-                  <Data value="26"/>
-                  <Data value="24"/>
-                  <Data value="45"/>
-                  <Data value="30"/>
-                  <Data value="60"/>
-                  <Data value="27"/>
-                  <Data value="18"/>
-                </Column>
-                <Column editable="true" title="Harga Jual" type="java.lang.Object">
-                  <Data value="Rp. 4.000.00"/>
-                  <Data value="Rp. 4.000.00"/>
-                  <Data value="Rp. 4.000.00"/>
-                  <Data value="Rp. 5.000.00"/>
-                  <Data value="Rp. 5.000.00"/>
-                  <Data value="Rp. 8.000.00"/>
-                  <Data value="Rp. 250.00"/>
-                  <Data value="Rp. 250.00"/>
-                  <Data value="Rp. 2.500.00"/>
-                  <Data value="Rp. 2.000.00"/>
-                  <Data value="Rp. 2.500.00"/>
-                  <Data value="Rp. 2.500.00"/>
-                  <Data value="Rp. 2.500.00"/>
-                  <Data value="Rp. 3.500.00"/>
-                  <Data value="Rp. 2.000.00"/>
-                  <Data value="Rp. 1.000.00"/>
-                  <Data value="Rp. 2.000.00"/>
-                </Column>
+              <Table columnCount="5" rowCount="0">
+                <Column editable="false" title="ID Barang" type="java.lang.Object"/>
+                <Column editable="false" title="Nama Barang" type="java.lang.Object"/>
+                <Column editable="false" title="Jenis" type="java.lang.Object"/>
+                <Column editable="false" title="Stok" type="java.lang.Object"/>
+                <Column editable="false" title="Harga" type="java.lang.Object"/>
               </Table>
+            </Property>
+            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+              <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+              </TableColumnModel>
             </Property>
             <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
