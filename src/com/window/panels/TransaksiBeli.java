@@ -14,8 +14,14 @@ import com.users.Users;
 import com.window.dialogs.KonfirmasiPembayaran;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -53,8 +59,9 @@ public class TransaksiBeli extends javax.swing.JPanel {
         this.txtTotal.setText(text.toMoneyCase("0"));
         this.inpJumlah.setText("0");
         this.inpTotalHarga.setText(text.toMoneyCase("0"));
+        this.inpSaldo.setText(text.toMoneyCase(Integer.toString(getTotal("saldo", "jumlah_saldo", "WHERE id_saldo = 'S001'"))));
+//        this.inpSaldo.setText(text.toMoneyCase("10000"));
 
-//        this.inpJumlah.setEditable(false);
         this.inpID.setText("<html><p>:&nbsp;" + this.trb.createIDTransaksi() + "</p></html>");
         this.inpNamaKaryawan.setText("<html><p>:&nbsp;" + this.user.getCurrentLoginName() + "</p></html>");
 
@@ -104,6 +111,45 @@ public class TransaksiBeli extends javax.swing.JPanel {
         model.setValueAt(dataRow[5], baris, 5);
         model.setValueAt(dataRow[6], baris, 6);
 //        model.addRow(dataRow);
+    }
+
+    private Statement getStat() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/bisnis", "root", "");
+            Statement stmt = con.createStatement();
+
+//            ResultSet rs=stmt.executeQuery("show databases;");  
+            System.out.println("Connected");
+            return stmt;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    private int getTotal(String table, String kolom, String kondisi) {
+        try {
+            Statement stat = getStat();
+            int data = 0;
+            String sql = "SELECT SUM(" + kolom + ") AS total FROM " + table + " " + kondisi;
+            System.out.println("sql sum " + sql);
+            ResultSet res = stat.executeQuery(sql);
+            while (res.next()) {
+                System.out.println("data ditemukan");
+                data = res.getInt("total");
+                System.out.println("jumlahnya " + data);
+            }
+            return data;
+        } catch (SQLException ex) {
+            Logger.getLogger(LaporanJual.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException n) {
+//            n.printStackTrace();
+            System.out.println("errorr ");
+            return 0;
+        }
+        return -1;
     }
 
     private Object[][] getDataSupplier() {
@@ -281,6 +327,7 @@ public class TransaksiBeli extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        inpSaldo = new javax.swing.JLabel();
         inpCariBarang = new javax.swing.JTextField();
         inpCariSupplier = new javax.swing.JTextField();
         btnSimpan = new javax.swing.JButton();
@@ -309,6 +356,7 @@ public class TransaksiBeli extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(957, 650));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        add(inpSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 10, 190, 30));
 
         inpCariBarang.setBackground(new java.awt.Color(255, 255, 255));
         inpCariBarang.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -830,8 +878,12 @@ public class TransaksiBeli extends javax.swing.JPanel {
     private void inpJumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inpJumlahActionPerformed
         try {
             int jumlahbarang = Integer.parseInt(inpJumlah.getText());
-            this.totalHarga = Integer.parseInt(inpJumlah.getText()) * hargaBeli;
-            inpTotalHarga.setText(text.toMoneyCase(Integer.toString(this.totalHarga)));
+            if (jumlahbarang <= 0) {
+                Message.showWarning(this, "Jumlah Barang Harus lebih dari 0 !");
+            } else {
+                this.totalHarga = Integer.parseInt(inpJumlah.getText()) * hargaBeli;
+                inpTotalHarga.setText(text.toMoneyCase(Integer.toString(this.totalHarga)));
+            }
         } catch (NumberFormatException e) {
             System.out.println("harus angka ");
         }
@@ -1184,7 +1236,7 @@ public class TransaksiBeli extends javax.swing.JPanel {
         DefaultTableModel modelSupplier = (DefaultTableModel) tabelDataSupplier.getModel();
         boolean error = false, cocokbarang = false, cocoksupplier = false;
         System.out.println("simpan");
-        int tharga = 0, total = 0, stokSekarang = 0, totalProduk = 0, sisaStok = 0, jumlahB = 0, thargaLama = 0, thargaBaru = 0, barisbarang = -1, barissupplier = -1, barissama = -1;
+        int saldobaru = 0, saldo = 0, tharga = 0, total = 0, stokSekarang = 0, totalProduk = 0, sisaStok = 0, jumlahB = 0, thargaLama = 0, thargaBaru = 0, barisbarang = -1, barissupplier = -1, barissama = -1;
         //        String idProdukBaru = inpIDBarang.getText();
         if (inpTanggal.getText().equals("")) {
             error = true;
@@ -1201,9 +1253,6 @@ public class TransaksiBeli extends javax.swing.JPanel {
         } else if (inpJumlah.getText().equals("")) {
             error = true;
             Message.showWarning(this, "Jumlah Barang harus Di isi !");
-        } else if (inpJumlah.getText().equals("0")) {
-            error = true;
-            Message.showWarning(this, "Jumlah Barang tidak boleh 0 !");
         } else if (inpHarga.getText().equals("")) {
             error = true;
             Message.showWarning(this, "Harga Harus di isi!");
@@ -1213,9 +1262,8 @@ public class TransaksiBeli extends javax.swing.JPanel {
         }
         //
         if (!error) {
-            System.out.println("sedang menambahkan data ");
+            saldo = text.toIntCase(this.inpSaldo.getText());
             //mencari stok dari tabel barang
-
             for (int i = 0; i < tabelDataBarang.getRowCount(); i++) {
                 if (tabelDataBarang.getValueAt(i, 0).equals(this.idBarang)) {
                     stokSekarang = Integer.parseInt(tabelDataBarang.getValueAt(i, 3).toString());
@@ -1226,52 +1274,57 @@ public class TransaksiBeli extends javax.swing.JPanel {
                 boolean beda = false;
                 String idBarangLama = "", idbarang = "", idSupplierLama = "", idsupplier, namasupplier = "";
                 int stokLama = 0, stokBaru = 0;
-                System.out.println("id barang di tabel " + this.idBarang);
                 //mencari stok total harga barang dari tabel data
                 for (int i = 0; i < tabelData.getRowCount(); i++) {
                     idsupplier = tabelData.getValueAt(i, 2).toString();
                     idbarang = tabelData.getValueAt(i, 4).toString();
                     if (this.idBarang.equals(idbarang) && this.idSupplier.equals(idsupplier)) {
                         barissama = i;
-                        System.out.println("data nya sama ");
-//                        return;
+                        System.out.println("data ternyata sama ");
+                        idBarangLama = idbarang;
+                        stokLama = Integer.parseInt(tabelData.getValueAt(i, 5).toString());
+                        thargaLama = Integer.parseInt(tabelData.getValueAt(i, 6).toString());
+                        idSupplierLama = idsupplier;
+                        namasupplier = tabelData.getValueAt(i, 3).toString();
                         break;
                     } else {
                         beda = true;
-                        
+                        System.out.println("datanya ternyata berbeda");
                     }
-                    if (beda) {
-                        for (int j = 0; j < tabelData.getRowCount(); j++) {
-                            idbarang = tabelData.getValueAt(j, 4).toString();
+                }
+                if (beda) {
+                    for (int j = 0; j < tabelData.getRowCount(); j++) {
+                        idbarang = tabelData.getValueAt(j, 4).toString();
+                        if (this.idBarang.equals(idbarang)) {
                             System.out.println("id barang di baris " + (j + 1) + " : " + idbarang);
-                            if (this.idBarang.equals(idbarang)) {
-                                cocokbarang = true;
-                                barisbarang = j;
-                                System.out.println("barang cocok");
-                                idBarangLama = idbarang;
-                                stokLama = Integer.parseInt(tabelData.getValueAt(j, 5).toString());
-                                thargaLama = Integer.parseInt(tabelData.getValueAt(j, 6).toString());
-                                break;
-                            }
+                            cocokbarang = true;
+                            barisbarang = j;
+                            System.out.println("barang cocok");
+                            idBarangLama = idbarang;
+                            stokLama = Integer.parseInt(tabelData.getValueAt(j, 5).toString());
+                            thargaLama = Integer.parseInt(tabelData.getValueAt(j, 6).toString());
+                            break;
                         }
-                        for (int k = 0; k < tabelData.getRowCount(); k++) {
-                            idsupplier = tabelData.getValueAt(k, 2).toString();
+                    }
+                    for (int k = 0; k < tabelData.getRowCount(); k++) {
+                        idsupplier = tabelData.getValueAt(k, 2).toString();
+                        if (this.idSupplier.equals(idsupplier)) {
                             System.out.println("id supplier di baris " + (k + 1) + " : " + idsupplier);
-                            if (this.idSupplier.equals(idsupplier)) {
-                                cocoksupplier = true;
-                                barissupplier = k;
-                                System.out.println("supplier cocok");
-                                idSupplierLama = idsupplier;
-                                namasupplier = tabelData.getValueAt(k, 3).toString();
-                                break;
-                            }
+                            cocoksupplier = true;
+                            barissupplier = k;
+                            System.out.println("supplier cocok");
+                            idSupplierLama = idsupplier;
+                            namasupplier = tabelData.getValueAt(k, 3).toString();
+                            break;
                         }
                     }
                 }
+//                }
 
                 //mengecek jika id barang dan id supplier ada yg sama
                 if (cocoksupplier) {
                     if (cocokbarang) {
+                        saldo = text.toIntCase(inpSaldo.getText());
                         System.out.println("data barang dan supplier sama");
                         System.out.println("baris ke " + (barissama + 1));
                         jumlahB = Integer.parseInt(inpJumlah.getText());
@@ -1286,22 +1339,24 @@ public class TransaksiBeli extends javax.swing.JPanel {
                         System.out.println("total harga sekarang " + thargaBaru);
                         System.out.println("total harga baru " + tharga);
                         // jika jumlah baru lebih dari jumlah lama
-                        if (jumlahB > stokSekarang) {
-                            System.out.println("Jumlah Lebih Dari Stok Yang Tersedia !");
-                            Message.showWarning(this, "Jumlah Lebih Dari Stok Yang Tersedia !");
+                        if (tharga > saldo) {
+                            System.out.println("Saldo anda tidak cukup !");
+                            Message.showWarning(this, "Saldo anda tidak cukup !");
                         } else { //jika data duplikasi
-                            sisaStok = stokSekarang - jumlahB;
+                            sisaStok = stokSekarang + jumlahB;
                             System.out.println("stok di dalam tabel " + this.stok);
                             System.out.println("sisa stok sekarang " + sisaStok);
+                            //ubah saldo
+                            saldobaru = saldo - this.totalHarga;
+                            inpSaldo.setText(text.toMoneyCase(Integer.toString(saldobaru)));
                             //update tabel data
-
-                            modelData.setValueAt(stokBaru, barisbarang, 5);
-                            modelData.setValueAt(tharga, barisbarang, 6);
+                            modelData.setValueAt(stokBaru, barissama, 7);
+                            modelData.setValueAt(tharga, barissama, 8);
                             //update table barang
                             modelBarang.setValueAt(sisaStok, tabelDataBarang.getSelectedRow(), 3);
                             //update total harga keseluruhan
                             for (int i = 0; i < tabelData.getRowCount(); i++) {
-                                total += Integer.parseInt(tabelData.getValueAt(i, 6).toString());
+                                total += Integer.parseInt(tabelData.getValueAt(i, 8).toString());
                             }
                             System.out.println(total);
                             this.txtTotal.setText(text.toMoneyCase(Integer.toString(total)));
@@ -1314,6 +1369,8 @@ public class TransaksiBeli extends javax.swing.JPanel {
                             Message.showWarning(this, "Jumlah Lebih Dari Stok Yang Tersedia !");
                         } else {
                             System.out.println("data baru ");
+                            saldobaru = saldo - this.totalHarga;
+                            inpSaldo.setText(text.toMoneyCase(Integer.toString(saldobaru)));
                             addrowtotabeldetail(new Object[]{
                                 waktu.getCurrentDate(),
                                 this.idTr,
@@ -1325,12 +1382,12 @@ public class TransaksiBeli extends javax.swing.JPanel {
                                 jumlahB,
                                 this.totalHarga
                             });
-                            sisaStok = this.stok - jumlahB;
+                            sisaStok = this.stok + jumlahB;
                             System.out.println("sisa stok " + sisaStok);
                             //update total harga keseluruhan
                             modelBarang.setValueAt(sisaStok, tabelDataBarang.getSelectedRow(), 3);
                             for (int i = 0; i < tabelData.getRowCount(); i++) {
-                                total += Integer.parseInt(tabelData.getValueAt(i, 6).toString());
+                                total += Integer.parseInt(tabelData.getValueAt(i, 8).toString());
                             }
                             System.out.println(total);
                             this.txtTotal.setText(text.toMoneyCase(Integer.toString(total)));
@@ -1338,17 +1395,128 @@ public class TransaksiBeli extends javax.swing.JPanel {
                     }
                 } else {
                     //jika supplier tidak cocok 
+                    if (cocokbarang) {
+                        saldo = text.toIntCase(inpSaldo.getText());
+                        System.out.println("supplier beda barang sama ");
+                        System.out.println("baris ke " + (barissama + 1));
+                        jumlahB = Integer.parseInt(inpJumlah.getText());
+                        stokBaru = jumlahB + stokLama;
+                        thargaBaru = text.toIntCase(inpTotalHarga.getText());
+                        tharga = thargaLama + thargaBaru;
+                        System.out.println(idBarangLama);
+                        System.out.println("total barang lama " + stokLama);
+                        System.out.println("total barang sekarang " + jumlahB);
+                        System.out.println("total barang baru " + stokBaru);
+                        System.out.println("total harga lama " + thargaLama);
+                        System.out.println("total harga sekarang " + thargaBaru);
+                        System.out.println("total harga baru " + tharga);
+                        // jika jumlah baru lebih dari jumlah lama
+                        if (tharga > saldo) {
+                            System.out.println("Saldo anda tidak cukup !");
+                            Message.showWarning(this, "Saldo anda tidak cukup !");
+                        } else { //jika data duplikasi
+                            sisaStok = stokSekarang + jumlahB;
+                            System.out.println("stok di dalam tabel " + this.stok);
+                            System.out.println("sisa stok sekarang " + sisaStok);
+                            //ubah saldo
+                            saldobaru = saldo - this.totalHarga;
+                            inpSaldo.setText(text.toMoneyCase(Integer.toString(saldobaru)));
+                            //update tabel data
+                            modelData.setValueAt(stokBaru, barissama, 7);
+                            modelData.setValueAt(tharga, barissama, 8);
+                            //update table barang
+                            modelBarang.setValueAt(sisaStok, tabelDataBarang.getSelectedRow(), 3);
+                            //update total harga keseluruhan
+                            for (int i = 0; i < tabelData.getRowCount(); i++) {
+                                total += Integer.parseInt(tabelData.getValueAt(i, 8).toString());
+                            }
+                            System.out.println(total);
+                            this.txtTotal.setText(text.toMoneyCase(Integer.toString(total)));
+                        }
+                    } else { //jika data baru tidak ada duplikasi
+                        System.out.println("beda suppplier beda barang");
+                        jumlahB = Integer.parseInt(inpJumlah.getText());
+                        if (jumlahB > stokSekarang) { // jika jumlah baru lebih dari jumlah lama
+                            System.out.println("Jumlah Lebih Dari Stok Yang Tersedia !");
+                            Message.showWarning(this, "Jumlah Lebih Dari Stok Yang Tersedia !");
+                        } else {
+                            System.out.println("data baru ");
+                            saldobaru = saldo - this.totalHarga;
+                            inpSaldo.setText(text.toMoneyCase(Integer.toString(saldobaru)));
+                            addrowtotabeldetail(new Object[]{
+                                waktu.getCurrentDate(),
+                                this.idTr,
+                                this.idSupplier,
+                                this.namaSupplier,
+                                this.idBarang,
+                                this.namaBarang,
+                                this.hargaBeli,
+                                jumlahB,
+                                this.totalHarga
+                            });
+                            sisaStok = this.stok + jumlahB;
+                            System.out.println("sisa stok " + sisaStok);
+                            //update total harga keseluruhan
+                            modelBarang.setValueAt(sisaStok, tabelDataBarang.getSelectedRow(), 3);
+                            for (int i = 0; i < tabelData.getRowCount(); i++) {
+                                total += Integer.parseInt(tabelData.getValueAt(i, 8).toString());
+                            }
+                            System.out.println(total);
+                            this.txtTotal.setText(text.toMoneyCase(Integer.toString(total)));
+                        }
+                    }
+                }
+                if (!(cocoksupplier && cocokbarang)) {
+                    System.out.println("data baru supplier dan data barang");
+                    jumlahB = Integer.parseInt(inpJumlah.getText());
+                    saldo = text.toIntCase(inpSaldo.getText());
+                    if (this.totalHarga > saldo) {
+                        Message.showWarning(this, "Saldo tidak cukup !");
+                    } else {
+                        addrowtotabeldetail(new Object[]{
+                            waktu.getCurrentDate(),
+                            this.idTr,
+                            this.idSupplier,
+                            this.namaSupplier,
+                            this.idSupplier,
+                            this.namaSupplier,
+                            this.idBarang,
+                            this.namaBarang,
+                            this.hargaBeli,
+                            jumlahB,
+                            this.totalHarga
+                        });
+                        //update saldo 
+                        saldobaru = saldo - this.totalHarga;
+                        inpSaldo.setText(text.toMoneyCase(Integer.toString(saldobaru)));
+                        //update tabel barang
+                        System.out.println("stok tabel " + this.stok);
+                        System.out.println("jumlah pesanan " + jumlahB);
+                        sisaStok = this.stok + jumlahB;
+                        System.out.println("sisa stok " + sisaStok);
+                        modelBarang.setValueAt(sisaStok, tabelDataBarang.getSelectedRow(), 3);
+                        //update total harga keseluruhan
+                        for (int i = 0; i < tabelData.getRowCount(); i++) {
+                            total += Integer.parseInt(tabelData.getValueAt(i, 8).toString());
+                        }
+                        System.out.println(total);
+                        this.txtTotal.setText(text.toMoneyCase(Integer.toString(total)));
+                    }
                 }
             } else {
                 //jika tabel kosong
                 System.out.println("data kosong");
                 jumlahB = Integer.parseInt(inpJumlah.getText());
-                if (jumlahB > this.stok) {
-                    Message.showWarning(this, "Jumlah Lebih Dari Stok Yang Tersedia !");
+                saldo = text.toIntCase(inpSaldo.getText());
+//                tharga = 
+                if (this.totalHarga > saldo) {
+                    Message.showWarning(this, "Saldo tidak cukup !");
                 } else {
                     addrowtotabeldetail(new Object[]{
                         waktu.getCurrentDate(),
                         this.idTr,
+                        this.idSupplier,
+                        this.namaSupplier,
                         this.idSupplier,
                         this.namaSupplier,
                         this.idBarang,
@@ -1357,16 +1525,18 @@ public class TransaksiBeli extends javax.swing.JPanel {
                         jumlahB,
                         this.totalHarga
                     });
-                    //
+                    //update saldo 
+                    saldobaru = saldo - this.totalHarga;
+                    inpSaldo.setText(text.toMoneyCase(Integer.toString(saldobaru)));
                     //update tabel barang
                     System.out.println("stok tabel " + this.stok);
                     System.out.println("jumlah pesanan " + jumlahB);
-                    sisaStok = this.stok - jumlahB;
+                    sisaStok = this.stok + jumlahB;
                     System.out.println("sisa stok " + sisaStok);
                     modelBarang.setValueAt(sisaStok, tabelDataBarang.getSelectedRow(), 3);
                     //update total harga keseluruhan
                     for (int i = 0; i < tabelData.getRowCount(); i++) {
-                        total += Integer.parseInt(tabelData.getValueAt(i, 6).toString());
+                        total += Integer.parseInt(tabelData.getValueAt(i, 8).toString());
                     }
                     System.out.println(total);
                     this.txtTotal.setText(text.toMoneyCase(Integer.toString(total)));
@@ -1405,6 +1575,7 @@ public class TransaksiBeli extends javax.swing.JPanel {
     private javax.swing.JLabel inpNamaBarang;
     private javax.swing.JLabel inpNamaKaryawan;
     private javax.swing.JLabel inpNamaSupplier;
+    private javax.swing.JLabel inpSaldo;
     private javax.swing.JLabel inpTanggal;
     private javax.swing.JLabel inpTotalHarga;
     private javax.swing.JScrollPane jScrollPane2;
