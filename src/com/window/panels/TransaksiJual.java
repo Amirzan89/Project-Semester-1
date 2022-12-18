@@ -911,8 +911,8 @@ public class TransaksiJual extends javax.swing.JPanel {
             Message.showWarning(this, "Tidak ada data yang dipilih!");
         } else {
             idbarang = tabelData.getValueAt(tabelData.getSelectedRow(), 4).toString();
-            stok = Integer.parseInt(tabelData.getValueAt(tabelData.getSelectedRow(), 7).toString());
-            total = Integer.parseInt(tabelData.getValueAt(tabelData.getSelectedRow(), 8).toString());
+            stok = Integer.parseInt(tabelData.getValueAt(tabelData.getSelectedRow(), 5).toString());
+            total = Integer.parseInt(tabelData.getValueAt(tabelData.getSelectedRow(), 6).toString());
             totalSisa = totalkeseluruhan - total;
             txtTotal.setText(text.toMoneyCase(Integer.toString(totalSisa)));
             for (int i = 0; i < tabelDataBarang.getRowCount(); i++) {
@@ -956,6 +956,9 @@ public class TransaksiJual extends javax.swing.JPanel {
         int keuntungan = 0, hargabeli = 0, jumlah = 0, totalh = 0;
         try {
             if (tabelData.getRowCount() > 0) {
+                db.startConnection();
+                        System.out.println("is connect ? "+db.conn.isClosed());
+                        System.out.println("is null "+db.conn);
                 int status;
                 Audio.play(Audio.SOUND_INFO);
                 status = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin melakukan pembayaran ?", "Confirm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -969,10 +972,11 @@ public class TransaksiJual extends javax.swing.JPanel {
                             System.out.println("id barang " + idbarang);
                             System.out.println("object id barang " + objBarang[i][0]);
                             jumlah = Integer.parseInt(tabelData.getValueAt(i, 5).toString());
-                            for (int j = 0; i < objBarang.length; j++) {
+                            //cari idbarang di objbarang berdasarkan idbarang di tabelData
+                            for (int j = 0; j < objBarang.length; j++) {
                                 if (objBarang[j][0].equals(idbarang)) {
                                     System.out.println("data ditemukan");
-                                    System.out.println("object id barang " + objBarang[j][0]);
+                                    System.out.println("object id barang " + objBarang[j][0] + " di baris ke "+ (j+1));
                                     hargabeli = (int) objBarang[j][4];
                                     break;
                                 }
@@ -985,8 +989,9 @@ public class TransaksiJual extends javax.swing.JPanel {
                         System.out.println("total " + txtTotal.getText());
                         System.out.println("tanggal " + waktu.getCurrentDateTime());
                         System.out.println("keuntungan  " + keuntungan);
-                        sql1 = "INSERT INTO transaksi_jual(`id_tr_jual`, `id_karyawan`, `total_hrg`, `keuntungan`, `tanggal`) VALUES (?, ?, ?, ?, ?)";
-                        pst = db.conn.prepareStatement(sql1);
+//                        sql1 = "INSERT INTO transaksi_jual(`id_tr_jual`, `id_karyawan`, `total_hrg`, `keuntungan`, `tanggal`) VALUES (?, ?, ?, ?, ?)";
+                        System.out.println("is connect ? "+db.conn.isClosed());
+                        pst = db.conn.prepareStatement("INSERT INTO transaksi_jual(`id_tr_jual`, `id_karyawan`, `total_hrg`, `keuntungan`, `tanggal`) VALUES (?, ?, ?, ?, ?)");
                         pst.setString(1, this.idTr);
                         pst.setString(2, idKaryawan);
                         pst.setInt(3, text.toIntCase(txtTotal.getText()));
@@ -995,22 +1000,23 @@ public class TransaksiJual extends javax.swing.JPanel {
                         if (pst.executeUpdate() > 0) {
                             System.out.println("Sudah membuat Transaksi jual");
                         }
+                        pst.close();
                         //id_tr_beli,id_supplier,nama_supplier,id_barang,_nama_barang,jenis_barang,harga,jumlah,total_harg
-                        sql2 = "INSERT INTO detail_transaksi_jual VALUES (?, ?, ?, ?, ?, ?, ?)";
-                        for (int i = 0; i < tabelData.getRowCount(); i++) {
-                            pst = db.conn.prepareStatement(sql2);
-                            idbarang = tabelData.getValueAt(i, 2).toString();
-                            pst.setString(1, this.idTr);
-                            pst.setString(2, idbarang);
-                            pst.setString(3, tabelData.getValueAt(i, 3).toString());
-                            pst.setString(4, barang.getJenis(idbarang));
-                            pst.setInt(5, Integer.parseInt(tabelData.getValueAt(i, 4).toString()));
-                            pst.setInt(6, Integer.parseInt(tabelData.getValueAt(i, 5).toString()));
-                            pst.setInt(7, Integer.parseInt(tabelData.getValueAt(i, 6).toString()));
-                            if (pst.executeUpdate() > 0) {
-                                System.out.println("Sudah membuat Detail Transaksi Jual ke " + i);
-                            }
-                        }
+//                        sql2 = "INSERT INTO detail_transaksi_jual VALUES (?, ?, ?, ?, ?, ?, ?)";
+//                        for (int i = 0; i < tabelData.getRowCount(); i++) {
+//                            pst = db.conn.prepareStatement("INSERT INTO detail_transaksi_jual VALUES (?, ?, ?, ?, ?, ?, ?)");
+//                            idbarang = tabelData.getValueAt(i, 2).toString();
+//                            pst.setString(1, this.idTr);
+//                            pst.setString(2, idbarang);
+//                            pst.setString(3, tabelData.getValueAt(i, 3).toString());
+//                            pst.setString(4, barang.getJenis(idbarang));
+//                            pst.setInt(5, Integer.parseInt(tabelData.getValueAt(i, 4).toString()));
+//                            pst.setInt(6, Integer.parseInt(tabelData.getValueAt(i, 5).toString()));
+//                            pst.setInt(7, Integer.parseInt(tabelData.getValueAt(i, 6).toString()));
+//                            if (pst.executeUpdate() > 0) {
+//                                System.out.println("Sudah membuat Detail Transaksi Jual ke " + i);
+//                            }
+//                        }
                         Message.showInformation(this, "Transaksi berhasil!");
                         // mereset tabel
                         this.updateTabelBarang();
@@ -1032,6 +1038,9 @@ public class TransaksiJual extends javax.swing.JPanel {
         } catch (SQLException | InValidUserDataException ex) {
             ex.printStackTrace();
             System.out.println("Error Message : " + ex.getMessage());
+        }catch(NullPointerException e){
+            e.printStackTrace();
+            System.out.println("data tidak ada ");
         }
     }//GEN-LAST:event_btnBayarActionPerformed
 
