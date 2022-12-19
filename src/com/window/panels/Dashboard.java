@@ -118,8 +118,9 @@ public class Dashboard extends javax.swing.JPanel {
         try {
             Statement stat = getStat();
             int data = 0;
-            String sql = "SELECT SUM(jenis_barang = '"+field+"') AS total FROM barang INNER JOIN transaksi_jual ON barang.id_barang = transaksi_jual.id_barang WHERE MONTH(tanggal) = '"+this.bulan+"'";
+            String sql = "SELECT SUM(jenis_barang = '"+field+"') AS total FROM transaksi_jual INNER JOIN detail_transaksi_jual ON transaksi_jual.id_tr_jual = detail_transaksi_jual.id_tr_jual WHERE YEAR(tanggal) = '"+this.tahun+"' AND MONTH(tanggal) = '"+this.bulan+"'";
 //            String sql = "SELECT SUM("+kolom+") AS total FROM "+table+" "+kondisi;
+//            System.out.println(sql);
             ResultSet res = stat.executeQuery(sql);
             while(res.next()){
 //                System.out.println("data "+ field +" ditemukan");
@@ -137,14 +138,15 @@ public class Dashboard extends javax.swing.JPanel {
         return -1;
     }
     private Statement getStat(){
+        String namadb = Database.DB_NAME;
         try{  
             Class.forName("com.mysql.jdbc.Driver");  
             Connection con=DriverManager.getConnection(  
-                "jdbc:mysql://localhost:3306/bisnis","root","");  
+                "jdbc:mysql://localhost:3306/"+namadb,"root","");  
             Statement stmt=con.createStatement();
             
 //            ResultSet rs=stmt.executeQuery("show databases;");  
-            System.out.println("Connected");  
+//            System.out.println("Connected");  
             return stmt;
         }
         catch(Exception e){
@@ -158,12 +160,12 @@ public class Dashboard extends javax.swing.JPanel {
             Statement stat = getStat();
             int data = 0;
             String sql = "SELECT SUM("+kolom+") AS total FROM "+table+" "+kondisi;
-            System.out.println(sql);
+//            System.out.println(sql);
             ResultSet res = stat.executeQuery(sql);
             while(res.next()){
 //                System.out.println("data ditemukan");
                 data = res.getInt("total");
-                System.out.println("jumlahnya "+data);
+//                System.out.println("jumlahnya "+data);
             }
             return data;
         } catch (SQLException ex) {
@@ -179,7 +181,7 @@ public class Dashboard extends javax.swing.JPanel {
         try{
             Statement stat = getStat();
             String query = "SELECT COUNT(*) AS total FROM " + tabel + " " + kondisi;
-            System.out.println("hitung " + query);
+//            System.out.println(query);
             ResultSet res = stat.executeQuery(query);
             if(res.next()){
                 return res.getInt("total");
@@ -217,16 +219,16 @@ public class Dashboard extends javax.swing.JPanel {
         add(lblDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 147, 260, 20));
 
         lblSaldo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        add(lblSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 160, 20));
+        add(lblSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 160, 20));
 
         lblPemasukan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        add(lblPemasukan, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 155, 20));
+        add(lblPemasukan, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, 155, 20));
 
         lblPengeluaran.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        add(lblPengeluaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 80, 170, 20));
+        add(lblPengeluaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 90, 170, 20));
 
         lblPembeli.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        add(lblPembeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 80, 160, 20));
+        add(lblPembeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 90, 160, 20));
 
         tabelData.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
         tabelData.setForeground(new java.awt.Color(0, 0, 0));
@@ -293,13 +295,13 @@ public class Dashboard extends javax.swing.JPanel {
         add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 973, 768));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tabelDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataMouseClicked
-//
-    }//GEN-LAST:event_tabelDataMouseClicked
-
     private void tabelDatatablDataKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDatatablDataKeyPressed
-//
+        //
     }//GEN-LAST:event_tabelDatatablDataKeyPressed
+
+    private void tabelDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataMouseClicked
+        //
+    }//GEN-LAST:event_tabelDataMouseClicked
     private void showMain(){
         String tanggal = waktu.getCurrentDate();
         System.out.println("tanggal "+ tanggal);
@@ -311,10 +313,10 @@ public class Dashboard extends javax.swing.JPanel {
         lblPemasukan.setText(tPemasukan);
         lblPengeluaran.setText(tPengeluaran);
         lblPembeli.setText(tPembeli);
-        System.out.println("saldo "+tSaldo);
-        System.out.println("pemasukan "+tPemasukan);
-        System.out.println("pengeluaran "+tPengeluaran);
-        System.out.println("pembeli "+tPembeli);
+//        System.out.println("saldo "+tSaldo);
+//        System.out.println("pemasukan "+tPemasukan);
+//        System.out.println("pengeluaran "+tPengeluaran);
+//        System.out.println("pembeli "+tPembeli);
     }
     private void updateTabel() throws ParseException{
         try{

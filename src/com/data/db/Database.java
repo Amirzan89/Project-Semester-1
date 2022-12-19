@@ -40,11 +40,12 @@ public class Database {
      * Digunakan untuk menyimpan query sql
      */
     private String sql;
+    public static final String DRIVER = "com.mysql.jdbc.Driver";
     /**
-     * Attribute yang digunakan untuk menhubungkan Aplikasi ke <B>Database MySQL</B>
+     * Attribute yang digunakan untuk menghubungkan Aplikasi ke <B>Database MySQL</B>
      */
-    private static final String DRIVER = "com.mysql.jdbc.Driver",
-                                DB_NAME = "bisnis",
+    public static final String DB_NAME = "baru_bisnis";
+    private static final String 
 //                                DB_NAME = "gemastik_lightning",
                                 URL = "jdbc:mysql://localhost/" + DB_NAME,
                                 USER = "root",

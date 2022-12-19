@@ -694,10 +694,10 @@ public class TransaksiBeli extends javax.swing.JPanel {
         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
         // membuka window konfirmasi pembayaran
         PreparedStatement pst1;
-        PreparedStatement pst2;
-        String idbarang, namabarang, idsupplier, namasupplier, hbarang, jbarang, totalharga;
+        String idbarang;
         try {
             if (tabelData.getRowCount() > 0) {
+                db.startConnection();
                 int status;
                 Audio.play(Audio.SOUND_INFO);
                 this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -715,7 +715,7 @@ public class TransaksiBeli extends javax.swing.JPanel {
                             System.out.println("Sudah membuat Transaksi Beli");
                         }
                         //id_tr_beli,id_supplier,nama_supplier,id_barang,_nama_barang,jenis_barang,harga,jumlah,total_harga
-                        pst2 = db.conn.prepareStatement("INSERT INTO detail_transaksi_beli VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                        pst1 = db.conn.prepareStatement("INSERT INTO detail_transaksi_beli VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
                         for (int i = 0; i < tabelData.getRowCount(); i++) {
                             idbarang = tabelData.getValueAt(i, 4).toString();
                             pst1.setString(1, this.idTr);
