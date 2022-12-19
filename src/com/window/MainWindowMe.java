@@ -66,22 +66,20 @@ public class MainWindowMe extends javax.swing.JFrame {
         // set menjadi activated
 //        activated.setOpaque(true);
 //       activated.setOpaque(true);
-//       activated.setBackground(new Color(166,203,227));
-//       activated.setForeground(new Color(0,0,0));
-//       activated.setIcon("");
+       activated.setIcon(Gambar.getAktiveIcon(activated.getIcon().toString()));
         // mereset warna button/label
-//        for(JLabel btn : btns){
-//            if(btn != this.activated){
+        for(JLabel btn : btns){
+            if(btn != this.activated){
 //                btn.setOpaque(false);
 //                btn.setOpaque(false);
 //                btn.setBackground(new Color(0,0,0,0));
 //                btn.setForeground(new Color(255,255,255));
-//                if(Gambar.isDarkIcon(btn.getIcon().toString())){
-//                    btn.setIcon(Gambar.getWhiteIcon(btn.getIcon().toString()));                    
-//                }
-//            }
+                if(Gambar.isAktifIcon(btn.getIcon().toString())){
+                    btn.setIcon(Gambar.getBiasaIcon(btn.getIcon().toString()));        
+                }
+            }
 //            
-//        }
+        }
     }
     
     private void hoverButton(JLabel[] btns){
@@ -106,22 +104,24 @@ public class MainWindowMe extends javax.swing.JFrame {
 
                 @Override
                 public void mouseEntered(MouseEvent e) {
-//                    if(btn != activated){
+                    System.out.println("cursor masuk " + btn.getName());
+                    if(btn != activated){
 //                        btn.setOpaque(true);
 //                        btn.setForeground(new Color(0,0,0));
 //                        btn.setBackground(new Color(96,167,231));
-//                        btn.setIcon(Gambar.getDarkIcon(btn.getIcon().toString()));
-//                    }
+                        btn.setIcon(Gambar.getHoverIcon(btn.getIcon().toString()));
+                    }
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
-//                    if(btn != activated){
+                    System.out.println("cursor keluar " +btn.getName());
+                    if(btn != activated){
 //                        btn.setOpaque(false);
 //                        btn.setForeground(new Color(255,255,255));
 //                        btn.setBackground(new Color(0,0,0,0));
-//                        btn.setIcon(Gambar.getWhiteIcon(btn.getIcon().toString()));
-//                    }
+                        btn.setIcon(Gambar.getBiasaIcon(btn.getIcon().toString()));
+                    }
                 }
             });
         }
@@ -205,7 +205,7 @@ public class MainWindowMe extends javax.swing.JFrame {
         });
         pnlMain.add(btnSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 300, -1, -1));
 
-        btnTrBeli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Transaksi_beli-075.png"))); // NOI18N
+        btnTrBeli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Transaksi-beli-075.png"))); // NOI18N
         btnTrBeli.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnTrBeliMouseClicked(evt);
@@ -213,7 +213,7 @@ public class MainWindowMe extends javax.swing.JFrame {
         });
         pnlMain.add(btnTrBeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 365, -1, -1));
 
-        btnTrJual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Transaksi_jual-075.png"))); // NOI18N
+        btnTrJual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Transaksi-jual-075.png"))); // NOI18N
         btnTrJual.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnTrJualMouseClicked(evt);
@@ -221,7 +221,7 @@ public class MainWindowMe extends javax.swing.JFrame {
         });
         pnlMain.add(btnTrJual, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 430, -1, -1));
 
-        btnLpJual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Laporan_pemasukan-075.png"))); // NOI18N
+        btnLpJual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Laporan-pemasukan-075.png"))); // NOI18N
         btnLpJual.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLpJualMouseClicked(evt);
@@ -229,7 +229,7 @@ public class MainWindowMe extends javax.swing.JFrame {
         });
         pnlMain.add(btnLpJual, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 495, -1, -1));
 
-        btnLpBeli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Laporan_pengeluaran-075.png"))); // NOI18N
+        btnLpBeli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Laporan-pengeluaran-075.png"))); // NOI18N
         btnLpBeli.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLpBeliMouseClicked(evt);
