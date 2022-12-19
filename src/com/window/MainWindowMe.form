@@ -151,7 +151,7 @@
             <Component class="javax.swing.JLabel" name="btnTrBeli">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/resources/image/gambar_icon/sidebar-Transaksi_beli-075.png"/>
+                  <Image iconType="3" name="/resources/image/gambar_icon/sidebar-Transaksi-beli-075.png"/>
                 </Property>
               </Properties>
               <Events>
@@ -166,7 +166,7 @@
             <Component class="javax.swing.JLabel" name="btnTrJual">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/resources/image/gambar_icon/sidebar-Transaksi_jual-075.png"/>
+                  <Image iconType="3" name="/resources/image/gambar_icon/sidebar-Transaksi-jual-075.png"/>
                 </Property>
               </Properties>
               <Events>
@@ -181,7 +181,7 @@
             <Component class="javax.swing.JLabel" name="btnLpJual">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/resources/image/gambar_icon/sidebar-Laporan_pemasukan-075.png"/>
+                  <Image iconType="3" name="/resources/image/gambar_icon/sidebar-Laporan-pemasukan-075.png"/>
                 </Property>
               </Properties>
               <Events>
@@ -196,7 +196,7 @@
             <Component class="javax.swing.JLabel" name="btnLpBeli">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/resources/image/gambar_icon/sidebar-Laporan_pengeluaran-075.png"/>
+                  <Image iconType="3" name="/resources/image/gambar_icon/sidebar-Laporan-pengeluaran-075.png"/>
                 </Property>
               </Properties>
               <Events>

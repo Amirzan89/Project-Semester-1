@@ -77,7 +77,7 @@ public class Dashboard extends javax.swing.JPanel {
  
     public Dashboard() throws ParseException {
         initComponents();
-        updateTabel();
+//        updateTabel();
         this.hari = waktu.getTanggal();
         this.bulan = waktu.getBulan()+1;
         this.tahun = waktu.getTahun();
@@ -122,9 +122,9 @@ public class Dashboard extends javax.swing.JPanel {
 //            String sql = "SELECT SUM("+kolom+") AS total FROM "+table+" "+kondisi;
             ResultSet res = stat.executeQuery(sql);
             while(res.next()){
-                System.out.println("data "+ field +" ditemukan");
+//                System.out.println("data "+ field +" ditemukan");
                 data = res.getInt("total");
-                System.out.println("jumlahnya "+data);
+//                System.out.println("jumlahnya "+data);
             }
             return data;
         } catch (SQLException ex) {
@@ -140,7 +140,7 @@ public class Dashboard extends javax.swing.JPanel {
         try{  
             Class.forName("com.mysql.jdbc.Driver");  
             Connection con=DriverManager.getConnection(  
-                "jdbc:mysql://localhost:3306/gemastik_lightning","root","");  
+                "jdbc:mysql://localhost:3306/bisnis","root","");  
             Statement stmt=con.createStatement();
             
 //            ResultSet rs=stmt.executeQuery("show databases;");  
@@ -158,10 +158,10 @@ public class Dashboard extends javax.swing.JPanel {
             Statement stat = getStat();
             int data = 0;
             String sql = "SELECT SUM("+kolom+") AS total FROM "+table+" "+kondisi;
-            System.out.println("sql sum "+sql);
+            System.out.println(sql);
             ResultSet res = stat.executeQuery(sql);
             while(res.next()){
-                System.out.println("data ditemukan");
+//                System.out.println("data ditemukan");
                 data = res.getInt("total");
                 System.out.println("jumlahnya "+data);
             }
@@ -304,9 +304,9 @@ public class Dashboard extends javax.swing.JPanel {
         String tanggal = waktu.getCurrentDate();
         System.out.println("tanggal "+ tanggal);
         String tSaldo = text.toMoneyCase(Integer.toString(getTotal("saldo", "jumlah_saldo", "WHERE id_saldo = 'S001'")));
-        String tPemasukan = text.toMoneyCase(Integer.toString(getTotal("transaksi_jual", "total_hrg", "WHERE YEAR(tanggal) = '"+tahun+"' AND MONTH(tanggal) = '"+bulan+"' AND DAY(tanggal) = '"+hari+"'")));
-        String tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "WHERE YEAR(tanggal) = '"+tahun+"' AND MONTH(tanggal) = '"+bulan+"' AND DAY(tanggal) = '"+hari+"'")));
-        String tPembeli = Integer.toString(getJumlahData("transaksi_jual", "WHERE YEAR(tanggal) = '"+tahun+"' AND MONTH(tanggal) = '"+bulan+"' AND DAY(tanggal) = '"+hari+"'"));
+        String tPemasukan = text.toMoneyCase(Integer.toString(getTotal("transaksi_jual", "keuntungan", "WHERE YEAR(tanggal) = '"+tahun+"' AND MONTH(tanggal) = '"+bulan+"'")));
+        String tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "WHERE YEAR(tanggal) = '"+tahun+"' AND MONTH(tanggal) = '"+bulan+"'")));
+        String tPembeli = Integer.toString(getJumlahData("transaksi_jual", "WHERE YEAR(tanggal) = '"+tahun+"' AND MONTH(tanggal) = '"+bulan+"'"));
         lblSaldo.setText(tSaldo);
         lblPemasukan.setText(tPemasukan);
         lblPengeluaran.setText(tPengeluaran);

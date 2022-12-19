@@ -25,6 +25,7 @@ public class Gambar {
     
     private static final String DIREKTORY_ICONS = "src\\resources\\image\\icons\\";
     private static final String DIREKTORY_ICON = "src\\resources\\image\\gambar_icon\\";
+    private static final String ukuran = "075";
     
     public static Image getWindowIcon(){
         return icWindow.getImage();
@@ -39,7 +40,7 @@ public class Gambar {
     }
     
     public static ImageIcon getIcon(final String icon){
-        File file = new File(Gambar.DIREKTORY_ICONS + icon);
+        File file = new File(Gambar.DIREKTORY_ICON + icon);
         
         // mengecek apakah file icon ada atau tidak
         if(file.exists()){
@@ -131,14 +132,48 @@ public class Gambar {
     public static boolean isDarkIcon(String icon){
         return icon.substring(icon.lastIndexOf("-")+1, icon.lastIndexOf(".")).contains("dark");
     }
+    public static boolean isHoverIcon(String icon){
+        return icon.substring(icon.lastIndexOf("-")-5, icon.lastIndexOf(".")-4).contains("hover");
+    }
+    public static boolean isAktifIcon(String icon){
+        return icon.substring(icon.lastIndexOf("-")-5, icon.lastIndexOf(".")-4).contains("aktif");
+    }
     
-    public static ImageIcon getDarkIcon(String icon){
+    public static ImageIcon getBiasaIcon(String icon){
         FileManager fm = new FileManager();
         String file = fm.getNamaFile(icon),
+                format = fm.getFormatFile(icon);
+        file = file.substring(0, file.lastIndexOf(".")-4) + "-"+ukuran;
+        String baru = Gambar.DIREKTORY_ICON + file +format;
+        System.out.println("icon baru : "+baru);
+        return new ImageIcon(Gambar.DIREKTORY_ICON + file +format);
+    }
+    public static ImageIcon getHoverIcon(String icon){
+        FileManager fm = new FileManager();
+        String file = fm.getNamaFile(icon),
+                format = fm.getFormatFile(icon);
+        file = file.substring(0, file.lastIndexOf(".")-4) + "-hover-"+ukuran;
+        return new ImageIcon(Gambar.DIREKTORY_ICON + file +format);
+    }
+    public static ImageIcon getAktiveIcon(String icon){
+        FileManager fm = new FileManager();
+        String file = fm.getNamaFile(icon),
+                format = fm.getFormatFile(icon);
+        file = file.substring(0, file.lastIndexOf(".")-4) + "-aktif-"+ukuran;
+        return new ImageIcon(Gambar.DIREKTORY_ICON + file +format);
+    }
+    
+    
+    public static ImageIcon getDarkIcon(String icon){
+        System.out.println("icon "+icon);
+        FileManager fm = new FileManager();
+        String file = fm.getNamaFile(icon),
+                file1 = fm.getNamaFile(icon),
                format = fm.getFormatFile(icon);
-        
+        System.out.println("file nya"+file);
+        System.out.println("format nya"+format);
         file = file.substring(0, file.lastIndexOf(".")) + "-dark";
-        
+        System.out.println("file baru "+file);
         return new ImageIcon(Gambar.DIREKTORY_ICONS + file + format);
     }
     
