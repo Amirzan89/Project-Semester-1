@@ -218,7 +218,7 @@ public class Users extends Database{
      */
     public final boolean deleteUser(String idUser){
         Log.addLog("Menghapus akun dengan ID User '" + idUser + "'.");
-        return this.deleteData(DatabaseTables.USERS.name(), UserData.ID_USER.name(), idUser);
+        return this.deleteData(DatabaseTables.USERS.name(), UserData.USERNAME.name(), idUser);
     }
     
     /**
@@ -264,7 +264,7 @@ public class Users extends Database{
      * Jika login data berhasil ditambahkan kedalam <b>Database</b> dan folder user storage berhasil dibuat maka 
      * login dianggap berhasil dan method akan mengembalikan nilai <code>True</code>.
      * 
-     * @param idUser id dari user yang akan melakukan login.
+     * @param username id dari user yang akan melakukan login.
      * @param password password dari user.
      * 
      * @return <strong>True</strong> jika login berhasil dilakukan. <br>
@@ -274,15 +274,15 @@ public class Users extends Database{
      * @throws AuthenticationException jika user sudah melakukan login.
      * @throws SQLException jika terjadi kesalahan pada <b>Database</b>.
      */
-    public final boolean login(String idUser, String password) throws IOException, AuthenticationException, SQLException, Exception{
+    public final boolean login(String username, String password) throws IOException, AuthenticationException, SQLException, Exception{
         
         // mengecek apakah idUser dan password valid atau tidak
-        if(this.validateLogin(idUser, password)){
-            Log.addLog("Melakukan Login dengan ID Login : '" + idUser + "' dan dengan ID User : '"+ idUser +"'");
+        if(this.validateLogin(username, password)){
+            Log.addLog("Melakukan Login dengan username : '" + username + "' dan dengan ID User : '"+ username +"'");
             
             // menyimpan login data kedalam file
             BufferedWriter save = new BufferedWriter(new FileWriter(this.LOGIN_DATA_FILE));
-            save.write(idUser);
+            save.write(username);
             save.flush();
             save.close();
             
@@ -326,6 +326,8 @@ public class Users extends Database{
         // membaca semua data yang ada didalam file login_data.haqi
         try(BufferedReader data = new BufferedReader(new FileReader(this.LOGIN_DATA_FILE))){
             // mengembalikan nilai loginData
+            System.out.println("membaca data login");
+            System.out.println(data.readLine());
             return data.readLine();
         }catch(IOException ex){
             Message.showException(this, "Storage Corrupt!!", ex, true);
@@ -348,9 +350,11 @@ public class Users extends Database{
     public final String getCurrentLogin(){
         // mengecek apakah user sudah login atau belum
         if(this.isLogin()){
+            System.out.println("sudah login ");
             // mengembalikan id user
+            System.out.println("login data" + this.getLoginData());
             return this.getLoginData();
-        }            
+        }
         return null;
     }
     
@@ -423,7 +427,7 @@ public class Users extends Database{
      *         <strong>False</strong> jika ID User tidak exist.
      */
     public final boolean isExistUser(String idUser){
-        return this.isExistID(idUser, UserLevels.USERS, UserData.ID_USER);
+        return this.isExistID(idUser, UserLevels.USERS, UserData.USERNAME);
     }
     
     protected String getLastID(UserLevels level, UserData primary){
@@ -494,7 +498,7 @@ public class Users extends Database{
      * @return akan mengembalikan data dari user berdasarkan ID User yang diinputkan.
      */
     public String getUserData(String idUser, UserData data){
-        return this.getUserData(idUser, UserLevels.USERS, data, UserData.ID_USER);         
+        return this.getUserData(idUser, UserLevels.USERS, data, UserData.USERNAME);         
     }
     
     protected boolean setUserData(String idUser, UserLevels level, UserData data, UserData primary, String newValue){
@@ -527,7 +531,7 @@ public class Users extends Database{
         // mengecek apakah id user exist atau tidak
         if(this.isExistUser(idUser)){
             // mengedit data dari user
-            return this.setData(DatabaseTables.USERS.name(), data.name(), UserData.ID_USER.name(), idUser, newValue);
+            return this.setData(DatabaseTables.USERS.name(), data.name(), UserData.USERNAME.name(), idUser, newValue);
         }
         // akan menghasilkan error jika id user tidak ditemukan
         throw new InValidUserDataException("'" +idUser + "' ID User tersebut tidak dapat ditemukan.");

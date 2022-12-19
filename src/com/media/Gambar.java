@@ -40,7 +40,7 @@ public class Gambar {
     }
     
     public static ImageIcon getIcon(final String icon){
-        File file = new File(Gambar.DIREKTORY_ICON + icon);
+        File file = new File(Gambar.DIREKTORY_ICONS + icon);
         
         // mengecek apakah file icon ada atau tidak
         if(file.exists()){
@@ -143,9 +143,10 @@ public class Gambar {
         FileManager fm = new FileManager();
         String file = fm.getNamaFile(icon),
                 format = fm.getFormatFile(icon);
-        file = file.substring(0, file.lastIndexOf(".")-4) + "-"+ukuran;
-        String baru = Gambar.DIREKTORY_ICON + file +format;
-        System.out.println("icon baru : "+baru);
+        file = file.substring(0, file.lastIndexOf(".")-10) + "-"+ukuran;
+//        System.out.println("file baru "+file);
+//        String baru = Gambar.DIREKTORY_ICON + file +format;
+//        System.out.println("icon baru : "+baru);
         return new ImageIcon(Gambar.DIREKTORY_ICON + file +format);
     }
     public static ImageIcon getHoverIcon(String icon){
@@ -159,7 +160,12 @@ public class Gambar {
         FileManager fm = new FileManager();
         String file = fm.getNamaFile(icon),
                 format = fm.getFormatFile(icon);
-        file = file.substring(0, file.lastIndexOf(".")-4) + "-aktif-"+ukuran;
+        if(Gambar.isHoverIcon(icon)|| Gambar.isAktifIcon(icon)){
+            file = file.substring(0, file.lastIndexOf(".")-10) + "-aktif-"+ukuran;
+        }else{
+            file = file.substring(0, file.lastIndexOf(".")-4) + "-aktif-"+ukuran;
+        }
+//        System.out.println(file);
         return new ImageIcon(Gambar.DIREKTORY_ICON + file +format);
     }
     

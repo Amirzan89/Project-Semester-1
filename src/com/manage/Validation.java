@@ -61,17 +61,17 @@ public class Validation {
     }
     
     /**
-     * id user harus terdiri dari 5 karakter
+     * username harus terdiri dari 20 karakter
      * 
-     * @param idUser
+     * @param username
      * @return 
      */
-    public static boolean isIdUser(String idUser){
-        if(idUser.length() == 5){
+    public static boolean isIdUser(String username){
+        if(username.length() <= 20){
             return true;
         }else{
             Audio.play(Audio.SOUND_WARNING);
-            JOptionPane.showMessageDialog(null, "'" + idUser + "' ID tersebut tidak valid!", "Pesan", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "'" + username + "' username tersebut tidak valid!", "Pesan", JOptionPane.WARNING_MESSAGE);
         }
         return false;
     }

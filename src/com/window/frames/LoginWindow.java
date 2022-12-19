@@ -29,7 +29,7 @@ import javax.swing.JOptionPane;
 public class LoginWindow extends javax.swing.JFrame {
 
     private final Users user = new Users();
-    private String idUser, password;
+    private String username, password;
     private int x, y;
     
     public LoginWindow() {
@@ -192,13 +192,13 @@ public class LoginWindow extends javax.swing.JFrame {
 
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
         try{
-            idUser = this.inpUsername.getText();
+            this.username = this.inpUsername.getText();
             password = this.inpPassword.getText();
-            boolean login = user.login(idUser,password);
+            boolean login = user.login(this.username,password);
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             if(login){
                 Audio.play(Audio.SOUND_INFO);
-                JOptionPane.showMessageDialog(this, "Login Berhasil!\n\nSelamat datang "+ user.getData(UserLevels.KARYAWAN.name(),"nama_karyawan","WHERE id_karyawan = '" + this.idUser + "'"));
+                JOptionPane.showMessageDialog(this, "Login Berhasil!\n\nSelamat datang "+ user.getData(UserLevels.KARYAWAN.name(),"nama_karyawan","WHERE id_karyawan = '" + user.getData(UserLevels.USERS.name(),"id_karyawan","WHERE username = '"+this.username+"'")+ "'"));
                 // membuka window dashboard
                 java.awt.EventQueue.invokeLater(new Runnable(){
                     @Override

@@ -644,15 +644,16 @@ public class TransaksiJual extends javax.swing.JPanel {
                     thargaBaru = text.toIntCase(inpTotalHarga.getText());
                     tharga = thargaLama + thargaBaru;
                     System.out.println(idBarangLama);
-                    System.out.println("total barang lama " + stokLama);
-                    System.out.println("total barang sekarang " + jumlahB);
-                    System.out.println("total barang baru " + stokBaru);
-                    System.out.println("total harga lama " + thargaLama);
-                    System.out.println("total harga sekarang " + thargaBaru);
-                    System.out.println("total harga baru " + tharga);
+//                    System.out.println("total barang lama " + stokLama);
+//                    System.out.println("total barang sekarang " + jumlahB);
+//                    System.out.println("total barang baru " + stokBaru);
+//                    System.out.println("total harga lama " + thargaLama);
+//                    System.out.println("total harga sekarang " + thargaBaru);
+//                    System.out.println("total harga baru " + tharga);
                     // jika jumlah baru lebih dari jumlah lama
                     if (jumlahB > stokSekarang) {
                         System.out.println("Jumlah Lebih Dari Stok Yang Tersedia !");
+                        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                         Message.showWarning(this, "Jumlah Lebih Dari Stok Yang Tersedia !");
                     } else { //jika data duplikasi
                         sisaStok = stokSekarang - jumlahB;
@@ -670,12 +671,14 @@ public class TransaksiJual extends javax.swing.JPanel {
                         }
                         System.out.println(total);
                         this.txtTotal.setText(text.toMoneyCase(Integer.toString(total)));
+                        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     }
                 } else { //jika data baru tidak ada duplikasi
                     System.out.println("data baris baru");
                     jumlahB = Integer.parseInt(inpJumlah.getText());
                     if (jumlahB > stokSekarang) { // jika jumlah baru lebih dari jumlah lama
                         System.out.println("Jumlah Lebih Dari Stok Yang Tersedia !");
+                        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                         Message.showWarning(this, "Jumlah Lebih Dari Stok Yang Tersedia !");
                     } else {
                         System.out.println("data baru ");
@@ -697,6 +700,7 @@ public class TransaksiJual extends javax.swing.JPanel {
                         }
                         System.out.println(total);
                         this.txtTotal.setText(text.toMoneyCase(Integer.toString(total)));
+                        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     }
                 }
             } else {
@@ -704,6 +708,8 @@ public class TransaksiJual extends javax.swing.JPanel {
                 System.out.println("data kosong");
                 jumlahB = Integer.parseInt(inpJumlah.getText());
                 if (jumlahB > this.stok) {
+                    System.out.println("Jumlah Lebih Dari Stok Yang Tersedia !");
+                    this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     Message.showWarning(this, "Jumlah Lebih Dari Stok Yang Tersedia !");
                 } else {
                     addrowtotabeldetail(new Object[]{
@@ -728,6 +734,7 @@ public class TransaksiJual extends javax.swing.JPanel {
                     }
                     System.out.println(total);
                     this.txtTotal.setText(text.toMoneyCase(Integer.toString(total)));
+                    this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                 }
             }
         }
@@ -990,14 +997,14 @@ public class TransaksiJual extends javax.swing.JPanel {
                             //cari idbarang di objbarang berdasarkan idbarang di tabelData
                             for (int j = 0; j < objBarang.length; j++) {
                                 if (objBarang[j][0].equals(idbarang)) {
-                                    System.out.println("data ditemukan");
-                                    System.out.println("object id barang " + objBarang[j][0] + " di baris ke " + (j + 1));
-                                    hargabeli = (int) objBarang[j][4];
+//                                    System.out.println("data ditemukan");
+//                                    System.out.println("object id barang " + objBarang[j][0] + " di baris ke " + (j + 1));
+                                    hargabeli = Integer.parseInt(objBarang[j][4].toString());
+                                    totalh = (Integer.parseInt(tabelData.getValueAt(i, 4).toString()) - hargabeli) * jumlah;
+                                    keuntungan += totalh;
                                     break;
                                 }
                             }
-                            totalh = (Integer.parseInt(tabelData.getValueAt(i, 4).toString()) - hargabeli) * jumlah;
-                            keuntungan += totalh;
                         }
                         System.out.println("id transaksi " + this.idTr);
                         System.out.println("id karyawan " + this.idKaryawan);

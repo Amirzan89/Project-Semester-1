@@ -144,39 +144,10 @@ public class random {
     }
     public static void main(String[] args) throws SQLException, Exception {
         random random = new random();
-        String password = "Amirzan@06112003";
+        String password = "123456789";
         System.out.println("password asli "+password);
-        String hash1 = "",hashing = "";
-        boolean validasi = false;
-//        for(int i = 0; i<3;i++){
-//            hashing = random.getData("users", "password", "WHERE id_user = 'PB00"+i+"'");
-//            validasi = hash.checkpw(password, hashing);
-//            System.out.println("hasil pembeli ke "+i+" : "+validasi);
-//        }
-//            hashing = random.getData("users", "password", "WHERE id_user = 'PB010'");
-//            validasi = hash.checkpw(password, hashing);
-//            System.out.println("hasil pembeli ke 10 : "+validasi);
-//        for(int i = 2; i<5;i++){
-//            hashing = random.getData("users", "password", "WHERE id_user = 'PG00"+i+"'");
-//            validasi = hash.checkpw(password, hashing);
-//            System.out.println("hasil pegawai ke "+i+" : "+validasi);
-//        }
-//        for(int i = 1; i<10;i++){
-//            hashing = random.getData("users", "password", "WHERE id_user = 'SP00"+i+"'");
-//            validasi = hash.checkpw(password, hashing);
-//            System.out.println("hasil supplier ke "+i+" : "+validasi);
-//        }
-//            hashing = random.getData("users", "password", "WHERE id_user = 'SP010'");
-//            validasi = hash.checkpw(password, hashing);
-//            System.out.println("hasil supplier ke 10 : "+validasi);
-        for(int i = 0; i<1;i++){
-            hash1 = hash.hash(password,15);
-            System.out.println("hasil hash "+hash1);
-        }
-//        boolean hasil = hash.checkpw(password, hash1);
-//        System.out.println("hasil "+hasil);
-//        System.out.println("data password "+hashing);
-        
+        String hash1 = hash.hash(password, 18);
+        System.out.println(hash1);
     }
 }
 

@@ -23,6 +23,7 @@ public final class Application {
                                 AUTHOR = "Gemastik Team Lightning",
                                 COMPANY = "Politeknik Negeri Jember",
                                 APP_ICON = "src\\resources\\image\\icons\\app-logo.png";
+//                                APP_ICON = "src\\resources\\image\\gambar-icon\\app-logo.png";
     /**
      * Method ini digunakan untuk membuka aplikasi. Sebelum membuka aplikasi method akan membuat sebuah log baru dengan menggunakan 
      * method {@code createLog()} yang ada didalam class {@code Log}. Setelah log berhasil dibuat maka selanjutnya method akan 

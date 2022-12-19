@@ -35,7 +35,6 @@ public class MainWindowMe extends javax.swing.JFrame {
     
     public MainWindowMe() throws ParseException {
         initComponents();
-        
         this.setTitle("Dashboard");
         this.setIconImage(Gambar.getWindowIcon());
 //        this.setExtendedState(this.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
@@ -66,7 +65,7 @@ public class MainWindowMe extends javax.swing.JFrame {
         // set menjadi activated
 //        activated.setOpaque(true);
 //       activated.setOpaque(true);
-       activated.setIcon(Gambar.getAktiveIcon(activated.getIcon().toString()));
+        activated.setIcon(Gambar.getAktiveIcon(activated.getIcon().toString()));
         // mereset warna button/label
         for(JLabel btn : btns){
             if(btn != this.activated){
@@ -78,8 +77,10 @@ public class MainWindowMe extends javax.swing.JFrame {
                     btn.setIcon(Gambar.getBiasaIcon(btn.getIcon().toString()));        
                 }
             }
-//            
         }
+//        if(Gambar.isHoverIcon(activated.getIcon().toString())){
+//            activated.setIcon(Gambar.getAktiveIcon(activated.getIcon().toString()));
+//        }
     }
     
     private void hoverButton(JLabel[] btns){
@@ -104,7 +105,6 @@ public class MainWindowMe extends javax.swing.JFrame {
 
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    System.out.println("cursor masuk " + btn.getName());
                     if(btn != activated){
 //                        btn.setOpaque(true);
 //                        btn.setForeground(new Color(0,0,0));
@@ -115,7 +115,6 @@ public class MainWindowMe extends javax.swing.JFrame {
 
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    System.out.println("cursor keluar " +btn.getName());
                     if(btn != activated){
 //                        btn.setOpaque(false);
 //                        btn.setForeground(new Color(255,255,255));
@@ -190,6 +189,7 @@ public class MainWindowMe extends javax.swing.JFrame {
         pnlMain.add(btnDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 105, -1, -1));
 
         btnPembeli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-dataPembeli-075.png"))); // NOI18N
+        btnPembeli.setEnabled(false);
         btnPembeli.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnPembeliMouseClicked(evt);
@@ -269,7 +269,7 @@ public class MainWindowMe extends javax.swing.JFrame {
     private void btnBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBarangMouseClicked
         //        this.lblMenuName.setText("Data Barang");
         this.setTitle("Data Barang");
-//        this.setActivatedButton(this.btnBarang);
+        this.setActivatedButton(this.btnBarang);
 
         // menghapus panel lama
         pnlMenu.removeAll();

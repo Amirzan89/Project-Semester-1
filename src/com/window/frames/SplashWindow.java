@@ -29,6 +29,7 @@ public class SplashWindow extends javax.swing.JFrame {
         
         this.lblTop.setText(Application.getNama());
         this.lblLogoApp.setIcon(Gambar.scaleImage(new java.io.File("src\\resources\\image\\icons\\app-logo.png"), 160, 160));
+//        this.lblLogoApp.setIcon(Gambar.scaleImage(new java.io.File("src\\resources\\image\\gambar-icon\\app-logo.png"), 160, 160));
         this.setLocationRelativeTo(null);
         this.setIconImage(Gambar.getWindowIcon());
         
@@ -84,7 +85,7 @@ public class SplashWindow extends javax.swing.JFrame {
                             lblMessage.setText("  Memuat Window...");
                         }else if(val >= 80 && val < 90){
                             delay = 25;
-                            lblMessage.setText("  Menyipakan Window...");
+                            lblMessage.setText("  Menyiapkan Window...");
                         }
                         else{
                             lblMessage.setText("  Membuka Aplikasi...");
