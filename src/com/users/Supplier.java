@@ -1,6 +1,7 @@
 package com.users;
 
 import com.data.app.Log;
+import com.data.db.Database;
 import com.error.InValidUserDataException;
 import com.manage.Text;
 import com.manage.Validation;
@@ -13,14 +14,16 @@ import java.sql.SQLException;
  */
 public class Supplier extends Users{
     
+    private final Database db = new Database();
+    
     private final Text text = new Text();
     
     public String createID(){
-        return super.createID(UserLevels.SUPPLIER, UserData.ID_SUPPLIER);
+        return super.createIDnew("SUPPLIER", "ID_SUPPLIER");
     }
     
     public boolean isExistSupplier(String idSupplier){
-        return super.isExistID(idSupplier, UserLevels.SUPPLIER, UserData.ID_SUPPLIER);
+        return super.isExistIDnew(idSupplier, "SUPPLIER", "ID_SUPPLIER");
     }
     
     public final boolean addSupplier(String namaSupplier, String noTelp, String alamat){
@@ -30,7 +33,7 @@ public class Supplier extends Users{
         
         try {
             // menambahkan data user ke tabel user
-            isAdd = super.addUser(idSupplier, "12345", UserLevels.SUPPLIER);
+            isAdd = super.addUsernew(idSupplier, "12345", "SUPPLIER");
             // mengecek apakah id user sudah ditambahkan ke tabel user
             if(isAdd){
                 // validasi data sebelum ditambahkan
@@ -93,36 +96,38 @@ public class Supplier extends Users{
         return super.deleteUser(idSupplier);
     }
     
-    private String getDataSupplier(String idSupplier, UserData data){
-        return super.getUserData(idSupplier, UserLevels.SUPPLIER, data, UserData.ID_SUPPLIER);
+    private String getDataSupplier(String idSupplier, String data){
+//        return super.getUserData(idSupplier, UserLevels.SUPPLIER, data, UserData.ID_SUPPLIER);
+        db.startConnection();
+        return db.getData("supplier",data,"WHERE id_supplier = '"+idSupplier+"'");
     }
     
     public String getNama(String idSupplier){
-        return this.getDataSupplier(idSupplier, UserData.NAMA_SUPPLIER);
+        return this.getDataSupplier(idSupplier, "nama_supplier");
     }
     
     public String getNoTelp(String idSupplier){
-        return this.getDataSupplier(idSupplier, UserData.NO_TELP);
+        return this.getDataSupplier(idSupplier, "NO_TELP");
     }
     
     public String getAlamat(String idSupplier){
-        return this.getDataSupplier(idSupplier, UserData.ALAMAT);
+        return this.getDataSupplier(idSupplier, "ALAMAT");
     }
     
-    private boolean setDataSupplier(String idSupplier, UserData data, String newValue){
-        return super.setUserData(idSupplier, UserLevels.SUPPLIER, data, UserData.ID_SUPPLIER, newValue);
+    private boolean setDataSupplier(String idSupplier, String data, String newValue){
+        return super.setUserDatanew(idSupplier, "SUPPLIER", data, "ID_SUPPLIER", newValue);
     }
     
     public boolean setNama(String idSupplier, String newNama){
-        return this.setDataSupplier(idSupplier, UserData.NAMA_SUPPLIER, newNama);
+        return this.setDataSupplier(idSupplier, "NAMA_SUPPLIER", newNama);
     }
     
     public boolean setNoTelp(String idSupplier, String newNoTelp){
-        return this.setDataSupplier(idSupplier, UserData.NO_TELP, newNoTelp);
+        return this.setDataSupplier(idSupplier, "NO_TELP", newNoTelp);
     }
     
     public boolean setAlamat(String idSupplier, String newAlamat){
-        return this.setDataSupplier(idSupplier, UserData.ALAMAT, newAlamat);
+        return this.setDataSupplier(idSupplier, "ALAMAT", newAlamat);
     }
     
     

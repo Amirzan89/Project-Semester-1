@@ -46,7 +46,7 @@ public final class Storage {
      * @return <strong>True</strong> jika direktori exist. <br>
      *         <strong>False</strong> jika direktori tidak exist.
      */
-    public boolean isExistDirecotry(){
+    public boolean isExistDirectory(){
         return new File(this.getDirectory()).exists();
     }
     
@@ -59,7 +59,7 @@ public final class Storage {
      *         <strong>False</strong> jika storage tidak sehat.
      */
     public boolean isHealtyStorage(){
-        return this.isExistDirecotry() && this.isExistBackupDir() && this.isExistCacheDir() &&
+        return this.isExistDirectory() && this.isExistBackupDir() && this.isExistCacheDir() &&
                this.isExistLogDir() && this.isExistSettingDir() && this.isExistUsersDir();
     }
     
@@ -289,7 +289,7 @@ public final class Storage {
      * 
      */
     public void createUsersDir(){
-        fm.createFolders(this.getUsersDir());
+        fm.createFolders(this.getUsersDir()+"login_data");
         fm.createFile(this.getUsersDir()+"login_data.haqi");
     }
     
@@ -299,7 +299,7 @@ public final class Storage {
      * @return direktori storage users.
      */
     public String getUsersDir(){
-        return this.getDirectory() + "Users\\login_data.haqi";
+        return this.getDirectory() + "Users\\";
     }
     
     /**
@@ -311,8 +311,8 @@ public final class Storage {
      *         <strong>False</strong> otherwise.
      */
     public boolean isExistUsersDir(){
-        return new File(this.getUsersDir()).exists() &&
-               new File(this.getUsersDir()+"login_data.haqi").exists();
+//        return new File(this.getUsersDir()).exists() &&
+        return new File(this.getUsersDir()+"login_data.haqi").exists();
     }
     
     

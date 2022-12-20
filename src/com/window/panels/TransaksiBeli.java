@@ -9,6 +9,7 @@ import com.manage.Waktu;
 import com.media.Audio;
 import com.media.Gambar;
 import com.sun.glass.events.KeyEvent;
+import com.users.Karyawan;
 import com.users.Supplier;
 import com.users.Users;
 import com.window.dialogs.KonfirmasiPembayaran;
@@ -33,9 +34,9 @@ import javax.swing.table.DefaultTableModel;
 public class TransaksiBeli extends javax.swing.JPanel {
 
     private final Database db = new Database();
-
+    private final String namadb = Database.DB_NAME;
     private final Users user = new Users();
-
+    private final Karyawan karyawan = new Karyawan();
     private final Supplier supplier = new Supplier();
 
     private final Barang barang = new Barang();
@@ -55,7 +56,7 @@ public class TransaksiBeli extends javax.swing.JPanel {
     public TransaksiBeli() {
         initComponents();
         this.idTr = this.trb.createIDTransaksi();
-        this.idKaryawan = this.user.getCurrentLogin();
+        this.idKaryawan = this.karyawan.getIdKaryawan(this.user.getCurrentLogin());
         this.txtTotal.setText(text.toMoneyCase("0"));
         this.inpJumlah.setText("0");
         this.inpTotalHarga.setText(text.toMoneyCase("0"));
@@ -117,7 +118,7 @@ public class TransaksiBeli extends javax.swing.JPanel {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/bisnis", "root", "");
+                    "jdbc:mysql://localhost:3306/"+namadb, "root", "");
             Statement stmt = con.createStatement();
 
 //            ResultSet rs=stmt.executeQuery("show databases;");  
@@ -284,6 +285,7 @@ public class TransaksiBeli extends javax.swing.JPanel {
         if (this.isSelectedSupplier()) {
             // mendapatkan data supplier
             this.idSupplier = this.idSelectedSupplier;
+            System.out.println("sudah dapat id supplier "+this.idSupplier);
             this.namaSupplier = this.supplier.getNama(this.idSupplier);
             System.out.println(namaSupplier);
             // menampilkan data barang
@@ -739,6 +741,7 @@ public class TransaksiBeli extends javax.swing.JPanel {
                         // mereset input
                         this.resetInput();
                         this.idTr = this.trb.createIDTransaksi();
+                        this.inpID.setText("<html><p>:&nbsp;" + this.idTr + "</p></html>");
                         this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                         break;
                     }
@@ -853,6 +856,7 @@ public class TransaksiBeli extends javax.swing.JPanel {
         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
         // menampilkan data supplier
         this.idSelectedSupplier = this.tabelDataSupplier.getValueAt(tabelDataSupplier.getSelectedRow(), 0).toString();
+        System.out.println("id supplier "+this.idSelectedSupplier);
         this.showDataSupplier();
         this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_tabelDataSupplierSupplier1MouseClicked

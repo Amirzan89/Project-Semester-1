@@ -6,7 +6,6 @@ import com.manage.ManageTransaksiJual;
 import com.manage.Message;
 import com.manage.Text;
 import com.media.Gambar;
-import com.users.Pembeli;
 import com.users.Supplier;
 
 /**
@@ -18,8 +17,6 @@ public class KonfirmasiPembayaran extends javax.swing.JDialog {
     private final ManageTransaksiJual trj = new ManageTransaksiJual();
     
     private final ManageTransaksiBeli trb = new ManageTransaksiBeli();
-    
-    private final Pembeli pembeli = new Pembeli();
     
     private final Supplier supplier = new Supplier();
     
@@ -54,7 +51,6 @@ public class KonfirmasiPembayaran extends javax.swing.JDialog {
         this.namaTr = namaTrJual;
         this.idPetugas = idPetugas;
         this.idPembeli = idPembeli;
-        this.namaPembeli = this.pembeli.getNama(idPembeli);
         this.idBarang = idBarang;
         this.namaBarang = this.barang.getNamaBarang(idBarang);
         this.jumlah = jmlBrg;
@@ -102,7 +98,6 @@ public class KonfirmasiPembayaran extends javax.swing.JDialog {
     private void closeConn(){
         this.trj.closeConnection();
         this.trb.closeConnection();
-        this.pembeli.closeConnection();
         this.supplier.closeConnection();
         this.barang.closeConnection();
     }
