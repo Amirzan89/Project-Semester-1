@@ -1,7 +1,9 @@
 package com.window;
 
+import com.data.db.Database;
 import com.media.Audio;
 import com.media.Gambar;
+import com.users.Karyawan;
 import com.users.Users;
 import com.window.dialogs.ConfirmLogout;
 import com.window.panels.DataBarang;
@@ -11,6 +13,7 @@ import com.window.panels.LaporanJual;
 import com.window.panels.TransaksiBeli;
 import com.window.panels.TransaksiJual;
 import com.window.panels.Dashboard;
+import java.awt.Cursor;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -23,28 +26,28 @@ import javax.swing.JLabel;
  */
 public class MainWindowMe extends javax.swing.JFrame {
 
-
+    private final Karyawan karyawan = new Karyawan();
     private final Users user = new Users();
-    
-    private final Dashboard dashboard = new Dashboard();
-    
+    private final Database db = new Database();
+//    private final Dashboard dashboard = new Dashboard();
+
     private JLabel activated;
-    
+
     private JLabel[] btns;
-    
+
     public MainWindowMe() throws ParseException {
         initComponents();
         this.setTitle("Dashboard");
         this.setIconImage(Gambar.getWindowIcon());
 //        this.setExtendedState(this.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
-        this.lblNamaUser.setText(this.user.getCurrentLogin());
+        this.lblNamaUser.setText(this.karyawan.getIdKaryawan(this.user.getCurrentLogin()));
         this.btns = new JLabel[]{
             this.btnDashboard, this.btnSupplier, this.btnBarang,
             this.btnTrJual, this.btnTrBeli, this.btnLpJual, this.btnLpBeli, this.btnLogout
         };
         this.activated = this.btnDashboard;
-        
+
         // reset window
         this.pnlMenu.removeAll();
         this.pnlMenu.repaint();
@@ -53,27 +56,27 @@ public class MainWindowMe extends javax.swing.JFrame {
         this.pnlMenu.add(new com.window.panels.Dashboard());
         this.pnlMenu.repaint();
         this.pnlMenu.revalidate();
-        
+
         this.setActivatedButton(btnDashboard);
         this.hoverButton(btns);
         this.setResizable(false);
     }
-    
-    private void setActivatedButton(JLabel activated){
+
+    private void setActivatedButton(JLabel activated) {
         this.activated = activated;
         // set menjadi activated
 //        activated.setOpaque(true);
 //       activated.setOpaque(true);
         activated.setIcon(Gambar.getAktiveIcon(activated.getIcon().toString()));
         // mereset warna button/label
-        for(JLabel btn : btns){
-            if(btn != this.activated){
+        for (JLabel btn : btns) {
+            if (btn != this.activated) {
 //                btn.setOpaque(false);
 //                btn.setOpaque(false);
 //                btn.setBackground(new Color(0,0,0,0));
 //                btn.setForeground(new Color(255,255,255));
-                if(Gambar.isAktifIcon(btn.getIcon().toString())){
-                    btn.setIcon(Gambar.getBiasaIcon(btn.getIcon().toString()));        
+                if (Gambar.isAktifIcon(btn.getIcon().toString())) {
+                    btn.setIcon(Gambar.getBiasaIcon(btn.getIcon().toString()));
                 }
             }
         }
@@ -81,10 +84,10 @@ public class MainWindowMe extends javax.swing.JFrame {
 //            activated.setIcon(Gambar.getAktiveIcon(activated.getIcon().toString()));
 //        }
     }
-    
-    private void hoverButton(JLabel[] btns){
-        
-        for(JLabel btn : btns){
+
+    private void hoverButton(JLabel[] btns) {
+
+        for (JLabel btn : btns) {
             btn.addMouseListener(new java.awt.event.MouseListener() {
 
                 @Override
@@ -104,7 +107,7 @@ public class MainWindowMe extends javax.swing.JFrame {
 
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    if(btn != activated){
+                    if (btn != activated) {
 //                        btn.setOpaque(true);
 //                        btn.setForeground(new Color(0,0,0));
 //                        btn.setBackground(new Color(96,167,231));
@@ -114,7 +117,7 @@ public class MainWindowMe extends javax.swing.JFrame {
 
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    if(btn != activated){
+                    if (btn != activated) {
 //                        btn.setOpaque(false);
 //                        btn.setForeground(new Color(255,255,255));
 //                        btn.setBackground(new Color(0,0,0,0));
@@ -124,7 +127,6 @@ public class MainWindowMe extends javax.swing.JFrame {
             });
         }
     }
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -137,7 +139,7 @@ public class MainWindowMe extends javax.swing.JFrame {
         lblNamaUser = new javax.swing.JLabel();
         btnBarang = new javax.swing.JLabel();
         btnDashboard = new javax.swing.JLabel();
-        btnPembeli = new javax.swing.JLabel();
+        btnKaryawan = new javax.swing.JLabel();
         btnSupplier = new javax.swing.JLabel();
         btnTrBeli = new javax.swing.JLabel();
         btnTrJual = new javax.swing.JLabel();
@@ -187,14 +189,14 @@ public class MainWindowMe extends javax.swing.JFrame {
         });
         pnlMain.add(btnDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 105, -1, -1));
 
-        btnPembeli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-dataPembeli-075.png"))); // NOI18N
-        btnPembeli.setEnabled(false);
-        btnPembeli.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnKaryawan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-dataPembeli-075.png"))); // NOI18N
+        btnKaryawan.setEnabled(false);
+        btnKaryawan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnPembeliMouseClicked(evt);
+                btnKaryawanMouseClicked(evt);
             }
         });
-        pnlMain.add(btnPembeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 235, -1, -1));
+        pnlMain.add(btnKaryawan, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 235, -1, -1));
 
         btnSupplier.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-dataSupplier-075.png"))); // NOI18N
         btnSupplier.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -267,79 +269,95 @@ public class MainWindowMe extends javax.swing.JFrame {
 
     private void btnBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBarangMouseClicked
         //        this.lblMenuName.setText("Data Barang");
+        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
         this.setTitle("Data Barang");
         this.setActivatedButton(this.btnBarang);
-
         // menghapus panel lama
+        db.closeConnection();
         pnlMenu.removeAll();
         pnlMenu.repaint();
         pnlMenu.revalidate();
 
+        db.startConnection();
         // menambahkan panel baru
         pnlMenu.add(new DataBarang());
         pnlMenu.repaint();
         pnlMenu.revalidate();
+        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btnBarangMouseClicked
 
     private void btnDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDashboardMouseClicked
         try {
             //        this.lblMenuName.setText("Dashboard");
+            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             this.setTitle("Dashboard");
             this.setActivatedButton(this.btnDashboard);
-            
+
             // menghaspus panel lama
+            db.closeConnection();
             pnlMenu.removeAll();
             pnlMenu.repaint();
             pnlMenu.revalidate();
-            
+
             // menambahkan panel baru
+            db.startConnection();
             pnlMenu.add(new com.window.panels.Dashboard());
             pnlMenu.repaint();
             pnlMenu.revalidate();
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         } catch (ParseException ex) {
             Logger.getLogger(MainWindowMe.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnDashboardMouseClicked
 
-    private void btnPembeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPembeliMouseClicked
-//        //        this.lblMenuName.setText("Data Pembeli");
-//        this.setTitle("Data Pembeli");
-//        this.setActivatedButton(this.btnPembeli);
-//
-//        // menghapus panel lama
-//        pnlMenu.removeAll();
-//        pnlMenu.repaint();
-//        pnlMenu.revalidate();
-//
-//        // menambahkan panel baru
-//        pnlMenu.add(new DataPembeli());
-//        pnlMenu.repaint();
-//        pnlMenu.revalidate();
-    }//GEN-LAST:event_btnPembeliMouseClicked
-
-    private void btnSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSupplierMouseClicked
-        //        this.lblMenuName.setText("Data Supplier");
-        this.setTitle("Data Supplier");
-        this.setActivatedButton(this.btnSupplier);
+    private void btnKaryawanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKaryawanMouseClicked
+        //        this.lblMenuName.setText("Data Pembeli");
+        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+//        if()
+        this.setTitle("Data Pembeli");
+        this.setActivatedButton(this.btnKaryawan);
 
         // menghapus panel lama
+        db.closeConnection();
         pnlMenu.removeAll();
         pnlMenu.repaint();
         pnlMenu.revalidate();
 
         // menambahkan panel baru
+        db.startConnection();
+//        pnlMenu.add(new DataKaryawan());
+        pnlMenu.repaint();
+        pnlMenu.revalidate();
+        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_btnKaryawanMouseClicked
+
+    private void btnSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSupplierMouseClicked
+        //        this.lblMenuName.setText("Data Supplier");
+        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        this.setTitle("Data Supplier");
+        this.setActivatedButton(this.btnSupplier);
+        // menghapus panel lama
+        db.closeConnection();
+        pnlMenu.removeAll();
+        pnlMenu.repaint();
+        pnlMenu.revalidate();
+
+        // menambahkan panel baru
+        db.startConnection();
         pnlMenu.add(new DataSupplier());
         pnlMenu.repaint();
         pnlMenu.revalidate();
-        // TODO add your handling code here:
+        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btnSupplierMouseClicked
 
     private void btnTrBeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrBeliMouseClicked
         //        this.lblMenuName.setText("Transaksi Beli");
+        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
         this.setTitle("Transaksi Beli");
         this.setActivatedButton(this.btnTrBeli);
 
         // menghapus panel lama
+//        
         pnlMenu.removeAll();
         pnlMenu.repaint();
         pnlMenu.revalidate();
@@ -348,10 +366,12 @@ public class MainWindowMe extends javax.swing.JFrame {
         pnlMenu.add(new TransaksiBeli());
         pnlMenu.repaint();
         pnlMenu.revalidate();
+        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btnTrBeliMouseClicked
 
     private void btnTrJualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrJualMouseClicked
         //        this.lblMenuName.setText("Transaksi Jual");
+        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
         this.setTitle("Transaksi Jual");
         this.setActivatedButton(this.btnTrJual);
 
@@ -364,49 +384,52 @@ public class MainWindowMe extends javax.swing.JFrame {
         pnlMenu.add(new TransaksiJual());
         pnlMenu.repaint();
         pnlMenu.revalidate();
+        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         // TODO add your handling code here:
     }//GEN-LAST:event_btnTrJualMouseClicked
 
     private void btnLpJualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLpJualMouseClicked
-        //        this.lblMenuName.setText("Laporan Jual");
-        this.setTitle("Laporan Jual");
-        this.setActivatedButton(this.btnLpJual);
-
-        // menghapus panel lama
-        pnlMenu.removeAll();
-        pnlMenu.repaint();
-        pnlMenu.revalidate();
-
         try {
+            //        this.lblMenuName.setText("Laporan Jual");
+            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            this.setTitle("Laporan Jual");
+            this.setActivatedButton(this.btnLpJual);
+
+            // menghapus panel lama
+            pnlMenu.removeAll();
+            pnlMenu.repaint();
+            pnlMenu.revalidate();
+
             // menambahkan panel baru
             pnlMenu.add(new LaporanJual());
+            pnlMenu.repaint();
+            pnlMenu.revalidate();
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         } catch (ParseException ex) {
             Logger.getLogger(MainWindowMe.class.getName()).log(Level.SEVERE, null, ex);
         }
-        pnlMenu.repaint();
-        pnlMenu.revalidate();
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnLpJualMouseClicked
 
     private void btnLpBeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLpBeliMouseClicked
-        //        this.lblMenuName.setText("Laporan Beli");
-        this.setTitle("Laporan Beli");
-        this.setActivatedButton(this.btnLpBeli);
-
-        // menghapus panel lama
-        pnlMenu.removeAll();
-        pnlMenu.repaint();
-        pnlMenu.revalidate();
-
         try {
+            //        this.lblMenuName.setText("Laporan Beli");
+            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            this.setTitle("Laporan Beli");
+            this.setActivatedButton(this.btnLpBeli);
+
+            // menghapus panel lama
+            pnlMenu.removeAll();
+            pnlMenu.repaint();
+            pnlMenu.revalidate();
+
             // menambahkan panel baru
             pnlMenu.add(new LaporanBeli());
+            pnlMenu.repaint();
+            pnlMenu.revalidate();
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         } catch (ParseException ex) {
             Logger.getLogger(MainWindowMe.class.getName()).log(Level.SEVERE, null, ex);
         }
-        pnlMenu.repaint();
-        pnlMenu.revalidate();
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnLpBeliMouseClicked
 
     private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
@@ -431,7 +454,7 @@ public class MainWindowMe extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainWindowMe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */
@@ -450,10 +473,10 @@ public class MainWindowMe extends javax.swing.JFrame {
     private javax.swing.JLabel background;
     private javax.swing.JLabel btnBarang;
     private javax.swing.JLabel btnDashboard;
+    private javax.swing.JLabel btnKaryawan;
     private javax.swing.JLabel btnLogout;
     private javax.swing.JLabel btnLpBeli;
     private javax.swing.JLabel btnLpJual;
-    private javax.swing.JLabel btnPembeli;
     private javax.swing.JLabel btnSupplier;
     private javax.swing.JLabel btnTrBeli;
     private javax.swing.JLabel btnTrJual;

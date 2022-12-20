@@ -38,12 +38,11 @@ public class DataBarang extends javax.swing.JPanel {
     
     private final Barang barang = new Barang();
     
-    private final Chart chart = new Chart();
     
     private final Text text = new Text();
 
     private String idSelected = "", keyword = "", namaBarang, jenis, stok, hargaBeli, hargaJual, ttlPenjulan, penjMing, penghasilan;
-    
+    private Object[][] obj;
     /**
      * Creates new form Dashboard
      */
@@ -102,8 +101,8 @@ public class DataBarang extends javax.swing.JPanel {
     }
     
     private String gachaMinggu(){
-        int max = barang.sumData(DatabaseTables.TRANSAKSI_JUAL.name(), "jumlah_brg", String.format("where id_barang = '%s'", this.idSelected));
-        System.out.println("jumlah barangg "+max);
+        int max = barang.sumData(DatabaseTables.DETAIL_TRANSAKSI_JUAL.name(), "jumlah", String.format("where id_barang = '%s'", this.idSelected));
+//        System.out.println("jumlah barangg "+max);
         if(max <=1){
             return "0";
         }else{
@@ -112,15 +111,21 @@ public class DataBarang extends javax.swing.JPanel {
     }
     
     private void showData(){
+        int baris = -1;
+        for(int i = 0; i<obj.length;i++){
+            if(this.obj[i][0].equals(this.idSelected)){
+                baris = i;
+            }
+        }
         // mendapatkan data
         this.namaBarang = text.toCapitalize(barang.getNamaBarang(this.idSelected));
         this.jenis = text.toCapitalize(barang.getJenis(this.idSelected));
         this.stok = barang.getStok(this.idSelected);
         this.hargaBeli = text.toMoneyCase(barang.getHargaBeli(this.idSelected));
         this.hargaJual = text.toMoneyCase(barang.getHargaJual(this.idSelected));
-        this.ttlPenjulan = ""+this.barang.sumData(DatabaseTables.TRANSAKSI_JUAL.name(), "jumlah_brg", String.format("where id_barang = '%s'", this.idSelected));
-        this.penghasilan = text.toMoneyCase(""+this.barang.sumData(DatabaseTables.TRANSAKSI_JUAL.name(), "total_hrg", String.format("where id_barang = '%s'", this.idSelected)));
-        
+        this.ttlPenjulan = ""+this.barang.sumData(DatabaseTables.DETAIL_TRANSAKSI_JUAL.name(), "jumlah", String.format("where id_barang = '%s'", this.idSelected));
+//        this.penghasilan = text.toMoneyCase(""+this.barang.sumData(DatabaseTables.TRANSAKSI_JUAL.name(), "total_hrg", String.format("where id_barang = '%s'", this.idSelected)));
+        this.penghasilan = text.toMoneyCase(""+Integer.toString((text.toIntCase(this.obj[baris][5].toString()) - text.toIntCase(this.obj[baris][4].toString()))*this.barang.sumData(DatabaseTables.DETAIL_TRANSAKSI_JUAL.name(), "jumlah", String.format("where id_barang = '%s'", this.idSelected))));
         // menampilkan data
         this.valIDBarang.setText("<html><p>:&nbsp;"+idSelected+"</p></html>");
         this.valNamaBarang.setText("<html><p>:&nbsp;"+namaBarang+"</p></html>");
@@ -135,25 +140,25 @@ public class DataBarang extends javax.swing.JPanel {
     
     private Object[][] getData(){
         try{
-            Object obj[][];
+//            Object obj[][];
             int rows = 0;
             String sql = "SELECT id_barang, nama_barang, jenis_barang, stok, harga_beli, harga_jual FROM barang " + keyword;
             // mendefinisikan object berdasarkan total rows dan cols yang ada didalam tabel
-            obj = new Object[barang.getJumlahData("barang", keyword)][6];
+            this.obj = new Object[barang.getJumlahData("barang", keyword)][6];
             // mengeksekusi query
             barang.res = barang.stat.executeQuery(sql);
             // mendapatkan semua data yang ada didalam tabel
             while(barang.res.next()){
                 // menyimpan data dari tabel ke object
-                obj[rows][0] = barang.res.getString("id_barang");
-                obj[rows][1] = barang.res.getString("nama_barang");
-                obj[rows][2] = text.toCapitalize(barang.res.getString("jenis_barang"));
-                obj[rows][3] = barang.res.getString("stok");
-                obj[rows][4] = text.toMoneyCase(barang.res.getString("harga_beli"));
-                obj[rows][5] = text.toMoneyCase(barang.res.getString("harga_jual"));
+                this.obj[rows][0] = barang.res.getString("id_barang");
+                this.obj[rows][1] = barang.res.getString("nama_barang");
+                this.obj[rows][2] = text.toCapitalize(barang.res.getString("jenis_barang"));
+                this.obj[rows][3] = barang.res.getString("stok");
+                this.obj[rows][4] = text.toMoneyCase(barang.res.getString("harga_beli"));
+                this.obj[rows][5] = text.toMoneyCase(barang.res.getString("harga_jual"));
                 rows++; // rows akan bertambah 1 setiap selesai membaca 1 row pada tabel
             }
-            return obj;
+            return this.obj;
         }catch(SQLException ex){
             Message.showException(this, "Terjadi kesalahan saat mengambil data dari database\n" + ex.getMessage(), ex, true);
         }

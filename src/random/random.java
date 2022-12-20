@@ -5,6 +5,7 @@ import com.data.db.Database;
 import com.data.db.DatabaseTables;
 import com.data.db.Hashing_Algorithm;
 import com.manage.Message;
+import com.manage.Waktu;
 import com.media.Audio;
 import com.users.UserLevels;
 import static com.users.UserLevels.ADMIN;
@@ -144,10 +145,15 @@ public class random {
     }
     public static void main(String[] args) throws SQLException, Exception {
         random random = new random();
-        String password = "123456789";
-        System.out.println("password asli "+password);
-        String hash1 = hash.hash(password, 18);
-        System.out.println(hash1);
+        Waktu waktu = new Waktu();
+        Object[] obj = waktu.getMinggu(12, 2022);
+        for (Object obj1 : obj) {
+            System.out.println(obj1);
+        }
+//        String password = "123456789";
+//        System.out.println("password asli "+password);
+//        String hash1 = hash.hash(password, 18);
+//        System.out.println(hash1);
     }
 }
 
