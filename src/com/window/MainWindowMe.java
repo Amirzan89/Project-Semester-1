@@ -5,7 +5,6 @@ import com.media.Gambar;
 import com.users.Users;
 import com.window.dialogs.ConfirmLogout;
 import com.window.panels.DataBarang;
-import com.window.panels.DataPembeli;
 import com.window.panels.DataSupplier;
 import com.window.panels.LaporanBeli;
 import com.window.panels.LaporanJual;
@@ -39,7 +38,7 @@ public class MainWindowMe extends javax.swing.JFrame {
         this.setIconImage(Gambar.getWindowIcon());
 //        this.setExtendedState(this.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
-        this.lblNamaUser.setText(this.user.getCurrentLogin().toUpperCase());
+        this.lblNamaUser.setText(this.user.getCurrentLogin());
         this.btns = new JLabel[]{
             this.btnDashboard, this.btnSupplier, this.btnBarang,
             this.btnTrJual, this.btnTrBeli, this.btnLpJual, this.btnLpBeli, this.btnLogout
@@ -303,19 +302,19 @@ public class MainWindowMe extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDashboardMouseClicked
 
     private void btnPembeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPembeliMouseClicked
-        //        this.lblMenuName.setText("Data Pembeli");
-        this.setTitle("Data Pembeli");
-        this.setActivatedButton(this.btnPembeli);
-
-        // menghapus panel lama
-        pnlMenu.removeAll();
-        pnlMenu.repaint();
-        pnlMenu.revalidate();
-
-        // menambahkan panel baru
-        pnlMenu.add(new DataPembeli());
-        pnlMenu.repaint();
-        pnlMenu.revalidate();
+//        //        this.lblMenuName.setText("Data Pembeli");
+//        this.setTitle("Data Pembeli");
+//        this.setActivatedButton(this.btnPembeli);
+//
+//        // menghapus panel lama
+//        pnlMenu.removeAll();
+//        pnlMenu.repaint();
+//        pnlMenu.revalidate();
+//
+//        // menambahkan panel baru
+//        pnlMenu.add(new DataPembeli());
+//        pnlMenu.repaint();
+//        pnlMenu.revalidate();
     }//GEN-LAST:event_btnPembeliMouseClicked
 
     private void btnSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSupplierMouseClicked

@@ -307,6 +307,15 @@ public class Validation {
         switch(level.name()){
             case "ADMIN" : return true;
             case "KARYAWAN" : return true;
+//            case "SUPPLIER" : return true;
+//            case "PEMBELI" : return true;
+            default : return false;
+        }
+    }
+    public static boolean isLevelnew(String level){
+        switch(level){
+//            case "ADMIN" : return true;
+//            case "KARYAWAN" : return true;
             case "SUPPLIER" : return true;
             case "PEMBELI" : return true;
             default : return false;

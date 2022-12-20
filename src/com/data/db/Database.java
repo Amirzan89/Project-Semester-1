@@ -170,7 +170,9 @@ public class Database {
     public boolean isExistData(String tabel, String field, String data){
         try{
             String query = "SELECT * FROM " + tabel + " WHERE " + field + " = '" + data + "'";
+            System.out.println(query);
             res = stat.executeQuery(query);
+//            System.out.println("data query "+res.next());
             return res.next();
         }catch(SQLException ex){
             Audio.play(Audio.SOUND_ERROR);
@@ -193,6 +195,7 @@ public class Database {
     public String getData(String table, String field, String kondisi){
         try{
             sql = "SELECT "+field+" FROM "+table + " " + kondisi;
+            System.out.println(sql);
             res = stat.executeQuery(sql);
             if(res.next()){
                 return res.getString(field);

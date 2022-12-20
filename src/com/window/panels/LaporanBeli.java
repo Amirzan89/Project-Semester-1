@@ -9,7 +9,7 @@ import com.manage.Waktu;
 import com.media.Audio;
 import com.media.Gambar;
 import com.sun.glass.events.KeyEvent;
-import com.users.Petugas;
+import com.users.Karyawan;
 import com.users.Supplier;
 import com.window.dialogs.CetakLaporan;
 import java.awt.BorderLayout;
@@ -53,7 +53,7 @@ public class LaporanBeli extends javax.swing.JPanel {
     
     private final ManageTransaksiBeli trb = new ManageTransaksiBeli();
     
-    private final Petugas petugas = new Petugas();
+    private final Karyawan petugas = new Karyawan();
     
     private final Supplier supplier = new Supplier();
     

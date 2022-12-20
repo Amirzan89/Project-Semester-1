@@ -6,7 +6,6 @@ import com.media.Gambar;
 import com.users.Users;
 import com.window.dialogs.ConfirmLogout;
 import com.window.panels.DataBarang;
-import com.window.panels.DataPembeli;
 import com.window.panels.DataSupplier;
 import com.window.panels.LaporanBeli;
 import com.window.panels.LaporanJual;
@@ -145,7 +144,6 @@ public class MainWindow extends javax.swing.JFrame {
         btnSupplier = new javax.swing.JLabel();
         btnLpJual = new javax.swing.JLabel();
         btnBarang = new javax.swing.JLabel();
-        btnPembeli = new javax.swing.JLabel();
         lblNamaUser = new javax.swing.JLabel();
         btnDashboard = new javax.swing.JLabel();
         pnlMenu = new javax.swing.JPanel();
@@ -221,14 +219,6 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         pnlMain.add(btnBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 170, -1, -1));
-
-        btnPembeli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-dataPembeli-075.png"))); // NOI18N
-        btnPembeli.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnPembeliMouseClicked(evt);
-            }
-        });
-        pnlMain.add(btnPembeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 235, -1, -1));
         pnlMain.add(lblNamaUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 50, 60, 20));
 
         btnDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-Dashboard-075.png"))); // NOI18N
@@ -405,22 +395,6 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLogoutMouseClicked
 
-    private void btnPembeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPembeliMouseClicked
-//        this.lblMenuName.setText("Data Pembeli");
-        this.setTitle("Data Pembeli");
-        this.setActivatedButton(this.btnPembeli);
-        
-        // menghapus panel lama
-        pnlMenu.removeAll();
-        pnlMenu.repaint();
-        pnlMenu.revalidate();
-        
-        // menambahkan panel baru
-        pnlMenu.add(new DataPembeli());
-        pnlMenu.repaint();
-        pnlMenu.revalidate();
-    }//GEN-LAST:event_btnPembeliMouseClicked
-
     public static void main(String args[]) {
         Log.createLog();
         try {
@@ -454,7 +428,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel btnLogout;
     private javax.swing.JLabel btnLpBeli;
     private javax.swing.JLabel btnLpJual;
-    private javax.swing.JLabel btnPembeli;
     private javax.swing.JLabel btnSupplier;
     private javax.swing.JLabel btnTrBeli;
     private javax.swing.JLabel btnTrJual;

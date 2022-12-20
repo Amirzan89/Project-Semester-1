@@ -9,7 +9,7 @@ import com.manage.Waktu;
 import com.media.Audio;
 import com.media.Gambar;
 import com.sun.glass.events.KeyEvent;
-import com.users.Pembeli;
+import com.users.Karyawan;
 import com.users.Users;
 import com.window.dialogs.KonfirmasiPembayaran;
 import java.awt.Color;
@@ -24,10 +24,9 @@ import javax.swing.table.DefaultTableModel;
  * @author Gemastik Lightning
  */
 public class TransaksiJual extends javax.swing.JPanel {
-
+    private final Karyawan karyawan = new Karyawan();
+    
     private final Users user = new Users();
-
-    private final Pembeli pembeli = new Pembeli();
 
     private final Barang barang = new Barang();
 
@@ -53,8 +52,7 @@ public class TransaksiJual extends javax.swing.JPanel {
         this.inpTotalHarga.setText(text.toMoneyCase("0"));
         this.inpID.setText("<html><p>:&nbsp;" + this.trj.createIDTransaksi() + "</p></html>");
         this.inpNamaPetugas.setText("<html><p>:&nbsp;" + this.user.getCurrentLoginName() + "</p></html>");
-        this.idKaryawan = this.user.getCurrentLogin();
-        System.out.println("id karyawan " + this.idKaryawan);
+        this.idKaryawan = this.karyawan.getIdKaryawan(this.user.getCurrentLogin());
 
         this.btnBayar.setUI(new javax.swing.plaf.basic.BasicButtonUI());
         this.btnBatal.setUI(new javax.swing.plaf.basic.BasicButtonUI());
@@ -1045,6 +1043,7 @@ public class TransaksiJual extends javax.swing.JPanel {
                         // mereset input
                         this.resetInput();
                         this.idTr = this.trj.createIDTransaksi();
+                        this.inpID.setText("<html><p>:&nbsp;" + this.idTr + "</p></html>");
                         break;
                     }
                     case JOptionPane.NO_OPTION: {

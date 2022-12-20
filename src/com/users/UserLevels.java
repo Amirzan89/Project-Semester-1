@@ -12,5 +12,5 @@ public enum UserLevels {
     ADMIN,
     KARYAWAN,
     PEMBELI,
-    SUPPLIER
+//    SUPPLIER
 }

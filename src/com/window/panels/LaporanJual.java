@@ -9,8 +9,7 @@ import com.manage.Waktu;
 import com.media.Audio;
 import com.media.Gambar;
 import com.sun.glass.events.KeyEvent;
-import com.users.Pembeli;
-import com.users.Petugas;
+import com.users.Karyawan;
 import com.window.dialogs.CetakLaporan;
 import java.awt.BorderLayout;
 import java.awt.*;
@@ -55,9 +54,8 @@ public class LaporanJual extends javax.swing.JPanel {
     
     private final ManageTransaksiJual trj = new ManageTransaksiJual();
     
-    private final Petugas petugas = new Petugas();
+    private final Karyawan karyawan = new Karyawan();
     
-    private final Pembeli pembeli = new Pembeli();
     
     private final Barang barang = new Barang();
     
@@ -311,8 +309,7 @@ public class LaporanJual extends javax.swing.JPanel {
         this.idTr = tabel.getValueAt(tabel.getSelectedRow(), 0).toString().replace("LPD", "TRJ");
         System.out.println(this.idTr);
         this.idPd = this.idTr.replace("TRJ", "LPD");
-        this.namaPembeli = this.pembeli.getNama(this.trj.getIdPembeli(this.idTr));
-        this.namaPetugas = this.petugas.getNama(this.trj.getIdPetugas(this.idTr));
+        this.namaPetugas = this.karyawan.getNama(this.trj.getIdPetugas(this.idTr));
         this.namaBarang = this.barang.getNamaBarang(this.trj.getIdBarang(this.idTr));
         this.jenis = text.toCapitalize(this.barang.getJenis(this.trj.getIdBarang(this.idTr)));
         this.jumlah = Integer.toString(this.trj.getJumlahBarang(this.idTr));

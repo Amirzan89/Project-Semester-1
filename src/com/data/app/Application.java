@@ -101,7 +101,7 @@ public final class Application {
      *         <strong>False</strong> jika tidak.
      */
     private static boolean isFirstTimeInstall(){
-        return !new Storage().isExistDirecotry();
+        return !new Storage().isExistDirectory();
     }
     
     /**
