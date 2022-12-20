@@ -30,82 +30,79 @@ import javax.swing.JOptionPane;
  * @author Gemastik Lightning
  */
 public class DataSupplier extends javax.swing.JPanel {
-    
+
     private final Supplier supplier = new Supplier();
-    
+
     private final Barang barang = new Barang();
-    
+
     private final Internet net = new Internet();
-    
+
     private final Text text = new Text();
-    
+
     private String idSelected = "", keyword = "", namaSupplier, noTelp, alamat, ttBrg, ttlUang, last;
-    
+
     DateFormat tanggalMilis = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
     private final DateFormat tanggalFull = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss ");
     private final DateFormat date = new SimpleDateFormat("dd-MM-yyyy");
     private final DateFormat date1 = new SimpleDateFormat("yyyy-MM-dd");
     private final DateFormat time = new SimpleDateFormat("ss:mm:hh");
     private final DateFormat timeMillis = new SimpleDateFormat("ss.SSS:mm:hh");
-    
+
     public DataSupplier() {
         initComponents();
-        
+
         this.tabelData.setRowHeight(29);
-        this.tabelData.getTableHeader().setBackground(new java.awt.Color(255,255,255));
+        this.tabelData.getTableHeader().setBackground(new java.awt.Color(255, 255, 255));
         this.tabelData.getTableHeader().setForeground(new java.awt.Color(0, 0, 0));
 
-//        this.tabelHistori.setRowHeight(29);
-//        this.tabelHistori.getTableHeader().setBackground(new java.awt.Color(255,255,255));
-//        this.tabelHistori.getTableHeader().setForeground(new java.awt.Color(0, 0, 0));
-        
         this.btnAdd.setUI(new javax.swing.plaf.basic.BasicButtonUI());
         this.btnEdit.setUI(new javax.swing.plaf.basic.BasicButtonUI());
         this.btnDel.setUI(new javax.swing.plaf.basic.BasicButtonUI());
-        System.out.println("done 1");
+
         JLabel[] values = {
-          this.valIDSupplier, this.valNamaSupplier, this.valNoTelp, this.valAlamat, 
-          this.valBrgSupplier, this.valUang, valLast
+            this.valIDSupplier, this.valNamaSupplier, this.valNoTelp, this.valAlamat,
+            this.valBrgSupplier, this.valUang, valLast
         };
-        
-        for(JLabel lbl : values){
+
+        for (JLabel lbl : values) {
             lbl.addMouseListener(new java.awt.event.MouseListener() {
 
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    
+
                 }
 
                 @Override
                 public void mousePressed(MouseEvent e) {
-                    
+
                 }
 
                 @Override
                 public void mouseReleased(MouseEvent e) {
-                    
+
                 }
 
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     setCursor(new Cursor(Cursor.HAND_CURSOR));
-                    lbl.setForeground(new Color(15,98,230));
+                    lbl.setForeground(new Color(15, 98, 230));
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
                     setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                    lbl.setForeground(new Color(0,0,0));
+                    lbl.setForeground(new Color(0, 0, 0));
                 }
             });
-        
+
 //        this.updateTabelHistori();
         }
         this.updateTabel();
+        this.valNoTelp.setText("");
     }
 
-    private Object[][] getData(){
-        try{
+    private Object[][] getData() {
+        try {
             Object[][] obj;
             int rows = 0;
             String sql = "SELECT id_supplier, nama_supplier, no_telp, alamat FROM supplier " + keyword;
@@ -114,7 +111,7 @@ public class DataSupplier extends javax.swing.JPanel {
             // mengeksekusi query
             supplier.res = supplier.stat.executeQuery(sql);
             // mendapatkan semua data yang ada didalam tabel
-            while(supplier.res.next()){
+            while (supplier.res.next()) {
                 // menyimpan data dari tabel ke object
                 obj[rows][0] = supplier.res.getString("id_supplier");
                 obj[rows][1] = supplier.res.getString("nama_supplier");
@@ -123,102 +120,58 @@ public class DataSupplier extends javax.swing.JPanel {
                 rows++; // rows akan bertambah 1 setiap selesai membaca 1 row pada tabel
             }
             return obj;
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             Message.showException(this, "Terjadi kesalahan saat mengambil data dari database\n" + ex.getMessage(), ex, true);
         }
         return null;
     }
-    
-    private void updateTabel(){
+
+    private void updateTabel() {
         this.tabelData.setModel(new javax.swing.table.DefaultTableModel(
-            getData(),
-            new String [] {
-                "ID Supplier", "Nama Supplier", "No Telephone", "Alamat"
-            }
+                getData(),
+                new String[]{
+                    "ID Supplier", "Nama Supplier", "No Telephone", "Alamat"
+                }
         ) {
-            boolean[] canEdit = new boolean [] {
+            boolean[] canEdit = new boolean[]{
                 false, false, false, false
             };
 
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
-        System.out.println("done 2");
     }
-    
-    private Object[][] getDataHistori(){
-        try{
-            Object[][] obj;
-            int rows = 0;
-            String sql = "SELECT id_tr_beli, id_barang, jumlah_brg, total_hrg FROM transaksi_beli where id_supplier = '"+this.idSelected+"'";
-            // mendefinisikan object berdasarkan total rows dan cols yang ada didalam tabel
-            obj = new Object[supplier.getJumlahData("transaksi_beli", "where id_supplier = '"+this.idSelected+"'")][4];
-            // mengeksekusi query
-            supplier.res = supplier.stat.executeQuery(sql);
-            // mendapatkan semua data yang ada didalam tabel
-            while(supplier.res.next()){
-                // menyimpan data dari tabel ke object
-                obj[rows][0] = supplier.res.getString("id_tr_beli");
-                obj[rows][1] = barang.getNamaBarang(supplier.res.getString("id_barang"));
-                obj[rows][2] = supplier.res.getString("jumlah_brg");
-                obj[rows][3] = text.toMoneyCase(supplier.res.getString("total_hrg"));
-                rows++; // rows akan bertambah 1 setiap selesai membaca 1 row pada tabel
-            }
-            return obj;
-        }catch(SQLException ex){
-            Message.showException(this, "Terjadi kesalahan saat mengambil data dari database\n" + ex.getMessage(), ex, true);
-        }
-        return null;
-    }
-    
-    private void updateTabelHistori(){
-        this.tabelHistori.setModel(new javax.swing.table.DefaultTableModel(
-            getDataHistori(),
-            new String [] {
-                "ID Penggeluaran", "Nama Barang", "Jumlah", "Total Harga"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
 
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-    }
-    
-    public void showData() throws ParseException{
+    public void showData() throws ParseException {
         // mendapatkan data
         String tanggalPenuh;
         Date tanggal = new Date();
         this.namaSupplier = supplier.getNama(this.idSelected);
         this.noTelp = text.toTelephoneCase(supplier.getNoTelp(this.idSelected));
         this.alamat = supplier.getAlamat(this.idSelected);
-        
-        this.ttBrg = ""+this.supplier.getJumlahData(DatabaseTables.DETAIL_TRANSAKSI_BELI.name(), String.format("WHERE id_supplier='%s'", this.idSelected));
-        this.ttlUang = text.toMoneyCase(""+this.supplier.sumData(DatabaseTables.DETAIL_TRANSAKSI_BELI.name(), "total_harga", String.format("where id_supplier = '%s'", this.idSelected)));
-        tanggalPenuh = this.supplier.getData(DatabaseTables.TRANSAKSI_BELI.name(), "tanggal", "WHERE id_supplier = '" + this.idSelected + "'  ORDER BY tanggal DESC");
-        if(tanggalPenuh.equals("null")){
+
+        this.ttBrg = "" + this.supplier.getJumlahData(DatabaseTables.DETAIL_TRANSAKSI_BELI.name(), String.format("WHERE id_supplier='%s'", this.idSelected));
+        this.ttlUang = text.toMoneyCase("" + this.supplier.sumData(DatabaseTables.DETAIL_TRANSAKSI_BELI.name(), "total_harga", String.format("where id_supplier = '%s'", this.idSelected)));
+        tanggalPenuh = this.supplier.getData(DatabaseTables.TRANSAKSI_BELI.name(), "tanggal", "WHERE id_tr_beli = '" + this.supplier.getData(DatabaseTables.DETAIL_TRANSAKSI_BELI.name(), "id_tr_beli", " WHERE id_supplier = '" + this.idSelected + "'") + "' ORDER BY tanggal DESC");
+        if (tanggalPenuh.equals("null")) {
             this.last = "Belum Pernah Melakukan Transaksi";
-        }else{
+        } else {
             tanggal = tanggalMilis.parse(tanggalPenuh);
             this.last = date.format(tanggal);
         }
-        
+
         // menampilkan data
-        this.valIDSupplier.setText("<html><p>:&nbsp;"+idSelected+"</p></html>");
-        this.valNamaSupplier.setText("<html><p>:&nbsp;"+namaSupplier+"</p></html>");
-        this.valNoTelp.setText("<html><p style=\"text-decoration:underline; color:rgb(0,0,0);\">:&nbsp;"+noTelp+"</p></html>");
-        this.valAlamat.setText("<html><p>:&nbsp;"+alamat+"</p></html>");
-        this.valBrgSupplier.setText("<html><p>:&nbsp;"+ttBrg+" Barang</p></html>");
-        this.valUang.setText("<html><p>:&nbsp;"+ttlUang+"</p></html>");
-        this.valLast.setText("<html><p>:&nbsp;"+last+"</p></html>");
+        this.valIDSupplier.setText("<html><p>:&nbsp;" + idSelected + "</p></html>");
+        this.valNamaSupplier.setText("<html><p>:&nbsp;" + namaSupplier + "</p></html>");
+        this.valNoTelp.setText("<html><p style=\"text-decoration:underline; color:rgb(0,0,0);\">:&nbsp;" + noTelp + "</p></html>");
+        this.valAlamat.setText("<html><p>:&nbsp;" + alamat + "</p></html>");
+        this.valBrgSupplier.setText("<html><p>:&nbsp;" + ttBrg + " Barang</p></html>");
+        this.valUang.setText("<html><p>:&nbsp;" + ttlUang + "</p></html>");
+        this.valLast.setText("<html><p>:&nbsp;" + last + "</p></html>");
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -349,7 +302,7 @@ public class DataSupplier extends javax.swing.JPanel {
 
         valNoTelp.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valNoTelp.setForeground(new java.awt.Color(0, 0, 0));
-        valNoTelp.setText(":");
+        valNoTelp.setText(":        -");
         valNoTelp.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 valNoTelpMouseClicked(evt);
@@ -421,32 +374,32 @@ public class DataSupplier extends javax.swing.JPanel {
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
         int status;
         boolean delete;
-        
+
         // mengecek apakah ada data yang dipilih atau tidak
-        if(tabelData.getSelectedRow() > -1){
+        if (tabelData.getSelectedRow() > -1) {
             // membuka confirm dialog untuk menghapus data
             Audio.play(Audio.SOUND_INFO);
             status = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus '" + this.namaSupplier + "' ?", "Confirm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
 
             // mengecek pilihan dari supplier
-            switch(status){
+            switch (status) {
                 // jika yes maka data akan dihapus
-                case JOptionPane.YES_OPTION : 
+                case JOptionPane.YES_OPTION:
                     // menghapus data supplier
                     this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
                     delete = this.supplier.deleteSupplier(this.idSelected);
                     // mengecek apakah data supplier berhasil terhapus atau tidak
-                    if(delete){
+                    if (delete) {
                         Message.showInformation(this, "Data berhasil dihapus!");
                         // mengupdate tabel
                         this.updateTabel();
-                    }else{
+                    } else {
                         Message.showInformation(this, "Data gagal dihapus!");
                     }
                     this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     break;
-            }            
-        }else{
+            }
+        } else {
             Message.showWarning(this, "Tidak ada data yang dipilih!!", true);
         }
     }//GEN-LAST:event_btnDelActionPerformed
@@ -456,20 +409,20 @@ public class DataSupplier extends javax.swing.JPanel {
         Audio.play(Audio.SOUND_INFO);
         InputSupplier tbh = new InputSupplier(null, true, null);
         tbh.setVisible(true);
-        
+
         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
         // mengecek apakah supplier jadi menambahkan data atau tidak
-        if(tbh.isUpdated()){
+        if (tbh.isUpdated()) {
             // mengupdate tabel
             this.updateTabel();
-            this.tabelData.setRowSelectionInterval(this.tabelData.getRowCount()-1, this.tabelData.getRowCount()-1);
+            this.tabelData.setRowSelectionInterval(this.tabelData.getRowCount() - 1, this.tabelData.getRowCount() - 1);
         }
         this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // mengecek apakah ada data yang dipilih atau tidak
-        if(tabelData.getSelectedRow() > -1){
+        if (tabelData.getSelectedRow() > -1) {
             // membuka window input supplier
             Audio.play(Audio.SOUND_INFO);
             InputSupplier tbh = new InputSupplier(null, true, this.idSelected);
@@ -477,7 +430,7 @@ public class DataSupplier extends javax.swing.JPanel {
 
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             // mengecek apakah supplier jadi mengedit data atau tidak
-            if(tbh.isUpdated()){
+            if (tbh.isUpdated()) {
                 try {
                     // mengupdate tabel dan menampilkan ulang data
                     this.updateTabel();
@@ -487,9 +440,9 @@ public class DataSupplier extends javax.swing.JPanel {
                 }
             }
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-        }else{
-                Message.showWarning(this, "Tidak ada data yang dipilih!!", true);
-        }  
+        } else {
+            Message.showWarning(this, "Tidak ada data yang dipilih!!", true);
+        }
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnAddMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseEntered
@@ -530,14 +483,14 @@ public class DataSupplier extends javax.swing.JPanel {
 
     private void tabelDataKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDataKeyPressed
         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-        if(evt.getKeyCode() == KeyEvent.VK_UP){
+        if (evt.getKeyCode() == KeyEvent.VK_UP) {
             try {
                 this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow() - 1, 0).toString();
                 this.showData();
             } catch (ParseException ex) {
                 Logger.getLogger(DataSupplier.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
+        } else if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
             try {
                 this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow() + 1, 0).toString();
                 this.showData();
@@ -549,38 +502,37 @@ public class DataSupplier extends javax.swing.JPanel {
     }//GEN-LAST:event_tabelDataKeyPressed
 
     private void valNoTelpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_valNoTelpMouseClicked
-
         String nomor = this.noTelp.substring(1).replaceAll(" ", "").replaceAll("-", "");
-        if(net.isConnectInternet()){
+        if (net.isConnectInternet()) {
             try {
-                net.openLink("https://wa.me/"+nomor);
+                net.openLink("https://wa.me/" + nomor);
             } catch (IOException | URISyntaxException ex) {
                 Message.showException(this, ex, true);
             }
-        }else{
+        } else {
             Message.showWarning(this, "Tidak terhubung ke Internet!", true);
         }
     }//GEN-LAST:event_valNoTelpMouseClicked
 
     private void valNoTelpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_valNoTelpMouseEntered
         this.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        this.valNoTelp.setText("<html><p style=\"text-decoration:underline; color:rgb(15,98,230);\">:&nbsp;"+noTelp+"</p></html>");
+        this.valNoTelp.setText("<html><p style=\"text-decoration:underline; color:rgb(15,98,230);\">:&nbsp;" + noTelp + "</p></html>");
     }//GEN-LAST:event_valNoTelpMouseEntered
 
     private void valNoTelpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_valNoTelpMouseExited
         this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-        this.valNoTelp.setText("<html><p style=\"text-decoration:underline; color:rgb(0,0,0);\">:&nbsp;"+noTelp+"</p></html>");
+        this.valNoTelp.setText("<html><p style=\"text-decoration:underline; color:rgb(0,0,0);\">:&nbsp;" + noTelp + "</p></html>");
     }//GEN-LAST:event_valNoTelpMouseExited
 
     private void inpCariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inpCariKeyTyped
         String key = this.inpCari.getText();
-        this.keyword = "WHERE id_supplier LIKE '%"+key+"%' OR nama_supplier LIKE '%"+key+"%'";
+        this.keyword = "WHERE id_supplier LIKE '%" + key + "%' OR nama_supplier LIKE '%" + key + "%'";
         this.updateTabel();
     }//GEN-LAST:event_inpCariKeyTyped
 
     private void inpCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inpCariKeyReleased
         String key = this.inpCari.getText();
-        this.keyword = "WHERE id_supplier LIKE '%"+key+"%' OR nama_supplier LIKE '%"+key+"%'";
+        this.keyword = "WHERE id_supplier LIKE '%" + key + "%' OR nama_supplier LIKE '%" + key + "%'";
         this.updateTabel();
     }//GEN-LAST:event_inpCariKeyReleased
 

@@ -69,9 +69,8 @@ import java.util.logging.Logger;
  * @since 2021-06-11
  */
 public class Users extends Database{
-    
-//    Hashing_Algorithm hash = new Hashing_Algorithm();
     private Date date;
+//    private final Karyawan karyawan = new Karyawan();
     private final Hashing_Algorithm hash = new Hashing_Algorithm();
     private final Text txt = new Text();
     
@@ -291,14 +290,11 @@ public class Users extends Database{
         
         // object dan variabel digunakan untuk mengecek 
         String idUser = this.getLoginData();
-        System.out.println("id user di is login "+idUser);
         // jika login data tidak kosong
         if(idUser != null){
             // mengecek apakah idUser yang dibuat untuk login exist atau tidak
             if(this.isExistUser(idUser)){
                 return true;
-            }else{
-                System.out.println("user tidak ada");
             }
         }            
         return false;
@@ -336,7 +332,7 @@ public class Users extends Database{
         
         // mengecek apakah idUser dan password valid atau tidak
         if(this.validateLogin(username, password)){
-            Log.addLog("Melakukan Login dengan username : '" + username + "' dan dengan ID User : '"+ username +"'");
+            Log.addLog("Melakukan Login dengan username : '" + username + "' dan dengan ID karyawan : '"+ username +"'");
             
             // menyimpan login data kedalam file
             BufferedWriter save = new BufferedWriter(new FileWriter(this.LOGIN_DATA_FILE));
@@ -350,7 +346,7 @@ public class Users extends Database{
     }
     
     private boolean validateLogin(String idUser, String password) throws AuthenticationException, Exception{
-        System.out.println("validasi login");
+//        System.out.println("validasi login");
         String leveluser = getLevel(idUser).name();
         // mengecek apakah id user valid atau tidak
         if(!Validation.isIdUser(idUser)){
@@ -384,7 +380,6 @@ public class Users extends Database{
         // membaca semua data yang ada didalam file login_data.haqi
         try(BufferedReader data = new BufferedReader(new FileReader(this.LOGIN_DATA_FILE))){
             // mengembalikan nilai loginData
-            System.out.println("membaca data login");
             return data.readLine();
         }catch(IOException ex){
             Message.showException(this, "Storage Corrupt!!", ex, true);

@@ -132,7 +132,6 @@ public class Database {
     public int getJumlahData(String tabel, String kondisi){
         try{
             String query = "SELECT COUNT(*) AS total FROM " + tabel + " " + kondisi;
-            System.out.println("hitung " + query);
             res = stat.executeQuery(query);
             if(res.next()){
                 return res.getInt("total");
@@ -150,7 +149,6 @@ public class Database {
     public int sumData(String tabel, String field, String kondisi){
         try{
             String query = "SELECT SUM("+field+") AS total FROM " + tabel + " " + kondisi;
-            System.out.println(query);
             res = stat.executeQuery(query);
             if(res.next()){
                 System.out.println("Query telah dieksekusi "+res.getInt("total"));
@@ -170,7 +168,6 @@ public class Database {
     public boolean isExistData(String tabel, String field, String data){
         try{
             String query = "SELECT * FROM " + tabel + " WHERE " + field + " = '" + data + "'";
-            System.out.println(query);
             res = stat.executeQuery(query);
 //            System.out.println("data query "+res.next());
             return res.next();
@@ -195,7 +192,6 @@ public class Database {
     public String getData(String table, String field, String kondisi){
         try{
             sql = "SELECT "+field+" FROM "+table + " " + kondisi;
-            System.out.println(sql);
             res = stat.executeQuery(sql);
             if(res.next()){
                 return res.getString(field);
@@ -268,7 +264,7 @@ public class Database {
             Audio.play(Audio.SOUND_ERROR);
             JOptionPane.showMessageDialog(null, "Terjadi Kesalahan!\n\nError message : "+ex.getMessage(), "Peringatan!", JOptionPane.WARNING_MESSAGE);
         }
-        return false;
+        return false;   
     }
     
     public boolean deleteData(String tabel, String field, String value){
