@@ -28,6 +28,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.event.ChangeEvent;
+import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -50,10 +51,10 @@ import org.jfree.data.statistics.HistogramDataset;
  */
 public class LaporanBeli extends javax.swing.JPanel {
     private final Database db = new Database();
-    
+    private final String namadb = Database.DB_NAME;
     private final ManageTransaksiBeli trb = new ManageTransaksiBeli();
     
-    private final Karyawan petugas = new Karyawan();
+    private final Karyawan karyawan = new Karyawan();
     
     private final Supplier supplier = new Supplier();
     
@@ -64,65 +65,40 @@ public class LaporanBeli extends javax.swing.JPanel {
     DateFormat tanggalMilis = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
     private final DateFormat tanggalFull = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss ");
     private final DateFormat date = new SimpleDateFormat("dd-MM-yyyy");
+    private final DateFormat date1 = new SimpleDateFormat("dd-MM-yyyy");
     private final DateFormat time = new SimpleDateFormat("hh:mm:ss");
     private final DateFormat timeMillis = new SimpleDateFormat("ss.SSS:mm:hh");
         
-    private int hari,bulan, tahun;
+    private int hari, hari1,bulan,bulan1, tahun,tahun1,bulanan,tahunan;
     
-    private String minggu[];
+    private Object minggu[];
     private final Waktu waktu = new Waktu();
     private String tPengeluaran;
-    private int selectedIndex;
-    private String idSelected = "", keyword = "", idTr, idPd, idBg, namaSupplier, namaPetugas, namaBarang, jenis, jumlah, totalHrg, tanggal;
-    
-    private Statement getStat(){
-        try{  
-            Class.forName("com.mysql.jdbc.Driver");  
-            Connection con=DriverManager.getConnection(  
-                "jdbc:mysql://localhost:3306/gemastik_lightning","root","");  
-            Statement stmt=con.createStatement();
-            
-//            ResultSet rs=stmt.executeQuery("show databases;");  
-            System.out.println("Connected");  
-            return stmt;
-        }
-        catch(Exception e){
-            System.out.println(e);
-        }
-        return null;
-    }
-    
-    private int getTotal(String table, String kolom, String kondisi){
-        try {
-            Statement stat = getStat();
-            int data = 0;
-            String sql = "SELECT SUM("+kolom+") AS total FROM "+table+" "+kondisi;
-            System.out.println("sql sum "+sql);
-            ResultSet res = stat.executeQuery(sql);
-            while(res.next()){
-                System.out.println("data ditemukan");
-                data = res.getInt("total");
-                System.out.println("jumlahnya "+data);
-            }
-            return data;
-        } catch (SQLException ex) {
-            Logger.getLogger(LaporanJual.class.getName()).log(Level.SEVERE, null, ex);
-        }catch(NullPointerException n){
-//            n.printStackTrace();
-            System.out.println("errorr ");
-            return 0;
-        }
-        return -1;
-    }
+    private int selectedIndex,totalHrg;
+    private String idSelected = "", keyword = "", idTr, idPd,IDKaryawan, namaKaryawan, tanggal,tanggalSekarang,tanggalDipilih;
+    private String minggu1 = "", minggu2 = "";
     
     public LaporanBeli() throws ParseException {
         initComponents();
-        this.hari = waktu.getTanggal();
-        this.minggu = waktu.getMinggu1(this.hari, -1);
-        this.bulan = waktu.getBulan()+1;
-        this.tahun = waktu.getTahun();
+        this.tanggalSekarang = waktu.getCurrentDate();
+        this.tanggalDipilih = this.tanggalSekarang;
+        minggu1 = this.tanggalSekarang;
+        minggu2 = this.tanggalSekarang;
+        this.hari = Integer.parseInt(tanggalDipilih.substring(8));
+        this.bulan = Integer.parseInt(tanggalDipilih.substring(5,7));
+        this.tahun = Integer.parseInt(tanggalDipilih.substring(0,4));
+        
+        this.hari1 = Integer.parseInt(minggu2.substring(8));
+        this.bulan1 = Integer.parseInt(minggu2.substring(5,7));
+        this.tahun1 = Integer.parseInt(minggu2.substring(0,4));
+        
+        this.bulanan = this.bulan;
+        this.tahunan = this.tahun;
+        System.out.println("hari 1 "+hari1);
+        System.out.println("bulan 1 "+bulan1);
+        System.out.println("tahun 1 "+tahun1);
+        this.minggu = waktu.getMinggu(hari,bulan);
         tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg","")));
-        System.out.println("Pemasukan adalah "+tPengeluaran);
         valTotalS.setText(tPengeluaran);
         tabPengeluaran.addChangeListener(new javax.swing.event.ChangeListener() {
             @Override
@@ -138,23 +114,18 @@ public class LaporanBeli extends javax.swing.JPanel {
                         break;
                     case 2:
                         System.out.println("Menampilkan Panel harian");
-                        tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg","WHERE YEAR(tanggal) = '"+tahun+"' AND MONTH(tanggal) = '"+bulan+"' AND DAY(tanggal) = '"+hari+"'")));
+                        tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg","WHERE tanggal >= '"+ tanggalDipilih +"' AND tanggal <= '"+ String.format("%s-%s-%s",tahun,bulan,hari+1)+"'")));
                         valTotalH.setText(tPengeluaran);
                         break;
                     case 3:
-                        System.out.println("Menampilkan Panel mingguan");
-                        tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg","WHERE (tanggal BETWEEN '"+minggu[0]+"' AND '"+minggu[1]+"')")));
+                        System.out.println("Menampilkan Panel rentang tanggal");
+                        tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg","WHERE tanggal >= '"+minggu1+"' AND tanggal <= '"+String.format("%s-%s-%s",tahun1,bulan1,hari1+1)+"'")));
                         valTotalM.setText(tPengeluaran);
                         break;
                     case 4:
                         System.out.println("Menampilkan Panel bulanan");
-                        tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg","WHERE MONTH(tanggal) = '"+bulan+"'")));
+                        tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg","WHERE YEAR(tanggal) = '"+tahunan+"' AND MONTH(tanggal) = '"+bulanan+"'")));
                         valTotalB.setText(tPengeluaran);
-                        break;
-                    case 5:
-                        System.out.println("Menampilkan Panel tahunan");
-                        tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg","WHERE YEAR(tanggal) = '"+tahun+"'")));
-                        valTotalT.setText(tPengeluaran);
                         break;
                 }
 //        JOptionPane.showMessageDialog(null, "Selected Index: " + selectedIndex);
@@ -179,13 +150,9 @@ public class LaporanBeli extends javax.swing.JPanel {
         this.tabelDataB.getTableHeader().setBackground(new java.awt.Color(255,255,255));
         this.tabelDataB.getTableHeader().setForeground(new java.awt.Color(0, 0, 0));
         
-        this.tabelDataT.setRowHeight(29);
-        this.tabelDataT.getTableHeader().setBackground(new java.awt.Color(255,255,255));
-        this.tabelDataT.getTableHeader().setForeground(new java.awt.Color(0, 0, 0));
-        
         JLabel[] lbls = new JLabel[]{
-            this.valIDPengeluaran, this.valIDTransaksi, this.valNamaBarang, this.valNamaKaryawan, this.valNamaSupplier, 
-            this.valJenisBrg, this.valJumlahBrg, this.valTanggal, this.valHarga
+            this.valIDPengeluaran,this.valIDKaryawan, this.valIDTransaksi, this.valNamaKaryawan, 
+            this.valTanggal, this.valHarga
         };
         
         for(JLabel lbl : lbls){
@@ -222,110 +189,101 @@ public class LaporanBeli extends javax.swing.JPanel {
         
 //        this.showLineChart1();
 //        this.showLineChart2();
-        System.out.println("hari "+hari);
-        System.out.println("bulan "+bulan);
-        System.out.println("tahun "+tahun);
-        System.out.println("Minggu ke 1 "+ minggu[0]);
-        System.out.println("Minggu ke 2 "+ minggu[1]);
-        String hari1 = minggu[0].substring(8, 10);
-        String hari2 = minggu[1].substring(8, 10);
-        String bulan1 = minggu[0].substring(5, 7);
-        String bulan2 = minggu[1].substring(5, 7);
-        String tahun1 = minggu[0].substring(0, 4);
-        String tahun2 = minggu[1].substring(0, 4);
-        System.out.println("hari awal "+hari1+" "+bulan1+" "+tahun1);
-        System.out.println("hari akhir "+hari2+" "+bulan2+" "+tahun2);
         this.updateTabel(tabelDataS);
-//        SELECT * FROM gemastik_lightning.laporan_pengeluaran WHERE tanggal = '2022-10-22'
-        keyword = "WHERE YEAR(tanggal) = '"+tahun+"' AND MONTH(tanggal) = '"+bulan+"' AND DAY(tanggal) = '"+hari+"'";
+        
+        keyword = "WHERE tanggal >= '"+ tanggalDipilih +"' AND tanggal <= '"+ String.format("%s-%s-%s",tahun,bulan,hari+1)+"'";
         System.out.println("isi keyword :"+keyword);
         this.updateTabel(tabelDataH);
-        keyword = "WHERE (tanggal BETWEEN '"+minggu[0]+"' AND '" +minggu[1]+"')";
-//        SELECT * FROM gemastik_lightning.laporan_pengeluaran WHERE (tanggal BETWEEN '2022-10-22' AND '2022-10-23');
+        
+        keyword = "WHERE YEAR(tanggal) = '"+this.tahunan+"' AND MONTH(tanggal) = '"+this.bulanan+"'";
         System.out.println("isi keyword :"+keyword);
-//        keyword = "";
-        this.updateTabel(tabelDataM);
-        keyword = "WHERE MONTH(tanggal) = '"+bulan+"'";
-        System.out.println("isi keyword :"+keyword);
-//        SELECT * FROM gemastik_lightning.laporan_pengeluaran WHERE MONTH(tanggal) = '11'
         this.updateTabel(tabelDataB);
-        keyword = "WHERE YEAR(tanggal) = '"+tahun+"'";
+        
+        keyword = "WHERE tanggal >= '"+minggu1+"' AND tanggal <= '"+String.format("%s-%s-%s",tahun1,bulan1,hari1+1)+"'";
         System.out.println("isi keyword :"+keyword);
-//        SELECT * FROM gemastik_lightning.laporan_pengeluaran WHERE YEAR(tanggal) = '2022'
-        this.updateTabel(tabelDataT);
+        this.updateTabel(tabelDataM);
     }
     
-    private Object[][] getData() throws ParseException{
-        try{
-            Date tanggalData = new Date();
-            Object obj[][];
-            int rows = 0;
-            String sql = "SELECT id_tr_beli, id_barang, jumlah_brg, total_hrg, tanggal FROM transaksi_beli " + keyword + " ORDER BY id_tr_beli DESC";
-            // mendefinisikan object berdasarkan total rows dan cols yang ada didalam tabel
+    private Statement getStat(){
+        try{  
+            Class.forName("com.mysql.jdbc.Driver");  
+            Connection con=DriverManager.getConnection(  
+                "jdbc:mysql://localhost:3306/"+this.namadb,"root","");  
+            Statement stmt=con.createStatement();
+            return stmt;
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    private int getTotal(String table, String kolom, String kondisi){
+        try {
+            Statement stat = getStat();
+            int data = 0;
+            String sql = "SELECT SUM("+kolom+") AS total FROM "+table+" "+kondisi;
             System.out.println(sql);
-            obj = new Object[trb.getJumlahData("transaksi_beli", keyword)][6];
+            ResultSet res = stat.executeQuery(sql);
+            while(res.next()){
+                data = res.getInt("total");
+            }
+            return data;
+        } catch (SQLException ex) {
+            Logger.getLogger(LaporanJual.class.getName()).log(Level.SEVERE, null, ex);
+        }catch(NullPointerException n){
+//            n.printStackTrace();
+            System.out.println("errorr ");
+            return 0;
+        }
+        return -1;
+    }
+    
+    private void updateTabel(JTable tabel) throws ParseException{
+        try{
+            DefaultTableModel model = (DefaultTableModel) tabel.getModel();
+            Date tanggalData = new Date();
+            int rows = 0;
+            String data[] = new String[6];
+            String sql = "SELECT id_tr_beli, id_karyawan, total_hrg, tanggal FROM transaksi_beli " + keyword + " ORDER BY id_tr_beli DESC";
+//            System.out.println(sql);
             // mengeksekusi query
             trb.res = trb.stat.executeQuery(sql);
             // mendapatkan semua data yang ada didalam tabel
             while(trb.res.next()){
                 // menyimpan data dari tabel ke object
-                obj[rows][0] = trb.res.getString("id_tr_beli").replace("TRB", "LPG");
-                obj[rows][1] = barang.getNamaBarang(trb.res.getString("id_barang"));
-                obj[rows][2] = trb.res.getString("jumlah_brg");
-                obj[rows][3] = text.toMoneyCase(trb.res.getString("total_hrg"));
+                data[0] = trb.res.getString("id_tr_beli").replace("TRB", "LPG");
+                data[1] = trb.res.getString("id_karyawan");
+                data[2] = this.karyawan.getNama(trb.res.getString("id_karyawan"));
+                data[3] = text.toMoneyCase(trb.res.getString("total_hrg"));
                 tanggalData = tanggalMilis.parse(trb.res.getString("tanggal"));
-                obj[rows][4] = date.format(tanggalData);
-                obj[rows][5] = time.format(tanggalData);
-                rows++; // rows akan bertambah 1 setiap selesai membaca 1 row pada tabel
+                data[4] = date.format(tanggalData);
+                data[5] = time.format(tanggalData);
+                model.addRow(data);
             }
-            return obj;
+            tabel.setModel(model);
         }catch(SQLException ex){
             ex.printStackTrace();
             Message.showException(this, "Terjadi kesalahan saat mengambil data dari database\n" + ex.getMessage(), ex, true);
         }
-        return null;
     }
     
-    private void updateTabel(JTable tabelData) throws ParseException{
-        tabelData.setModel(new javax.swing.table.DefaultTableModel(
-            getData(),
-            new String [] {
-                "ID Pendapatan", "Nama Barang", "Jumlah Barang", "Total Pendapatan", "Tanggal","Waktu"
-            }
-        ){
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-    }
     private void showData(JTable tabel) throws ParseException{
         // mendapatkan data-data
         this.idTr = tabel.getValueAt(tabel.getSelectedRow(), 0).toString().replace("LPG", "TRB");
         this.idPd = this.idTr.replace("TRB", "LPG");
-        this.namaSupplier = this.supplier.getNama(this.trb.getIdSupplier(this.idTr));
-        this.namaPetugas = this.petugas.getNama(this.trb.getIdPetugas(this.idTr));
-        this.namaBarang = this.barang.getNamaBarang(this.trb.getIdBarang(this.idTr));
-        this.jenis = text.toCapitalize(this.barang.getJenis(this.trb.getIdBarang(this.idTr)));
-        this.jumlah = Integer.toString(this.trb.getJumlahBarang(this.idTr));
-        this.totalHrg = text.toMoneyCase(this.trb.getTotalHarga(this.idTr));
-//        this.tanggal = this.text.toDateCase(this.trb.getTanggal(this.idTr));
+        this.IDKaryawan = tabel.getValueAt(tabel.getSelectedRow(),1).toString();
+        this.namaKaryawan = tabel.getValueAt(tabel.getSelectedRow(),2).toString();
+        this.totalHrg = text.toIntCase(tabel.getValueAt(tabel.getSelectedRow(),3).toString());
         String tanggal1 = this.trb.getTanggal(this.idTr);
         Date d = tanggalMilis.parse(tanggal1);
         this.tanggal = date.format(d);
-//        System.out.println(tanggal2[1]);
 
         // menampilkan data-data
         this.valIDTransaksi.setText("<html><p>:&nbsp;"+this.idTr+"</p></html>");
         this.valIDPengeluaran.setText("<html><p>:&nbsp;"+this.idPd+"</p></html>");
-        this.valNamaSupplier.setText("<html><p>:&nbsp;"+this.namaSupplier+"</p></html>");
-        this.valNamaKaryawan.setText("<html><p>:&nbsp;"+this.namaPetugas+"</p></html>");
-        this.valNamaBarang.setText("<html><p>:&nbsp;"+this.namaBarang+"</p></html>");
-        this.valJumlahBrg.setText("<html><p>:&nbsp;"+this.jumlah+"</p></html>");
-        this.valJenisBrg.setText("<html><p>:&nbsp;"+this.jenis+"</p></html>");
+        this.valIDKaryawan.setText("<html><p>:&nbsp;"+this.IDKaryawan+"</p></html>");
+        this.valNamaKaryawan.setText("<html><p>:&nbsp;"+this.namaKaryawan+"</p></html>");
         this.valHarga.setText("<html><p>:&nbsp;"+this.totalHrg+"</p></html>");
         this.valTanggal.setText("<html><p>:&nbsp;"+this.tanggal+"</p></html>");
     }
@@ -336,14 +294,11 @@ public class LaporanBeli extends javax.swing.JPanel {
 
         valIDPengeluaran = new javax.swing.JLabel();
         valIDTransaksi = new javax.swing.JLabel();
+        valIDKaryawan = new javax.swing.JLabel();
         valNamaKaryawan = new javax.swing.JLabel();
-        valNamaSupplier = new javax.swing.JLabel();
-        valNamaBarang = new javax.swing.JLabel();
-        valJenisBrg = new javax.swing.JLabel();
-        valJumlahBrg = new javax.swing.JLabel();
         valHarga = new javax.swing.JLabel();
         valTanggal = new javax.swing.JLabel();
-        inpCari = new javax.swing.JTextField();
+        btnDetail = new javax.swing.JLabel();
         tabPengeluaran = new javax.swing.JTabbedPane();
         LPSEMUA = new javax.swing.JPanel();
         lpSemua = new javax.swing.JScrollPane();
@@ -355,21 +310,22 @@ public class LaporanBeli extends javax.swing.JPanel {
         tabelDataH = new javax.swing.JTable();
         valTotalH = new javax.swing.JLabel();
         pengeluaranH = new javax.swing.JLabel();
-        LPMINGGUAN = new javax.swing.JPanel();
-        lpMingguan = new javax.swing.JScrollPane();
-        tabelDataM = new javax.swing.JTable();
-        valTotalM = new javax.swing.JLabel();
-        pengeluaranM = new javax.swing.JLabel();
+        tbHarian = new com.toedter.calendar.JDateChooser();
         LPBULANAN = new javax.swing.JPanel();
         lpBulanan = new javax.swing.JScrollPane();
         tabelDataB = new javax.swing.JTable();
         valTotalB = new javax.swing.JLabel();
         pengeluaranB = new javax.swing.JLabel();
-        LPTAHUNAN = new javax.swing.JPanel();
-        lpTahunan = new javax.swing.JScrollPane();
-        tabelDataT = new javax.swing.JTable();
-        valTotalT = new javax.swing.JLabel();
-        pengeluaranT = new javax.swing.JLabel();
+        tbBulanan = new com.toedter.calendar.JMonthChooser();
+        tbTahunan = new com.toedter.calendar.JYearChooser();
+        LPRentang = new javax.swing.JPanel();
+        lpMingguan = new javax.swing.JScrollPane();
+        tabelDataM = new javax.swing.JTable();
+        valTotalM = new javax.swing.JLabel();
+        pengeluaranM = new javax.swing.JLabel();
+        tbMinggu1 = new com.toedter.calendar.JDateChooser();
+        jDateChooser3 = new com.toedter.calendar.JDateChooser();
+        inpCari = new javax.swing.JTextField();
         background = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -379,62 +335,47 @@ public class LaporanBeli extends javax.swing.JPanel {
         valIDPengeluaran.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valIDPengeluaran.setForeground(new java.awt.Color(0, 0, 0));
         valIDPengeluaran.setText(":");
-        add(valIDPengeluaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 100, 200, 36));
+        add(valIDPengeluaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 65, 200, 32));
 
         valIDTransaksi.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valIDTransaksi.setForeground(new java.awt.Color(0, 0, 0));
         valIDTransaksi.setText(":");
-        add(valIDTransaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 164, 200, 36));
+        add(valIDTransaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 110, 200, 32));
+
+        valIDKaryawan.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        valIDKaryawan.setForeground(new java.awt.Color(0, 0, 0));
+        valIDKaryawan.setText(":");
+        add(valIDKaryawan, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 154, 200, 32));
 
         valNamaKaryawan.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valNamaKaryawan.setForeground(new java.awt.Color(0, 0, 0));
         valNamaKaryawan.setText(":");
-        add(valNamaKaryawan, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 228, 200, 36));
-
-        valNamaSupplier.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        valNamaSupplier.setForeground(new java.awt.Color(0, 0, 0));
-        valNamaSupplier.setText(":");
-        add(valNamaSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 292, 200, 37));
-
-        valNamaBarang.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        valNamaBarang.setForeground(new java.awt.Color(0, 0, 0));
-        valNamaBarang.setText(":");
-        valNamaBarang.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        add(valNamaBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 357, 200, 36));
-
-        valJenisBrg.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        valJenisBrg.setForeground(new java.awt.Color(0, 0, 0));
-        valJenisBrg.setText(":");
-        add(valJenisBrg, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 422, 200, 36));
-
-        valJumlahBrg.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        valJumlahBrg.setForeground(new java.awt.Color(0, 0, 0));
-        valJumlahBrg.setText(":");
-        add(valJumlahBrg, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 486, 200, 37));
+        add(valNamaKaryawan, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 198, 200, 32));
 
         valHarga.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valHarga.setForeground(new java.awt.Color(0, 0, 0));
         valHarga.setText(":");
         valHarga.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        add(valHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 550, 200, 37));
+        add(valHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 242, 200, 32));
 
         valTanggal.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valTanggal.setForeground(new java.awt.Color(0, 0, 0));
         valTanggal.setText(":");
-        add(valTanggal, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 615, 200, 37));
+        add(valTanggal, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 287, 200, 32));
 
-        inpCari.setBackground(new java.awt.Color(255, 255, 255));
-        inpCari.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        inpCari.setForeground(new java.awt.Color(0, 0, 0));
-        inpCari.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                inpCariKeyReleased(evt);
+        btnDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/btn-detail-075.png"))); // NOI18N
+        btnDetail.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDetailMouseClicked(evt);
             }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                inpCariKeyTyped(evt);
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDetailMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDetailMouseExited(evt);
             }
         });
-        add(inpCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 66, 255, -1));
+        add(btnDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 710, -1, -1));
 
         LPSEMUA.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -443,34 +384,20 @@ public class LaporanBeli extends javax.swing.JPanel {
         tabelDataS.setForeground(new java.awt.Color(0, 0, 0));
         tabelDataS.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"PG0001", "Aqua 1L", "25", "Rp. 125.000.00", "1 Oktober 2022"},
-                {"PG0002", "Coca Cola", "20", "Rp. 80.000.00", "1 Oktober 2022"},
-                {"PG0003", "Aqua 500ml", "30", "Rp. 100.000.00", "1 Oktober 2022"},
-                {"PG0004", "Pulpen Snowman", "30", "Rp. 75.000.00", "1 Oktober 2022"},
-                {"PG0005", "Sprite", "15", "Rp. 48.000.00", "1 Oktober 2022"},
-                {"PG0006", "Indomilk", "5", "Rp. 40.000.00", "1 Oktober 2022"},
-                {"PG0007", "Nabati Wafer", "15", "Rp. 52.000.00", "1 Oktober 2022"},
-                {"PG0008", "Ichi Ocha 350ml", "15", "Rp. 30.000.00", "1 Oktober 2022"},
-                {"PG0009", "Oreo", "15", "Rp. 30.000.00", "1 Oktober 2022"},
-                {"PG0010", "Kertas HVS", "800", "Rp. 200.000.00", "1 Oktober 2022"},
-                {"PG0011", "Kertas Folio", "900", "Rp. 237.000.00", "1 Oktober 2022"},
-                {"PG0012", "Spidol Hitam", "15", "Rp. 30.000.00", "9 Oktober 2022"},
-                {"PG0013", "Spidol Merah", "15", "Rp. 37.500.00", "9 Oktober 2022"},
-                {"PG0014", "Spidol Biru", "15", "Rp. 37.500.00", "9 Oktober 2022"},
-                {"PG0015", "Nabati Wafer", "15", "Rp. 52.500.00", "9 Oktober 2022"},
-                {"PG0016", "Roti", "20", "Rp. 20.000.00", "9 Oktober 2022"},
-                {"PG0017", "Sprite", "20", "Rp. 60.000.00", "9 Oktober 2022"},
-                {"PG0018", "Yupi", "15", "Rp. 37.500.00", "9 Oktober 2022"},
-                {"PG0019", "Teh Pucuk", "15", "Rp. 60.000.00", "9 Oktober 2022"},
-                {"PG0020", "Coca Cola", "15", "Rp. 60.000.00", "9 Oktober 2022"},
-                {"PG0021", "Ichi Ocha 350ml", "15", "Rp. 30.000.00", "9 Oktober 2022"},
-                {"PG0022", "Yupi", "10", "Rp. 25.000.00", "9 Oktober 2022"},
-                {"PG0023", "Aqua 500ml", "15", "Rp. 75.000.00", "9 Oktober 2022"}
+
             },
             new String [] {
-                "ID Pengeluaran", "Nama Barang", "Jumlah Barang", "Total Pengeluaran", "Tanggal"
+                "ID Pengeluaran", "ID Karyawan", "Nama Karyawan", "Total Pengeluaran", "Tanggal", "Waktu"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tabelDataS.setGridColor(new java.awt.Color(0, 0, 0));
         tabelDataS.setSelectionBackground(new java.awt.Color(26, 164, 250));
         tabelDataS.setSelectionForeground(new java.awt.Color(250, 246, 246));
@@ -487,7 +414,7 @@ public class LaporanBeli extends javax.swing.JPanel {
         });
         lpSemua.setViewportView(tabelDataS);
 
-        LPSEMUA.add(lpSemua, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 520));
+        LPSEMUA.add(lpSemua, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 925, 260));
 
         valTotalS.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valTotalS.setForeground(new java.awt.Color(0, 0, 0));
@@ -496,7 +423,7 @@ public class LaporanBeli extends javax.swing.JPanel {
 
         pengeluaranS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/laporan-pengeluaran-075.png"))); // NOI18N
         pengeluaranS.setText("lbll");
-        LPSEMUA.add(pengeluaranS, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 530, 490, -1));
+        LPSEMUA.add(pengeluaranS, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 263, 490, -1));
 
         tabPengeluaran.addTab("Semua", LPSEMUA);
 
@@ -507,34 +434,20 @@ public class LaporanBeli extends javax.swing.JPanel {
         tabelDataH.setForeground(new java.awt.Color(0, 0, 0));
         tabelDataH.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"PG0001", "Aqua 1L", "25", "Rp. 125.000.00", "1 Oktober 2022"},
-                {"PG0002", "Coca Cola", "20", "Rp. 80.000.00", "1 Oktober 2022"},
-                {"PG0003", "Aqua 500ml", "30", "Rp. 100.000.00", "1 Oktober 2022"},
-                {"PG0004", "Pulpen Snowman", "30", "Rp. 75.000.00", "1 Oktober 2022"},
-                {"PG0005", "Sprite", "15", "Rp. 48.000.00", "1 Oktober 2022"},
-                {"PG0006", "Indomilk", "5", "Rp. 40.000.00", "1 Oktober 2022"},
-                {"PG0007", "Nabati Wafer", "15", "Rp. 52.000.00", "1 Oktober 2022"},
-                {"PG0008", "Ichi Ocha 350ml", "15", "Rp. 30.000.00", "1 Oktober 2022"},
-                {"PG0009", "Oreo", "15", "Rp. 30.000.00", "1 Oktober 2022"},
-                {"PG0010", "Kertas HVS", "800", "Rp. 200.000.00", "1 Oktober 2022"},
-                {"PG0011", "Kertas Folio", "900", "Rp. 237.000.00", "1 Oktober 2022"},
-                {"PG0012", "Spidol Hitam", "15", "Rp. 30.000.00", "9 Oktober 2022"},
-                {"PG0013", "Spidol Merah", "15", "Rp. 37.500.00", "9 Oktober 2022"},
-                {"PG0014", "Spidol Biru", "15", "Rp. 37.500.00", "9 Oktober 2022"},
-                {"PG0015", "Nabati Wafer", "15", "Rp. 52.500.00", "9 Oktober 2022"},
-                {"PG0016", "Roti", "20", "Rp. 20.000.00", "9 Oktober 2022"},
-                {"PG0017", "Sprite", "20", "Rp. 60.000.00", "9 Oktober 2022"},
-                {"PG0018", "Yupi", "15", "Rp. 37.500.00", "9 Oktober 2022"},
-                {"PG0019", "Teh Pucuk", "15", "Rp. 60.000.00", "9 Oktober 2022"},
-                {"PG0020", "Coca Cola", "15", "Rp. 60.000.00", "9 Oktober 2022"},
-                {"PG0021", "Ichi Ocha 350ml", "15", "Rp. 30.000.00", "9 Oktober 2022"},
-                {"PG0022", "Yupi", "10", "Rp. 25.000.00", "9 Oktober 2022"},
-                {"PG0023", "Aqua 500ml", "15", "Rp. 75.000.00", "9 Oktober 2022"}
+
             },
             new String [] {
-                "ID Pengeluaran", "Nama Barang", "Jumlah Barang", "Total Pengeluaran", "Tanggal"
+                "ID Pengeluaran", "ID Karyawan", "Nama Karyawan", "Total Pengeluaran", "Tanggal", "Waktu"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tabelDataH.setGridColor(new java.awt.Color(0, 0, 0));
         tabelDataH.setSelectionBackground(new java.awt.Color(26, 164, 250));
         tabelDataH.setSelectionForeground(new java.awt.Color(250, 246, 246));
@@ -551,7 +464,7 @@ public class LaporanBeli extends javax.swing.JPanel {
         });
         lpHarian.setViewportView(tabelDataH);
 
-        LPHARIAN.add(lpHarian, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 520));
+        LPHARIAN.add(lpHarian, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 925, 260));
 
         valTotalH.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valTotalH.setForeground(new java.awt.Color(0, 0, 0));
@@ -560,73 +473,16 @@ public class LaporanBeli extends javax.swing.JPanel {
 
         pengeluaranH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/laporan-pengeluaran-075.png"))); // NOI18N
         pengeluaranH.setText("lbll");
-        LPHARIAN.add(pengeluaranH, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 530, 490, -1));
+        LPHARIAN.add(pengeluaranH, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 263, 490, -1));
+
+        tbHarian.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbHarianMouseClicked(evt);
+            }
+        });
+        LPHARIAN.add(tbHarian, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, -1, -1));
 
         tabPengeluaran.addTab("Harian", LPHARIAN);
-
-        LPMINGGUAN.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        tabelDataM.setBackground(new java.awt.Color(255, 255, 255));
-        tabelDataM.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
-        tabelDataM.setForeground(new java.awt.Color(0, 0, 0));
-        tabelDataM.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"PG0001", "Aqua 1L", "25", "Rp. 125.000.00", "1 Oktober 2022"},
-                {"PG0002", "Coca Cola", "20", "Rp. 80.000.00", "1 Oktober 2022"},
-                {"PG0003", "Aqua 500ml", "30", "Rp. 100.000.00", "1 Oktober 2022"},
-                {"PG0004", "Pulpen Snowman", "30", "Rp. 75.000.00", "1 Oktober 2022"},
-                {"PG0005", "Sprite", "15", "Rp. 48.000.00", "1 Oktober 2022"},
-                {"PG0006", "Indomilk", "5", "Rp. 40.000.00", "1 Oktober 2022"},
-                {"PG0007", "Nabati Wafer", "15", "Rp. 52.000.00", "1 Oktober 2022"},
-                {"PG0008", "Ichi Ocha 350ml", "15", "Rp. 30.000.00", "1 Oktober 2022"},
-                {"PG0009", "Oreo", "15", "Rp. 30.000.00", "1 Oktober 2022"},
-                {"PG0010", "Kertas HVS", "800", "Rp. 200.000.00", "1 Oktober 2022"},
-                {"PG0011", "Kertas Folio", "900", "Rp. 237.000.00", "1 Oktober 2022"},
-                {"PG0012", "Spidol Hitam", "15", "Rp. 30.000.00", "9 Oktober 2022"},
-                {"PG0013", "Spidol Merah", "15", "Rp. 37.500.00", "9 Oktober 2022"},
-                {"PG0014", "Spidol Biru", "15", "Rp. 37.500.00", "9 Oktober 2022"},
-                {"PG0015", "Nabati Wafer", "15", "Rp. 52.500.00", "9 Oktober 2022"},
-                {"PG0016", "Roti", "20", "Rp. 20.000.00", "9 Oktober 2022"},
-                {"PG0017", "Sprite", "20", "Rp. 60.000.00", "9 Oktober 2022"},
-                {"PG0018", "Yupi", "15", "Rp. 37.500.00", "9 Oktober 2022"},
-                {"PG0019", "Teh Pucuk", "15", "Rp. 60.000.00", "9 Oktober 2022"},
-                {"PG0020", "Coca Cola", "15", "Rp. 60.000.00", "9 Oktober 2022"},
-                {"PG0021", "Ichi Ocha 350ml", "15", "Rp. 30.000.00", "9 Oktober 2022"},
-                {"PG0022", "Yupi", "10", "Rp. 25.000.00", "9 Oktober 2022"},
-                {"PG0023", "Aqua 500ml", "15", "Rp. 75.000.00", "9 Oktober 2022"}
-            },
-            new String [] {
-                "ID Pengeluaran", "Nama Barang", "Jumlah Barang", "Total Pengeluaran", "Tanggal"
-            }
-        ));
-        tabelDataM.setGridColor(new java.awt.Color(0, 0, 0));
-        tabelDataM.setSelectionBackground(new java.awt.Color(26, 164, 250));
-        tabelDataM.setSelectionForeground(new java.awt.Color(250, 246, 246));
-        tabelDataM.getTableHeader().setReorderingAllowed(false);
-        tabelDataM.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelDataMMouseClicked(evt);
-            }
-        });
-        tabelDataM.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tabelDataMKeyPressed(evt);
-            }
-        });
-        lpMingguan.setViewportView(tabelDataM);
-
-        LPMINGGUAN.add(lpMingguan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 520));
-
-        valTotalM.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        valTotalM.setForeground(new java.awt.Color(0, 0, 0));
-        valTotalM.setText(":");
-        LPMINGGUAN.add(valTotalM, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 530, 290, 36));
-
-        pengeluaranM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/laporan-pengeluaran-075.png"))); // NOI18N
-        pengeluaranM.setText("lbll");
-        LPMINGGUAN.add(pengeluaranM, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 530, 490, -1));
-
-        tabPengeluaran.addTab("Mingguan", LPMINGGUAN);
 
         LPBULANAN.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -635,34 +491,20 @@ public class LaporanBeli extends javax.swing.JPanel {
         tabelDataB.setForeground(new java.awt.Color(0, 0, 0));
         tabelDataB.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"PG0001", "Aqua 1L", "25", "Rp. 125.000.00", "1 Oktober 2022"},
-                {"PG0002", "Coca Cola", "20", "Rp. 80.000.00", "1 Oktober 2022"},
-                {"PG0003", "Aqua 500ml", "30", "Rp. 100.000.00", "1 Oktober 2022"},
-                {"PG0004", "Pulpen Snowman", "30", "Rp. 75.000.00", "1 Oktober 2022"},
-                {"PG0005", "Sprite", "15", "Rp. 48.000.00", "1 Oktober 2022"},
-                {"PG0006", "Indomilk", "5", "Rp. 40.000.00", "1 Oktober 2022"},
-                {"PG0007", "Nabati Wafer", "15", "Rp. 52.000.00", "1 Oktober 2022"},
-                {"PG0008", "Ichi Ocha 350ml", "15", "Rp. 30.000.00", "1 Oktober 2022"},
-                {"PG0009", "Oreo", "15", "Rp. 30.000.00", "1 Oktober 2022"},
-                {"PG0010", "Kertas HVS", "800", "Rp. 200.000.00", "1 Oktober 2022"},
-                {"PG0011", "Kertas Folio", "900", "Rp. 237.000.00", "1 Oktober 2022"},
-                {"PG0012", "Spidol Hitam", "15", "Rp. 30.000.00", "9 Oktober 2022"},
-                {"PG0013", "Spidol Merah", "15", "Rp. 37.500.00", "9 Oktober 2022"},
-                {"PG0014", "Spidol Biru", "15", "Rp. 37.500.00", "9 Oktober 2022"},
-                {"PG0015", "Nabati Wafer", "15", "Rp. 52.500.00", "9 Oktober 2022"},
-                {"PG0016", "Roti", "20", "Rp. 20.000.00", "9 Oktober 2022"},
-                {"PG0017", "Sprite", "20", "Rp. 60.000.00", "9 Oktober 2022"},
-                {"PG0018", "Yupi", "15", "Rp. 37.500.00", "9 Oktober 2022"},
-                {"PG0019", "Teh Pucuk", "15", "Rp. 60.000.00", "9 Oktober 2022"},
-                {"PG0020", "Coca Cola", "15", "Rp. 60.000.00", "9 Oktober 2022"},
-                {"PG0021", "Ichi Ocha 350ml", "15", "Rp. 30.000.00", "9 Oktober 2022"},
-                {"PG0022", "Yupi", "10", "Rp. 25.000.00", "9 Oktober 2022"},
-                {"PG0023", "Aqua 500ml", "15", "Rp. 75.000.00", "9 Oktober 2022"}
+
             },
             new String [] {
-                "ID Pengeluaran", "Nama Barang", "Jumlah Barang", "Total Pengeluaran", "Tanggal"
+                "ID Pengeluaran", "ID Karyawan", "Nama Karyawan", "Total Pengeluaran", "Tanggal", "Waktu"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tabelDataB.setGridColor(new java.awt.Color(0, 0, 0));
         tabelDataB.setSelectionBackground(new java.awt.Color(26, 164, 250));
         tabelDataB.setSelectionForeground(new java.awt.Color(250, 246, 246));
@@ -679,7 +521,7 @@ public class LaporanBeli extends javax.swing.JPanel {
         });
         lpBulanan.setViewportView(tabelDataB);
 
-        LPBULANAN.add(lpBulanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 520));
+        LPBULANAN.add(lpBulanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 925, 260));
 
         valTotalB.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valTotalB.setForeground(new java.awt.Color(0, 0, 0));
@@ -688,75 +530,95 @@ public class LaporanBeli extends javax.swing.JPanel {
 
         pengeluaranB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/laporan-pengeluaran-075.png"))); // NOI18N
         pengeluaranB.setText("lbll");
-        LPBULANAN.add(pengeluaranB, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 530, 490, -1));
+        LPBULANAN.add(pengeluaranB, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 263, 490, -1));
+
+        tbBulanan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbBulananMouseClicked(evt);
+            }
+        });
+        LPBULANAN.add(tbBulanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, -1, -1));
+        LPBULANAN.add(tbTahunan, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 270, -1, -1));
 
         tabPengeluaran.addTab("Bulanan", LPBULANAN);
 
-        LPTAHUNAN.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        LPRentang.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tabelDataT.setBackground(new java.awt.Color(255, 255, 255));
-        tabelDataT.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
-        tabelDataT.setForeground(new java.awt.Color(0, 0, 0));
-        tabelDataT.setModel(new javax.swing.table.DefaultTableModel(
+        tabelDataM.setBackground(new java.awt.Color(255, 255, 255));
+        tabelDataM.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
+        tabelDataM.setForeground(new java.awt.Color(0, 0, 0));
+        tabelDataM.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"PG0001", "Aqua 1L", "25", "Rp. 125.000.00", "1 Oktober 2022"},
-                {"PG0002", "Coca Cola", "20", "Rp. 80.000.00", "1 Oktober 2022"},
-                {"PG0003", "Aqua 500ml", "30", "Rp. 100.000.00", "1 Oktober 2022"},
-                {"PG0004", "Pulpen Snowman", "30", "Rp. 75.000.00", "1 Oktober 2022"},
-                {"PG0005", "Sprite", "15", "Rp. 48.000.00", "1 Oktober 2022"},
-                {"PG0006", "Indomilk", "5", "Rp. 40.000.00", "1 Oktober 2022"},
-                {"PG0007", "Nabati Wafer", "15", "Rp. 52.000.00", "1 Oktober 2022"},
-                {"PG0008", "Ichi Ocha 350ml", "15", "Rp. 30.000.00", "1 Oktober 2022"},
-                {"PG0009", "Oreo", "15", "Rp. 30.000.00", "1 Oktober 2022"},
-                {"PG0010", "Kertas HVS", "800", "Rp. 200.000.00", "1 Oktober 2022"},
-                {"PG0011", "Kertas Folio", "900", "Rp. 237.000.00", "1 Oktober 2022"},
-                {"PG0012", "Spidol Hitam", "15", "Rp. 30.000.00", "9 Oktober 2022"},
-                {"PG0013", "Spidol Merah", "15", "Rp. 37.500.00", "9 Oktober 2022"},
-                {"PG0014", "Spidol Biru", "15", "Rp. 37.500.00", "9 Oktober 2022"},
-                {"PG0015", "Nabati Wafer", "15", "Rp. 52.500.00", "9 Oktober 2022"},
-                {"PG0016", "Roti", "20", "Rp. 20.000.00", "9 Oktober 2022"},
-                {"PG0017", "Sprite", "20", "Rp. 60.000.00", "9 Oktober 2022"},
-                {"PG0018", "Yupi", "15", "Rp. 37.500.00", "9 Oktober 2022"},
-                {"PG0019", "Teh Pucuk", "15", "Rp. 60.000.00", "9 Oktober 2022"},
-                {"PG0020", "Coca Cola", "15", "Rp. 60.000.00", "9 Oktober 2022"},
-                {"PG0021", "Ichi Ocha 350ml", "15", "Rp. 30.000.00", "9 Oktober 2022"},
-                {"PG0022", "Yupi", "10", "Rp. 25.000.00", "9 Oktober 2022"},
-                {"PG0023", "Aqua 500ml", "15", "Rp. 75.000.00", "9 Oktober 2022"}
+
             },
             new String [] {
-                "ID Pengeluaran", "Nama Barang", "Jumlah Barang", "Total Pengeluaran", "Tanggal"
+                "ID Pengeluaran", "ID Karyawan", "Nama Karyawan", "Total Pengeluaran", "Tanggal", "Waktu"
             }
-        ));
-        tabelDataT.setGridColor(new java.awt.Color(0, 0, 0));
-        tabelDataT.setSelectionBackground(new java.awt.Color(26, 164, 250));
-        tabelDataT.setSelectionForeground(new java.awt.Color(250, 246, 246));
-        tabelDataT.getTableHeader().setReorderingAllowed(false);
-        tabelDataT.addMouseListener(new java.awt.event.MouseAdapter() {
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelDataM.setGridColor(new java.awt.Color(0, 0, 0));
+        tabelDataM.setSelectionBackground(new java.awt.Color(26, 164, 250));
+        tabelDataM.setSelectionForeground(new java.awt.Color(250, 246, 246));
+        tabelDataM.getTableHeader().setReorderingAllowed(false);
+        tabelDataM.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelDataTMouseClicked(evt);
+                tabelDataMMouseClicked(evt);
             }
         });
-        tabelDataT.addKeyListener(new java.awt.event.KeyAdapter() {
+        tabelDataM.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                tabelDataTKeyPressed(evt);
+                tabelDataMKeyPressed(evt);
             }
         });
-        lpTahunan.setViewportView(tabelDataT);
+        lpMingguan.setViewportView(tabelDataM);
 
-        LPTAHUNAN.add(lpTahunan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 520));
+        LPRentang.add(lpMingguan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 925, 260));
 
-        valTotalT.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        valTotalT.setForeground(new java.awt.Color(0, 0, 0));
-        valTotalT.setText(":");
-        LPTAHUNAN.add(valTotalT, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 530, 290, 36));
+        valTotalM.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        valTotalM.setForeground(new java.awt.Color(0, 0, 0));
+        valTotalM.setText(":");
+        LPRentang.add(valTotalM, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 530, 290, 36));
 
-        pengeluaranT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/laporan-pengeluaran-075.png"))); // NOI18N
-        pengeluaranT.setText("lbll");
-        LPTAHUNAN.add(pengeluaranT, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 530, 490, -1));
+        pengeluaranM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/laporan-pengeluaran-075.png"))); // NOI18N
+        pengeluaranM.setText("lbll");
+        LPRentang.add(pengeluaranM, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 263, 490, -1));
 
-        tabPengeluaran.addTab("Tahunan", LPTAHUNAN);
+        tbMinggu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbMinggu1MouseClicked(evt);
+            }
+        });
+        LPRentang.add(tbMinggu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, -1, -1));
+        LPRentang.add(jDateChooser3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 270, -1, -1));
 
-        add(tabPengeluaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 90, 505, 600));
+        tabPengeluaran.addTab("Rentang Tanggal", LPRentang);
+
+        add(tabPengeluaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 930, 330));
+
+        inpCari.setBackground(new java.awt.Color(255, 255, 255));
+        inpCari.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        inpCari.setForeground(new java.awt.Color(0, 0, 0));
+        inpCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inpCariActionPerformed(evt);
+            }
+        });
+        inpCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                inpCariKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                inpCariKeyTyped(evt);
+            }
+        });
+        add(inpCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 350, 220, -1));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar/app-laporan-pengeluaran-075.png"))); // NOI18N
         background.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -785,9 +647,6 @@ public class LaporanBeli extends javax.swing.JPanel {
                     break;
                 case 4:
                     tabel = this.tabelDataB;
-                    break;
-                case 5:
-                    tabel = this.tabelDataT;
                     break;
             }
             this.updateTabel(tabel);
@@ -819,9 +678,6 @@ public class LaporanBeli extends javax.swing.JPanel {
                 case 4:
                     tabel = this.tabelDataB;
                     break;
-                case 5:
-                    tabel = this.tabelDataT;
-                    break;
             }
             this.updateTabel(tabel);
         } catch (ParseException ex) {
@@ -830,19 +686,19 @@ public class LaporanBeli extends javax.swing.JPanel {
     }//GEN-LAST:event_inpCariKeyReleased
 
     private void tabelDataBKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDataBKeyPressed
-    try {
-        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-        if(evt.getKeyCode() == KeyEvent.VK_UP){
-            this.idSelected = this.tabelDataB.getValueAt(tabelDataB.getSelectedRow() - 1, 0).toString();
-            this.showData(tabelDataB);
-        }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
-            this.idSelected = this.tabelDataB.getValueAt(tabelDataB.getSelectedRow() + 1, 0).toString();
-            this.showData(tabelDataB);
+        try {
+            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            if(evt.getKeyCode() == KeyEvent.VK_UP){
+                this.idSelected = this.tabelDataB.getValueAt(tabelDataB.getSelectedRow() - 1, 0).toString();
+                this.showData(tabelDataB);
+            }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
+                this.idSelected = this.tabelDataB.getValueAt(tabelDataB.getSelectedRow() + 1, 0).toString();
+                this.showData(tabelDataB);
+            }
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        } catch (ParseException ex) {
+            Logger.getLogger(LaporanBeli.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-    } catch (ParseException ex) {
-        Logger.getLogger(LaporanBeli.class.getName()).log(Level.SEVERE, null, ex);
-    }
     }//GEN-LAST:event_tabelDataBKeyPressed
 
     private void tabelDataBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataBMouseClicked
@@ -858,19 +714,19 @@ public class LaporanBeli extends javax.swing.JPanel {
     }//GEN-LAST:event_tabelDataBMouseClicked
 
     private void tabelDataMKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDataMKeyPressed
-    try {
-        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-        if(evt.getKeyCode() == KeyEvent.VK_UP){
-            this.idSelected = this.tabelDataM.getValueAt(tabelDataM.getSelectedRow() - 1, 0).toString();
-            this.showData(tabelDataM);
-        }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
-            this.idSelected = this.tabelDataM.getValueAt(tabelDataM.getSelectedRow() + 1, 0).toString();
-            this.showData(tabelDataM);
+        try {
+            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            if(evt.getKeyCode() == KeyEvent.VK_UP){
+                this.idSelected = this.tabelDataM.getValueAt(tabelDataM.getSelectedRow() - 1, 0).toString();
+                this.showData(tabelDataM);
+            }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
+                this.idSelected = this.tabelDataM.getValueAt(tabelDataM.getSelectedRow() + 1, 0).toString();
+                this.showData(tabelDataM);
+            }
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        } catch (ParseException ex) {
+            Logger.getLogger(LaporanBeli.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-    } catch (ParseException ex) {
-        Logger.getLogger(LaporanBeli.class.getName()).log(Level.SEVERE, null, ex);
-    }
     }//GEN-LAST:event_tabelDataMKeyPressed
 
     private void tabelDataMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataMMouseClicked
@@ -887,19 +743,19 @@ public class LaporanBeli extends javax.swing.JPanel {
     }//GEN-LAST:event_tabelDataMMouseClicked
 
     private void tabelDataHKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDataHKeyPressed
-    try {
-        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-        if(evt.getKeyCode() == KeyEvent.VK_UP){
-            this.idSelected = this.tabelDataH.getValueAt(tabelDataH.getSelectedRow() - 1, 0).toString();
-            this.showData(tabelDataH);
-        }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
-            this.idSelected = this.tabelDataH.getValueAt(tabelDataH.getSelectedRow() + 1, 0).toString();
-            this.showData(tabelDataH);
+        try {
+            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            if(evt.getKeyCode() == KeyEvent.VK_UP){
+                this.idSelected = this.tabelDataH.getValueAt(tabelDataH.getSelectedRow() - 1, 0).toString();
+                this.showData(tabelDataH);
+            }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
+                this.idSelected = this.tabelDataH.getValueAt(tabelDataH.getSelectedRow() + 1, 0).toString();
+                this.showData(tabelDataH);
+            }
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        } catch (ParseException ex) {
+            Logger.getLogger(LaporanBeli.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-    } catch (ParseException ex) {
-        Logger.getLogger(LaporanBeli.class.getName()).log(Level.SEVERE, null, ex);
-    }
     }//GEN-LAST:event_tabelDataHKeyPressed
 
     private void tabelDataHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataHMouseClicked
@@ -915,19 +771,19 @@ public class LaporanBeli extends javax.swing.JPanel {
     }//GEN-LAST:event_tabelDataHMouseClicked
 
     private void tabelDataSKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDataSKeyPressed
-    try {
-        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-        if(evt.getKeyCode() == KeyEvent.VK_UP){
-            this.idSelected = this.tabelDataS.getValueAt(tabelDataS.getSelectedRow() - 1, 0).toString();
-            this.showData(tabelDataS);
-        }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
-            this.idSelected = this.tabelDataS.getValueAt(tabelDataS.getSelectedRow() + 1, 0).toString();
-            this.showData(tabelDataS);
+        try {
+            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            if(evt.getKeyCode() == KeyEvent.VK_UP){
+                this.idSelected = this.tabelDataS.getValueAt(tabelDataS.getSelectedRow() - 1, 0).toString();
+                this.showData(tabelDataS);
+            }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
+                this.idSelected = this.tabelDataS.getValueAt(tabelDataS.getSelectedRow() + 1, 0).toString();
+                this.showData(tabelDataS);
+            }
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        } catch (ParseException ex) {
+            Logger.getLogger(LaporanBeli.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-    } catch (ParseException ex) {
-        Logger.getLogger(LaporanBeli.class.getName()).log(Level.SEVERE, null, ex);
-    }
     }//GEN-LAST:event_tabelDataSKeyPressed
 
     private void tabelDataSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataSMouseClicked
@@ -942,72 +798,74 @@ public class LaporanBeli extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tabelDataSMouseClicked
 
-    private void tabelDataTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataTMouseClicked
-        try {
-            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-            // menampilkan data pembeli
-            this.idSelected = this.tabelDataT.getValueAt(tabelDataT.getSelectedRow(), 0).toString();
-            this.showData(tabelDataT);
-            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-        } catch (ParseException ex) {
-            Logger.getLogger(LaporanBeli.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_tabelDataTMouseClicked
+    private void inpCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inpCariActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inpCariActionPerformed
 
-    private void tabelDataTKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDataTKeyPressed
-    try {
-        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-        if(evt.getKeyCode() == KeyEvent.VK_UP){
-            this.idSelected = this.tabelDataT.getValueAt(tabelDataT.getSelectedRow() - 1, 0).toString();
-            this.showData(tabelDataT);
-        }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
-            this.idSelected = this.tabelDataT.getValueAt(tabelDataT.getSelectedRow() + 1, 0).toString();
-            this.showData(tabelDataT);
-        }
-        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-    } catch (ParseException ex) {
-                Logger.getLogger(LaporanBeli.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    }//GEN-LAST:event_tabelDataTKeyPressed
+    private void btnDetailMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDetailMouseEntered
+        this.btnDetail.setIcon(Gambar.getAktiveIcon(this.btnDetail.getIcon().toString()));
+    }//GEN-LAST:event_btnDetailMouseEntered
+
+    private void btnDetailMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDetailMouseExited
+        this.btnDetail.setIcon(Gambar.getBiasaIcon(this.btnDetail.getIcon().toString()));
+    }//GEN-LAST:event_btnDetailMouseExited
+
+    private void btnDetailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDetailMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnDetailMouseClicked
+
+    private void tbMinggu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbMinggu1MouseClicked
+        // TODO add your handling code here:
+        tbMinggu1.getDate();
+    }//GEN-LAST:event_tbMinggu1MouseClicked
+
+    private void tbHarianMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbHarianMouseClicked
+        // TODO add your handling code here:
+        System.out.println(tbHarian.getDate());
+    }//GEN-LAST:event_tbHarianMouseClicked
+
+    private void tbBulananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbBulananMouseClicked
+        // TODO add your handling code here:
+        System.out.println(tbBulanan.getComponentCount());
+    }//GEN-LAST:event_tbBulananMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel LPBULANAN;
     private javax.swing.JPanel LPHARIAN;
-    private javax.swing.JPanel LPMINGGUAN;
+    private javax.swing.JPanel LPRentang;
     private javax.swing.JPanel LPSEMUA;
-    private javax.swing.JPanel LPTAHUNAN;
     private javax.swing.JLabel background;
+    private javax.swing.JLabel btnDetail;
     private javax.swing.JTextField inpCari;
+    private com.toedter.calendar.JDateChooser jDateChooser3;
     private javax.swing.JScrollPane lpBulanan;
     private javax.swing.JScrollPane lpHarian;
     private javax.swing.JScrollPane lpMingguan;
     private javax.swing.JScrollPane lpSemua;
-    private javax.swing.JScrollPane lpTahunan;
     private javax.swing.JLabel pengeluaranB;
     private javax.swing.JLabel pengeluaranH;
     private javax.swing.JLabel pengeluaranM;
     private javax.swing.JLabel pengeluaranS;
-    private javax.swing.JLabel pengeluaranT;
     private javax.swing.JTabbedPane tabPengeluaran;
     private javax.swing.JTable tabelDataB;
     private javax.swing.JTable tabelDataH;
     private javax.swing.JTable tabelDataM;
     private javax.swing.JTable tabelDataS;
-    private javax.swing.JTable tabelDataT;
+    private com.toedter.calendar.JMonthChooser tbBulanan;
+    private com.toedter.calendar.JDateChooser tbHarian;
+    private com.toedter.calendar.JDateChooser tbMinggu1;
+    private com.toedter.calendar.JYearChooser tbTahunan;
     private javax.swing.JLabel valHarga;
+    private javax.swing.JLabel valIDKaryawan;
     private javax.swing.JLabel valIDPengeluaran;
     private javax.swing.JLabel valIDTransaksi;
-    private javax.swing.JLabel valJenisBrg;
-    private javax.swing.JLabel valJumlahBrg;
-    private javax.swing.JLabel valNamaBarang;
     private javax.swing.JLabel valNamaKaryawan;
-    private javax.swing.JLabel valNamaSupplier;
     private javax.swing.JLabel valTanggal;
     private javax.swing.JLabel valTotalB;
     private javax.swing.JLabel valTotalH;
     private javax.swing.JLabel valTotalM;
     private javax.swing.JLabel valTotalS;
-    private javax.swing.JLabel valTotalT;
     // End of variables declaration//GEN-END:variables
 }

@@ -61,12 +61,12 @@ public class Waktu {
          Date d = new Date(tahun-1900, bulan, hari);
          Calendar c = Calendar.getInstance();
          c.setTime(d);
-         System.out.printf("Menampilkan data minggu pada bulan %s %d\n", this.getNamaBulan(bulan+1), tahun);
+//         System.out.printf("Menampilkan data minggu pada bulan %s %d\n", this.getNamaBulan(bulan+1), tahun);
          
          // mendapatkan sisa hari pada awal bulan
          int tgl1 = c.get(Calendar.DAY_OF_WEEK),
              sisaHari = 7, totalHari = this.getTotalHari(bulan+1);
-         System.out.printf("Hari pertama pada %s adalah hari %s\n", this.getNamaBulan(bulan+1), this.getNamaHari(tgl1));
+//         System.out.printf("Hari pertama pada %s adalah hari %s\n", this.getNamaBulan(bulan+1), this.getNamaHari(tgl1));
          
          // jika bulan tidak diawali dengan hari minggu
          if(tgl1 > 1){
@@ -91,7 +91,7 @@ public class Waktu {
          
          // menyimpan data minggu
          data.put(minggu, sabtu);
-         System.out.println(String.format("Minggu ke-%d : %s ---> %s", week, minggu, sabtu));
+//         System.out.println(String.format("Minggu ke-%d : %s ---> %s", week, minggu, sabtu));
          
          // mendapatkan data minggu ke 2 sampai minggu terakhir
          while(hari <= totalHari){
@@ -114,12 +114,12 @@ public class Waktu {
                  // menyimpan data minggu
                  week++;
                  data.put(minggu, sabtu);
-                 System.out.println(String.format("Minggu ke-%d : %s ---> %s", week, minggu, sabtu));
+//                 System.out.println(String.format("Minggu ke-%d : %s ---> %s", week, minggu, sabtu));
              }
              hari++;
          }
          
-         System.out.println("\nAKHIR METHOD\n\n");
+//         System.out.println("\nAKHIR METHOD\n\n");
          return data.entrySet().toArray();
      }
     public String getCurrentDate(){

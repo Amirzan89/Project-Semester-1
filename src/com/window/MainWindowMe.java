@@ -43,7 +43,7 @@ public class MainWindowMe extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.lblNamaUser.setText(this.karyawan.getIdKaryawan(this.user.getCurrentLogin()));
         this.btns = new JLabel[]{
-            this.btnDashboard, this.btnSupplier, this.btnBarang,
+            this.btnDashboard, this.btnSupplier, this.btnBarang, this.btnKaryawan,
             this.btnTrJual, this.btnTrBeli, this.btnLpJual, this.btnLpBeli, this.btnLogout
         };
         this.activated = this.btnDashboard;
@@ -65,24 +65,15 @@ public class MainWindowMe extends javax.swing.JFrame {
     private void setActivatedButton(JLabel activated) {
         this.activated = activated;
         // set menjadi activated
-//        activated.setOpaque(true);
-//       activated.setOpaque(true);
         activated.setIcon(Gambar.getAktiveIcon(activated.getIcon().toString()));
         // mereset warna button/label
         for (JLabel btn : btns) {
             if (btn != this.activated) {
-//                btn.setOpaque(false);
-//                btn.setOpaque(false);
-//                btn.setBackground(new Color(0,0,0,0));
-//                btn.setForeground(new Color(255,255,255));
                 if (Gambar.isAktifIcon(btn.getIcon().toString())) {
                     btn.setIcon(Gambar.getBiasaIcon(btn.getIcon().toString()));
                 }
             }
         }
-//        if(Gambar.isHoverIcon(activated.getIcon().toString())){
-//            activated.setIcon(Gambar.getAktiveIcon(activated.getIcon().toString()));
-//        }
     }
 
     private void hoverButton(JLabel[] btns) {
@@ -108,9 +99,6 @@ public class MainWindowMe extends javax.swing.JFrame {
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     if (btn != activated) {
-//                        btn.setOpaque(true);
-//                        btn.setForeground(new Color(0,0,0));
-//                        btn.setBackground(new Color(96,167,231));
                         btn.setIcon(Gambar.getHoverIcon(btn.getIcon().toString()));
                     }
                 }
@@ -118,9 +106,6 @@ public class MainWindowMe extends javax.swing.JFrame {
                 @Override
                 public void mouseExited(MouseEvent e) {
                     if (btn != activated) {
-//                        btn.setOpaque(false);
-//                        btn.setForeground(new Color(255,255,255));
-//                        btn.setBackground(new Color(0,0,0,0));
                         btn.setIcon(Gambar.getBiasaIcon(btn.getIcon().toString()));
                     }
                 }
@@ -189,8 +174,7 @@ public class MainWindowMe extends javax.swing.JFrame {
         });
         pnlMain.add(btnDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 105, -1, -1));
 
-        btnKaryawan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-dataPembeli-075.png"))); // NOI18N
-        btnKaryawan.setEnabled(false);
+        btnKaryawan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/sidebar-dataKaryawan-075.png"))); // NOI18N
         btnKaryawan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnKaryawanMouseClicked(evt);
@@ -268,7 +252,6 @@ public class MainWindowMe extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBarangMouseClicked
-        //        this.lblMenuName.setText("Data Barang");
         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
         this.setTitle("Data Barang");
         this.setActivatedButton(this.btnBarang);
@@ -288,7 +271,6 @@ public class MainWindowMe extends javax.swing.JFrame {
 
     private void btnDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDashboardMouseClicked
         try {
-            //        this.lblMenuName.setText("Dashboard");
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             this.setTitle("Dashboard");
             this.setActivatedButton(this.btnDashboard);
@@ -311,7 +293,6 @@ public class MainWindowMe extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDashboardMouseClicked
 
     private void btnKaryawanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKaryawanMouseClicked
-        //        this.lblMenuName.setText("Data Pembeli");
         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
 //        if()
         this.setTitle("Data Pembeli");
@@ -332,7 +313,6 @@ public class MainWindowMe extends javax.swing.JFrame {
     }//GEN-LAST:event_btnKaryawanMouseClicked
 
     private void btnSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSupplierMouseClicked
-        //        this.lblMenuName.setText("Data Supplier");
         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
         this.setTitle("Data Supplier");
         this.setActivatedButton(this.btnSupplier);
@@ -351,7 +331,6 @@ public class MainWindowMe extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSupplierMouseClicked
 
     private void btnTrBeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTrBeliMouseClicked
-        //        this.lblMenuName.setText("Transaksi Beli");
         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
         this.setTitle("Transaksi Beli");
         this.setActivatedButton(this.btnTrBeli);
@@ -390,7 +369,6 @@ public class MainWindowMe extends javax.swing.JFrame {
 
     private void btnLpJualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLpJualMouseClicked
         try {
-            //        this.lblMenuName.setText("Laporan Jual");
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             this.setTitle("Laporan Jual");
             this.setActivatedButton(this.btnLpJual);
@@ -412,7 +390,6 @@ public class MainWindowMe extends javax.swing.JFrame {
 
     private void btnLpBeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLpBeliMouseClicked
         try {
-            //        this.lblMenuName.setText("Laporan Beli");
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             this.setTitle("Laporan Beli");
             this.setActivatedButton(this.btnLpBeli);
@@ -435,7 +412,6 @@ public class MainWindowMe extends javax.swing.JFrame {
     private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
         Audio.play(Audio.SOUND_WARNING);
         new ConfirmLogout(this, true).setVisible(true);
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnLogoutMouseClicked
 
     /**
