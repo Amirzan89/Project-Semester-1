@@ -92,7 +92,7 @@ public class Dashboard extends javax.swing.JPanel {
 //        this.chart.showPieChart(this.pnlPieChart, "", 40, 20, 15, 25);
         this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
         this.chart.lineChartPenjualan(this.pnlLineChart);
-        this.showLineChart();
+//        this.showLineChart();
 
         // mengupdate waktu
         new Thread(new Runnable() {

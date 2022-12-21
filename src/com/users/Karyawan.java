@@ -20,25 +20,25 @@ public class Karyawan extends Users{
         return super.createID(UserLevels.KARYAWAN, UserData.ID_KARYAWAN);
     }
     
-    public boolean isExistPetugas(String idPetugas){
-        return super.isExistID(idPetugas, UserLevels.KARYAWAN, UserData.ID_KARYAWAN);
+    public boolean isExistPetugas(String idKaryawan){
+        return super.isExistID(idKaryawan, UserLevels.KARYAWAN, UserData.ID_KARYAWAN);
     }
     
     public final boolean addPetugas(String namaPetugas, String noTelp, String alamat, String pass, UserLevels level){
         boolean isAdd;
         PreparedStatement pst;
-        String idPetugas = this.createID();
+        String idKaryawan = this.createID();
         try {
             // menambahkan data user ke tabel user
-            isAdd = super.addUser(idPetugas, pass, level);
+            isAdd = super.addUser(idKaryawan, pass, level);
             // mengecek apakah id user sudah ditambahkan ke tabel user
             if(isAdd){
                 // validasi data sebelum ditambahkan
-                if(this.validateAddPetugas(idPetugas, namaPetugas, noTelp, alamat, pass, level)){
+                if(this.validateAddPetugas(idKaryawan, namaPetugas, noTelp, alamat, pass, level)){
                     Log.addLog("Menambahkan data petugas dengan nama '" + namaPetugas + "'");
                     // menambahkan data kedalam Database
                     pst = this.conn.prepareStatement("INSERT INTO karyawan VALUES (?, ?, ?, ?)");
-                    pst.setString(1, idPetugas);
+                    pst.setString(1, idKaryawan);
                     pst.setString(2, text.toCapitalize(namaPetugas));
                     pst.setString(3, noTelp);
                     pst.setString(4, text.toCapitalize(alamat));
@@ -48,21 +48,21 @@ public class Karyawan extends Users{
                 }
             }
         } catch (SQLException | InValidUserDataException ex) {
-            this.deleteUser(idPetugas);
+            this.deleteUser(idKaryawan);
             System.out.println("Error Message : " + ex.getMessage());
         }
         return false;
     }
     
-    public boolean validateAddPetugas(String idPetugas, String namaPetugas, String noTelp, String alamat, String pass, UserLevels level){
+    public boolean validateAddPetugas(String idKaryawan, String namaPetugas, String noTelp, String alamat, String pass, UserLevels level){
         
         boolean vIdPetugas, vNama, vNoTelp, vAlamat, vPass, vLevel;
         
         // mengecek id petugas valid atau tidak
-        if(Validation.isIdPetugas(idPetugas)){
+        if(Validation.isIdPetugas(idKaryawan)){
             vIdPetugas = true;
         }else{
-            throw new InValidUserDataException("'" + idPetugas + "' ID Petugas tersebut tidak valid.");
+            throw new InValidUserDataException("'" + idKaryawan + "' ID Karyawan tersebut tidak valid.");
         }
         
         // menecek nama valid atau tidak
@@ -105,41 +105,40 @@ public class Karyawan extends Users{
     public String getIdKaryawan(String username){
         return super.getData(DatabaseTables.USERS.name(), "id_karyawan", "WHERE username = '" + username+"'");
     }
-    public boolean deletePetugas(String idPetugas){
-        return super.deleteUser(idPetugas);
+    public boolean deletePetugas(String idKaryawan){
+        return super.deleteUser(idKaryawan);
     }
     
-    private String getDataPetugas(String idPetugas, UserData data){
-        
-        return super.getUserData(idPetugas, UserLevels.KARYAWAN, data, UserData.ID_KARYAWAN);
+    private String getDataPetugas(String idKaryawan, UserData data){
+        return super.getUserData1(idKaryawan, UserLevels.KARYAWAN, data, UserData.ID_KARYAWAN);
     }
     
-    public String getNama(String idPetugas){
-        return this.getDataPetugas(idPetugas, UserData.NAMA_KARYAWAN);
+    public String getNama(String idKaryawan){
+        return this.getDataPetugas(idKaryawan, UserData.NAMA_KARYAWAN);
     }
     
-    public String getNoTelp(String idPetugas){
-        return this.getDataPetugas(idPetugas, UserData.NO_TELP);
+    public String getNoTelp(String idKaryawan){
+        return this.getDataPetugas(idKaryawan, UserData.NO_TELP);
     }
     
-    public String getAlamat(String idPetugas){
-        return this.getDataPetugas(idPetugas, UserData.ALAMAT);
+    public String getAlamat(String idKaryawan){
+        return this.getDataPetugas(idKaryawan, UserData.ALAMAT);
     }
     
-    private boolean setDataPetugas(String idPetugas, UserData data, String newValue){
-        return super.setUserData(idPetugas, UserLevels.KARYAWAN, data, UserData.ID_KARYAWAN, newValue);
+    private boolean setDataPetugas(String idKaryawan, UserData data, String newValue){
+        return super.setUserData(idKaryawan, UserLevels.KARYAWAN, data, UserData.ID_KARYAWAN, newValue);
     }
     
-    public boolean setNama(String idPetugas, String newNama){
-        return this.setDataPetugas(idPetugas, UserData.NAMA_KARYAWAN, newNama);
+    public boolean setNama(String idKaryawan, String newNama){
+        return this.setDataPetugas(idKaryawan, UserData.NAMA_KARYAWAN, newNama);
     }
     
-    public boolean setNoTelp(String idPetugas, String newNoTelp){
-        return this.setDataPetugas(idPetugas, UserData.NO_TELP, newNoTelp);
+    public boolean setNoTelp(String idKaryawan, String newNoTelp){
+        return this.setDataPetugas(idKaryawan, UserData.NO_TELP, newNoTelp);
     }
     
-    public boolean setAlamat(String idPetugas, String newAlamat){
-        return this.setDataPetugas(idPetugas, UserData.ALAMAT, newAlamat);
+    public boolean setAlamat(String idKaryawan, String newAlamat){
+        return this.setDataPetugas(idKaryawan, UserData.ALAMAT, newAlamat);
     }
     
 

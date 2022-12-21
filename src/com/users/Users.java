@@ -487,6 +487,9 @@ public class Users extends Database{
     public final boolean isExistUser(String idUser){
         return this.isExistID(idUser, UserLevels.USERS, UserData.USERNAME);
     }
+    public final boolean isExistUser1(String idUser){
+        return this.isExistID(idUser, UserLevels.USERS, UserData.ID_KARYAWAN);
+    }
     
     protected String getLastID(UserLevels level, UserData primary){
         try{
@@ -569,8 +572,17 @@ public class Users extends Database{
      * @return data dari user
      */
     protected String getUserData(String idUser, UserLevels level, UserData data, UserData primary){
-        // mengecek apakah id user exist atau tidak
+        // mengecek apakah username tersedia atau tidak
         if(this.isExistUser(idUser)){
+            // mendapatkan data dari user
+            return this.getData(level.name(), data.name(), " WHERE "+ primary.name() +" = '" + idUser +"'");
+        }
+        // akan menghasilkan error jika id user tidak ditemukan
+        throw new InValidUserDataException("'" +idUser + "' ID User tersebut tidak dapat ditemukan.");   
+    }
+    protected String getUserData1(String idUser, UserLevels level, UserData data, UserData primary){
+        // mengecek apakah id karyawan tersedia atau tidak
+        if(this.isExistUser1(idUser)){
             // mendapatkan data dari user
             return this.getData(level.name(), data.name(), " WHERE "+ primary.name() +" = '" + idUser +"'");
         }
