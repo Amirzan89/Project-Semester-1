@@ -13,6 +13,7 @@ import com.manage.Text;
 import com.manage.Validation;
 
 import com.data.db.Hashing_Algorithm;
+import com.window.frames.LoginWindow;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -350,11 +351,11 @@ public class Users extends Database{
         String leveluser = getLevel(idUser).name();
         // mengecek apakah id user valid atau tidak
         if(!Validation.isIdUser(idUser)){
-            throw new AuthenticationException("'" +idUser + "' ID User tersebut tidak valid.");
+            throw new AuthenticationException("'" +idUser + "' Username tersebut tidak valid.");
         }else if(!this.isExistUser(idUser)){
-            throw new AuthenticationException("'" +idUser + "' ID User tersebut tidak dapat ditemukan.");
+            throw new AuthenticationException("'" +idUser + "' Username tersebut tidak dapat ditemukan.");
         }else if(!(leveluser.equals("ADMIN") || leveluser.equals("KARYAWAN"))){
-            throw new AuthenticationException("'" +idUser + "' ID User Bukan Admin atau Karyawan.");
+            throw new AuthenticationException("'" +idUser + "' Username Bukan Admin atau Karyawan.");
         // mengecek apakah password valid atau tidak
         }else if(!Validation.isPassword(password)){
             throw new AuthenticationException("Password yang anda masukan tidak valid.");
@@ -578,7 +579,8 @@ public class Users extends Database{
             return this.getData(level.name(), data.name(), " WHERE "+ primary.name() +" = '" + idUser +"'");
         }
         // akan menghasilkan error jika id user tidak ditemukan
-        throw new InValidUserDataException("'" +idUser + "' ID User tersebut tidak dapat ditemukan.");   
+//        Message.showWarning(new LoginWindow(), "Username tersebut tidak dapat ditemukan !");
+        throw new InValidUserDataException("'" +idUser + "' Username tersebut tidak dapat ditemukan.");   
     }
     protected String getUserData1(String idUser, UserLevels level, UserData data, UserData primary){
         // mengecek apakah id karyawan tersedia atau tidak
@@ -587,6 +589,7 @@ public class Users extends Database{
             return this.getData(level.name(), data.name(), " WHERE "+ primary.name() +" = '" + idUser +"'");
         }
         // akan menghasilkan error jika id user tidak ditemukan
+//        Message.showWarning(new LoginWindow(), "Username tersebut tidak dapat ditemukan !");
         throw new InValidUserDataException("'" +idUser + "' ID User tersebut tidak dapat ditemukan.");   
     }
     

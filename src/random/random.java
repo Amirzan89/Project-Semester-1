@@ -25,11 +25,12 @@ public class random {
     private final static Text text = new Text();
     private final static Database db = new Database();
     private final static AES aes = new AES();
+    private final static String namadb = Database.DB_NAME;
     private static Statement getStat(){
         try{  
             Class.forName("com.mysql.jdbc.Driver");  
             Connection con=DriverManager.getConnection(  
-                "jdbc:mysql://localhost:3306/bisnis","root","");  
+                "jdbc:mysql://localhost:3306/"+namadb,"root","");  
             Statement stmt=con.createStatement();
             
 //            ResultSet rs=stmt.executeQuery("show databases;");  
@@ -150,6 +151,10 @@ public class random {
         for (Object obj1 : obj) {
             System.out.println(obj1);
         }
+        String hari1 = obj[0].toString().substring(0,10);
+        String hari2 = obj[0].toString().substring(11,20);
+        System.out.println(hari1);
+        System.out.println(hari2);
 //        String password = "123456789";
 //        System.out.println("password asli "+password);
 //        String hash1 = hash.hash(password, 18);

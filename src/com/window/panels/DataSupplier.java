@@ -224,6 +224,7 @@ public class DataSupplier extends javax.swing.JPanel {
 
         btnAdd.setBackground(new java.awt.Color(41, 180, 50));
         btnAdd.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/btn-tambah-075.png"))); // NOI18N
         btnAdd.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnAdd.setOpaque(false);
         btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -243,6 +244,7 @@ public class DataSupplier extends javax.swing.JPanel {
 
         btnEdit.setBackground(new java.awt.Color(34, 119, 237));
         btnEdit.setForeground(new java.awt.Color(255, 255, 255));
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/btn-edit-075.png"))); // NOI18N
         btnEdit.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnEdit.setOpaque(false);
         btnEdit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -262,6 +264,7 @@ public class DataSupplier extends javax.swing.JPanel {
 
         btnDel.setBackground(new java.awt.Color(220, 41, 41));
         btnDel.setForeground(new java.awt.Color(255, 255, 255));
+        btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/btn-hapus-075.png"))); // NOI18N
         btnDel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnDel.setOpaque(false);
         btnDel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -446,27 +449,27 @@ public class DataSupplier extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnAddMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseEntered
-//        this.btnAdd.setIcon(Gambar.getIcon("ic-data-tambah-entered.png"));
+        this.btnAdd.setIcon(Gambar.getAktiveIcon(this.btnAdd.getIcon().toString()));
     }//GEN-LAST:event_btnAddMouseEntered
 
     private void btnAddMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseExited
-//        this.btnAdd.setIcon(Gambar.getIcon("ic-data-tambah.png"));
+        this.btnAdd.setIcon(Gambar.getBiasaIcon(this.btnAdd.getIcon().toString()));
     }//GEN-LAST:event_btnAddMouseExited
 
     private void btnEditMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseEntered
-//        this.btnEdit.setIcon(Gambar.getIcon("ic-data-edit-entered.png"));
+        this.btnEdit.setIcon(Gambar.getAktiveIcon(this.btnEdit.getIcon().toString()));
     }//GEN-LAST:event_btnEditMouseEntered
 
     private void btnEditMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseExited
-//        this.btnEdit.setIcon(Gambar.getIcon("ic-data-edit.png"));
+        this.btnEdit.setIcon(Gambar.getBiasaIcon(this.btnEdit.getIcon().toString()));
     }//GEN-LAST:event_btnEditMouseExited
 
     private void btnDelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDelMouseEntered
-//        this.btnDel.setIcon(Gambar.getIcon("ic-data-hapus-entered.png"));
+        this.btnDel.setIcon(Gambar.getAktiveIcon(this.btnDel.getIcon().toString()));
     }//GEN-LAST:event_btnDelMouseEntered
 
     private void btnDelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDelMouseExited
-//        this.btnDel.setIcon(Gambar.getIcon("ic-data-hapus.png"));
+        this.btnDel.setIcon(Gambar.getBiasaIcon(this.btnDel.getIcon().toString()));
     }//GEN-LAST:event_btnDelMouseExited
 
     private void tabelDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataMouseClicked

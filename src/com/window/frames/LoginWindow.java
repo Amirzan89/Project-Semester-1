@@ -3,6 +3,7 @@ package com.window.frames;
 import com.data.app.Application;
 import com.data.app.Log;
 import com.error.AuthenticationException;
+import com.error.InValidUserDataException;
 import com.manage.Message;
 import com.media.Audio;
 import com.media.Gambar;
@@ -22,8 +23,8 @@ import javax.swing.JOptionPane;
 
 /**
  * Digunakan untuk login bagi admin, petugas dan siswa.
- * 
- * @author Amirzan fikri 
+ *
+ * @author Amirzan fikri
  * @since 2020-11-22
  */
 public class LoginWindow extends javax.swing.JFrame {
@@ -31,10 +32,10 @@ public class LoginWindow extends javax.swing.JFrame {
     private final Users user = new Users();
     private String username, password;
     private int x, y;
-    
+
     public LoginWindow() {
         initComponents();
-        
+
         this.setLocationRelativeTo(null);
         this.setIconImage(Gambar.getWindowIcon());
 //        this.lblKembali.setVisible(false);
@@ -128,13 +129,20 @@ public class LoginWindow extends javax.swing.JFrame {
         });
         pnlMain.add(inpPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 312, 250, 30));
 
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/btn-login-075.png"))); // NOI18N
         btnLogin.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLoginMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLoginMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLoginMouseExited(evt);
+            }
         });
-        pnlMain.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(335, 363, 212, 25));
+        pnlMain.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(335, 363, -1, -1));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar/app-login-050.png"))); // NOI18N
         pnlMain.add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -191,36 +199,51 @@ public class LoginWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_inpPasswordActionPerformed
 
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
-        try{
-            this.username = this.inpUsername.getText();
-            password = this.inpPassword.getText();
-            boolean login = user.login(this.username,password);
+        try {
+            boolean kosong = false;
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-            if(login){
-                Audio.play(Audio.SOUND_INFO);
-                JOptionPane.showMessageDialog(this, "Login Berhasil!\n\nSelamat datang "+ user.getData(UserLevels.KARYAWAN.name(),"nama_karyawan","WHERE id_karyawan = '" + user.getData(UserLevels.USERS.name(),"id_karyawan","WHERE username = '"+this.username+"'")+ "'"));
-                // membuka window dashboard
-                java.awt.EventQueue.invokeLater(new Runnable(){
-                    @Override
-                    public void run(){
-                        try {
-                            new MainWindowMe().setVisible(true);
-                        } catch (ParseException ex) {
-                            Logger.getLogger(LoginWindow.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                });
-
-                // menutup koneksi dan window
-                user.closeConnection();
-                this.dispose();
-            }else{
+            this.username = this.inpUsername.getText();
+            this.password = this.inpPassword.getText();
+            if (this.username.isEmpty()) {
+                kosong = true;
+                System.out.println("Username tidak boleh kosong");
                 this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                // mereset textfield jika login gagal
-                this.inpUsername.setText("");
-                this.inpPassword.setText("");
+                Message.showWarning(this, "Username harus Di isi !");
+            } else if (this.password.isEmpty()) {
+                kosong = true;
+                System.out.println("Password tidak boleh kosong");
+                this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                Message.showWarning(this, "Password harus Di isi !");
             }
-        }catch(IOException | AuthenticationException | SQLException ex){
+            if (!kosong) {
+                JOptionPane.showMessageDialog(this, "Mohon tunggu sebentar\nSedang Memeriksa Username dan Password");
+                boolean login = user.login(this.username, password);
+                if (login) {
+                    Audio.play(Audio.SOUND_INFO);
+                    JOptionPane.showMessageDialog(this, "Login Berhasil!\n\nSelamat datang " + user.getData(UserLevels.KARYAWAN.name(), "nama_karyawan", "WHERE id_karyawan = '" + user.getData(UserLevels.USERS.name(), "id_karyawan", "WHERE username = '" + this.username + "'") + "'"));
+                    // membuka window dashboard
+                    java.awt.EventQueue.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                new MainWindowMe().setVisible(true);
+                            } catch (ParseException ex) {
+                                Logger.getLogger(LoginWindow.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    });
+
+                    // menutup koneksi dan window
+                    user.closeConnection();
+                    this.dispose();
+                } else {
+                    this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    // mereset textfield jika login gagal
+                    this.inpUsername.setText("");
+                    this.inpPassword.setText("");
+                }
+            }
+        } catch (IOException | AuthenticationException | InValidUserDataException | SQLException ex) {
             this.inpUsername.setText("");
             this.inpPassword.setText("");
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -231,8 +254,16 @@ public class LoginWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLoginMouseClicked
 
+    private void btnLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseEntered
+        this.btnLogin.setIcon(Gambar.getAktiveIcon(this.btnLogin.getIcon().toString()));
+    }//GEN-LAST:event_btnLoginMouseEntered
+
+    private void btnLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseExited
+        this.btnLogin.setIcon(Gambar.getBiasaIcon(this.btnLogin.getIcon().toString()));
+    }//GEN-LAST:event_btnLoginMouseExited
+
     public static void main(String args[]) {
-        
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -245,7 +276,7 @@ public class LoginWindow extends javax.swing.JFrame {
         }
 
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
+
             @Override
             public void run() {
                 new LoginWindow().setVisible(true);

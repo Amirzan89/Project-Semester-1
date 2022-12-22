@@ -2,16 +2,19 @@ package com.window.panels;
 
 import com.data.db.Database;
 import com.manage.Barang;
+import com.manage.Chart;
 import com.manage.ManageTransaksiBeli;
 import com.manage.Message;
 import com.manage.Text;
 import com.manage.Waktu;
+import com.window.panels.detailLaporanBeli;
 import com.media.Audio;
 import com.media.Gambar;
 import com.sun.glass.events.KeyEvent;
 import com.users.Karyawan;
 import com.users.Supplier;
 import com.window.dialogs.CetakLaporan;
+import com.window.dialogs.InputBarang;
 import java.awt.BorderLayout;
 import java.awt.*;
 import javax.swing.*;
@@ -41,6 +44,7 @@ import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.statistics.HistogramDataset;
+import javax.swing.JFormattedTextField.AbstractFormatter;
 //import javax.swing.JLabel;
 //import javax.swing.JOptionPane;
 //import javax.swing.JTable;
@@ -49,82 +53,99 @@ import org.jfree.data.statistics.HistogramDataset;
  *
  * @author Gemastik Lightning
  */
+class ubahTanggal extends AbstractFormatter {
+
+    @Override
+    public Object stringToValue(String text) throws ParseException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String valueToString(Object value) throws ParseException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+}
+
 public class LaporanBeli extends javax.swing.JPanel {
+
     private final Database db = new Database();
     private final String namadb = Database.DB_NAME;
     private final ManageTransaksiBeli trb = new ManageTransaksiBeli();
-    
+
     private final Karyawan karyawan = new Karyawan();
-    
+
     private final Supplier supplier = new Supplier();
-    
+    private final Chart chart = new Chart();
     private final Barang barang = new Barang();
-    
+
     private final Text text = new Text();
-    
+
     DateFormat tanggalMilis = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
     private final DateFormat tanggalFull = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss ");
     private final DateFormat date = new SimpleDateFormat("dd-MM-yyyy");
-    private final DateFormat date1 = new SimpleDateFormat("dd-MM-yyyy");
+    private final DateFormat date1 = new SimpleDateFormat("yyyy-MM-dd");
     private final DateFormat time = new SimpleDateFormat("hh:mm:ss");
     private final DateFormat timeMillis = new SimpleDateFormat("ss.SSS:mm:hh");
-        
-    private int hari, hari1,bulan,bulan1, tahun,tahun1,bulanan,tahunan;
-    
-    private Object minggu[];
+
+    private int hari, hari1, bulan, bulan1, tahun, tahun1, bulanan, tahunan;
+    private Date tHarian1, tHarian2, tHarian3;
     private final Waktu waktu = new Waktu();
     private String tPengeluaran;
-    private int selectedIndex,totalHrg;
-    private String idSelected = "", keyword = "", idTr, idPd,IDKaryawan, namaKaryawan, tanggal,tanggalSekarang,tanggalDipilih;
-    private String minggu1 = "", minggu2 = "";
-    
+    private int selectedIndex = 1, totalHrg;
+    private String idSelected = "", keyword = "", idTr, idPd, IDKaryawan, namaKaryawan, tanggal, tanggalDipilih1, tanggalDipilih2, tanggalDipilih3;
+
     public LaporanBeli() throws ParseException {
+        this.tanggalDipilih1 = waktu.getCurrentDate();
+        tHarian1 = date1.parse(this.tanggalDipilih1);
+        tHarian2 = date1.parse(this.tanggalDipilih1);
+        tHarian3 = date1.parse(this.tanggalDipilih1);
         initComponents();
-        this.tanggalSekarang = waktu.getCurrentDate();
-        this.tanggalDipilih = this.tanggalSekarang;
-        minggu1 = this.tanggalSekarang;
-        minggu2 = this.tanggalSekarang;
-        this.hari = Integer.parseInt(tanggalDipilih.substring(8));
-        this.bulan = Integer.parseInt(tanggalDipilih.substring(5,7));
-        this.tahun = Integer.parseInt(tanggalDipilih.substring(0,4));
-        
-        this.hari1 = Integer.parseInt(minggu2.substring(8));
-        this.bulan1 = Integer.parseInt(minggu2.substring(5,7));
-        this.tahun1 = Integer.parseInt(minggu2.substring(0,4));
-        
+
+        this.tanggalDipilih2 = waktu.getCurrentDate();
+        this.tanggalDipilih3 = waktu.getCurrentDate();
+        this.hari = Integer.parseInt(tanggalDipilih1.substring(8));
+        this.bulan = Integer.parseInt(tanggalDipilih1.substring(5, 7));
+        this.tahun = Integer.parseInt(tanggalDipilih1.substring(0, 4));
+
+        this.hari1 = Integer.parseInt(tanggalDipilih3.substring(8));
+        this.bulan1 = Integer.parseInt(tanggalDipilih3.substring(5, 7));
+        this.tahun1 = Integer.parseInt(tanggalDipilih3.substring(0, 4));
+
         this.bulanan = this.bulan;
         this.tahunan = this.tahun;
-        System.out.println("hari 1 "+hari1);
-        System.out.println("bulan 1 "+bulan1);
-        System.out.println("tahun 1 "+tahun1);
-        this.minggu = waktu.getMinggu(hari,bulan);
-        tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg","")));
+        tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "")));
         valTotalS.setText(tPengeluaran);
+        //atur default tanggal 
+//        System.out.println("tanggal +"+date1.parse(this.tanggalDipilih));
+        tbHarian.setDate(date1.parse(this.tanggalDipilih1));
+        tbMinggu1.setDate(date1.parse(this.tanggalDipilih1));
+        tbMinggu2.setDate(date1.parse(this.tanggalDipilih1));
+        //atur default tipe data tanggal
         tabPengeluaran.addChangeListener(new javax.swing.event.ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
                 // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
                 JTabbedPane tabbedPane = (JTabbedPane) e.getSource();
-                selectedIndex = tabbedPane.getSelectedIndex()+1;
-                switch(selectedIndex){
+                selectedIndex = tabbedPane.getSelectedIndex() + 1;
+                switch (selectedIndex) {
                     case 1:
                         System.out.println("Menampilkan Panel semua");
-                        tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg","")));
+                        tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "")));
                         valTotalS.setText(tPengeluaran);
                         break;
                     case 2:
                         System.out.println("Menampilkan Panel harian");
-                        tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg","WHERE tanggal >= '"+ tanggalDipilih +"' AND tanggal <= '"+ String.format("%s-%s-%s",tahun,bulan,hari+1)+"'")));
+                        tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "WHERE tanggal >= '" + tanggalDipilih1 + "' AND tanggal <= '" + String.format("%s-%s-%s", tahun, bulan, hari + 1) + "'")));
                         valTotalH.setText(tPengeluaran);
                         break;
                     case 3:
                         System.out.println("Menampilkan Panel rentang tanggal");
-                        tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg","WHERE tanggal >= '"+minggu1+"' AND tanggal <= '"+String.format("%s-%s-%s",tahun1,bulan1,hari1+1)+"'")));
+                        tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "WHERE tanggal >= '" + tanggalDipilih2 + "' AND tanggal <= '" + String.format("%s-%s-%s", tahun1, bulan1, hari1 + 1) + "'")));
                         valTotalM.setText(tPengeluaran);
                         break;
                     case 4:
                         System.out.println("Menampilkan Panel bulanan");
-                        tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg","WHERE YEAR(tanggal) = '"+tahunan+"' AND MONTH(tanggal) = '"+bulanan+"'")));
+                        tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "WHERE YEAR(tanggal) = '" + tahunan + "' AND MONTH(tanggal) = '" + bulanan + "'")));
                         valTotalB.setText(tPengeluaran);
                         break;
                 }
@@ -133,159 +154,198 @@ public class LaporanBeli extends javax.swing.JPanel {
         });
 //        this.btnPrint.setUI(new javax.swing.plaf.basic.BasicButtonUI());
 //        this.btnEdit.setUI(new javax.swing.plaf.basic.BasicButtonUI());
-        
+
         this.tabelDataS.setRowHeight(29);
-        this.tabelDataS.getTableHeader().setBackground(new java.awt.Color(255,255,255));
+        this.tabelDataS.getTableHeader().setBackground(new java.awt.Color(255, 255, 255));
         this.tabelDataS.getTableHeader().setForeground(new java.awt.Color(0, 0, 0));
-        
+
         this.tabelDataH.setRowHeight(29);
-        this.tabelDataH.getTableHeader().setBackground(new java.awt.Color(255,255,255));
+        this.tabelDataH.getTableHeader().setBackground(new java.awt.Color(255, 255, 255));
         this.tabelDataH.getTableHeader().setForeground(new java.awt.Color(0, 0, 0));
-        
+
         this.tabelDataM.setRowHeight(29);
-        this.tabelDataM.getTableHeader().setBackground(new java.awt.Color(255,255,255));
+        this.tabelDataM.getTableHeader().setBackground(new java.awt.Color(255, 255, 255));
         this.tabelDataM.getTableHeader().setForeground(new java.awt.Color(0, 0, 0));
-        
+
         this.tabelDataB.setRowHeight(29);
-        this.tabelDataB.getTableHeader().setBackground(new java.awt.Color(255,255,255));
+        this.tabelDataB.getTableHeader().setBackground(new java.awt.Color(255, 255, 255));
         this.tabelDataB.getTableHeader().setForeground(new java.awt.Color(0, 0, 0));
-        
+
         JLabel[] lbls = new JLabel[]{
-            this.valIDPengeluaran,this.valIDKaryawan, this.valIDTransaksi, this.valNamaKaryawan, 
+            this.valIDPengeluaran, this.valIDKaryawan, this.valIDTransaksi, this.valNamaKaryawan,
             this.valTanggal, this.valHarga
         };
-        
-        for(JLabel lbl : lbls){
+
+        for (JLabel lbl : lbls) {
             lbl.addMouseListener(new java.awt.event.MouseListener() {
 
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    
+
                 }
 
                 @Override
                 public void mousePressed(MouseEvent e) {
-                    
+
                 }
 
                 @Override
                 public void mouseReleased(MouseEvent e) {
-                    
+
                 }
 
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     setCursor(new Cursor(Cursor.HAND_CURSOR));
-                    lbl.setForeground(new Color(15,98,230));
+                    lbl.setForeground(new Color(15, 98, 230));
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
                     setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                    lbl.setForeground(new Color(0,0,0));
+                    lbl.setForeground(new Color(0, 0, 0));
                 }
             });
         }
-        
-//        this.showLineChart1();
-//        this.showLineChart2();
+        this.keyword = "";
         this.updateTabel(tabelDataS);
-        
-        keyword = "WHERE tanggal >= '"+ tanggalDipilih +"' AND tanggal <= '"+ String.format("%s-%s-%s",tahun,bulan,hari+1)+"'";
-        System.out.println("isi keyword :"+keyword);
+        //atur tanggal default tanggal harian
+        this.keyword = "WHERE tanggal >= '" + tanggalDipilih1 + "' AND tanggal <= '" + String.format("%s-%s-%s", tahun, bulan, hari + 1) + "'";
+//        System.out.println("isi keyword :" + keyword);
         this.updateTabel(tabelDataH);
-        
-        keyword = "WHERE YEAR(tanggal) = '"+this.tahunan+"' AND MONTH(tanggal) = '"+this.bulanan+"'";
-        System.out.println("isi keyword :"+keyword);
+        //atur tanggal default tabel bulanan
+        this.keyword = "WHERE YEAR(tanggal) = '" + this.tahunan + "' AND MONTH(tanggal) = '" + this.bulanan + "'";
+        System.out.println("isi keyword bulan :" + keyword);
         this.updateTabel(tabelDataB);
-        
-        keyword = "WHERE tanggal >= '"+minggu1+"' AND tanggal <= '"+String.format("%s-%s-%s",tahun1,bulan1,hari1+1)+"'";
-        System.out.println("isi keyword :"+keyword);
+        //atur tanggal default tabel rentang tanggal
+        this.keyword = "WHERE tanggal >= '" + this.tanggalDipilih2 + "' AND tanggal <= '" + String.format("%s-%s-%s", tahun1, bulan1, hari1 + 1) + "'";
+//        System.out.println("isi keyword :" + keyword);
         this.updateTabel(tabelDataM);
     }
-    
-    private Statement getStat(){
-        try{  
-            Class.forName("com.mysql.jdbc.Driver");  
-            Connection con=DriverManager.getConnection(  
-                "jdbc:mysql://localhost:3306/"+this.namadb,"root","");  
-            Statement stmt=con.createStatement();
+
+    private Statement getStat() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/" + this.namadb, "root", "");
+            Statement stmt = con.createStatement();
             return stmt;
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
         return null;
     }
-    
-    private int getTotal(String table, String kolom, String kondisi){
+
+    private int getJenis(String field) {
         try {
             Statement stat = getStat();
             int data = 0;
-            String sql = "SELECT SUM("+kolom+") AS total FROM "+table+" "+kondisi;
+            String sql = "SELECT SUM(jumlah) AS total FROM detail_transaksi_beli WHERE id_tr_beli = '" + this.idTr + "' AND jenis_barang = '" + field + "'";
             System.out.println(sql);
             ResultSet res = stat.executeQuery(sql);
-            while(res.next()){
+            while (res.next()) {
                 data = res.getInt("total");
+//                System.out.println("jumlahnya "+data);
             }
             return data;
         } catch (SQLException ex) {
             Logger.getLogger(LaporanJual.class.getName()).log(Level.SEVERE, null, ex);
-        }catch(NullPointerException n){
+        } catch (NullPointerException n) {
 //            n.printStackTrace();
             System.out.println("errorr ");
             return 0;
         }
         return -1;
     }
-    
-    private void updateTabel(JTable tabel) throws ParseException{
-        try{
-            DefaultTableModel model = (DefaultTableModel) tabel.getModel();
+
+    private int getTotal(String table, String kolom, String kondisi) {
+        try {
+            Statement stat = getStat();
+            int data = 0;
+            String sql = "SELECT SUM(" + kolom + ") AS total FROM " + table + " " + kondisi;
+//            System.out.println(sql);
+            ResultSet res = stat.executeQuery(sql);
+            while (res.next()) {
+                data = res.getInt("total");
+            }
+            return data;
+        } catch (SQLException ex) {
+            Logger.getLogger(LaporanJual.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException n) {
+//            n.printStackTrace();
+            System.out.println("errorr ");
+            return 0;
+        }
+        return -1;
+    }
+
+    private Object[][] getData() throws ParseException {
+        try {
+            Object[][] obj;
             Date tanggalData = new Date();
             int rows = 0;
             String data[] = new String[6];
             String sql = "SELECT id_tr_beli, id_karyawan, total_hrg, tanggal FROM transaksi_beli " + keyword + " ORDER BY id_tr_beli DESC";
-//            System.out.println(sql);
+            obj = new Object[trb.getJumlahData("transaksi_beli", keyword)][6];
+            System.out.println(sql);
             // mengeksekusi query
             trb.res = trb.stat.executeQuery(sql);
             // mendapatkan semua data yang ada didalam tabel
-            while(trb.res.next()){
+            while (trb.res.next()) {
                 // menyimpan data dari tabel ke object
-                data[0] = trb.res.getString("id_tr_beli").replace("TRB", "LPG");
-                data[1] = trb.res.getString("id_karyawan");
-                data[2] = this.karyawan.getNama(trb.res.getString("id_karyawan"));
-                data[3] = text.toMoneyCase(trb.res.getString("total_hrg"));
+                obj[rows][0] = trb.res.getString("id_tr_beli").replace("TRB", "LPG");
+                obj[rows][1] = trb.res.getString("id_karyawan");
+                obj[rows][2] = this.karyawan.getNama(trb.res.getString("id_karyawan"));
+                obj[rows][3] = text.toMoneyCase(trb.res.getString("total_hrg"));
                 tanggalData = tanggalMilis.parse(trb.res.getString("tanggal"));
-                data[4] = date.format(tanggalData);
-                data[5] = time.format(tanggalData);
-                model.addRow(data);
+                obj[rows][4] = date.format(tanggalData);
+                obj[rows][5] = time.format(tanggalData);
+                rows++;
             }
-            tabel.setModel(model);
-        }catch(SQLException ex){
+            return obj;
+        } catch (SQLException ex) {
             ex.printStackTrace();
             Message.showException(this, "Terjadi kesalahan saat mengambil data dari database\n" + ex.getMessage(), ex, true);
         }
+        return null;
     }
-    
-    private void showData(JTable tabel) throws ParseException{
+
+    private void updateTabel(JTable tabel) throws ParseException {
+        tabel.setModel(new javax.swing.table.DefaultTableModel(
+                getData(),
+                new String[]{
+                    "ID Pengeluaran", "ID Karyawan", "Nama Karyawan", "Total Pengeluaran", "Tanggal", "Waktu"
+                }
+        ) {
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false, false
+            };
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
+    }
+
+    private void showData(JTable tabel) throws ParseException {
         // mendapatkan data-data
         this.idTr = tabel.getValueAt(tabel.getSelectedRow(), 0).toString().replace("LPG", "TRB");
         this.idPd = this.idTr.replace("TRB", "LPG");
-        this.IDKaryawan = tabel.getValueAt(tabel.getSelectedRow(),1).toString();
-        this.namaKaryawan = tabel.getValueAt(tabel.getSelectedRow(),2).toString();
-        this.totalHrg = text.toIntCase(tabel.getValueAt(tabel.getSelectedRow(),3).toString());
+        this.IDKaryawan = tabel.getValueAt(tabel.getSelectedRow(), 1).toString();
+        this.namaKaryawan = tabel.getValueAt(tabel.getSelectedRow(), 2).toString();
+        this.totalHrg = text.toIntCase(tabel.getValueAt(tabel.getSelectedRow(), 3).toString());
         String tanggal1 = this.trb.getTanggal(this.idTr);
         Date d = tanggalMilis.parse(tanggal1);
         this.tanggal = date.format(d);
 
         // menampilkan data-data
-        this.valIDTransaksi.setText("<html><p>:&nbsp;"+this.idTr+"</p></html>");
-        this.valIDPengeluaran.setText("<html><p>:&nbsp;"+this.idPd+"</p></html>");
-        this.valIDKaryawan.setText("<html><p>:&nbsp;"+this.IDKaryawan+"</p></html>");
-        this.valNamaKaryawan.setText("<html><p>:&nbsp;"+this.namaKaryawan+"</p></html>");
-        this.valHarga.setText("<html><p>:&nbsp;"+this.totalHrg+"</p></html>");
-        this.valTanggal.setText("<html><p>:&nbsp;"+this.tanggal+"</p></html>");
+        this.valIDTransaksi.setText("<html><p>:&nbsp;" + this.idTr + "</p></html>");
+        this.valIDPengeluaran.setText("<html><p>:&nbsp;" + this.idPd + "</p></html>");
+        this.valIDKaryawan.setText("<html><p>:&nbsp;" + this.IDKaryawan + "</p></html>");
+        this.valNamaKaryawan.setText("<html><p>:&nbsp;" + this.namaKaryawan + "</p></html>");
+        this.valHarga.setText("<html><p>:&nbsp;" + this.totalHrg + "</p></html>");
+        this.valTanggal.setText("<html><p>:&nbsp;" + this.tanggal + "</p></html>");
     }
 
     @SuppressWarnings("unchecked")
@@ -311,6 +371,7 @@ public class LaporanBeli extends javax.swing.JPanel {
         valTotalH = new javax.swing.JLabel();
         pengeluaranH = new javax.swing.JLabel();
         tbHarian = new com.toedter.calendar.JDateChooser();
+        txtHari = new javax.swing.JLabel();
         LPBULANAN = new javax.swing.JPanel();
         lpBulanan = new javax.swing.JScrollPane();
         tabelDataB = new javax.swing.JTable();
@@ -318,14 +379,19 @@ public class LaporanBeli extends javax.swing.JPanel {
         pengeluaranB = new javax.swing.JLabel();
         tbBulanan = new com.toedter.calendar.JMonthChooser();
         tbTahunan = new com.toedter.calendar.JYearChooser();
+        txtAwal2 = new javax.swing.JLabel();
+        txtAwal3 = new javax.swing.JLabel();
         LPRentang = new javax.swing.JPanel();
         lpMingguan = new javax.swing.JScrollPane();
         tabelDataM = new javax.swing.JTable();
         valTotalM = new javax.swing.JLabel();
         pengeluaranM = new javax.swing.JLabel();
         tbMinggu1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser3 = new com.toedter.calendar.JDateChooser();
+        tbMinggu2 = new com.toedter.calendar.JDateChooser();
+        txtAkhir = new javax.swing.JLabel();
+        txtAwal = new javax.swing.JLabel();
         inpCari = new javax.swing.JTextField();
+        pnlPieChart = new javax.swing.JPanel();
         background = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -419,7 +485,7 @@ public class LaporanBeli extends javax.swing.JPanel {
         valTotalS.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valTotalS.setForeground(new java.awt.Color(0, 0, 0));
         valTotalS.setText(":");
-        LPSEMUA.add(valTotalS, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 530, 290, 36));
+        LPSEMUA.add(valTotalS, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 263, 290, 36));
 
         pengeluaranS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/laporan-pengeluaran-075.png"))); // NOI18N
         pengeluaranS.setText("lbll");
@@ -469,7 +535,7 @@ public class LaporanBeli extends javax.swing.JPanel {
         valTotalH.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valTotalH.setForeground(new java.awt.Color(0, 0, 0));
         valTotalH.setText(":");
-        LPHARIAN.add(valTotalH, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 530, 290, 36));
+        LPHARIAN.add(valTotalH, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 263, 290, 36));
 
         pengeluaranH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/laporan-pengeluaran-075.png"))); // NOI18N
         pengeluaranH.setText("lbll");
@@ -480,7 +546,16 @@ public class LaporanBeli extends javax.swing.JPanel {
                 tbHarianMouseClicked(evt);
             }
         });
-        LPHARIAN.add(tbHarian, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, -1, -1));
+        tbHarian.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tbHarianPropertyChange(evt);
+            }
+        });
+        LPHARIAN.add(tbHarian, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 260, 130, 40));
+
+        txtHari.setFont(new java.awt.Font("Dialog", 0, 22)); // NOI18N
+        txtHari.setText("Pilih Hari :");
+        LPHARIAN.add(txtHari, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 260, 110, 40));
 
         tabPengeluaran.addTab("Harian", LPHARIAN);
 
@@ -526,19 +601,39 @@ public class LaporanBeli extends javax.swing.JPanel {
         valTotalB.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valTotalB.setForeground(new java.awt.Color(0, 0, 0));
         valTotalB.setText(":");
-        LPBULANAN.add(valTotalB, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 530, 290, 36));
+        LPBULANAN.add(valTotalB, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 263, 290, 36));
 
         pengeluaranB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/laporan-pengeluaran-075.png"))); // NOI18N
         pengeluaranB.setText("lbll");
         LPBULANAN.add(pengeluaranB, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 263, 490, -1));
 
+        tbBulanan.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         tbBulanan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbBulananMouseClicked(evt);
             }
         });
-        LPBULANAN.add(tbBulanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, -1, -1));
-        LPBULANAN.add(tbTahunan, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 270, -1, -1));
+        tbBulanan.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tbBulananPropertyChange(evt);
+            }
+        });
+        LPBULANAN.add(tbBulanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, -1, 40));
+
+        tbTahunan.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tbTahunanPropertyChange(evt);
+            }
+        });
+        LPBULANAN.add(tbTahunan, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, 90, 40));
+
+        txtAwal2.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
+        txtAwal2.setText("Pilih Tahun :");
+        LPBULANAN.add(txtAwal2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 110, 40));
+
+        txtAwal3.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
+        txtAwal3.setText("Pilih Bulan :");
+        LPBULANAN.add(txtAwal3, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 260, 105, 40));
 
         tabPengeluaran.addTab("Bulanan", LPBULANAN);
 
@@ -571,6 +666,9 @@ public class LaporanBeli extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabelDataMMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tabelDataMMouseEntered(evt);
+            }
         });
         tabelDataM.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -584,7 +682,7 @@ public class LaporanBeli extends javax.swing.JPanel {
         valTotalM.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valTotalM.setForeground(new java.awt.Color(0, 0, 0));
         valTotalM.setText(":");
-        LPRentang.add(valTotalM, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 530, 290, 36));
+        LPRentang.add(valTotalM, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 263, 290, 36));
 
         pengeluaranM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/laporan-pengeluaran-075.png"))); // NOI18N
         pengeluaranM.setText("lbll");
@@ -595,8 +693,27 @@ public class LaporanBeli extends javax.swing.JPanel {
                 tbMinggu1MouseClicked(evt);
             }
         });
-        LPRentang.add(tbMinggu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, -1, -1));
-        LPRentang.add(jDateChooser3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 270, -1, -1));
+        tbMinggu1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tbMinggu1PropertyChange(evt);
+            }
+        });
+        LPRentang.add(tbMinggu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 130, 40));
+
+        tbMinggu2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tbMinggu2PropertyChange(evt);
+            }
+        });
+        LPRentang.add(tbMinggu2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 260, 130, 40));
+
+        txtAkhir.setFont(new java.awt.Font("Dialog", 0, 22)); // NOI18N
+        txtAkhir.setText("Akhir :");
+        LPRentang.add(txtAkhir, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 60, 40));
+
+        txtAwal.setFont(new java.awt.Font("Dialog", 0, 22)); // NOI18N
+        txtAwal.setText("Awal :");
+        LPRentang.add(txtAwal, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 260, 60, 40));
 
         tabPengeluaran.addTab("Rentang Tanggal", LPRentang);
 
@@ -620,6 +737,11 @@ public class LaporanBeli extends javax.swing.JPanel {
         });
         add(inpCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 350, 220, -1));
 
+        pnlPieChart.setBackground(new java.awt.Color(255, 255, 255));
+        pnlPieChart.setForeground(new java.awt.Color(255, 255, 0));
+        pnlPieChart.setLayout(new java.awt.BorderLayout());
+        add(pnlPieChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, 520, 260));
+
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar/app-laporan-pengeluaran-075.png"))); // NOI18N
         background.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -629,13 +751,13 @@ public class LaporanBeli extends javax.swing.JPanel {
         try {
             String key = this.inpCari.getText();
             String data = "";
-            if(key.contains("TRB")|| key.contains("LPG")|| key.contains("trb")|| key.contains("lpg")){
-                data = "TRB"+key.substring(3, key.length());
+            if (key.contains("TRB") || key.contains("LPG") || key.contains("trb") || key.contains("lpg")) {
+                data = "TRB" + key.substring(3, key.length());
             }
-            System.out.println("id "+ data);
-            this.keyword = "WHERE id_tr_jual LIKE '%"+data+"%' OR id_barang LIKE '%"+data+"%'";
+            System.out.println("id " + data);
+            this.keyword = "WHERE id_tr_beli LIKE '%" + data + "%'";
             JTable tabel = new JTable();
-            switch(selectedIndex){
+            switch (selectedIndex) {
                 case 1:
                     tabel = this.tabelDataS;
                     break;
@@ -659,13 +781,13 @@ public class LaporanBeli extends javax.swing.JPanel {
         try {
             String key = this.inpCari.getText();
             String data = "";
-            if(key.contains("TRB")|| key.contains("LPG")|| key.contains("trb")|| key.contains("lpg")){
-                data = "TRB"+key.substring(3, key.length());
+            if (key.contains("TRB") || key.contains("LPG") || key.contains("trb") || key.contains("lpg")) {
+                data = "TRB" + key.substring(3, key.length());
             }
-            System.out.println("id "+ data);
-            this.keyword = "WHERE id_tr_jual LIKE '%"+data+"%' OR id_barang LIKE '%"+data+"%'";
+            System.out.println("id " + data);
+            this.keyword = "WHERE id_tr_beli LIKE '%" + data + "%'";
             JTable tabel = new JTable();
-            switch(selectedIndex){
+            switch (selectedIndex) {
                 case 1:
                     tabel = this.tabelDataS;
                     break;
@@ -688,12 +810,22 @@ public class LaporanBeli extends javax.swing.JPanel {
     private void tabelDataBKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDataBKeyPressed
         try {
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-            if(evt.getKeyCode() == KeyEvent.VK_UP){
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 this.idSelected = this.tabelDataB.getValueAt(tabelDataB.getSelectedRow() - 1, 0).toString();
                 this.showData(tabelDataB);
-            }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
+                int pMakanan = getJenis("MAKANAN");
+                int pMinuman = getJenis("MINUMAN");
+                int pSnack = getJenis("SNACK");
+                int pAtk = getJenis("ATK");
+                this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
+            } else if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 this.idSelected = this.tabelDataB.getValueAt(tabelDataB.getSelectedRow() + 1, 0).toString();
                 this.showData(tabelDataB);
+                int pMakanan = getJenis("MAKANAN");
+                int pMinuman = getJenis("MINUMAN");
+                int pSnack = getJenis("SNACK");
+                int pAtk = getJenis("ATK");
+                this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
             }
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         } catch (ParseException ex) {
@@ -706,7 +838,13 @@ public class LaporanBeli extends javax.swing.JPanel {
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             // menampilkan data pembeli
             this.idSelected = this.tabelDataB.getValueAt(tabelDataB.getSelectedRow(), 0).toString();
+            System.out.println("baris : " + tabelDataB.getSelectedRow());
             this.showData(tabelDataB);
+            int pMakanan = getJenis("MAKANAN");
+            int pMinuman = getJenis("MINUMAN");
+            int pSnack = getJenis("SNACK");
+            int pAtk = getJenis("ATK");
+            this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         } catch (ParseException ex) {
             Logger.getLogger(LaporanBeli.class.getName()).log(Level.SEVERE, null, ex);
@@ -716,12 +854,22 @@ public class LaporanBeli extends javax.swing.JPanel {
     private void tabelDataMKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDataMKeyPressed
         try {
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-            if(evt.getKeyCode() == KeyEvent.VK_UP){
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 this.idSelected = this.tabelDataM.getValueAt(tabelDataM.getSelectedRow() - 1, 0).toString();
                 this.showData(tabelDataM);
-            }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
+                int pMakanan = getJenis("MAKANAN");
+                int pMinuman = getJenis("MINUMAN");
+                int pSnack = getJenis("SNACK");
+                int pAtk = getJenis("ATK");
+                this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
+            } else if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 this.idSelected = this.tabelDataM.getValueAt(tabelDataM.getSelectedRow() + 1, 0).toString();
                 this.showData(tabelDataM);
+                int pMakanan = getJenis("MAKANAN");
+                int pMinuman = getJenis("MINUMAN");
+                int pSnack = getJenis("SNACK");
+                int pAtk = getJenis("ATK");
+                this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
             }
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         } catch (ParseException ex) {
@@ -731,11 +879,14 @@ public class LaporanBeli extends javax.swing.JPanel {
 
     private void tabelDataMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataMMouseClicked
         try {
-            // TODO add your handling code here:
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-            // menampilkan data pembeli
             this.idSelected = this.tabelDataM.getValueAt(tabelDataM.getSelectedRow(), 0).toString();
             this.showData(tabelDataM);
+            int pMakanan = getJenis("MAKANAN");
+            int pMinuman = getJenis("MINUMAN");
+            int pSnack = getJenis("SNACK");
+            int pAtk = getJenis("ATK");
+            this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         } catch (ParseException ex) {
             Logger.getLogger(LaporanBeli.class.getName()).log(Level.SEVERE, null, ex);
@@ -745,12 +896,22 @@ public class LaporanBeli extends javax.swing.JPanel {
     private void tabelDataHKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDataHKeyPressed
         try {
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-            if(evt.getKeyCode() == KeyEvent.VK_UP){
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 this.idSelected = this.tabelDataH.getValueAt(tabelDataH.getSelectedRow() - 1, 0).toString();
                 this.showData(tabelDataH);
-            }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
+                int pMakanan = getJenis("MAKANAN");
+                int pMinuman = getJenis("MINUMAN");
+                int pSnack = getJenis("SNACK");
+                int pAtk = getJenis("ATK");
+                this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
+            } else if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 this.idSelected = this.tabelDataH.getValueAt(tabelDataH.getSelectedRow() + 1, 0).toString();
                 this.showData(tabelDataH);
+                int pMakanan = getJenis("MAKANAN");
+                int pMinuman = getJenis("MINUMAN");
+                int pSnack = getJenis("SNACK");
+                int pAtk = getJenis("ATK");
+                this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
             }
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         } catch (ParseException ex) {
@@ -761,9 +922,14 @@ public class LaporanBeli extends javax.swing.JPanel {
     private void tabelDataHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataHMouseClicked
         try {
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-            // menampilkan data pembeli
             this.idSelected = this.tabelDataH.getValueAt(tabelDataH.getSelectedRow(), 0).toString();
             this.showData(tabelDataH);
+            System.out.println("baris : " + tabelDataH.getSelectedRow());
+            int pMakanan = getJenis("MAKANAN");
+            int pMinuman = getJenis("MINUMAN");
+            int pSnack = getJenis("SNACK");
+            int pAtk = getJenis("ATK");
+            this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         } catch (ParseException ex) {
             Logger.getLogger(LaporanBeli.class.getName()).log(Level.SEVERE, null, ex);
@@ -773,12 +939,22 @@ public class LaporanBeli extends javax.swing.JPanel {
     private void tabelDataSKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDataSKeyPressed
         try {
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-            if(evt.getKeyCode() == KeyEvent.VK_UP){
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 this.idSelected = this.tabelDataS.getValueAt(tabelDataS.getSelectedRow() - 1, 0).toString();
                 this.showData(tabelDataS);
-            }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
+                int pMakanan = getJenis("MAKANAN");
+                int pMinuman = getJenis("MINUMAN");
+                int pSnack = getJenis("SNACK");
+                int pAtk = getJenis("ATK");
+                this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
+            } else if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 this.idSelected = this.tabelDataS.getValueAt(tabelDataS.getSelectedRow() + 1, 0).toString();
                 this.showData(tabelDataS);
+                int pMakanan = getJenis("MAKANAN");
+                int pMinuman = getJenis("MINUMAN");
+                int pSnack = getJenis("SNACK");
+                int pAtk = getJenis("ATK");
+                this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
             }
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         } catch (ParseException ex) {
@@ -789,9 +965,18 @@ public class LaporanBeli extends javax.swing.JPanel {
     private void tabelDataSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataSMouseClicked
         try {
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-            // menampilkan data pembeli
             this.idSelected = this.tabelDataS.getValueAt(tabelDataS.getSelectedRow(), 0).toString();
             this.showData(tabelDataS);
+            System.out.println("baris : " + tabelDataS.getSelectedRow());
+            int pMakanan = getJenis("MAKANAN");
+            int pMinuman = getJenis("MINUMAN");
+            int pSnack = getJenis("SNACK");
+            int pAtk = getJenis("ATK");
+            System.out.println("makanan " + pMakanan);
+            System.out.println("minuman " + pMinuman);
+            System.out.println("snack " + pSnack);
+            System.out.println("atk " + pAtk);
+            this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         } catch (ParseException ex) {
             Logger.getLogger(LaporanBeli.class.getName()).log(Level.SEVERE, null, ex);
@@ -811,24 +996,172 @@ public class LaporanBeli extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDetailMouseExited
 
     private void btnDetailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDetailMouseClicked
-        // TODO add your handling code here:
-        
+        try {
+            System.out.println("btn detail");
+            boolean erorr = false;
+            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            JTable tabel = new JTable();
+            switch (this.selectedIndex) {
+                case 1:
+                    if (this.tabelDataS.getSelectedRow() < 0) {
+                        System.out.println("Tidak ada data yang dipilih !");
+                        erorr = true;
+                        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                        Message.showWarning(this, "Tidak ada data yang dipilih !");
+                    }
+                    break;
+                case 2:
+                    if (this.tabelDataH.getSelectedRow() < 0) {
+                        System.out.println("Tidak ada data yang dipilih !");
+                        erorr = true;
+                        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                        Message.showWarning(this, "Tidak ada data yang dipilih !");
+                    }
+                    break;
+                case 3:
+                    if (this.tabelDataM.getSelectedRow() < 0) {
+                        System.out.println("Tidak ada data yang dipilih !");
+                        erorr = true;
+                        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                        Message.showWarning(this, "Tidak ada data yang dipilih !");
+                    }
+                    break;
+                case 4:
+                    if (this.tabelDataB.getSelectedRow() < 0) {
+                        System.out.println("Tidak ada data yang dipilih !");
+                        erorr = true;
+                        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                        Message.showWarning(this, "Tidak ada data yang dipilih !");
+                    }
+                    break;
+            }
+            if (!erorr) {
+                Audio.play(Audio.SOUND_INFO);
+                System.out.println("id yg dipilih " + this.idTr);
+                detailLaporanBeli detail = new detailLaporanBeli(null, true, this.idTr);
+                detail.setVisible(true);
+                this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+            //
+        } catch (ParseException ex) {
+            Logger.getLogger(LaporanBeli.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnDetailMouseClicked
 
     private void tbMinggu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbMinggu1MouseClicked
-        // TODO add your handling code here:
-        tbMinggu1.getDate();
     }//GEN-LAST:event_tbMinggu1MouseClicked
 
     private void tbHarianMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbHarianMouseClicked
-        // TODO add your handling code here:
-        System.out.println(tbHarian.getDate());
     }//GEN-LAST:event_tbHarianMouseClicked
 
     private void tbBulananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbBulananMouseClicked
-        // TODO add your handling code here:
-        System.out.println(tbBulanan.getComponentCount());
     }//GEN-LAST:event_tbBulananMouseClicked
+
+    private void tbHarianPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tbHarianPropertyChange
+        try {
+            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            //update tabel
+            this.tHarian1 = tbHarian.getDate();
+            this.tanggalDipilih1 = date1.format(tHarian1);
+            this.hari = Integer.parseInt(tanggalDipilih1.substring(8));
+            this.bulan = Integer.parseInt(tanggalDipilih1.substring(5, 7));
+            this.tahun = Integer.parseInt(tanggalDipilih1.substring(0, 4));
+            this.keyword = "WHERE tanggal >= '" + tanggalDipilih1 + "' AND tanggal <= '" + String.format("%s-%s-%s", tahun, bulan, hari + 1) + "'";
+            this.updateTabel(this.tabelDataH);
+            //update totalharga
+            this.tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "WHERE tanggal >= '" + tanggalDipilih1 + "' AND tanggal <= '" + String.format("%s-%s-%s", tahun, bulan, hari + 1) + "'")));
+            this.valTotalH.setText(tPengeluaran);
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        } catch (ParseException ex) {
+            Logger.getLogger(LaporanBeli.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tbHarianPropertyChange
+
+    private void tbBulananPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tbBulananPropertyChange
+        try {
+            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            //update tabel
+            this.bulanan = tbBulanan.getMonth() + 1;
+            this.keyword = "WHERE YEAR(tanggal) = '" + this.tahunan + "' AND MONTH(tanggal) = '" + this.bulanan + "'";
+            System.out.println("query bulanan "+keyword);
+            updateTabel(this.tabelDataB);
+            //update totalharga
+            this.tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "WHERE YEAR(tanggal) = '" + tahunan + "' AND MONTH(tanggal) = '" + bulanan + "'")));
+            this.valTotalB.setText(tPengeluaran);
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        } catch (ParseException ex) {
+            Logger.getLogger(LaporanBeli.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tbBulananPropertyChange
+
+    private void tbTahunanPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tbTahunanPropertyChange
+        try {
+            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            //update tabel
+            this.tahunan = tbTahunan.getYear();
+            this.keyword = "WHERE YEAR(tanggal) = '" + this.tahunan + "' AND MONTH(tanggal) = '" + this.bulanan + "'";
+            System.out.println("query tahunan "+keyword);
+            updateTabel(this.tabelDataB);
+            //update totalharga
+            this.tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "WHERE YEAR(tanggal) = '" + tahunan + "' AND MONTH(tanggal) = '" + bulanan + "'")));
+            this.valTotalB.setText(tPengeluaran);
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        } catch (ParseException ex) {
+            Logger.getLogger(LaporanBeli.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tbTahunanPropertyChange
+
+    private void tbMinggu1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tbMinggu1PropertyChange
+        try {
+            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            this.tHarian2 = tbMinggu1.getDate();
+            if (tHarian2.compareTo(tHarian3) > 0) {
+                System.out.println("Tanggal awal tidak boleh lebih dari tanggal akhir !");
+                this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                Message.showWarning(this, "Tanggal awal tidak boleh lebih dari tanggal akhir !");
+            } else {
+                this.tanggalDipilih2 = date1.format(tHarian2);
+                //update tabel
+                keyword = "WHERE tanggal >= '" + this.tanggalDipilih2 + "' AND tanggal <= '" + String.format("%s-%s-%s", tahun1, bulan1, hari1 + 1) + "'";
+                this.updateTabel(this.tabelDataM);
+                //update totalharga
+                this.tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "WHERE tanggal >= '" + tanggalDipilih2 + "' AND tanggal <= '" + String.format("%s-%s-%s", tahun1, bulan1, hari1 + 1) + "'")));
+                this.valTotalH.setText(tPengeluaran);
+                this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(LaporanBeli.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tbMinggu1PropertyChange
+
+    private void tabelDataMMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataMMouseEntered
+    }//GEN-LAST:event_tabelDataMMouseEntered
+
+    private void tbMinggu2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tbMinggu2PropertyChange
+        try {
+            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            this.tHarian3 = tbMinggu2.getDate();
+            if (tHarian3.compareTo(tHarian2) < 0) {
+                System.out.println("Tanggal akhir tidak boleh kurang dari tanggal akhir !");
+                this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                Message.showWarning(this, "Tanggal akhir tidak boleh kurang dari tanggal awal !");
+            } else {
+                //update tabel
+                this.tanggalDipilih3 = date1.format(tHarian3);
+                this.hari1 = Integer.parseInt(tanggalDipilih3.substring(8));
+                this.bulan1 = Integer.parseInt(tanggalDipilih3.substring(5, 7));
+                this.tahun1 = Integer.parseInt(tanggalDipilih3.substring(0, 4));
+                keyword = "WHERE tanggal >= '" + this.tanggalDipilih2 + "' AND tanggal <= '" + String.format("%s-%s-%s", tahun, bulan, hari + 1) + "'";
+                this.updateTabel(this.tabelDataM);
+                //update totalharga
+                this.tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "WHERE tanggal >= '" + tanggalDipilih2+ "' AND tanggal <= '" + String.format("%s-%s-%s", tahun, bulan, hari + 1) + "'")));
+                this.valTotalH.setText(tPengeluaran);
+                this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(LaporanBeli.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tbMinggu2PropertyChange
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -839,7 +1172,6 @@ public class LaporanBeli extends javax.swing.JPanel {
     private javax.swing.JLabel background;
     private javax.swing.JLabel btnDetail;
     private javax.swing.JTextField inpCari;
-    private com.toedter.calendar.JDateChooser jDateChooser3;
     private javax.swing.JScrollPane lpBulanan;
     private javax.swing.JScrollPane lpHarian;
     private javax.swing.JScrollPane lpMingguan;
@@ -848,6 +1180,7 @@ public class LaporanBeli extends javax.swing.JPanel {
     private javax.swing.JLabel pengeluaranH;
     private javax.swing.JLabel pengeluaranM;
     private javax.swing.JLabel pengeluaranS;
+    private javax.swing.JPanel pnlPieChart;
     private javax.swing.JTabbedPane tabPengeluaran;
     private javax.swing.JTable tabelDataB;
     private javax.swing.JTable tabelDataH;
@@ -856,7 +1189,13 @@ public class LaporanBeli extends javax.swing.JPanel {
     private com.toedter.calendar.JMonthChooser tbBulanan;
     private com.toedter.calendar.JDateChooser tbHarian;
     private com.toedter.calendar.JDateChooser tbMinggu1;
+    private com.toedter.calendar.JDateChooser tbMinggu2;
     private com.toedter.calendar.JYearChooser tbTahunan;
+    private javax.swing.JLabel txtAkhir;
+    private javax.swing.JLabel txtAwal;
+    private javax.swing.JLabel txtAwal2;
+    private javax.swing.JLabel txtAwal3;
+    private javax.swing.JLabel txtHari;
     private javax.swing.JLabel valHarga;
     private javax.swing.JLabel valIDKaryawan;
     private javax.swing.JLabel valIDPengeluaran;
