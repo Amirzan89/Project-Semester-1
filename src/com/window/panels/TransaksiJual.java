@@ -14,8 +14,14 @@ import com.users.Users;
 import com.window.dialogs.KonfirmasiPembayaran;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,7 +33,7 @@ public class TransaksiJual extends javax.swing.JPanel {
     private final Karyawan karyawan = new Karyawan();
     
     private final Users user = new Users();
-
+    private final String namadb = Database.DB_NAME;
     private final Barang barang = new Barang();
 
     private final com.manage.ManageTransaksiJual trj = new com.manage.ManageTransaksiJual();
@@ -53,7 +59,7 @@ public class TransaksiJual extends javax.swing.JPanel {
         this.inpID.setText("<html><p>:&nbsp;" + this.trj.createIDTransaksi() + "</p></html>");
         this.inpNamaPetugas.setText("<html><p>:&nbsp;" + this.user.getCurrentLoginName() + "</p></html>");
         this.idKaryawan = this.karyawan.getIdKaryawan(this.user.getCurrentLogin());
-
+        this.inpSaldo.setText(text.toMoneyCase(Integer.toString(getTotal("saldo", "jumlah_saldo", "WHERE id_saldo = 'S001'"))));
         this.btnBayar.setUI(new javax.swing.plaf.basic.BasicButtonUI());
         this.btnBatal.setUI(new javax.swing.plaf.basic.BasicButtonUI());
 
@@ -128,7 +134,37 @@ public class TransaksiJual extends javax.swing.JPanel {
         }
         return null;
     }
-
+    private Statement getStat() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/"+namadb, "root", "");
+            Statement stmt = con.createStatement();
+            return stmt;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    private int getTotal(String table, String kolom, String kondisi) {
+        try {
+            Statement stat = getStat();
+            int data = 0;
+            String sql = "SELECT SUM(" + kolom + ") AS total FROM " + table + " " + kondisi;
+            ResultSet res = stat.executeQuery(sql);
+            while (res.next()) {
+                data = res.getInt("total");
+            }
+            return data;
+        } catch (SQLException ex) {
+            Logger.getLogger(LaporanJual.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException n) {
+//            n.printStackTrace();
+            System.out.println("errorr ");
+            return 0;
+        }
+        return -1;
+    }
     private void addrowtotabeldetail(Object[] dataRow) {
         DefaultTableModel model = (DefaultTableModel) this.tabelData.getModel();
         model.addRow(dataRow);
@@ -184,15 +220,18 @@ public class TransaksiJual extends javax.swing.JPanel {
     }
 
     private void resetInput() {
+        this.inpIDBarang.setText("<html><p>:&nbsp;</p></html>");
         this.inpNamaBarang.setText("<html><p>:&nbsp;</p></html>");
-        this.inpJumlah.setText("1");
-        this.inpTotalHarga.setText("<html><p>:&nbsp;</p></html>");
+        this.inpHarga.setText("<html><p>:&nbsp;" + text.toMoneyCase("0") + "</p></html>");
+        this.inpJumlah.setText("0");
+        this.inpTotalHarga.setText("<html><p>:&nbsp;"+text.toMoneyCase("0")+"</p></html>");
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        inpSaldo = new javax.swing.JLabel();
         inpID = new javax.swing.JLabel();
         inpNamaPetugas = new javax.swing.JLabel();
         inpIDBarang = new javax.swing.JLabel();
@@ -217,6 +256,10 @@ public class TransaksiJual extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(957, 650));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        inpSaldo.setBackground(new java.awt.Color(222, 222, 222));
+        inpSaldo.setForeground(new java.awt.Color(255, 255, 255));
+        add(inpSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 11, 190, 36));
 
         inpID.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         inpID.setForeground(new java.awt.Color(0, 0, 0));
@@ -364,6 +407,7 @@ public class TransaksiJual extends javax.swing.JPanel {
 
         btnSimpan.setBackground(new java.awt.Color(34, 119, 237));
         btnSimpan.setForeground(new java.awt.Color(255, 255, 255));
+        btnSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/btn-tambah-075.png"))); // NOI18N
         btnSimpan.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnSimpan.setOpaque(false);
         btnSimpan.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -386,6 +430,7 @@ public class TransaksiJual extends javax.swing.JPanel {
 
         btnEdit.setBackground(new java.awt.Color(34, 119, 237));
         btnEdit.setForeground(new java.awt.Color(255, 255, 255));
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/btn-edit-075.png"))); // NOI18N
         btnEdit.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnEdit.setOpaque(false);
         btnEdit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -408,6 +453,7 @@ public class TransaksiJual extends javax.swing.JPanel {
 
         btnHapus.setBackground(new java.awt.Color(34, 119, 237));
         btnHapus.setForeground(new java.awt.Color(255, 255, 255));
+        btnHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/btn-hapus-075.png"))); // NOI18N
         btnHapus.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnHapus.setOpaque(false);
         btnHapus.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -430,6 +476,7 @@ public class TransaksiJual extends javax.swing.JPanel {
 
         btnBayar.setBackground(new java.awt.Color(34, 119, 237));
         btnBayar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBayar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/btn-bayar-075.png"))); // NOI18N
         btnBayar.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnBayar.setOpaque(false);
         btnBayar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -449,6 +496,7 @@ public class TransaksiJual extends javax.swing.JPanel {
 
         btnBatal.setBackground(new java.awt.Color(220, 41, 41));
         btnBatal.setForeground(new java.awt.Color(255, 255, 255));
+        btnBatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/btn-batal-075.png"))); // NOI18N
         btnBatal.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnBatal.setOpaque(false);
         btnBatal.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -582,27 +630,34 @@ public class TransaksiJual extends javax.swing.JPanel {
         //        String idProdukBaru = inpIDBarang.getText();
         if (inpTanggal.getText().equals("")) {
             error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             Message.showWarning(this, "Tanggal harus Di isi !");
         } else if (inpID.getText().equals("")) {
             error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             Message.showWarning(this, "ID Transaksi harus Di isi !");
         } else if (inpIDBarang.getText().equals("")) {
             error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             Message.showWarning(this, "ID Barang harus Di isi !");
         } else if (inpNamaBarang.getText().equals("")) {
             error = true;
             Message.showWarning(this, "Nama Barang harus Di isi !");
         } else if (inpJumlah.getText().equals("")) {
             error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             Message.showWarning(this, "Jumlah Barang harus Di isi !");
         } else if (inpJumlah.getText().equals("0")) {
             error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             Message.showWarning(this, "Jumlah Barang tidak boleh 0 !");
         } else if (inpHarga.getText().equals("")) {
             error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             Message.showWarning(this, "Harga Harus di isi!");
         } else if (inpTotalHarga.getText().equals("")) {
             error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             Message.showWarning(this, "Harga Total Harus di isi!");
         }
         //
@@ -621,7 +676,7 @@ public class TransaksiJual extends javax.swing.JPanel {
                 //mencari stok total harga barang dari tabel data
                 for (int i = 0; i < tabelData.getRowCount(); i++) {
                     idbarang = tabelData.getValueAt(i, 2).toString();
-                    System.out.println("id barang di baris " + (i + 1) + " : " + idbarang);
+//                    System.out.println("id barang di baris " + (i + 1) + " : " + idbarang);
                     if (this.idBarang.equals(idbarang)) {
                         cocok = true;
                         baris = i;
@@ -636,12 +691,12 @@ public class TransaksiJual extends javax.swing.JPanel {
                 //mengecek jika id barang dan id supplier ada yg sama
                 if (cocok) {
                     System.out.println("data barang sama");
-                    System.out.println("baris ke " + (baris + 1));
+//                    System.out.println("baris ke " + (baris + 1));
                     jumlahB = Integer.parseInt(inpJumlah.getText());
                     stokBaru = jumlahB + stokLama;
                     thargaBaru = text.toIntCase(inpTotalHarga.getText());
                     tharga = thargaLama + thargaBaru;
-                    System.out.println(idBarangLama);
+//                    System.out.println(idBarangLama);
 //                    System.out.println("total barang lama " + stokLama);
 //                    System.out.println("total barang sekarang " + jumlahB);
 //                    System.out.println("total barang baru " + stokBaru);
@@ -667,7 +722,7 @@ public class TransaksiJual extends javax.swing.JPanel {
                         for (int i = 0; i < tabelData.getRowCount(); i++) {
                             total += Integer.parseInt(tabelData.getValueAt(i, 6).toString());
                         }
-                        System.out.println(total);
+//                        System.out.println(total);
                         this.txtTotal.setText(text.toMoneyCase(Integer.toString(total)));
                         this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     }
@@ -690,7 +745,7 @@ public class TransaksiJual extends javax.swing.JPanel {
                             this.totalHarga
                         });
                         sisaStok = this.stok - jumlahB;
-                        System.out.println("sisa stok " + sisaStok);
+//                        System.out.println("sisa stok " + sisaStok);
                         //update total harga keseluruhan
                         modelBarang.setValueAt(sisaStok, tabelDataBarang.getSelectedRow(), 3);
                         for (int i = 0; i < tabelData.getRowCount(); i++) {
@@ -859,10 +914,10 @@ public class TransaksiJual extends javax.swing.JPanel {
                             tharga = text.toIntCase(inpTotalHarga.getText());
                             totalstok = Integer.parseInt(tabelDataBarang.getValueAt(tabelDataBarang.getSelectedRow(), 3).toString());
                             sisastok = totalstok - jumlahbarang;
-                            System.out.println("total stok " + totalstok);
-                            System.out.println("sisa stok " + sisastok);
-                            System.out.println("id barang " + idBarangtabel);
-                            System.out.println("baris barang " + barisbarang);
+//                            System.out.println("total stok " + totalstok);
+//                            System.out.println("sisa stok " + sisastok);
+//                            System.out.println("id barang " + idBarangtabel);
+//                            System.out.println("baris barang " + barisbarang);
                             if (jumlahbarang <= totalstok) {
                                 modelBarang.setValueAt(sisastok, tabelDataBarang.getSelectedRow(), 3);
                                 //update tabel data
@@ -882,6 +937,7 @@ public class TransaksiJual extends javax.swing.JPanel {
                                 txtTotal.setText(text.toMoneyCase(Integer.toString(totalkeseluruhan)));
                                 this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                             } else {
+                                this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                                 Message.showWarning(this, "Jumlah barang melebihi stok barang!");
                             }
                             break;
@@ -897,11 +953,11 @@ public class TransaksiJual extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditMouseClicked
 
     private void btnEditMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseEntered
-        // TODO add your handling code here:
+        this.btnEdit.setIcon(Gambar.getAktiveIcon(this.btnEdit.getIcon().toString()));
     }//GEN-LAST:event_btnEditMouseEntered
 
     private void btnEditMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseExited
-        // TODO add your handling code here:
+        this.btnEdit.setIcon(Gambar.getBiasaIcon(this.btnEdit.getIcon().toString()));
     }//GEN-LAST:event_btnEditMouseExited
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
@@ -913,7 +969,8 @@ public class TransaksiJual extends javax.swing.JPanel {
         DefaultTableModel modelBarang = (DefaultTableModel) tabelDataBarang.getModel();
         boolean cocok = false;
         String idbarang = "";
-        int stokdata = 0, total = 0, totalSisa = 0, sisaBarang = 0, totalkeseluruhan = text.toIntCase(txtTotal.getText());
+        int stokdata = 0, total = 0, totalSisa = 0, sisaBarang = 0, totalkeseluruhan = 0; 
+        totalkeseluruhan = text.toIntCase(txtTotal.getText());
         if (tabelData.getSelectedRow() < 0) {
             Message.showWarning(this, "Tidak ada data yang dipilih!");
         } else {
@@ -952,11 +1009,11 @@ public class TransaksiJual extends javax.swing.JPanel {
     }//GEN-LAST:event_btnHapusMouseClicked
 
     private void btnHapusMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHapusMouseEntered
-        // TODO add your handling code here:
+        this.btnHapus.setIcon(Gambar.getAktiveIcon(this.btnHapus.getIcon().toString()));
     }//GEN-LAST:event_btnHapusMouseEntered
 
     private void btnHapusMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHapusMouseExited
-        // TODO add your handling code here:
+        this.btnHapus.setIcon(Gambar.getBiasaIcon(this.btnHapus.getIcon().toString()));
     }//GEN-LAST:event_btnHapusMouseExited
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
@@ -964,11 +1021,11 @@ public class TransaksiJual extends javax.swing.JPanel {
     }//GEN-LAST:event_btnHapusActionPerformed
 
     private void btnBayarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBayarMouseEntered
-        //        this.btnBeli.setIcon(Gambar.getIcon("ic-pembayaran-pay-entered.png"));
+        this.btnBayar.setIcon(Gambar.getAktiveIcon(this.btnBayar.getIcon().toString()));
     }//GEN-LAST:event_btnBayarMouseEntered
 
     private void btnBayarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBayarMouseExited
-        //        this.btnBeli.setIcon(Gambar.getIcon("ic-pembayaran-pay.png"));
+        this.btnBayar.setIcon(Gambar.getBiasaIcon(this.btnBayar.getIcon().toString()));
     }//GEN-LAST:event_btnBayarMouseExited
 
     private void btnBayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBayarActionPerformed
@@ -1044,8 +1101,12 @@ public class TransaksiJual extends javax.swing.JPanel {
                         this.updateTabelData();
                         // mereset input
                         this.resetInput();
+                         txtTotal.setText(text.toMoneyCase("0"));
+                         //update id transaksi
                         this.idTr = this.trj.createIDTransaksi();
                         this.inpID.setText("<html><p>:&nbsp;" + this.idTr + "</p></html>");
+                        //update saldo
+                        this.inpSaldo.setText(text.toMoneyCase(Integer.toString(getTotal("saldo", "jumlah_saldo", "WHERE id_saldo = 'S001'"))));
                         break;
                     }
                     case JOptionPane.NO_OPTION: {
@@ -1072,12 +1133,12 @@ public class TransaksiJual extends javax.swing.JPanel {
 
     private void btnBatalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBatalMouseEntered
         //        this.btnBatal.setIcon(Gambar.getIcon("ic-data-hapus-entered.png"));
-        this.btnHapus.setIcon(Gambar.getAktiveIcon(this.btnHapus.getIcon().toString()));
+        this.btnBatal.setIcon(Gambar.getAktiveIcon(this.btnBatal.getIcon().toString()));
     }//GEN-LAST:event_btnBatalMouseEntered
 
     private void btnBatalMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBatalMouseExited
         //        this.btnBatal.setIcon(Gambar.getIcon("ic-data-hapus.png"));
-        this.btnHapus.setIcon(Gambar.getBiasaIcon(this.btnHapus.getIcon().toString()));
+        this.btnBatal.setIcon(Gambar.getBiasaIcon(this.btnBatal.getIcon().toString()));
     }//GEN-LAST:event_btnBatalMouseExited
 
     private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
@@ -1093,6 +1154,7 @@ public class TransaksiJual extends javax.swing.JPanel {
                 // mereset input
                 this.resetInput();
                 txtTotal.setText(text.toMoneyCase("0"));
+                this.inpSaldo.setText(text.toMoneyCase(Integer.toString(getTotal("saldo", "jumlah_saldo", "WHERE id_saldo = 'S001'"))));
                 break;
             }
         }
@@ -1135,6 +1197,7 @@ public class TransaksiJual extends javax.swing.JPanel {
     private javax.swing.JTextField inpJumlah;
     private javax.swing.JLabel inpNamaBarang;
     private javax.swing.JLabel inpNamaPetugas;
+    private javax.swing.JLabel inpSaldo;
     private javax.swing.JLabel inpTanggal;
     private javax.swing.JLabel inpTotalHarga;
     private javax.swing.JScrollPane jScrollPane2;

@@ -6,7 +6,7 @@ import com.manage.Barang;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Frame;
-
+import javax.swing.ImageIcon;
 /**
  *
  * @author Amirzan
@@ -38,16 +38,18 @@ public class InputBarang extends javax.swing.JDialog {
             // menyetting window untuk tambah data
             this.option = 1;
             this.idBarang = this.barang.createID();
-            this.setTitle("Tambah Data Barang");
-            this.lblTop.setText("Tambah Data Barang");
-            this.btnSimpan.setText("Tambah");
+            ImageIcon icon1 = new ImageIcon("src\\resources\\image\\gambar\\app-window-tambahBarang-075.png");
+            ImageIcon icon2 = new ImageIcon("src\\resources\\image\\gambar_icon\\btn-tambahB-075.png");
+            this.background.setIcon(icon1);
+            this.btnSimpan.setIcon(icon2);
         } else {
             // menyetting window untuk edit data
             this.option = 2;
             this.idBarang = idBarang;
-            this.setTitle("Edit Data Barang");
-            this.lblTop.setText("Edit Data Barang");
-            this.btnSimpan.setText("Simpan");
+            ImageIcon icon1 = new ImageIcon("src\\resources\\image\\gambar\\app-window-tambahBarang-075.png");
+            ImageIcon icon2 = new ImageIcon("src\\resources\\image\\gambar_icon\\btn-simpanB-075.png");
+            this.background.setIcon(icon1);
+            this.btnSimpan.setIcon(icon2);
 
             // mendapatkan data-data barang
             this.nama = this.barang.getNamaBarang(this.idBarang);
@@ -56,7 +58,7 @@ public class InputBarang extends javax.swing.JDialog {
             this.hargaBeli = this.barang.getHargaBeli(this.idBarang);
             this.hargaJual = this.barang.getHargaJual(this.idBarang);
             
-            // menampilkan data-data pembeli ke input text
+            // menampilkan data-data barang ke input text
             this.inpNama.setText(this.nama);
             this.inpStok.setText(this.stok);
             this.inpHargaBeli.setText(this.hargaBeli);
@@ -177,109 +179,26 @@ public class InputBarang extends javax.swing.JDialog {
     private void initComponents() {
 
         pnlMain = new javax.swing.JPanel();
-        lblTop = new javax.swing.JLabel();
-        lblId = new javax.swing.JLabel();
-        inpId = new javax.swing.JTextField();
-        lblNama = new javax.swing.JLabel();
-        inpNama = new javax.swing.JTextField();
-        lblJenis = new javax.swing.JLabel();
-        lineTop = new javax.swing.JSeparator();
-        lblHargaBeli = new javax.swing.JLabel();
-        inpHargaBeli = new javax.swing.JTextField();
-        lineBottom = new javax.swing.JSeparator();
         btnSimpan = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
+        inpId = new javax.swing.JTextField();
+        inpNama = new javax.swing.JTextField();
+        inpHargaBeli = new javax.swing.JTextField();
         inpHargaJual = new javax.swing.JTextField();
         inpStok = new javax.swing.JTextField();
-        lblJumlah = new javax.swing.JLabel();
-        lblHargaJual = new javax.swing.JLabel();
         inpJenis = new javax.swing.JComboBox();
+        background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         pnlMain.setBackground(new java.awt.Color(246, 247, 248));
-
-        lblTop.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
-        lblTop.setForeground(new java.awt.Color(222, 8, 8));
-        lblTop.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTop.setText("Tambah Data Barang");
-
-        lblId.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblId.setForeground(new java.awt.Color(28, 115, 196));
-        lblId.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblId.setText("ID Barang");
-        lblId.setMaximumSize(new java.awt.Dimension(305, 17));
-        lblId.setMinimumSize(new java.awt.Dimension(305, 17));
-        lblId.setPreferredSize(new java.awt.Dimension(305, 17));
-
-        inpId.setBackground(new java.awt.Color(211, 215, 224));
-        inpId.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        inpId.setForeground(new java.awt.Color(0, 0, 0));
-        inpId.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        inpId.setText("BG001");
-        inpId.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        inpId.setCaretColor(new java.awt.Color(230, 11, 11));
-        inpId.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        inpId.setEnabled(false);
-        inpId.setMaximumSize(new java.awt.Dimension(305, 21));
-        inpId.setMinimumSize(new java.awt.Dimension(305, 21));
-        inpId.setPreferredSize(new java.awt.Dimension(305, 21));
-        inpId.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                inpIdMouseClicked(evt);
-            }
-        });
-
-        lblNama.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblNama.setForeground(new java.awt.Color(28, 115, 196));
-        lblNama.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNama.setText("Nama Barang");
-
-        inpNama.setBackground(new java.awt.Color(255, 255, 255));
-        inpNama.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        inpNama.setForeground(new java.awt.Color(0, 0, 0));
-        inpNama.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        inpNama.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        inpNama.setCaretColor(new java.awt.Color(213, 8, 8));
-        inpNama.setMaximumSize(new java.awt.Dimension(305, 21));
-        inpNama.setMinimumSize(new java.awt.Dimension(305, 21));
-        inpNama.setPreferredSize(new java.awt.Dimension(305, 21));
-
-        lblJenis.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblJenis.setForeground(new java.awt.Color(28, 115, 196));
-        lblJenis.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblJenis.setText("Jenis Barang");
-
-        lineTop.setBackground(new java.awt.Color(0, 36, 252));
-        lineTop.setForeground(new java.awt.Color(0, 36, 252));
-
-        lblHargaBeli.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblHargaBeli.setForeground(new java.awt.Color(28, 115, 196));
-        lblHargaBeli.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblHargaBeli.setText("Harga Beli");
-
-        inpHargaBeli.setBackground(new java.awt.Color(255, 255, 255));
-        inpHargaBeli.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        inpHargaBeli.setForeground(new java.awt.Color(0, 0, 0));
-        inpHargaBeli.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        inpHargaBeli.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        inpHargaBeli.setCaretColor(new java.awt.Color(213, 8, 8));
-        inpHargaBeli.setMaximumSize(new java.awt.Dimension(305, 21));
-        inpHargaBeli.setMinimumSize(new java.awt.Dimension(305, 21));
-        inpHargaBeli.setPreferredSize(new java.awt.Dimension(305, 21));
-        inpHargaBeli.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inpHargaBeliActionPerformed(evt);
-            }
-        });
-
-        lineBottom.setBackground(new java.awt.Color(0, 36, 252));
-        lineBottom.setForeground(new java.awt.Color(0, 36, 252));
+        pnlMain.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnSimpan.setBackground(new java.awt.Color(34, 119, 237));
         btnSimpan.setForeground(new java.awt.Color(255, 255, 255));
-        btnSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/icons/ic-manipulasi-save.png"))); // NOI18N
-        btnSimpan.setText("Tambah");
+        btnSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/btn-tambahB-075.png"))); // NOI18N
+        btnSimpan.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnSimpan.setOpaque(false);
         btnSimpan.setPreferredSize(new java.awt.Dimension(130, 28));
         btnSimpan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -294,13 +213,15 @@ public class InputBarang extends javax.swing.JDialog {
                 btnSimpanActionPerformed(evt);
             }
         });
+        pnlMain.add(btnSimpan, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 160, 40));
 
         btnCancel.setBackground(new java.awt.Color(220, 41, 41));
         btnCancel.setForeground(new java.awt.Color(255, 255, 255));
-        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/icons/ic-manipulasi-cancel.png"))); // NOI18N
-        btnCancel.setText("Batal");
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/btn-batalB-075.png"))); // NOI18N
+        btnCancel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnCancel.setMaximumSize(new java.awt.Dimension(130, 28));
         btnCancel.setMinimumSize(new java.awt.Dimension(130, 28));
+        btnCancel.setOpaque(false);
         btnCancel.setPreferredSize(new java.awt.Dimension(130, 28));
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -315,12 +236,64 @@ public class InputBarang extends javax.swing.JDialog {
                 btnCancelActionPerformed(evt);
             }
         });
+        pnlMain.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 368, 160, 40));
+
+        inpId.setBackground(new java.awt.Color(211, 215, 224));
+        inpId.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        inpId.setForeground(new java.awt.Color(0, 0, 0));
+        inpId.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        inpId.setText("BG001");
+        inpId.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        inpId.setCaretColor(new java.awt.Color(230, 11, 11));
+        inpId.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        inpId.setEnabled(false);
+        inpId.setMaximumSize(new java.awt.Dimension(305, 21));
+        inpId.setMinimumSize(new java.awt.Dimension(305, 21));
+        inpId.setPreferredSize(new java.awt.Dimension(305, 21));
+        inpId.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                inpIdMouseClicked(evt);
+            }
+        });
+        pnlMain.add(inpId, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 115, 345, 46));
+
+        inpNama.setBackground(new java.awt.Color(255, 255, 255));
+        inpNama.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        inpNama.setForeground(new java.awt.Color(0, 0, 0));
+        inpNama.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        inpNama.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        inpNama.setCaretColor(new java.awt.Color(213, 8, 8));
+        inpNama.setMaximumSize(new java.awt.Dimension(305, 21));
+        inpNama.setMinimumSize(new java.awt.Dimension(305, 21));
+        inpNama.setPreferredSize(new java.awt.Dimension(305, 21));
+        inpNama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inpNamaActionPerformed(evt);
+            }
+        });
+        pnlMain.add(inpNama, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 345, 46));
+
+        inpHargaBeli.setBackground(new java.awt.Color(255, 255, 255));
+        inpHargaBeli.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        inpHargaBeli.setForeground(new java.awt.Color(0, 0, 0));
+        inpHargaBeli.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        inpHargaBeli.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        inpHargaBeli.setCaretColor(new java.awt.Color(213, 8, 8));
+        inpHargaBeli.setMaximumSize(new java.awt.Dimension(305, 21));
+        inpHargaBeli.setMinimumSize(new java.awt.Dimension(305, 21));
+        inpHargaBeli.setPreferredSize(new java.awt.Dimension(305, 21));
+        inpHargaBeli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inpHargaBeliActionPerformed(evt);
+            }
+        });
+        pnlMain.add(inpHargaBeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(674, 210, 345, 46));
 
         inpHargaJual.setBackground(new java.awt.Color(255, 255, 255));
         inpHargaJual.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         inpHargaJual.setForeground(new java.awt.Color(0, 0, 0));
         inpHargaJual.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        inpHargaJual.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        inpHargaJual.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         inpHargaJual.setCaretColor(new java.awt.Color(213, 8, 8));
         inpHargaJual.setMaximumSize(new java.awt.Dimension(305, 21));
         inpHargaJual.setMinimumSize(new java.awt.Dimension(305, 21));
@@ -330,124 +303,33 @@ public class InputBarang extends javax.swing.JDialog {
                 inpHargaJualActionPerformed(evt);
             }
         });
+        pnlMain.add(inpHargaJual, new org.netbeans.lib.awtextra.AbsoluteConstraints(674, 310, 345, 46));
 
         inpStok.setBackground(new java.awt.Color(255, 255, 255));
         inpStok.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         inpStok.setForeground(new java.awt.Color(0, 0, 0));
         inpStok.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        inpStok.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        inpStok.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         inpStok.setCaretColor(new java.awt.Color(213, 8, 8));
         inpStok.setMaximumSize(new java.awt.Dimension(305, 21));
         inpStok.setMinimumSize(new java.awt.Dimension(305, 21));
         inpStok.setPreferredSize(new java.awt.Dimension(305, 21));
-
-        lblJumlah.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblJumlah.setForeground(new java.awt.Color(28, 115, 196));
-        lblJumlah.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblJumlah.setText("Stok Barang");
-        lblJumlah.setMaximumSize(new java.awt.Dimension(305, 17));
-        lblJumlah.setMinimumSize(new java.awt.Dimension(305, 17));
-        lblJumlah.setPreferredSize(new java.awt.Dimension(305, 17));
-
-        lblHargaJual.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblHargaJual.setForeground(new java.awt.Color(28, 115, 196));
-        lblHargaJual.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblHargaJual.setText("Harga Jual");
-        lblHargaJual.setMaximumSize(new java.awt.Dimension(305, 17));
-        lblHargaJual.setMinimumSize(new java.awt.Dimension(305, 17));
-        lblHargaJual.setPreferredSize(new java.awt.Dimension(305, 17));
+        inpStok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inpStokActionPerformed(evt);
+            }
+        });
+        pnlMain.add(inpStok, new org.netbeans.lib.awtextra.AbsoluteConstraints(674, 117, 345, 46));
 
         inpJenis.setBackground(new java.awt.Color(255, 255, 255));
         inpJenis.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         inpJenis.setForeground(new java.awt.Color(0, 0, 0));
         inpJenis.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "                           Pilih Jenis", "                            Makanan", "                            Minuman", "                              Snack", "                                ATK" }));
+        inpJenis.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        pnlMain.add(inpJenis, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 309, 345, 46));
 
-        javax.swing.GroupLayout pnlMainLayout = new javax.swing.GroupLayout(pnlMain);
-        pnlMain.setLayout(pnlMainLayout);
-        pnlMainLayout.setHorizontalGroup(
-            pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblTop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(pnlMainLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlMainLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlMainLayout.createSequentialGroup()
-                                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(inpNama, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lblNama, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblHargaBeli, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(inpHargaBeli, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(pnlMainLayout.createSequentialGroup()
-                                .addComponent(inpId, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(inpStok, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlMainLayout.createSequentialGroup()
-                                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lblJenis, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(inpJenis, 0, 305, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(inpHargaJual, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblHargaJual, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(pnlMainLayout.createSequentialGroup()
-                                .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                                .addComponent(lblJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(27, 27, 27))
-                    .addGroup(pnlMainLayout.createSequentialGroup()
-                        .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lineTop, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lineBottom))
-                        .addContainerGap())
-                    .addGroup(pnlMainLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-        pnlMainLayout.setVerticalGroup(
-            pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlMainLayout.createSequentialGroup()
-                .addComponent(lblTop, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lineTop, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inpId, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inpStok, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNama)
-                    .addComponent(lblHargaBeli))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(inpHargaBeli, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inpNama, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblJenis)
-                    .addComponent(lblHargaJual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(inpHargaJual, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                    .addComponent(inpJenis))
-                .addGap(26, 26, 26)
-                .addComponent(lineBottom, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 22, Short.MAX_VALUE))
-        );
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar/app-window-tambahBarang-075.png"))); // NOI18N
+        pnlMain.add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -464,13 +346,11 @@ public class InputBarang extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSimpanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSimpanMouseEntered
-        this.btnSimpan.setBackground(this.btnSimpan.getBackground().darker());
-        this.btnSimpan.setIcon(Gambar.getIcon("ic-manipulasi-save-entered.png"));
+        this.btnSimpan.setIcon(Gambar.getAktiveIcon(this.btnSimpan.getIcon().toString()));
     }//GEN-LAST:event_btnSimpanMouseEntered
 
     private void btnSimpanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSimpanMouseExited
-        this.btnSimpan.setBackground(new Color(34,119,237));
-        this.btnSimpan.setIcon(Gambar.getIcon("ic-manipulasi-save.png"));
+        this.btnSimpan.setIcon(Gambar.getBiasaIcon(this.btnSimpan.getIcon().toString()));
     }//GEN-LAST:event_btnSimpanMouseExited
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
@@ -482,13 +362,11 @@ public class InputBarang extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnCancelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseEntered
-        this.btnCancel.setBackground(this.btnCancel.getBackground().darker());
-        this.btnCancel.setIcon(Gambar.getIcon("ic-manipulasi-cancel-entered.png"));
+        this.btnCancel.setIcon(Gambar.getAktiveIcon(this.btnCancel.getIcon().toString()));
     }//GEN-LAST:event_btnCancelMouseEntered
 
     private void btnCancelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseExited
-        this.btnCancel.setBackground(new Color(220,41,41));
-        this.btnCancel.setIcon(Gambar.getIcon("ic-manipulasi-cancel.png"));
+        this.btnCancel.setIcon(Gambar.getBiasaIcon(this.btnCancel.getIcon().toString()));
     }//GEN-LAST:event_btnCancelMouseExited
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -507,6 +385,14 @@ public class InputBarang extends javax.swing.JDialog {
     private void inpHargaBeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inpHargaBeliActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inpHargaBeliActionPerformed
+
+    private void inpNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inpNamaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inpNamaActionPerformed
+
+    private void inpStokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inpStokActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inpStokActionPerformed
 
     public static void main(String args[]) {
 
@@ -537,6 +423,7 @@ public class InputBarang extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel background;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSimpan;
     private javax.swing.JTextField inpHargaBeli;
@@ -545,15 +432,6 @@ public class InputBarang extends javax.swing.JDialog {
     private javax.swing.JComboBox inpJenis;
     private javax.swing.JTextField inpNama;
     private javax.swing.JTextField inpStok;
-    private javax.swing.JLabel lblHargaBeli;
-    private javax.swing.JLabel lblHargaJual;
-    private javax.swing.JLabel lblId;
-    private javax.swing.JLabel lblJenis;
-    private javax.swing.JLabel lblJumlah;
-    private javax.swing.JLabel lblNama;
-    private javax.swing.JLabel lblTop;
-    private javax.swing.JSeparator lineBottom;
-    private javax.swing.JSeparator lineTop;
     private javax.swing.JPanel pnlMain;
     // End of variables declaration//GEN-END:variables
 }
