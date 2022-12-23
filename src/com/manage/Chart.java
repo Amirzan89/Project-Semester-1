@@ -65,7 +65,7 @@ public class Chart {
             Statement stat = getStat();
             int data = 0;
             String sql = "SELECT SUM(" + kolom + ") AS total FROM " + table + " " + kondisi;
-            System.out.println(sql);
+//            System.out.println(sql);
             ResultSet res = stat.executeQuery(sql);
             while (res.next()) {
 //                System.out.println("data ditemukan");

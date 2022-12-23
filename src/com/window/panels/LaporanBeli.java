@@ -13,9 +13,6 @@ import com.media.Gambar;
 import com.sun.glass.events.KeyEvent;
 import com.users.Karyawan;
 import com.users.Supplier;
-import com.window.dialogs.CetakLaporan;
-import com.window.dialogs.InputBarang;
-import java.awt.BorderLayout;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
@@ -31,41 +28,11 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.event.ChangeEvent;
-import javax.swing.table.DefaultTableModel;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PiePlot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.chart.renderer.category.LineAndShapeRenderer;
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.data.statistics.HistogramDataset;
-import javax.swing.JFormattedTextField.AbstractFormatter;
-//import javax.swing.JLabel;
-//import javax.swing.JOptionPane;
-//import javax.swing.JTable;
 
 /**
  *
- * @author Gemastik Lightning
+ * @author Amirzan fikri 
  */
-class ubahTanggal extends AbstractFormatter {
-
-    @Override
-    public Object stringToValue(String text) throws ParseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String valueToString(Object value) throws ParseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-}
-
 public class LaporanBeli extends javax.swing.JPanel {
 
     private final Database db = new Database();
@@ -88,7 +55,7 @@ public class LaporanBeli extends javax.swing.JPanel {
     private final DateFormat timeMillis = new SimpleDateFormat("ss.SSS:mm:hh");
 
     private int hari, hari1, bulan, bulan1, tahun, tahun1, bulanan, tahunan;
-    private Date tHarian1, tHarian2, tHarian3;
+    private Date tHarian1, tHarian2, tHarian3,tHarian2_old,tHarian3_old;
     private final Waktu waktu = new Waktu();
     private String tPengeluaran;
     private int selectedIndex = 1, totalHrg;
@@ -100,7 +67,7 @@ public class LaporanBeli extends javax.swing.JPanel {
         tHarian2 = date1.parse(this.tanggalDipilih1);
         tHarian3 = date1.parse(this.tanggalDipilih1);
         initComponents();
-
+        //atur tanggal default
         this.tanggalDipilih2 = waktu.getCurrentDate();
         this.tanggalDipilih3 = waktu.getCurrentDate();
         this.hari = Integer.parseInt(tanggalDipilih1.substring(8));
@@ -115,12 +82,10 @@ public class LaporanBeli extends javax.swing.JPanel {
         this.tahunan = this.tahun;
         tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "")));
         valTotalS.setText(tPengeluaran);
-        //atur default tanggal 
-//        System.out.println("tanggal +"+date1.parse(this.tanggalDipilih));
         tbHarian.setDate(date1.parse(this.tanggalDipilih1));
         tbMinggu1.setDate(date1.parse(this.tanggalDipilih1));
         tbMinggu2.setDate(date1.parse(this.tanggalDipilih1));
-        //atur default tipe data tanggal
+        
         tabPengeluaran.addChangeListener(new javax.swing.event.ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
@@ -129,31 +94,90 @@ public class LaporanBeli extends javax.swing.JPanel {
                 selectedIndex = tabbedPane.getSelectedIndex() + 1;
                 switch (selectedIndex) {
                     case 1:
+                        //sembunyikan
+                        txtAwal.setVisible(false);
+                        txtAkhir.setVisible(false);
+                        tbHarian.setVisible(false);
+                        tbHarian.setEnabled(false);
+                        tbMinggu1.setVisible(false);
+                        tbMinggu1.setEnabled(false);
+                        tbMinggu2.setVisible(false);
+                        tbMinggu2.setEnabled(false);
+                        tbBulanan.setVisible(false);
+                        tbBulanan.setEnabled(false);
+                        tbTahunan.setVisible(false);
+                        tbTahunan.setEnabled(false);
+                        
                         System.out.println("Menampilkan Panel semua");
                         tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "")));
                         valTotalS.setText(tPengeluaran);
                         break;
                     case 2:
+                        //sembunyikan 
+                        txtAkhir.setVisible(false);
+                        tbMinggu1.setVisible(false);
+                        tbMinggu1.setEnabled(false);
+                        tbMinggu2.setVisible(false);
+                        tbMinggu2.setEnabled(false);
+                        tbBulanan.setVisible(false);
+                        tbBulanan.setEnabled(false);
+                        tbTahunan.setVisible(false);
+                        tbTahunan.setEnabled(false);
+                        //tampilkan
+                        txtAwal.setVisible(true);
+                        txtAwal.setText("Pilih Hari : ");
+                        tbHarian.setVisible(true);
+                        tbHarian.setEnabled(true);
+                        
                         System.out.println("Menampilkan Panel harian");
                         tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "WHERE tanggal >= '" + tanggalDipilih1 + "' AND tanggal <= '" + String.format("%s-%s-%s", tahun, bulan, hari + 1) + "'")));
                         valTotalH.setText(tPengeluaran);
                         break;
                     case 3:
+                        System.out.println("Menampilkan Panel bulanan");
+                        //sembunyikan 
+                        tbHarian.setVisible(false);
+                        tbHarian.setEnabled(false);
+                        tbMinggu1.setVisible(false);
+                        tbMinggu1.setEnabled(false);
+                        tbMinggu2.setVisible(false);
+                        tbMinggu2.setEnabled(false);
+                        //tampilkan bulanan dan tahunan
+                        txtAwal.setVisible(true);
+                        txtAwal.setText("Pilih Bulan :");
+                        txtAkhir.setVisible(true);
+                        txtAkhir.setText("Pilih Tahun :");
+                        tbBulanan.setVisible(true);
+                        tbBulanan.setEnabled(true);
+                        tbTahunan.setVisible(true);
+                        tbTahunan.setEnabled(true);
+                        tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "WHERE YEAR(tanggal) = '" + tahunan + "' AND MONTH(tanggal) = '" + bulanan + "'")));
+                        valTotalB.setText(tPengeluaran);
+                        break;
+                    case 4:
+                        //sembunyikan 
+                        tbBulanan.setVisible(false);
+                        tbBulanan.setEnabled(false);
+                        tbTahunan.setVisible(false);
+                        tbTahunan.setEnabled(false);
+                        tbHarian.setVisible(false);
+                        tbHarian.setEnabled(false);
+                        //tampilkan rentan tanggal
+                        txtAwal.setVisible(true);
+                        txtAwal.setText("Awal :");
+                        txtAkhir.setVisible(true);
+                        txtAkhir.setText("Akhir :");
+                        tbMinggu1.setVisible(true);
+                        tbMinggu1.setEnabled(true);
+                        tbMinggu2.setVisible(true);
+                        tbMinggu2.setEnabled(true);
                         System.out.println("Menampilkan Panel rentang tanggal");
                         tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "WHERE tanggal >= '" + tanggalDipilih2 + "' AND tanggal <= '" + String.format("%s-%s-%s", tahun1, bulan1, hari1 + 1) + "'")));
                         valTotalM.setText(tPengeluaran);
                         break;
-                    case 4:
-                        System.out.println("Menampilkan Panel bulanan");
-                        tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "WHERE YEAR(tanggal) = '" + tahunan + "' AND MONTH(tanggal) = '" + bulanan + "'")));
-                        valTotalB.setText(tPengeluaran);
-                        break;
                 }
-//        JOptionPane.showMessageDialog(null, "Selected Index: " + selectedIndex);
             }
         });
-//        this.btnPrint.setUI(new javax.swing.plaf.basic.BasicButtonUI());
-//        this.btnEdit.setUI(new javax.swing.plaf.basic.BasicButtonUI());
 
         this.tabelDataS.setRowHeight(29);
         this.tabelDataS.getTableHeader().setBackground(new java.awt.Color(255, 255, 255));
@@ -211,16 +235,26 @@ public class LaporanBeli extends javax.swing.JPanel {
         this.updateTabel(tabelDataS);
         //atur tanggal default tanggal harian
         this.keyword = "WHERE tanggal >= '" + tanggalDipilih1 + "' AND tanggal <= '" + String.format("%s-%s-%s", tahun, bulan, hari + 1) + "'";
-//        System.out.println("isi keyword :" + keyword);
         this.updateTabel(tabelDataH);
         //atur tanggal default tabel bulanan
         this.keyword = "WHERE YEAR(tanggal) = '" + this.tahunan + "' AND MONTH(tanggal) = '" + this.bulanan + "'";
-        System.out.println("isi keyword bulan :" + keyword);
         this.updateTabel(tabelDataB);
         //atur tanggal default tabel rentang tanggal
         this.keyword = "WHERE tanggal >= '" + this.tanggalDipilih2 + "' AND tanggal <= '" + String.format("%s-%s-%s", tahun1, bulan1, hari1 + 1) + "'";
-//        System.out.println("isi keyword :" + keyword);
         this.updateTabel(tabelDataM);
+        //sembunyikan 
+        txtAwal.setVisible(false);
+        txtAkhir.setVisible(false);
+        tbHarian.setVisible(false);
+        tbHarian.setEnabled(false);
+        tbMinggu1.setVisible(false);
+        tbMinggu1.setEnabled(false);
+        tbMinggu2.setVisible(false);
+        tbMinggu2.setEnabled(false);
+        tbBulanan.setVisible(false);
+        tbBulanan.setEnabled(false);
+        tbTahunan.setVisible(false);
+        tbTahunan.setEnabled(false);
     }
 
     private Statement getStat() {
@@ -241,11 +275,9 @@ public class LaporanBeli extends javax.swing.JPanel {
             Statement stat = getStat();
             int data = 0;
             String sql = "SELECT SUM(jumlah) AS total FROM detail_transaksi_beli WHERE id_tr_beli = '" + this.idTr + "' AND jenis_barang = '" + field + "'";
-            System.out.println(sql);
             ResultSet res = stat.executeQuery(sql);
             while (res.next()) {
                 data = res.getInt("total");
-//                System.out.println("jumlahnya "+data);
             }
             return data;
         } catch (SQLException ex) {
@@ -263,7 +295,6 @@ public class LaporanBeli extends javax.swing.JPanel {
             Statement stat = getStat();
             int data = 0;
             String sql = "SELECT SUM(" + kolom + ") AS total FROM " + table + " " + kondisi;
-//            System.out.println(sql);
             ResultSet res = stat.executeQuery(sql);
             while (res.next()) {
                 data = res.getInt("total");
@@ -284,10 +315,8 @@ public class LaporanBeli extends javax.swing.JPanel {
             Object[][] obj;
             Date tanggalData = new Date();
             int rows = 0;
-            String data[] = new String[6];
             String sql = "SELECT id_tr_beli, id_karyawan, total_hrg, tanggal FROM transaksi_beli " + keyword + " ORDER BY id_tr_beli DESC";
             obj = new Object[trb.getJumlahData("transaksi_beli", keyword)][6];
-            System.out.println(sql);
             // mengeksekusi query
             trb.res = trb.stat.executeQuery(sql);
             // mendapatkan semua data yang ada didalam tabel
@@ -359,6 +388,15 @@ public class LaporanBeli extends javax.swing.JPanel {
         valHarga = new javax.swing.JLabel();
         valTanggal = new javax.swing.JLabel();
         btnDetail = new javax.swing.JLabel();
+        txtAwal = new javax.swing.JLabel();
+        txtAkhir = new javax.swing.JLabel();
+        inpCari = new javax.swing.JTextField();
+        pnlPieChart = new javax.swing.JPanel();
+        tbMinggu2 = new com.toedter.calendar.JDateChooser();
+        tbMinggu1 = new com.toedter.calendar.JDateChooser();
+        tbBulanan = new com.toedter.calendar.JMonthChooser();
+        tbTahunan = new com.toedter.calendar.JYearChooser();
+        tbHarian = new com.toedter.calendar.JDateChooser();
         tabPengeluaran = new javax.swing.JTabbedPane();
         LPSEMUA = new javax.swing.JPanel();
         lpSemua = new javax.swing.JScrollPane();
@@ -370,28 +408,16 @@ public class LaporanBeli extends javax.swing.JPanel {
         tabelDataH = new javax.swing.JTable();
         valTotalH = new javax.swing.JLabel();
         pengeluaranH = new javax.swing.JLabel();
-        tbHarian = new com.toedter.calendar.JDateChooser();
-        txtHari = new javax.swing.JLabel();
         LPBULANAN = new javax.swing.JPanel();
         lpBulanan = new javax.swing.JScrollPane();
         tabelDataB = new javax.swing.JTable();
         valTotalB = new javax.swing.JLabel();
         pengeluaranB = new javax.swing.JLabel();
-        tbBulanan = new com.toedter.calendar.JMonthChooser();
-        tbTahunan = new com.toedter.calendar.JYearChooser();
-        txtAwal2 = new javax.swing.JLabel();
-        txtAwal3 = new javax.swing.JLabel();
         LPRentang = new javax.swing.JPanel();
-        lpMingguan = new javax.swing.JScrollPane();
+        lpRentang = new javax.swing.JScrollPane();
         tabelDataM = new javax.swing.JTable();
         valTotalM = new javax.swing.JLabel();
         pengeluaranM = new javax.swing.JLabel();
-        tbMinggu1 = new com.toedter.calendar.JDateChooser();
-        tbMinggu2 = new com.toedter.calendar.JDateChooser();
-        txtAkhir = new javax.swing.JLabel();
-        txtAwal = new javax.swing.JLabel();
-        inpCari = new javax.swing.JTextField();
-        pnlPieChart = new javax.swing.JPanel();
         background = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -443,6 +469,91 @@ public class LaporanBeli extends javax.swing.JPanel {
         });
         add(btnDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 710, -1, -1));
 
+        txtAwal.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        txtAwal.setForeground(new java.awt.Color(255, 255, 255));
+        txtAwal.setText("Awal :");
+        add(txtAwal, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 90, 40));
+
+        txtAkhir.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        txtAkhir.setForeground(new java.awt.Color(255, 255, 255));
+        txtAkhir.setText("Akhir :");
+        add(txtAkhir, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 350, -1, 40));
+
+        inpCari.setBackground(new java.awt.Color(255, 255, 255));
+        inpCari.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        inpCari.setForeground(new java.awt.Color(0, 0, 0));
+        inpCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inpCariActionPerformed(evt);
+            }
+        });
+        inpCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                inpCariKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                inpCariKeyTyped(evt);
+            }
+        });
+        add(inpCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 350, 220, -1));
+
+        pnlPieChart.setBackground(new java.awt.Color(255, 255, 255));
+        pnlPieChart.setForeground(new java.awt.Color(255, 255, 0));
+        pnlPieChart.setLayout(new java.awt.BorderLayout());
+        add(pnlPieChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, 520, 260));
+
+        tbMinggu2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tbMinggu2PropertyChange(evt);
+            }
+        });
+        add(tbMinggu2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 350, 130, 40));
+
+        tbMinggu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbMinggu1MouseClicked(evt);
+            }
+        });
+        tbMinggu1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tbMinggu1PropertyChange(evt);
+            }
+        });
+        add(tbMinggu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 350, 130, 40));
+
+        tbBulanan.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        tbBulanan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbBulananMouseClicked(evt);
+            }
+        });
+        tbBulanan.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tbBulananPropertyChange(evt);
+            }
+        });
+        add(tbBulanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 350, -1, 40));
+
+        tbTahunan.setEnabled(false);
+        tbTahunan.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tbTahunanPropertyChange(evt);
+            }
+        });
+        add(tbTahunan, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 350, 90, 40));
+
+        tbHarian.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbHarianMouseClicked(evt);
+            }
+        });
+        tbHarian.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tbHarianPropertyChange(evt);
+            }
+        });
+        add(tbHarian, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 350, 130, 40));
+
         LPSEMUA.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tabelDataS.setBackground(new java.awt.Color(255, 255, 255));
@@ -480,16 +591,16 @@ public class LaporanBeli extends javax.swing.JPanel {
         });
         lpSemua.setViewportView(tabelDataS);
 
-        LPSEMUA.add(lpSemua, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 925, 260));
+        LPSEMUA.add(lpSemua, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 925, 230));
 
         valTotalS.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valTotalS.setForeground(new java.awt.Color(0, 0, 0));
         valTotalS.setText(":");
-        LPSEMUA.add(valTotalS, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 263, 290, 36));
+        LPSEMUA.add(valTotalS, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 233, 290, 36));
 
         pengeluaranS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/laporan-pengeluaran-075.png"))); // NOI18N
         pengeluaranS.setText("lbll");
-        LPSEMUA.add(pengeluaranS, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 263, 490, -1));
+        LPSEMUA.add(pengeluaranS, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 233, 490, -1));
 
         tabPengeluaran.addTab("Semua", LPSEMUA);
 
@@ -530,32 +641,16 @@ public class LaporanBeli extends javax.swing.JPanel {
         });
         lpHarian.setViewportView(tabelDataH);
 
-        LPHARIAN.add(lpHarian, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 925, 260));
+        LPHARIAN.add(lpHarian, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 925, 230));
 
         valTotalH.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valTotalH.setForeground(new java.awt.Color(0, 0, 0));
         valTotalH.setText(":");
-        LPHARIAN.add(valTotalH, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 263, 290, 36));
+        LPHARIAN.add(valTotalH, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 233, 290, 36));
 
         pengeluaranH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/laporan-pengeluaran-075.png"))); // NOI18N
         pengeluaranH.setText("lbll");
-        LPHARIAN.add(pengeluaranH, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 263, 490, -1));
-
-        tbHarian.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbHarianMouseClicked(evt);
-            }
-        });
-        tbHarian.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                tbHarianPropertyChange(evt);
-            }
-        });
-        LPHARIAN.add(tbHarian, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 260, 130, 40));
-
-        txtHari.setFont(new java.awt.Font("Dialog", 0, 22)); // NOI18N
-        txtHari.setText("Pilih Hari :");
-        LPHARIAN.add(txtHari, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 260, 110, 40));
+        LPHARIAN.add(pengeluaranH, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 233, 490, -1));
 
         tabPengeluaran.addTab("Harian", LPHARIAN);
 
@@ -596,44 +691,16 @@ public class LaporanBeli extends javax.swing.JPanel {
         });
         lpBulanan.setViewportView(tabelDataB);
 
-        LPBULANAN.add(lpBulanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 925, 260));
+        LPBULANAN.add(lpBulanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 925, 230));
 
         valTotalB.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valTotalB.setForeground(new java.awt.Color(0, 0, 0));
         valTotalB.setText(":");
-        LPBULANAN.add(valTotalB, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 263, 290, 36));
+        LPBULANAN.add(valTotalB, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 233, 290, 36));
 
         pengeluaranB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/laporan-pengeluaran-075.png"))); // NOI18N
         pengeluaranB.setText("lbll");
-        LPBULANAN.add(pengeluaranB, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 263, 490, -1));
-
-        tbBulanan.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        tbBulanan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbBulananMouseClicked(evt);
-            }
-        });
-        tbBulanan.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                tbBulananPropertyChange(evt);
-            }
-        });
-        LPBULANAN.add(tbBulanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, -1, 40));
-
-        tbTahunan.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                tbTahunanPropertyChange(evt);
-            }
-        });
-        LPBULANAN.add(tbTahunan, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, 90, 40));
-
-        txtAwal2.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
-        txtAwal2.setText("Pilih Tahun :");
-        LPBULANAN.add(txtAwal2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 110, 40));
-
-        txtAwal3.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
-        txtAwal3.setText("Pilih Bulan :");
-        LPBULANAN.add(txtAwal3, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 260, 105, 40));
+        LPBULANAN.add(pengeluaranB, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 233, 490, -1));
 
         tabPengeluaran.addTab("Bulanan", LPBULANAN);
 
@@ -675,72 +742,22 @@ public class LaporanBeli extends javax.swing.JPanel {
                 tabelDataMKeyPressed(evt);
             }
         });
-        lpMingguan.setViewportView(tabelDataM);
+        lpRentang.setViewportView(tabelDataM);
 
-        LPRentang.add(lpMingguan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 925, 260));
+        LPRentang.add(lpRentang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 925, 230));
 
         valTotalM.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valTotalM.setForeground(new java.awt.Color(0, 0, 0));
         valTotalM.setText(":");
-        LPRentang.add(valTotalM, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 263, 290, 36));
+        LPRentang.add(valTotalM, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 233, 290, 36));
 
         pengeluaranM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/laporan-pengeluaran-075.png"))); // NOI18N
         pengeluaranM.setText("lbll");
-        LPRentang.add(pengeluaranM, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 263, 490, -1));
-
-        tbMinggu1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbMinggu1MouseClicked(evt);
-            }
-        });
-        tbMinggu1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                tbMinggu1PropertyChange(evt);
-            }
-        });
-        LPRentang.add(tbMinggu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 130, 40));
-
-        tbMinggu2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                tbMinggu2PropertyChange(evt);
-            }
-        });
-        LPRentang.add(tbMinggu2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 260, 130, 40));
-
-        txtAkhir.setFont(new java.awt.Font("Dialog", 0, 22)); // NOI18N
-        txtAkhir.setText("Akhir :");
-        LPRentang.add(txtAkhir, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 60, 40));
-
-        txtAwal.setFont(new java.awt.Font("Dialog", 0, 22)); // NOI18N
-        txtAwal.setText("Awal :");
-        LPRentang.add(txtAwal, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 260, 60, 40));
+        LPRentang.add(pengeluaranM, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 233, 490, -1));
 
         tabPengeluaran.addTab("Rentang Tanggal", LPRentang);
 
-        add(tabPengeluaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 930, 330));
-
-        inpCari.setBackground(new java.awt.Color(255, 255, 255));
-        inpCari.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        inpCari.setForeground(new java.awt.Color(0, 0, 0));
-        inpCari.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inpCariActionPerformed(evt);
-            }
-        });
-        inpCari.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                inpCariKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                inpCariKeyTyped(evt);
-            }
-        });
-        add(inpCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 350, 220, -1));
-
-        pnlPieChart.setBackground(new java.awt.Color(255, 255, 255));
-        pnlPieChart.setForeground(new java.awt.Color(255, 255, 0));
-        pnlPieChart.setLayout(new java.awt.BorderLayout());
-        add(pnlPieChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, 520, 260));
+        add(tabPengeluaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 930, 300));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar/app-laporan-pengeluaran-075.png"))); // NOI18N
         background.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -765,10 +782,10 @@ public class LaporanBeli extends javax.swing.JPanel {
                     tabel = this.tabelDataH;
                     break;
                 case 3:
-                    tabel = this.tabelDataM;
+                    tabel = this.tabelDataB;
                     break;
                 case 4:
-                    tabel = this.tabelDataB;
+                    tabel = this.tabelDataM;
                     break;
             }
             this.updateTabel(tabel);
@@ -795,10 +812,10 @@ public class LaporanBeli extends javax.swing.JPanel {
                     tabel = this.tabelDataH;
                     break;
                 case 3:
-                    tabel = this.tabelDataM;
+                    tabel = this.tabelDataB;
                     break;
                 case 4:
-                    tabel = this.tabelDataB;
+                    tabel = this.tabelDataM;
                     break;
             }
             this.updateTabel(tabel);
@@ -972,10 +989,6 @@ public class LaporanBeli extends javax.swing.JPanel {
             int pMinuman = getJenis("MINUMAN");
             int pSnack = getJenis("SNACK");
             int pAtk = getJenis("ATK");
-            System.out.println("makanan " + pMakanan);
-            System.out.println("minuman " + pMinuman);
-            System.out.println("snack " + pSnack);
-            System.out.println("atk " + pAtk);
             this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         } catch (ParseException ex) {
@@ -1019,7 +1032,7 @@ public class LaporanBeli extends javax.swing.JPanel {
                     }
                     break;
                 case 3:
-                    if (this.tabelDataM.getSelectedRow() < 0) {
+                    if (this.tabelDataB.getSelectedRow() < 0) {
                         System.out.println("Tidak ada data yang dipilih !");
                         erorr = true;
                         this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -1027,7 +1040,7 @@ public class LaporanBeli extends javax.swing.JPanel {
                     }
                     break;
                 case 4:
-                    if (this.tabelDataB.getSelectedRow() < 0) {
+                    if (this.tabelDataM.getSelectedRow() < 0) {
                         System.out.println("Tidak ada data yang dipilih !");
                         erorr = true;
                         this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -1083,7 +1096,6 @@ public class LaporanBeli extends javax.swing.JPanel {
             //update tabel
             this.bulanan = tbBulanan.getMonth() + 1;
             this.keyword = "WHERE YEAR(tanggal) = '" + this.tahunan + "' AND MONTH(tanggal) = '" + this.bulanan + "'";
-            System.out.println("query bulanan "+keyword);
             updateTabel(this.tabelDataB);
             //update totalharga
             this.tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "WHERE YEAR(tanggal) = '" + tahunan + "' AND MONTH(tanggal) = '" + bulanan + "'")));
@@ -1100,7 +1112,6 @@ public class LaporanBeli extends javax.swing.JPanel {
             //update tabel
             this.tahunan = tbTahunan.getYear();
             this.keyword = "WHERE YEAR(tanggal) = '" + this.tahunan + "' AND MONTH(tanggal) = '" + this.bulanan + "'";
-            System.out.println("query tahunan "+keyword);
             updateTabel(this.tabelDataB);
             //update totalharga
             this.tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "WHERE YEAR(tanggal) = '" + tahunan + "' AND MONTH(tanggal) = '" + bulanan + "'")));
@@ -1118,15 +1129,19 @@ public class LaporanBeli extends javax.swing.JPanel {
             if (tHarian2.compareTo(tHarian3) > 0) {
                 System.out.println("Tanggal awal tidak boleh lebih dari tanggal akhir !");
                 this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                this.tanggalDipilih2 = date1.format(tHarian2_old);
+                tbMinggu1.setDate(date1.parse(this.tanggalDipilih2));
                 Message.showWarning(this, "Tanggal awal tidak boleh lebih dari tanggal akhir !");
             } else {
-                this.tanggalDipilih2 = date1.format(tHarian2);
+                //update waktu lama
+                tHarian2_old = tHarian2;
                 //update tabel
+                this.tanggalDipilih2 = date1.format(tHarian2);
                 keyword = "WHERE tanggal >= '" + this.tanggalDipilih2 + "' AND tanggal <= '" + String.format("%s-%s-%s", tahun1, bulan1, hari1 + 1) + "'";
                 this.updateTabel(this.tabelDataM);
                 //update totalharga
                 this.tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "WHERE tanggal >= '" + tanggalDipilih2 + "' AND tanggal <= '" + String.format("%s-%s-%s", tahun1, bulan1, hari1 + 1) + "'")));
-                this.valTotalH.setText(tPengeluaran);
+                this.valTotalM.setText(tPengeluaran);
                 this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
         } catch (ParseException ex) {
@@ -1144,18 +1159,22 @@ public class LaporanBeli extends javax.swing.JPanel {
             if (tHarian3.compareTo(tHarian2) < 0) {
                 System.out.println("Tanggal akhir tidak boleh kurang dari tanggal akhir !");
                 this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                this.tanggalDipilih3 = date1.format(tHarian3_old);
+                tbMinggu2.setDate(date1.parse(this.tanggalDipilih3));
                 Message.showWarning(this, "Tanggal akhir tidak boleh kurang dari tanggal awal !");
             } else {
+                //update waktu lama
+                this.tHarian3_old = tHarian3;
                 //update tabel
                 this.tanggalDipilih3 = date1.format(tHarian3);
                 this.hari1 = Integer.parseInt(tanggalDipilih3.substring(8));
                 this.bulan1 = Integer.parseInt(tanggalDipilih3.substring(5, 7));
                 this.tahun1 = Integer.parseInt(tanggalDipilih3.substring(0, 4));
-                keyword = "WHERE tanggal >= '" + this.tanggalDipilih2 + "' AND tanggal <= '" + String.format("%s-%s-%s", tahun, bulan, hari + 1) + "'";
+                keyword = "WHERE tanggal >= '" + this.tanggalDipilih2 + "' AND tanggal <= '" + String.format("%s-%s-%s", tahun1, bulan1, hari1 + 1) + "'";
                 this.updateTabel(this.tabelDataM);
                 //update totalharga
-                this.tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "WHERE tanggal >= '" + tanggalDipilih2+ "' AND tanggal <= '" + String.format("%s-%s-%s", tahun, bulan, hari + 1) + "'")));
-                this.valTotalH.setText(tPengeluaran);
+                this.tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "WHERE tanggal >= '" + tanggalDipilih2 + "' AND tanggal <= '" + String.format("%s-%s-%s", tahun1, bulan1, hari1 + 1) + "'")));
+                this.valTotalM.setText(tPengeluaran);
                 this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
         } catch (ParseException ex) {
@@ -1174,7 +1193,7 @@ public class LaporanBeli extends javax.swing.JPanel {
     private javax.swing.JTextField inpCari;
     private javax.swing.JScrollPane lpBulanan;
     private javax.swing.JScrollPane lpHarian;
-    private javax.swing.JScrollPane lpMingguan;
+    private javax.swing.JScrollPane lpRentang;
     private javax.swing.JScrollPane lpSemua;
     private javax.swing.JLabel pengeluaranB;
     private javax.swing.JLabel pengeluaranH;
@@ -1193,9 +1212,6 @@ public class LaporanBeli extends javax.swing.JPanel {
     private com.toedter.calendar.JYearChooser tbTahunan;
     private javax.swing.JLabel txtAkhir;
     private javax.swing.JLabel txtAwal;
-    private javax.swing.JLabel txtAwal2;
-    private javax.swing.JLabel txtAwal3;
-    private javax.swing.JLabel txtHari;
     private javax.swing.JLabel valHarga;
     private javax.swing.JLabel valIDKaryawan;
     private javax.swing.JLabel valIDPengeluaran;
