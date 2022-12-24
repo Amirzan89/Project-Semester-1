@@ -2,7 +2,14 @@ package com.data.app;
 
 import com.error.StorageNotFoundException;
 import com.manage.Waktu;
+import com.users.Users;
+import com.window.MainWindow;
+import com.window.frames.LoginWindow;
+import com.window.frames.SplashWindow;
 import com.window.frames.WelcomeApp;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 /**
@@ -14,16 +21,16 @@ import javax.swing.ImageIcon;
  * @since 2021-04-25
  */
 public final class Application {
-    
+    private static Users user;
     /**
      * Informasi-informasi mengenai aplikasi.
      */
     private static final String VERSION = "1.0.0",
-                                APP_NAME = "Simple Buy",
-                                AUTHOR = "Gemastik Team Lightning",
+                                APP_NAME = "Buku Bu Hermin",
+                                AUTHOR = "Kelompok A3",
                                 COMPANY = "Politeknik Negeri Jember",
-                                APP_ICON = "src\\resources\\image\\icons\\app-logo.png";
-//                                APP_ICON = "src\\resources\\image\\gambar-icon\\app-logo.png";
+                                APP_ICON_old = "src\\resources\\image\\icons\\app-logo.png",
+                                APP_ICON = "src\\resources\\image\\icons\\app-icon.png";
     /**
      * Method ini digunakan untuk membuka aplikasi. Sebelum membuka aplikasi method akan membuat sebuah log baru dengan menggunakan 
      * method {@code createLog()} yang ada didalam class {@code Log}. Setelah log berhasil dibuat maka selanjutnya method akan 
@@ -66,14 +73,33 @@ public final class Application {
                 new Storage().recoverStorage();
                 throw new StorageNotFoundException("Fatal Error : \n\nData Aplikasi Anda telah Corrupt!\nKlik 'OK' dan buka kembali Aplikasi untuk memulihkan Data Aplikasi!!");
             }
+            user = new Users();
+                        // mengecek user sudah login atau belum
+                        if(user.isLogin()){
+                        java.awt.EventQueue.invokeLater(new Runnable(){
+                            @Override
+                            public void run(){
+                                new SplashWindow().setVisible(true);
+                            }
+                        });
+                        }else{
+                            // membuka window login jika user belum melakukan login
+                            java.awt.EventQueue.invokeLater(new Runnable(){
+                                
+                                @Override
+                                public void run(){
+                                    new LoginWindow().setVisible(true);
+                                }
+                            });
+                        }
             // membuka splash window
-            java.awt.EventQueue.invokeLater(new Runnable(){
-
-                @Override
-                public void run(){
-                    new com.window.frames.SplashWindow().setVisible(true);
-                }
-            });
+//            java.awt.EventQueue.invokeLater(new Runnable(){
+//
+//                @Override
+//                public void run(){
+//                    new com.window.frames.SplashWindow().setVisible(true);
+//                }
+//            });
         }
     }
     
@@ -163,6 +189,9 @@ public final class Application {
      * 
      * @return window icon dari aplikasi.
      */
+    public static ImageIcon getWindowIcon_old(){
+        return new ImageIcon(APP_ICON_old);
+    }       
     public static ImageIcon getWindowIcon(){
         return new ImageIcon(APP_ICON);
     }       

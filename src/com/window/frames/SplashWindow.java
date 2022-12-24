@@ -6,7 +6,8 @@ import com.data.db.Database;
 import com.media.Gambar;
 import com.users.Users;
 import com.window.MainWindow;
-import com.window.MainWindowMe;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,14 +23,13 @@ public class SplashWindow extends javax.swing.JFrame {
 
     private final Database db = new Database();
     
-    private Users user;
+    private Users user = new Users();
     
     public SplashWindow() {
         initComponents();
         
         this.lblTop.setText(Application.getNama());
-        this.lblLogoApp.setIcon(Gambar.scaleImage(new java.io.File("src\\resources\\image\\icons\\app-logo.png"), 160, 160));
-//        this.lblLogoApp.setIcon(Gambar.scaleImage(new java.io.File("src\\resources\\image\\gambar-icon\\app-logo.png"), 160, 160));
+        this.lblLogoApp.setIcon(Gambar.scaleImage(new java.io.File("src\\resources\\image\\icons\\app-icon.png"), 160, 160));
         this.setLocationRelativeTo(null);
         this.setIconImage(Gambar.getWindowIcon());
         
@@ -100,49 +100,49 @@ public class SplashWindow extends javax.swing.JFrame {
                     
                     // jika proses loading sudah selesai
                     if(val >= 99){
-                        user = new Users();
-                        // mengecek user sudah login atau belum
-                        if(user.isLogin()){
                         java.awt.EventQueue.invokeLater(new Runnable(){
                             @Override
                             public void run(){
                                 try {
-                                    new MainWindowMe().setVisible(true);
+                                    new MainWindow().setVisible(true);
                                 } catch (ParseException ex) {
                                     Logger.getLogger(SplashWindow.class.getName()).log(Level.SEVERE, null, ex);
                                 }
                             }
                         });
-                            // jika user login dengan level admin atau petugas
-//                            if(user.isAdmin() || user.isPetugas()){
-//                                // membuka window DashboardPetugas
-//                                java.awt.EventQueue.invokeLater(new Runnable(){
-//                                    @Override
-//                                    public void run(){
-//                                        new com.window.petugas.DashboardPetugas().setVisible(true);
-//                                    }
-//                                });
+//                        user = new Users();
+                        // mengecek user sudah login atau belum
+//                        if(user.isLogin()){
+//                        java.awt.EventQueue.invokeLater(new Runnable(){
+//                            @Override
+//                            public void run(){
+//                                try {
+//                                    new MainWindow().setVisible(true);
+//                                } catch (ParseException ex) {
+//                                    Logger.getLogger(SplashWindow.class.getName()).log(Level.SEVERE, null, ex);
+//                                }
 //                            }
-//                            // jika user login login dengan level siswa
-//                            else if(user.isSiswa()){
-//                                // membuka window DashboardSiswa
-//                                java.awt.EventQueue.invokeLater(new Runnable(){
-//                                    @Override
-//                                    public void run(){
-//                                        new com.window.siswa.DashboardSiswa().setVisible(true);
-//                                    }
-//                                });
-//                            }
-                        }else{
-                            // membuka window login jika user belum melakukan login
-                            java.awt.EventQueue.invokeLater(new Runnable(){
-                                
-                                @Override
-                                public void run(){
-                                    new LoginWindow().setVisible(true);
-                                }
-                            });
-                        }
+//                        });
+//                            // jika user login dengan level admin atau petugas
+////                            if(user.isAdmin() || user.isPetugas()){
+////                                // membuka window DashboardPetugas
+////                                java.awt.EventQueue.invokeLater(new Runnable(){
+////                                    @Override
+////                                    public void run(){
+////                                        new com.window.petugas.DashboardPetugas().setVisible(true);
+////                                    }
+////                                });
+////                            }
+//                        }else{
+//                            // membuka window login jika user belum melakukan login
+//                            java.awt.EventQueue.invokeLater(new Runnable(){
+//                                
+//                                @Override
+//                                public void run(){
+//                                    new LoginWindow().setVisible(true);
+//                                }
+//                            });
+//                        }
                     }
                     // menutup window
                     user.closeConnection();
@@ -178,10 +178,10 @@ public class SplashWindow extends javax.swing.JFrame {
         lblTop.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         lblTop.setForeground(new java.awt.Color(10, 223, 121));
         lblTop.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTop.setText("Simple Buy");
+        lblTop.setText("Buku Bu Hermin");
 
         lblLogoApp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblLogoApp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/icons/ic-splashwindow-logosmkn1kts.png"))); // NOI18N
+        lblLogoApp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/icons/app-splashwindow.png"))); // NOI18N
 
         lblLoadVal.setForeground(new java.awt.Color(255, 255, 255));
         lblLoadVal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);

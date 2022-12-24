@@ -21,12 +21,16 @@ import javax.swing.JOptionPane;
  */
 public class Gambar {
     
+    private static final ImageIcon icWindow_old = Application.getWindowIcon_old();
     private static final ImageIcon icWindow = Application.getWindowIcon();
     
     private static final String DIREKTORY_ICONS = "src\\resources\\image\\icons\\";
     private static final String DIREKTORY_ICON = "src\\resources\\image\\gambar_icon\\";
     private static final String ukuran = "075";
     
+    public static Image getWindowIcon_old(){
+        return icWindow_old.getImage();
+    }
     public static Image getWindowIcon(){
         return icWindow.getImage();
     }

@@ -278,7 +278,7 @@ public class DataBarang extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(tabelData);
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, 510, 580));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, 505, 580));
 
         btnAdd.setBackground(new java.awt.Color(41, 180, 50));
         btnAdd.setForeground(new java.awt.Color(255, 255, 255));
@@ -458,12 +458,10 @@ public class DataBarang extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDelActionPerformed
 
     private void btnDelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDelMouseExited
-//        this.btnDel.setIcon(Gambar.getIcon("ic-data-hapus.png"));
         this.btnDel.setIcon(Gambar.getBiasaIcon(this.btnDel.getIcon().toString()));
     }//GEN-LAST:event_btnDelMouseExited
 
     private void btnDelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDelMouseEntered
-//        this.btnDel.setIcon(Gambar.getIcon("ic-data-hapus-entered.png"));
         this.btnDel.setIcon(Gambar.getAktiveIcon(this.btnDel.getIcon().toString()));
     }//GEN-LAST:event_btnDelMouseEntered
 
@@ -490,14 +488,13 @@ public class DataBarang extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnAddMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseExited
-//        this.btnAdd.setIcon(Gambar.getIcon("ic-data-tambah.png"));
         this.btnAdd.setIcon(Gambar.getBiasaIcon(this.btnAdd.getIcon().toString()));
     }//GEN-LAST:event_btnAddMouseExited
 
     private void btnAddMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseEntered
         this.btnAdd.setIcon(Gambar.getAktiveIcon(this.btnAdd.getIcon().toString()));
     }//GEN-LAST:event_btnAddMouseEntered
-//UPDATE pembukuan.barang1 SET nama_barang = 'susu' WHERE id_barang = 'BG002'
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
     private javax.swing.JButton btnAdd;

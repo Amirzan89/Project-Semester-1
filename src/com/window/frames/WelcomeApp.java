@@ -21,7 +21,7 @@ public class WelcomeApp extends javax.swing.JFrame {
         this.lblNamaAplikasi.setText(Application.getNama());
         this.lblVersi.setText("Versi " + Application.getVersi());
         this.lblCopyright.setText(Application.getRightReserved());
-        this.lblIconSekolah.setIcon(Gambar.scaleImage(new java.io.File("src\\resources\\image\\icons\\app-logo.png"), 180, 180));
+//        this.lblIconSekolah.setIcon(Gambar.scaleImage(new java.io.File("src\\resources\\image\\gambar-icon\\app-icon.png"), 180, 180));
         
         // mengatur iu button
         this.btnLanjut.setUI(new javax.swing.plaf.basic.BasicButtonUI());
@@ -77,21 +77,21 @@ public class WelcomeApp extends javax.swing.JFrame {
         lblNamaAplikasi.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblNamaAplikasi.setForeground(new java.awt.Color(10, 223, 121));
         lblNamaAplikasi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNamaAplikasi.setText("Simple Buy");
+        lblNamaAplikasi.setText("Buku Bu Hermin");
 
         lblIconSekolah.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblIconSekolah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/icons/ic-app-splashwindow.png"))); // NOI18N
+        lblIconSekolah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/icons/app-splashwindow.png"))); // NOI18N
 
         lblAppDes.setFont(new java.awt.Font("Dialog", 1, 27)); // NOI18N
         lblAppDes.setForeground(new java.awt.Color(226, 39, 39));
         lblAppDes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblAppDes.setText("Aplikasi Manajemen Bisnis");
+        lblAppDes.setText("Aplikasi Manajamen Bisnis");
 
         lblVersi.setForeground(new java.awt.Color(222, 226, 253));
         lblVersi.setText("Versi 1.0.0");
 
         lblCopyright.setForeground(new java.awt.Color(222, 226, 253));
-        lblCopyright.setText("Copyright © 2021. Gemastik. All Rights Reserved.");
+        lblCopyright.setText("Copyright © 2022. A3 Team. All Rights Reserved.");
 
         javax.swing.GroupLayout pnlMainLayout = new javax.swing.GroupLayout(pnlMain);
         pnlMain.setLayout(pnlMainLayout);

@@ -76,13 +76,13 @@ public class Validation {
         return false;
     }
     
-    public static boolean isIdPetugas(String idKaryawan){
+    public static boolean isIdKaryawan(String idKaryawan){
         if(Validation.isIdUser(idKaryawan)){
-            if(idKaryawan.substring(0, 2).equalsIgnoreCase("PG")){
+            if(idKaryawan.substring(0, 2).equalsIgnoreCase("KY")){
                 return true;
             }else{
                 Audio.play(Audio.SOUND_WARNING);
-                JOptionPane.showMessageDialog(null, "'" + idKaryawan + "' Kode ID Petugas tersebut tidak valid!", "Pesan", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "'" + idKaryawan + "' Kode ID karyawan tersebut tidak valid!", "Pesan", JOptionPane.WARNING_MESSAGE);
             }
         }
         return false;

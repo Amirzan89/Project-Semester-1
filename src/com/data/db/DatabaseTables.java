@@ -6,11 +6,12 @@ package com.data.db;
  * @author Achmad Baihaqi
  * @since 2021-06-14
  */
+
 public enum DatabaseTables {
     
     USERS,
     KARYAWAN,
-    PEMBELI,
+    SUPPLIER,
     BARANG,
     TRANSAKSI_JUAL,
     TRANSAKSI_BELI,

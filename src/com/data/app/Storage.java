@@ -256,7 +256,7 @@ public final class Storage {
      */
     public void createSettingDir(){
         fm.createFolders(this.getSettingDir());
-        fm.createFile(this.getSettingDir()+"Settings.haqi");
+        fm.createFile(this.getSettingDir()+"Settings.rizan");
     }
     
     /**
@@ -278,7 +278,7 @@ public final class Storage {
      */
     public boolean isExistSettingDir(){
         return new File(this.getSettingDir()).exists() &&
-               new File(this.getSettingDir()+"Settings.haqi").exists();
+               new File(this.getSettingDir()+"Settings.rizan").exists();
     }
     
     /**
@@ -290,7 +290,7 @@ public final class Storage {
      */
     public void createUsersDir(){
         fm.createFolders(this.getUsersDir()+"login_data");
-        fm.createFile(this.getUsersDir()+"login_data.haqi");
+        fm.createFile(this.getUsersDir()+"login_data.rizan");
     }
     
     /**
@@ -312,7 +312,7 @@ public final class Storage {
      */
     public boolean isExistUsersDir(){
 //        return new File(this.getUsersDir()).exists() &&
-        return new File(this.getUsersDir()+"login_data.haqi").exists();
+        return new File(this.getUsersDir()+"login_data.rizan").exists();
     }
     
     

@@ -33,11 +33,12 @@ public class InputBarang extends javax.swing.JDialog {
     public InputBarang(Frame parent, boolean modal, String idBarang) {
         super(parent, modal);
         initComponents();
-        
+        this.setIconImage(Gambar.getWindowIcon());
         if(idBarang == null){
             // menyetting window untuk tambah data
             this.option = 1;
             this.idBarang = this.barang.createID();
+            this.setTitle("Tambah Barang");
             ImageIcon icon1 = new ImageIcon("src\\resources\\image\\gambar\\app-window-tambahBarang-075.png");
             ImageIcon icon2 = new ImageIcon("src\\resources\\image\\gambar_icon\\btn-tambahB-075.png");
             this.background.setIcon(icon1);
@@ -46,7 +47,8 @@ public class InputBarang extends javax.swing.JDialog {
             // menyetting window untuk edit data
             this.option = 2;
             this.idBarang = idBarang;
-            ImageIcon icon1 = new ImageIcon("src\\resources\\image\\gambar\\app-window-tambahBarang-075.png");
+            this.setTitle("Ubah Barang");
+            ImageIcon icon1 = new ImageIcon("src\\resources\\image\\gambar\\app-window-editBarang-075.png");
             ImageIcon icon2 = new ImageIcon("src\\resources\\image\\gambar_icon\\btn-simpanB-075.png");
             this.background.setIcon(icon1);
             this.btnSimpan.setIcon(icon2);
@@ -213,7 +215,7 @@ public class InputBarang extends javax.swing.JDialog {
                 btnSimpanActionPerformed(evt);
             }
         });
-        pnlMain.add(btnSimpan, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 160, 40));
+        pnlMain.add(btnSimpan, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 370, 160, 40));
 
         btnCancel.setBackground(new java.awt.Color(220, 41, 41));
         btnCancel.setForeground(new java.awt.Color(255, 255, 255));
@@ -236,7 +238,7 @@ public class InputBarang extends javax.swing.JDialog {
                 btnCancelActionPerformed(evt);
             }
         });
-        pnlMain.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 368, 160, 40));
+        pnlMain.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(239, 370, 160, 40));
 
         inpId.setBackground(new java.awt.Color(211, 215, 224));
         inpId.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N

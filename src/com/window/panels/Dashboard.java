@@ -25,23 +25,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PiePlot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.chart.renderer.category.LineAndShapeRenderer;
-import org.jfree.chart.title.TextTitle;
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.data.statistics.HistogramDataset;
 
 /**
  *
@@ -76,6 +61,7 @@ public class Dashboard extends javax.swing.JPanel {
     private Object[] obj;
     public Dashboard() throws ParseException {
         initComponents();
+        db.startConnection();
         updateTabel();
         this.hari = waktu.getTanggal();
         this.bulan = waktu.getBulan() + 1;
@@ -113,13 +99,12 @@ public class Dashboard extends javax.swing.JPanel {
 
     private int getJenis(String field) {
         try {
-            Statement stat = getStat();
             int data = 0;
             String sql = "SELECT SUM(jumlah) AS total FROM transaksi_jual INNER JOIN detail_transaksi_jual ON transaksi_jual.id_tr_jual = detail_transaksi_jual.id_tr_jual WHERE jenis_barang = '"+field+"' AND YEAR(tanggal) = '" + this.tahun + "' AND MONTH(tanggal) = '" + this.bulan + "'";
 //            System.out.println(sql);
-            ResultSet res = stat.executeQuery(sql);
-            while (res.next()) {
-                data = res.getInt("total");
+            db.res = db.stat.executeQuery(sql);
+            while (db.res.next()) {
+                data = db.res.getInt("total");
             }
             return data;
         } catch (SQLException ex) {
@@ -132,34 +117,13 @@ public class Dashboard extends javax.swing.JPanel {
         return -1;
     }
 
-    private Statement getStat() {
-        String namadb = Database.DB_NAME;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/" + namadb, "root", "");
-            Statement stmt = con.createStatement();
-
-//            ResultSet rs=stmt.executeQuery("show databases;");  
-//            System.out.println("Connected");  
-            return stmt;
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return null;
-    }
-
     private int getTotal(String table, String kolom, String kondisi) {
         try {
-            Statement stat = getStat();
             int data = 0;
             String sql = "SELECT SUM(" + kolom + ") AS total FROM " + table + " " + kondisi;
-//            System.out.println(sql);
-            ResultSet res = stat.executeQuery(sql);
-            while (res.next()) {
-//                System.out.println("data ditemukan");
-                data = res.getInt("total");
-//                System.out.println("jumlahnya "+data);
+            db.res = db.stat.executeQuery(sql);
+            while (db.res.next()) {
+                data = db.res.getInt("total");
             }
             return data;
         } catch (SQLException ex) {
@@ -174,12 +138,10 @@ public class Dashboard extends javax.swing.JPanel {
 
     public int getJumlahData(String tabel, String kondisi) {
         try {
-            Statement stat = getStat();
             String query = "SELECT COUNT(*) AS total FROM " + tabel + " " + kondisi;
-//            System.out.println(query);
-            ResultSet res = stat.executeQuery(query);
-            if (res.next()) {
-                return res.getInt("total");
+            db.res = db.stat.executeQuery(query);
+            if (db.res.next()) {
+                return db.res.getInt("total");
             }
         } catch (SQLException ex) {
             Message.showException(this, "Terjadi Kesalahan!\n\nError message : " + ex.getMessage(), ex, true);
@@ -190,7 +152,58 @@ public class Dashboard extends javax.swing.JPanel {
         }
         return -1;
     }
+    private void showMain() {
+        String tanggal = waktu.getCurrentDate();
+        String tSaldo = text.toMoneyCase(Integer.toString(getTotal("saldo", "jumlah_saldo", "WHERE id_saldo = 'S001'")));
+        String tPemasukan = text.toMoneyCase(Integer.toString(getTotal("transaksi_jual", "keuntungan", "WHERE YEAR(tanggal) = '" + tahun + "' AND MONTH(tanggal) = '" + bulan + "'")));
+        String tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "WHERE YEAR(tanggal) = '" + tahun + "' AND MONTH(tanggal) = '" + bulan + "'")));
+        String tPembeli = Integer.toString(getJumlahData("transaksi_jual", "WHERE YEAR(tanggal) = '" + tahun + "' AND MONTH(tanggal) = '" + bulan + "'"));
+        lblSaldo.setText(tSaldo);
+        lblPemasukan.setText(tPemasukan);
+        lblPengeluaran.setText(tPengeluaran);
+        lblPembeli.setText(tPembeli);
+    }
 
+    private void updateTabel() throws ParseException {
+        try {
+            DefaultTableModel tabelModel = (DefaultTableModel) tabelData.getModel();
+            Date tanggalData = null;
+            Date tanggalData1 = null;
+            int hari1 = 0, bulan1 = -1, tahun1 = 0;
+            String kolom[] = {"No", "Id transaksi ", "Total Harga", "Jenis Transaksi", "Tanggal", "Waktu"}, waktu, tanggalPenuh, total, jenis, data[] = new String[6];
+            TableModel model;
+            String sql = "SELECT id_tr_beli AS id,total_hrg AS total, tanggal FROM transaksi_beli UNION SELECT id_tr_jual,total_hrg,tanggal FROM transaksi_jual ORDER BY tanggal DESC";
+            db.res = db.stat.executeQuery(sql);
+            int nomor = 1;
+            while (db.res.next()) {
+                data[0] = Integer.toString(nomor);
+                nomor++;
+                jenis = db.res.getString("id");
+                data[1] = jenis;
+                total = db.res.getString("total");
+                if (jenis.substring(0, 3).equals("TRJ")) {
+                    data[2] = text.toMoneyCase(total);
+                    data[3] = "Penjualan";
+                } else if (jenis.substring(0, 3).equals("TRB")) {
+                    data[2] = text.toMoneyCase("-" + total);
+                    data[3] = "Pembelian";
+                }
+                tanggalData = tanggalMilis.parse(db.res.getString("tanggal"));
+                tanggalPenuh = date.format(tanggalData);
+                hari1 = Integer.parseInt(tanggalPenuh.substring(0,2));
+                bulan1 = Integer.parseInt(tanggalPenuh.substring(3, 5));
+                tahun1 = Integer.parseInt(tanggalPenuh.substring(6));
+                data[4] = hari1 +"-"+ this.waktu.getNamaBulan(bulan1-1)+"-"+tahun1;
+                waktu = time12.format(tanggalData);
+                tanggalData1 = time12.parse(waktu);
+                data[5] = time.format(tanggalData1);
+                tabelModel.addRow(data);
+            }
+            tabelData.setModel(tabelModel);
+        } catch (SQLException ex) {
+            Message.showException(this, "Terjadi kesalahan saat mengambil data dari database\n" + ex.getMessage(), ex, true);
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -294,127 +307,6 @@ public class Dashboard extends javax.swing.JPanel {
     private void tabelDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataMouseClicked
         //
     }//GEN-LAST:event_tabelDataMouseClicked
-    private void showMain() {
-        String tanggal = waktu.getCurrentDate();
-        System.out.println("tanggal " + tanggal);
-        String tSaldo = text.toMoneyCase(Integer.toString(getTotal("saldo", "jumlah_saldo", "WHERE id_saldo = 'S001'")));
-        String tPemasukan = text.toMoneyCase(Integer.toString(getTotal("transaksi_jual", "keuntungan", "WHERE YEAR(tanggal) = '" + tahun + "' AND MONTH(tanggal) = '" + bulan + "'")));
-        String tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "WHERE YEAR(tanggal) = '" + tahun + "' AND MONTH(tanggal) = '" + bulan + "'")));
-        String tPembeli = Integer.toString(getJumlahData("transaksi_jual", "WHERE YEAR(tanggal) = '" + tahun + "' AND MONTH(tanggal) = '" + bulan + "'"));
-        lblSaldo.setText(tSaldo);
-        lblPemasukan.setText(tPemasukan);
-        lblPengeluaran.setText(tPengeluaran);
-        lblPembeli.setText(tPembeli);
-//        System.out.println("saldo "+tSaldo);
-//        System.out.println("pemasukan "+tPemasukan);
-//        System.out.println("pengeluaran "+tPengeluaran);
-//        System.out.println("pembeli "+tPembeli);
-    }
-
-    private void updateTabel() throws ParseException {
-        try {
-            DefaultTableModel tabelModel = (DefaultTableModel) tabelData.getModel();
-//            TableColumnModel model1 = tabelData.getColumnModel();
-//            model1.getColumn(0).setMinWidth(35);
-//            model1.getColumn(0).setMaxWidth(35);
-//            model1.getColumn(3).setMinWidth(100);
-//            model1.getColumn(3).setMaxWidth(100);
-//            model1.getColumn(4).setMinWidth(80);
-//            model1.getColumn(4).setMaxWidth(80);
-//            model1.getColumn(5).setMinWidth(80);
-//            model1.getColumn(5).setMaxWidth(80);
-//            tabelData.setColumnModel(model1);
-            Date tanggalData = null;
-            Date tanggalData1 = null;
-            String kolom[] = {"No", "Id transaksi ", "Total Harga", "Jenis Transaksi", "Tanggal", "Waktu"}, waktu, tanggalPenuh, total, jenis, data[] = new String[6];
-            TableModel model;
-//            model.
-            Statement stat = getStat();
-            String sql = "SELECT id_tr_beli AS id,total_hrg AS total, tanggal FROM transaksi_beli UNION SELECT id_tr_jual,total_hrg,tanggal FROM transaksi_jual ORDER BY tanggal DESC";
-            System.out.println(sql);
-            ResultSet res = stat.executeQuery(sql);
-            int nomor = 1;
-            while (res.next()) {
-//                System.out.println("data ditemukan");
-                data[0] = Integer.toString(nomor);
-                nomor++;
-                jenis = res.getString("id");
-                data[1] = jenis;
-//                System.out.println("data ke 1 : " + data[1]);
-                total = res.getString("total");
-//                System.out.println("data ke 2 : " + data[2]);
-//                System.out.println("data ke 3 : " + jenis);
-                if (jenis.substring(0, 3).equals("TRJ")) {
-                    data[2] = text.toMoneyCase(total);
-                    data[3] = "Penjualan";
-                } else if (jenis.substring(0, 3).equals("TRB")) {
-                    data[2] = text.toMoneyCase("-" + total);
-                    data[3] = "Pembelian";
-                }
-                tanggalData = tanggalMilis.parse(res.getString("tanggal"));
-//                System.out.println("tanggal nya " + tanggalData);
-                data[4] = date.format(tanggalData);
-//                System.out.println("data ke 4 : " + data[4]);
-                waktu = time12.format(tanggalData);
-                tanggalData1 = time12.parse(waktu);
-                data[5] = time.format(tanggalData1);
-//                System.out.println("data ke 5 : " + data[5]);
-                tabelModel.addRow(data);
-            }
-            tabelData.setModel(tabelModel);
-        } catch (SQLException ex) {
-            Message.showException(this, "Terjadi kesalahan saat mengambil data dari database\n" + ex.getMessage(), ex, true);
-        }
-    }
-
-
-//    public void showLineChart() throws ParseException {
-//        //create dataset for the graph
-//        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-//        String m1h1, m1h2,m2h1,m2h2,m3h1,m3h2,m4h1,m4h2,m5h1,m5h2,m6h1,m6h2;
-//        if (obj.length == 4) {
-//            
-//            
-//            int minggu1 = getTotal("transaksi_jual", "total_hrg", "WHERE (tanggal BETWEEN '')");
-//            int minggu2 = getTotal("transaksi_jual", "total_hrg", "WHERE (tanggal BETWEEN '')");
-//            int minggu3 = getTotal("transaksi_jual", "total_hrg", "WHERE (tanggal BETWEEN '')");
-//            int minggu4 = getTotal("transaksi_jual", "total_hrg", "WHERE (tanggal BETWEEN '')");
-//
-//            dataset.addValue(minggu1, "Amount", "Minggu 1");
-//            dataset.addValue(minggu2, "Amount", "Minggu 2");
-//            dataset.addValue(minggu3, "Amount", "Minggu 3");
-//            dataset.addValue(minggu4, "Amount", "Minggu 4");
-//        }
-//
-//        dataset.addValue(170, "Amount", "Minggu 1");
-//        dataset.addValue(150, "Amount", "Minggu 2");
-//        dataset.addValue(80, "Amount", "Minggu 3");
-//        dataset.addValue(50, "Amount", "Minggu 4");
-//        dataset.addValue(120, "Amount", "Minggu 5");
-//
-//        //create chart
-//        JFreeChart linechart = ChartFactory.createLineChart("", "", "",
-//                dataset, PlotOrientation.VERTICAL, false, true, false);
-////        linechart.setTitle(new TextTitle("Penjualan Produk Minggu Ini", new java.awt.Font("Ebrima", 1, 21)));
-//
-//        //create plot object
-//        CategoryPlot lineCategoryPlot = linechart.getCategoryPlot();
-//        lineCategoryPlot.setRangeGridlinePaint(Color.BLUE);
-//        lineCategoryPlot.setBackgroundPaint(Color.WHITE);
-//
-//        //create render object to change the moficy the line properties like color
-//        LineAndShapeRenderer lineRenderer = (LineAndShapeRenderer) lineCategoryPlot.getRenderer();
-//        Color lineChartColor = new Color(255, 2, 9);
-//        lineRenderer.setSeriesPaint(0, lineChartColor);
-//        
-//        //create chartPanel to display chart(graph)
-//        ChartPanel lineChartPanel = new ChartPanel(linechart);
-//        pnlLineChart.removeAll();
-//        pnlLineChart.add(lineChartPanel, BorderLayout.CENTER);
-//        pnlLineChart.validate();
-//    }
-
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;

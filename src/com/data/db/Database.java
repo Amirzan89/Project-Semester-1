@@ -250,7 +250,7 @@ public class Database {
     public Object[][] getData(final String tabel, final String[] fields){
         return this.getData(tabel, fields, "");
     }
-    
+    //jika ubah data yg sama dengan kondisi contoh ubah idbarang dengan kondisi idbarang
     public boolean setData(String tabel, String field, String oldValue, String newValue){
         return this.setData(tabel, field, field, oldValue, newValue);
     }
