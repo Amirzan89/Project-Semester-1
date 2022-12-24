@@ -66,25 +66,24 @@ import java.util.logging.Logger;
  * <i>ADMIN</i> dan <i>PETUGAS</i> akan disimpan pada tabel karyawan. Semetara data dari user yang memiliki level 
  * siswa akan disimpan pada tabel <i>SISWA</i>.
  * 
- * @author Achmad Baihaqi
+ * @author Achmad Bairizan
  * @since 2021-06-11
  */
 public class Users extends Database{
     private Date date;
-//    private final Karyawan karyawan = new Karyawan();
     private final Hashing_Algorithm hash = new Hashing_Algorithm();
     private final Text txt = new Text();
     
     /**
      * Direktori dari file yang digunakan untuk menyimpan data dari akun yang sedang digunakan untuk login.
      */
-    private final String LOGIN_DATA_FILE = new Storage().getUsersDir() + "login_data.haqi";
+    private final String LOGIN_DATA_FILE = new Storage().getUsersDir() + "login_data.rizan";
 
     /**
      * Merupakan satu-satunya constructor yang ada didalam class {@code Users}. Saat constructor dipanggil saat pembuatan 
      * object constructor akan secara otomatis memanggil method {@code startConnection()} yang ada didalam class 
      * {@code Database} untuk membuat koneksi ke <b>Database MySQL</b>. Setelah membuat koneksi ke <b>Database MySQL</b>
-     * constructor akan mengecek apakah folder user storage dari aplikasi, file login_data.haqi dan user storage dari 
+     * constructor akan mengecek apakah folder user storage dari aplikasi, file login_data.rizan dan user storage dari 
      * user yang sedang login apakah exist atau tidak. 
      * <br><br>
      * Jika ada salah satu dari folder atau file tersebut yang tidak exist maka folder dan file tersebut akan dibuat. 
@@ -158,20 +157,21 @@ public class Users extends Database{
         }
         return false;
     }
-    public final boolean addUser(String idUser, String pass1, UserLevels level) throws SQLException, InValidUserDataException{
-        Log.addLog("Menambahkan user baru dengan ID User '" + idUser + "' dengan level " + level.name());
+    public final boolean addUser(String username, String password, UserLevels level,String idKaryawan) throws SQLException, InValidUserDataException{
+        Log.addLog("Menambahkan user baru dengan username '" + username + "' dengan level " + level.name());
 //        String pass = hash.getHashSalt(pass1);
         PreparedStatement pst;
         // mengecek apakah data yang akan ditambahkan valid atau tidak
-        if(this.validateAddUser(idUser, pass1, level)){
+        if(this.validateAddUser(username, password, level)){
             try {
-                Log.addLog("Data dari '" + idUser + "' dinyatakan valid.");
-                String hashing = hash.hash(pass1, 15);
+                Log.addLog("Data dari '" + username + "' dinyatakan valid.");
+                String hashing = hash.hash(password, 15);
                 // menambahkan data kedalam Database
-                pst = this.conn.prepareStatement("INSERT INTO users VALUES (?, ?, ?)");
-                pst.setString(1, idUser);
+                pst = this.conn.prepareStatement("INSERT INTO users VALUES (?, ?, ?, ?)");
+                pst.setString(1, username);
                 pst.setString(2, hashing);
                 pst.setString(3, level.name());
+                pst.setString(4, idKaryawan);
                 
                 // mengekusi query
                 return pst.executeUpdate() > 0;
@@ -229,19 +229,19 @@ public class Users extends Database{
         return vIdUser && vPassword && vLevel;
     }
     
-    private boolean validateAddUser(String idUser, String pass, UserLevels level){
+    private boolean validateAddUser(String username, String pass, UserLevels level){
 
         boolean vIdUser, vPassword, vLevel;
 
         // mengecek apakah id user valid atau tidak
-        if(Validation.isIdUser(idUser)){
-            if(!this.isExistUser(idUser)){
+        if(Validation.isIdUser(username)){
+            if(!this.isExistUser(username)){
                 vIdUser = true;
             }else{
-                throw new InValidUserDataException("'" + idUser + "' ID User tersebut sudah terpakai.");
+                throw new InValidUserDataException("'" + username + "' ID User tersebut sudah terpakai.");
             }
         }else{
-            throw new InValidUserDataException("'" + idUser + "' ID User tersebut tidak valid.");
+            throw new InValidUserDataException("'" + username + "' ID User tersebut tidak valid.");
         }
 
         // mengecek apakah password valid atau tidak
@@ -267,14 +267,37 @@ public class Users extends Database{
      * {@code deleteData()} yang ada didalam class {@code Database}. Method akan mengembalikan nilai 
      * <code>True</code> jika akun dari user berhasil dihapus.
      * 
-     * @param idUser id dari user yang ingin dihapus.
+     * @param username id dari user yang ingin dihapus.
      * 
      * @return <strong>True</strong> jika akun dari user berhasil dihapus. <br>
      *         <strong>Fale</strong> jiak akun dari user tidak berhasil dihapus.
      */
-    public final boolean deleteUser(String idUser){
-        Log.addLog("Menghapus akun dengan ID User '" + idUser + "'.");
-        return this.deleteData(DatabaseTables.USERS.name(), UserData.USERNAME.name(), idUser);
+    public final boolean deleteUser(String username){
+        Log.addLog("Menghapus akun dengan username '" + username + "'.");
+        return this.deleteData(DatabaseTables.USERS.name(), UserData.USERNAME.name(), username);
+    }
+    public final boolean deleteUserNew(String id){
+        Log.addLog("Menghapus akun dengan username '" + id + "'.");
+        return this.deleteData(DatabaseTables.SUPPLIER.name(), UserData.ID_SUPPLIER.name(), id);
+    }
+    
+    public boolean validateSetPassword(String idUser, String password) throws AuthenticationException, Exception{
+        String leveluser = getLevel(idUser).name();
+        // mengecek apakah id user valid atau tidak
+        if(!Validation.isIdUser(idUser)){
+            throw new AuthenticationException("'" +idUser + "' Username tersebut tidak valid.");
+        }else if(!this.isExistUser(idUser)){
+            throw new AuthenticationException("'" +idUser + "' Username tersebut tidak dapat ditemukan.");
+        }else if(!(leveluser.equals("ADMIN") || leveluser.equals("KARYAWAN"))){
+            throw new AuthenticationException("'" +idUser + "' Username Bukan Admin atau Karyawan.");
+        // mengecek apakah password valid atau tidak
+        }else if(!Validation.isPassword(password)){
+            throw new AuthenticationException("Password lama yang anda masukan tidak valid.");
+        }else if(!hash.checkpw(password,this.getPassword(idUser))){
+            throw new AuthenticationException("Password lama yang anda masukan tidak cocok.");
+        }else{
+            return true;
+        }
     }
     
     /**
@@ -300,7 +323,9 @@ public class Users extends Database{
         }            
         return false;
     }
-    
+    public String getIdKaryawan(String username){
+        return super.getData(DatabaseTables.USERS.name(), "id_karyawan", "WHERE username = '" + username+"'");
+    }
     /**
      * Method ini digunakan untuk melakukan Login pada Aplikasi. User dapat melakukan Login pada Aplikasi cukup 
      * dengan menginputkan ID User beserta passwordnya. Pertama-tama method akan mengecek apakah user sudah 
@@ -310,7 +335,7 @@ public class Users extends Database{
      * <br><br>
      * Jika ID User dan passwordya valid maka method akan membuat sebuah ID Login baru. Setelah membuat ID Login
      * method akan juga membuat login data baru bedasarkan ID User yang diinputkan dan ID Login yang baru saja dibuat.
-     * Setelah login data dibuat method akan menyimpan login data tersebut kedalam file login_data.haqi yang 
+     * Setelah login data dibuat method akan menyimpan login data tersebut kedalam file login_data.rizan yang 
      * ada didalam folder Storage dengan menggunakan class {@code BufferedWriter}. 
      * <br><br>
      * Jika login data sudah berhasil disimpan kedalam file maka selanjutnya mehtod akan membuat sebuah object 
@@ -325,7 +350,7 @@ public class Users extends Database{
      * @return <strong>True</strong> jika login berhasil dilakukan. <br>
      *         <strong>False</strong> jika login tidak berhasil dilakukan.
      * 
-     * @throws IOException jika terjadi kesalahan saat memanipulasi file login_data.haqi.
+     * @throws IOException jika terjadi kesalahan saat memanipulasi file login_data.rizan.
      * @throws AuthenticationException jika user sudah melakukan login.
      * @throws SQLException jika terjadi kesalahan pada <b>Database</b>.
      */
@@ -333,7 +358,7 @@ public class Users extends Database{
         
         // mengecek apakah idUser dan password valid atau tidak
         if(this.validateLogin(username, password)){
-            Log.addLog("Melakukan Login dengan username : '" + username + "' dan dengan ID karyawan : '"+ username +"'");
+            Log.addLog("Melakukan Login dengan username : '" + username + "' dan dengan ID karyawan : '"+ this.getIdKaryawan(username) +"'");
             
             // menyimpan login data kedalam file
             BufferedWriter save = new BufferedWriter(new FileWriter(this.LOGIN_DATA_FILE));
@@ -368,8 +393,8 @@ public class Users extends Database{
     
     /**
      * Method ini digunakan untuk mendapatkan data akun yang sedang digunakan untuk login (login data) 
-     * pada Aplikasi. Login data disimpan pada file <code>login_data.haqi</code> yang ada didalam folder 
-     * Storage. Method membaca data yang ada didalam file <code>login_data.haqi</code> dengan melalui 
+     * pada Aplikasi. Login data disimpan pada file <code>login_data.rizan</code> yang ada didalam folder 
+     * Storage. Method membaca data yang ada didalam file <code>login_data.rizan</code> dengan melalui 
      * class {@code BufferedReader}. 
      * <br><br>
      * <br><br>
@@ -378,7 +403,7 @@ public class Users extends Database{
      * @return akan mengembalikan data akun yang sedang digunakan untuk login (login data).
      */
     private String getLoginData(){        
-        // membaca semua data yang ada didalam file login_data.haqi
+        // membaca semua data yang ada didalam file login_data.rizan
         try(BufferedReader data = new BufferedReader(new FileReader(this.LOGIN_DATA_FILE))){
             // mengembalikan nilai loginData
             return data.readLine();
@@ -517,27 +542,6 @@ public class Users extends Database{
         return null;
     }
     
-    public String createIDnew(String level,String primary){
-        String lastID = this.getLastIDnew(level, primary), nomor;
-        
-        if(lastID != null){
-            nomor = lastID.substring(2);
-        }else{
-            nomor = "000";
-        }
-        
-        // mengecek nilai dari nomor adalah number atau tidak
-        if(txt.isNumber(nomor)){
-            // jika id user belum exist maka id akan 
-            switch(level){
-//                case "KARYAWAN" : return String.format("PG%03d", Integer.parseInt(nomor)+1); // level admin dan karyawan
-                case "SUPPLIER" : return String.format("SP%03d", Integer.parseInt(nomor)+1);
-                case "PEMBELI" : return String.format("PB%03d", Integer.parseInt(nomor)+1);
-                default : System.out.println("Error!");
-            }
-        }
-        return null;
-    }
     public String createID(UserLevels level, UserData primary){
         String lastID = this.getLastID(level, primary), nomor;
         
@@ -551,7 +555,7 @@ public class Users extends Database{
         if(txt.isNumber(nomor)){
             // jika id user belum exist maka id akan 
             switch(level.name()){
-                case "KARYAWAN" : return String.format("PG%03d", Integer.parseInt(nomor)+1); // level admin dan karyawan
+                case "KARYAWAN" : return String.format("KY%03d", Integer.parseInt(nomor)+1); // level admin dan karyawan
 //                case "SUPPLIER" : return String.format("SP%03d", Integer.parseInt(nomor)+1);
 //                case "PEMBELI" : return String.format("PB%03d", Integer.parseInt(nomor)+1);
                 default : System.out.println("Error!");
@@ -561,54 +565,79 @@ public class Users extends Database{
     }
     
     /**
-     * Method ini akan mengembalikan data dari user berdasarkan ID User yang diinputkan. Pertama-tama method 
-     * akan mengecek apakah ID User exist atau tidak. Jika ID User tidak exist maka akan menghasilkan exception 
-     * {@code InValidUserDataException}. Tetapi jika ID User exist maka data dari user akan didapatkan dengan 
+     * Method ini akan mengembalikan data dari user berdasarkan Username yang diinputkan. Pertama-tama method 
+     * akan mengecek apakah ID User exist atau tidak. Jika Username tidak exist maka akan menghasilkan exception 
+     * {@code InValidUserDataException}. Tetapi jika Username exist maka data dari user akan didapatkan dengan 
      * melalui method {@code getData()} yang ada didalam class {@code Database}.
      * 
-     * @param idUser id user yang ingin didapatkan datanya
+     * @param Username Username yang ingin didapatkan datanya
      * @param level level dari user (tabelnya apa)
      * @param data data yang akan diambil
      * @param primary primary key dari tabel
      * @return data dari user
      */
-    protected String getUserData(String idUser, UserLevels level, UserData data, UserData primary){
+    protected String getUserData(String Username, UserLevels level, UserData data, UserData primary){
         // mengecek apakah username tersedia atau tidak
-        if(this.isExistUser(idUser)){
+        if(this.isExistUser(Username)){
             // mendapatkan data dari user
-            return this.getData(level.name(), data.name(), " WHERE "+ primary.name() +" = '" + idUser +"'");
+            return this.getData(level.name(), data.name(), " WHERE "+ primary.name() +" = '" + Username +"'");
         }
         // akan menghasilkan error jika id user tidak ditemukan
 //        Message.showWarning(new LoginWindow(), "Username tersebut tidak dapat ditemukan !");
-        throw new InValidUserDataException("'" +idUser + "' Username tersebut tidak dapat ditemukan.");   
+        throw new InValidUserDataException("'" +Username + "' Username tersebut tidak dapat ditemukan.");   
     }
-    protected String getUserData1(String idUser, UserLevels level, UserData data, UserData primary){
+    /**
+     * Method ini akan mengembalikan data dari user berdasarkan idKaryawan yang diinputkan. Pertama-tama method 
+     * akan mengecek apakah ID User exist atau tidak. Jika idKaryawan tidak exist maka akan menghasilkan exception 
+     * {@code InValidUserDataException}. Tetapi jika idKaryawan exist maka data dari user akan didapatkan dengan 
+     * melalui method {@code getData()} yang ada didalam class {@code Database}.
+     * 
+     * @param idKaryawan idKaryawan yang ingin didapatkan datanya
+     * @param level level dari user (tabelnya apa)
+     * @param data data yang akan diambil
+     * @param primary primary key dari tabel
+     * @return data dari user
+     */
+    protected String getUserData1(String idKaryawan, UserLevels level, UserData data, UserData primary){
         // mengecek apakah id karyawan tersedia atau tidak
-        if(this.isExistUser1(idUser)){
+        if(this.isExistUser1(idKaryawan)){
             // mendapatkan data dari user
-            return this.getData(level.name(), data.name(), " WHERE "+ primary.name() +" = '" + idUser +"'");
+            return this.getData(level.name(), data.name(), " WHERE "+ primary.name() +" = '" + idKaryawan +"'");
         }
         // akan menghasilkan error jika id user tidak ditemukan
 //        Message.showWarning(new LoginWindow(), "Username tersebut tidak dapat ditemukan !");
-        throw new InValidUserDataException("'" +idUser + "' ID User tersebut tidak dapat ditemukan.");   
+        throw new InValidUserDataException("'" +idKaryawan + "' ID Karyawan tersebut tidak dapat ditemukan.");   
     }
     
     /**
-     * Method ini akan mengembalikan data dari user berdasarkan ID User yang diinputkan. Pertama-tama method 
-     * akan mengecek apakah ID User exist atau tidak. Jika ID User tidak exist maka akan menghasilkan exception 
-     * {@code InValidUserDataException}. Tetapi jika ID User exist maka data dari user akan didapatkan dengan 
+     * Method ini akan mengembalikan data dari user berdasarkan username yang diinputkan. Pertama-tama method 
+     * akan mengecek apakah ID User exist atau tidak. Jika username tidak exist maka akan menghasilkan exception 
+     * {@code InValidUserDataException}. Tetapi jika username exist maka data dari user akan didapatkan dengan 
      * melalui method {@code getData()} yang ada didalam class {@code Database}.
      * 
-     * @param idUser ID User yang ingin diambil datanya.
+     * @param Username username yang ingin diambil datanya.
      * @param data data yang ingin diambil.
      * @return akan mengembalikan data dari user berdasarkan ID User yang diinputkan.
      */
-    public String getUserData(String idUser, UserData data){
-        return this.getUserData(idUser, UserLevels.USERS, data, UserData.USERNAME);         
+    public String getUserData(String Username, UserData data){
+        return this.getUserData(Username, UserLevels.USERS, data, UserData.USERNAME);         
+    }
+    /**
+     * Method ini akan mengembalikan data dari user berdasarkan ID karyawan yang diinputkan. Pertama-tama method 
+     * akan mengecek apakah ID User exist atau tidak. Jika ID karyawan tidak exist maka akan menghasilkan exception 
+     * {@code InValidUserDataException}. Tetapi jika ID User exist maka data dari user akan didapatkan dengan 
+     * melalui method {@code getData()} yang ada didalam class {@code Database}.
+     * 
+     * @param idKaryawan username yang ingin diambil datanya.
+     * @param data data yang ingin diambil.
+     * @return akan mengembalikan data dari user berdasarkan ID User yang diinputkan.
+     */
+    public String getUserData1(String idKaryawan, UserData data){
+        return this.getUserData1(idKaryawan, UserLevels.USERS, data, UserData.ID_KARYAWAN);         
     }
     
     protected boolean setUserData(String idUser, UserLevels level, UserData data, UserData primary, String newValue){
-        Log.addLog("Mengedit data '" + data.name().toLowerCase() + "' dari akun dengan ID User '" + idUser + "'.");
+        Log.addLog("Mengedit data '" + data.name().toLowerCase() + "' dari akun dengan username '" + idUser + "'.");
         // mengecek apakah id user exist atau tidak
         if(this.isExistUser(idUser)){
             // mengedit data dari user
@@ -618,7 +647,7 @@ public class Users extends Database{
         throw new InValidUserDataException("'" +idUser + "' ID User tersebut tidak dapat ditemukan.");
     }
     protected boolean setUserDatanew(String idUser, String level, String data, String primary, String newValue){
-        Log.addLog("Mengedit data '" + data.toLowerCase() + "' dari akun dengan ID User '" + idUser + "'.");
+        Log.addLog("Mengedit data '" + data.toLowerCase() + "' dari akun dengan username '" + idUser + "'.");
         // mengecek apakah id user exist atau tidak
         if(this.isExistUser(idUser)){
             // mengedit data dari user
@@ -642,15 +671,15 @@ public class Users extends Database{
      * @return <strong>True</strong> jika data berhasil diedit. <br>
      *         <strong>False</strong> jika data tidak berhasil diedit.
      */
-    public boolean setUserData(String idUser, UserData data, String newValue){
-        Log.addLog("Mengedit data '" + data.name().toLowerCase() + "' dari akun dengan ID User '" + idUser + "'.");
+    public boolean setUserData(String username, UserData data, String newValue){
+        Log.addLog("Mengedit data '" + data.name().toLowerCase() + "' dari akun dengan username '" + username + "'.");
         // mengecek apakah id user exist atau tidak
-        if(this.isExistUser(idUser)){
+        if(this.isExistUser(username)){
             // mengedit data dari user
-            return this.setData(DatabaseTables.USERS.name(), data.name(), UserData.USERNAME.name(), idUser, newValue);
+            return this.setData(DatabaseTables.USERS.name(), data.name(), UserData.USERNAME.name(), username, newValue);
         }
         // akan menghasilkan error jika id user tidak ditemukan
-        throw new InValidUserDataException("'" +idUser + "' ID User tersebut tidak dapat ditemukan.");
+        throw new InValidUserDataException("'" +username + "' username tersebut tidak dapat ditemukan.");
     }
     
     /**
@@ -675,18 +704,18 @@ public class Users extends Database{
      * Tetapi jika Password valid maka data Password dari user akan diedit. Jika data dari Password berhasil 
      * diedit maka method akan mengembalikan nilai <code>True</code>.
      * 
-     * @param idUser ID User yang ingin diedit datanya.
+     * @param username ID User yang ingin diedit datanya.
      * @param newPassword data Password yang baru.
      * 
      * @return <strong>True</strong> jika data berhasil diedit. <br>
      *         <strong>False</strong> jika data tidak berhasil diedit.
      */
-    public boolean setPassword(String idUser, String newPassword){
+    public boolean setPassword(String username, String newPassword){
         // mengecek apakah password valid atau tidak
         if(Validation.isPassword(newPassword)){
             // mengedit password dari user
             String hashing = hash.hash(newPassword, 15);
-            return this.setUserData(idUser, UserData.PASSWORD, hashing);
+            return this.setUserData(username, UserData.PASSWORD, hashing);
         }
         // akan menghasilkan error jika password tidak valid
         throw new InValidUserDataException("'" + newPassword + "' Password tersebut tidak valid.");
@@ -712,11 +741,23 @@ public class Users extends Database{
      * tidak terdaftar didalam <b>Database</b> maka method akan menghasilkan exception {@code InValidUserDataException}. 
      * Method hanya akan mendapatkan data Level dari user jika ID User yang diinputkan terdaftar didalam <b>Database</b>.
      * 
-     * @param idUser ID User yang ingin didapatkan datanya.
+     * @param username username yang ingin didapatkan datanya.
      * @return data Level dari ID User yang diinputkan.
      */
-    public UserLevels getLevel(String idUser){
-        return UserLevels.valueOf(this.getUserData(idUser, UserData.LEVEL));
+    public UserLevels getLevel(String username){
+        return UserLevels.valueOf(this.getUserData(username, UserData.LEVEL));
+    }
+    /**
+     * Method ini digunakan untuk mendapatkan data Level dari user berdasarkan ID User yang diinputkan. 
+     * ID User yang diinputkan harus sudah terdaftar didalam <b>Database</b>. Jika ID User yang diinputkan ternyata 
+     * tidak terdaftar didalam <b>Database</b> maka method akan menghasilkan exception {@code InValidUserDataException}. 
+     * Method hanya akan mendapatkan data Level dari user jika ID User yang diinputkan terdaftar didalam <b>Database</b>.
+     * 
+     * @param idKaryawan ID karyawan yang ingin didapatkan datanya.
+     * @return data Level dari ID User yang diinputkan.
+     */
+    public UserLevels getLevel1(String idKaryawan){
+        return UserLevels.valueOf(this.getUserData1(idKaryawan, UserData.LEVEL));
     }
     
     /**
@@ -755,12 +796,15 @@ public class Users extends Database{
      * Method akan mendapatkan data Level dari ID User dengan menggunakan method {@code getLevel()}. Jika output 
      * dari method tersebut adalah <b>ADMIN</b> maka method akan mengembalikan nilai <code>True</code>.
      * 
-     * @param idUser ID User yang akan dicek.
+     * @param idKaryawan ID Karyawan yang akan dicek.
      * @return <strong>True</strong> jika level dari user adalah <b>ADMIN</b>. <br>
      *         <strong>False</strong> otherwise. 
      */
-    public boolean isAdmin(String idUser){
-        return this.getLevel(idUser).name().equals("ADMIN");
+    public boolean isAdmin1(String idKaryawan){
+        return this.getLevel1(idKaryawan).name().equals("ADMIN");
+    }
+    public boolean isAdmin(String username){
+        return this.getLevel(username).name().equals("ADMIN");
     }
     
     /**

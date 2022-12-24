@@ -1,5 +1,6 @@
 package com.window.panels;
 
+import com.data.db.Database;
 import com.data.db.DatabaseTables;
 import com.manage.Barang;
 import com.manage.Internet;
@@ -30,7 +31,7 @@ import javax.swing.JOptionPane;
  * @author Gemastik Lightning
  */
 public class DataSupplier extends javax.swing.JPanel {
-
+    private final Database db = new Database();
     private final Supplier supplier = new Supplier();
 
     private final Barang barang = new Barang();
@@ -50,7 +51,7 @@ public class DataSupplier extends javax.swing.JPanel {
 
     public DataSupplier() {
         initComponents();
-
+        db.startConnection();
         this.tabelData.setRowHeight(29);
         this.tabelData.getTableHeader().setBackground(new java.awt.Color(255, 255, 255));
         this.tabelData.getTableHeader().setForeground(new java.awt.Color(0, 0, 0));
@@ -100,23 +101,34 @@ public class DataSupplier extends javax.swing.JPanel {
         this.updateTabel();
         this.valNoTelp.setText("");
     }
-
+    private int getJumlahData(String tabel, String kondisi){
+        try{
+            String query = "SELECT COUNT(*) AS total FROM " + tabel + " " + kondisi;
+            db.res = db.stat.executeQuery(query);
+            if(db.res.next()){
+                return db.res.getInt("total");
+            }
+        }catch(SQLException ex){
+            Message.showException(this, "Terjadi Kesalahan!\n\nError message : "+ex.getMessage(), ex, true);
+        }
+        return -1;
+    }
     private Object[][] getData() {
         try {
             Object[][] obj;
             int rows = 0;
             String sql = "SELECT id_supplier, nama_supplier, no_telp, alamat FROM supplier " + keyword;
             // mendefinisikan object berdasarkan total rows dan cols yang ada didalam tabel
-            obj = new Object[supplier.getJumlahData("supplier", keyword)][4];
+            obj = new Object[this.getJumlahData("supplier", keyword)][4];
             // mengeksekusi query
-            supplier.res = supplier.stat.executeQuery(sql);
+            db.res = db.stat.executeQuery(sql);
             // mendapatkan semua data yang ada didalam tabel
-            while (supplier.res.next()) {
+            while (db.res.next()) {
                 // menyimpan data dari tabel ke object
-                obj[rows][0] = supplier.res.getString("id_supplier");
-                obj[rows][1] = supplier.res.getString("nama_supplier");
-                obj[rows][2] = supplier.res.getString("no_telp");
-                obj[rows][3] = supplier.res.getString("alamat");
+                obj[rows][0] = db.res.getString("id_supplier");
+                obj[rows][1] = db.res.getString("nama_supplier");
+                obj[rows][2] = db.res.getString("no_telp");
+                obj[rows][3] = db.res.getString("alamat");
                 rows++; // rows akan bertambah 1 setiap selesai membaca 1 row pada tabel
             }
             return obj;

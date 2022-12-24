@@ -24,22 +24,22 @@ public class Karyawan extends Users{
         return super.isExistID(idKaryawan, UserLevels.KARYAWAN, UserData.ID_KARYAWAN);
     }
     
-    public final boolean addPetugas(String namaPetugas, String noTelp, String alamat, String pass, UserLevels level){
+    public final boolean addKaryawan(String namaKaryawan, String noTelp, String alamat, String pass, UserLevels level,String username){
         boolean isAdd;
         PreparedStatement pst;
         String idKaryawan = this.createID();
         try {
             // menambahkan data user ke tabel user
-            isAdd = super.addUser(idKaryawan, pass, level);
-            // mengecek apakah id user sudah ditambahkan ke tabel user
+            isAdd = super.addUser(username, pass, level,idKaryawan);
+            // mengecek apakah username sudah ditambahkan ke tabel user
             if(isAdd){
                 // validasi data sebelum ditambahkan
-                if(this.validateAddPetugas(idKaryawan, namaPetugas, noTelp, alamat, pass, level)){
-                    Log.addLog("Menambahkan data petugas dengan nama '" + namaPetugas + "'");
+                if(this.validateAddKaryawan(idKaryawan, namaKaryawan, noTelp, alamat)){
+                    Log.addLog("Menambahkan data karyawan dengan nama '" + namaKaryawan + "'");
                     // menambahkan data kedalam Database
                     pst = this.conn.prepareStatement("INSERT INTO karyawan VALUES (?, ?, ?, ?)");
                     pst.setString(1, idKaryawan);
-                    pst.setString(2, text.toCapitalize(namaPetugas));
+                    pst.setString(2, text.toCapitalize(namaKaryawan));
                     pst.setString(3, noTelp);
                     pst.setString(4, text.toCapitalize(alamat));
 
@@ -54,22 +54,22 @@ public class Karyawan extends Users{
         return false;
     }
     
-    public boolean validateAddPetugas(String idKaryawan, String namaPetugas, String noTelp, String alamat, String pass, UserLevels level){
+    public boolean validateAddKaryawan(String idKaryawan, String namaKaryawan, String noTelp, String alamat){
         
-        boolean vIdPetugas, vNama, vNoTelp, vAlamat, vPass, vLevel;
+        boolean vIdPetugas, vNama, vNoTelp, vAlamat;
         
         // mengecek id petugas valid atau tidak
-        if(Validation.isIdPetugas(idKaryawan)){
+        if(Validation.isIdKaryawan(idKaryawan)){
             vIdPetugas = true;
         }else{
             throw new InValidUserDataException("'" + idKaryawan + "' ID Karyawan tersebut tidak valid.");
         }
         
         // menecek nama valid atau tidak
-        if(Validation.isNamaOrang(namaPetugas)){
+        if(Validation.isNamaOrang(namaKaryawan)){
             vNama = true;
         }else{
-            throw new InValidUserDataException("'" + namaPetugas + "' Nama Karyawan tersebut tidak valid.");
+            throw new InValidUserDataException("'" + namaKaryawan + "' Nama Karyawan tersebut tidak valid.");
         }
                 
         // mengecek apakah no hp valid atau tidak
@@ -87,13 +87,61 @@ public class Karyawan extends Users{
         }
         
         // mengecek apakah password valid atau tidak
+//        if(Validation.isPassword(pass)){
+//            vPass = true;
+//        }else{
+//            throw new InValidUserDataException("'" + pass + "' Password tersebut tidak valid.");
+//        }
+        
+        // mengecek apakah level valid atau tidak
+//        if(Validation.isLevel(level)){
+//            vLevel = true;
+//        }else{
+//            throw new InValidUserDataException("'" + level + "' Level tersebut tidak valid.");
+//        }
+                
+        return vIdPetugas && vNama && vNoTelp && vAlamat;
+    }
+    public boolean validateDataKaryawan(String idKaryawan, String namaKaryawan, String noTelp, String alamat, String pass, UserLevels level){
+        
+        boolean vIdPetugas, vNama, vNoTelp, vAlamat, vPass, vLevel;
+        
+        // mengecek id petugas valid atau tidak
+        if(Validation.isIdKaryawan(idKaryawan)){
+            vIdPetugas = true;
+        }else{
+            throw new InValidUserDataException("'" + idKaryawan + "' ID Karyawan tersebut tidak valid.");
+        }
+        
+        // menecek nama valid atau tidak
+        if(Validation.isNamaOrang(namaKaryawan)){
+            vNama = true;
+        }else{
+            throw new InValidUserDataException("'" + namaKaryawan + "' Nama Karyawan tersebut tidak valid.");
+        }
+                
+        // mengecek apakah no hp valid atau tidak
+        if(Validation.isNoHp(noTelp)){
+            vNoTelp = true;
+        }else{
+            throw new InValidUserDataException("'" + noTelp + "' No Telephone tersebut tidak valid.");
+        }
+                
+        // mengecek apakah alamat valid atau tidak
+        if(Validation.isNamaTempat(alamat)){
+            vAlamat = true;
+        }else{
+            throw new InValidUserDataException("'" + alamat + "' Alamat tersebut tidak valid.");
+        }
+        
+//         mengecek apakah password valid atau tidak
         if(Validation.isPassword(pass)){
             vPass = true;
         }else{
             throw new InValidUserDataException("'" + pass + "' Password tersebut tidak valid.");
         }
         
-        // mengecek apakah level valid atau tidak
+//         mengecek apakah level valid atau tidak
         if(Validation.isLevel(level)){
             vLevel = true;
         }else{

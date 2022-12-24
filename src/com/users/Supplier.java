@@ -2,7 +2,9 @@ package com.users;
 
 import com.data.app.Log;
 import com.data.db.Database;
+import com.data.db.DatabaseTables;
 import com.error.InValidUserDataException;
+import com.manage.Message;
 import com.manage.Text;
 import com.manage.Validation;
 import java.sql.PreparedStatement;
@@ -12,127 +14,170 @@ import java.sql.SQLException;
  *
  * @author Achmad Baihaqi
  */
-public class Supplier extends Users{
-    
-    private final Database db = new Database();
-    
+public class Supplier extends Database {
+//    private final Database db = new Database();
+
     private final Text text = new Text();
-    
-    public String createID(){
-        return super.createIDnew("SUPPLIER", "ID_SUPPLIER");
+
+    public String createID() {
+        return this.createIDnew("SUPPLIER", "ID_SUPPLIER");
     }
-    
-    public boolean isExistSupplier(String idSupplier){
-        return super.isExistIDnew(idSupplier, "SUPPLIER", "ID_SUPPLIER");
+
+    public boolean isExistSupplier(String idSupplier) {
+        return this.isExistID(idSupplier, "SUPPLIER", "ID_SUPPLIER");
     }
-    
-    public final boolean addSupplier(String namaSupplier, String noTelp, String alamat){
-        boolean isAdd;
+
+    protected boolean isExistID(String id, String tabel, String field) {
+        // mengecek apakah id user yang diinputkan valid atau tidak
+        if (Validation.isIdSupplier(id)) {
+            return super.isExistData(tabel, field, id);
+        }
+//         akan menghasilkan error jika id supplier tidak valid
+        throw new InValidUserDataException("'" + id + "' ID tersebut tidak valid.");
+    }
+
+    public final boolean addSupplier(String namaSupplier, String noTelp, String alamat) {
         PreparedStatement pst;
         String idSupplier = this.createID();
-        
-        try {
-            // menambahkan data user ke tabel user
-            isAdd = super.addUsernew(idSupplier, "12345", "SUPPLIER");
-            // mengecek apakah id user sudah ditambahkan ke tabel user
-            if(isAdd){
-                // validasi data sebelum ditambahkan
-                if(this.validateAddSupplier(idSupplier, namaSupplier, noTelp, alamat)){
-                    Log.addLog("Menambahkan data supplier dengan nama '" + namaSupplier + "'");
-                    // menambahkan data kedalam Database
-                    pst = this.conn.prepareStatement("INSERT INTO supplier VALUES (?, ?, ?, ?)");
-                    pst.setString(1, idSupplier);
-                    pst.setString(2, text.toCapitalize(namaSupplier));
-                    pst.setString(3, noTelp);
-                    pst.setString(4, text.toCapitalize(alamat));
 
-                    // mengekusi query
-                    return pst.executeUpdate() > 0;
-                }
+        try {
+            // validasi data sebelum ditambahkan
+            if (this.validateAddSupplier(idSupplier, namaSupplier, noTelp, alamat)) {
+                Log.addLog("Menambahkan data supplier dengan nama '" + namaSupplier + "'");
+                // menambahkan data kedalam Database
+                pst = this.conn.prepareStatement("INSERT INTO supplier VALUES (?, ?, ?, ?)");
+                pst.setString(1, idSupplier);
+                pst.setString(2, text.toCapitalize(namaSupplier));
+                pst.setString(3, noTelp);
+                pst.setString(4, text.toCapitalize(alamat));
+
+                // mengekusi query
+                return pst.executeUpdate() > 0;
             }
         } catch (SQLException | InValidUserDataException ex) {
-            this.deleteUser(idSupplier);
             System.out.println("Error Message : " + ex.getMessage());
         }
         return false;
     }
-    
-    public boolean validateAddSupplier(String idSupplier, String namaSupplier, String noTelp, String alamat){
-        
+
+    public boolean validateAddSupplier(String idSupplier, String namaSupplier, String noTelp, String alamat) {
+
         boolean vIdSupplier, vNama, vNoTelp, vAlamat;
-        
+
         // mengecek id supplier valid atau tidak
-        if(Validation.isIdSupplier(idSupplier)){
+        if (Validation.isIdSupplier(idSupplier)) {
             vIdSupplier = true;
-        }else{
+        } else {
             throw new InValidUserDataException("'" + idSupplier + "' ID Supplier tersebut tidak valid.");
         }
-        
+
         // menecek nama valid atau tidak
-        if(Validation.isNamaOrang(namaSupplier)){
+        if (Validation.isNamaOrang(namaSupplier)) {
             vNama = true;
-        }else{
+        } else {
             throw new InValidUserDataException("'" + namaSupplier + "' Nama Supplier tersebut tidak valid.");
         }
-                
+
         // mengecek apakah no hp valid atau tidak
-        if(Validation.isNoHp(noTelp)){
+        if (Validation.isNoHp(noTelp)) {
             vNoTelp = true;
-        }else{
+        } else {
             throw new InValidUserDataException("'" + noTelp + "' No Telephone tersebut tidak valid.");
         }
-                
+
         // mengecek apakah alamat valid atau tidak
-        if(Validation.isNamaTempat(alamat)){
+        if (Validation.isNamaTempat(alamat)) {
             vAlamat = true;
-        }else{
+        } else {
             throw new InValidUserDataException("'" + alamat + "' Alamat tersebut tidak valid.");
         }
-                
+
         return vIdSupplier && vNama && vNoTelp && vAlamat;
     }
-    
-    public boolean deleteSupplier(String idSupplier){
-        return super.deleteUser(idSupplier);
+
+    public boolean deleteSupplier(String idSupplier) {
+        Log.addLog("Menghapus akun dengan username '" + idSupplier + "'.");
+        return this.deleteData(DatabaseTables.SUPPLIER.name(), "id_supplier", idSupplier);
     }
-    
-    private String getDataSupplier(String idSupplier, String data){
+
+    private String getDataSupplier(String idSupplier, String data) {
 //        return super.getUserData(idSupplier, UserLevels.SUPPLIER, data, UserData.ID_SUPPLIER);
-        db.startConnection();
-        return db.getData("supplier",data,"WHERE id_supplier = '"+idSupplier+"'");
+        this.startConnection();
+        return this.getData("supplier", data, "WHERE id_supplier = '" + idSupplier + "'");
     }
-    
-    public String getNama(String idSupplier){
+
+    public String getNama(String idSupplier) {
         return this.getDataSupplier(idSupplier, "nama_supplier");
     }
-    
-    public String getNoTelp(String idSupplier){
+
+    public String getNoTelp(String idSupplier) {
         return this.getDataSupplier(idSupplier, "NO_TELP");
     }
-    
-    public String getAlamat(String idSupplier){
+
+    public String getAlamat(String idSupplier) {
         return this.getDataSupplier(idSupplier, "ALAMAT");
     }
-    
-    private boolean setDataSupplier(String idSupplier, String data, String newValue){
-        return super.setUserDatanew(idSupplier, "SUPPLIER", data, "ID_SUPPLIER", newValue);
+
+    private boolean setDataSupplier(String idSupplier, String data, String newValue) {
+        return this.setSupplierData(idSupplier, "SUPPLIER", data, "ID_SUPPLIER", newValue);
     }
-    
-    public boolean setNama(String idSupplier, String newNama){
+
+    private boolean setSupplierData(String idSupplier, String tabel, String data, String primary, String newValue) {
+        Log.addLog("Mengedit data '" + data.toLowerCase() + "' dari akun dengan ID Supplier '" + idSupplier + "'.");
+        return super.setData(tabel, data, primary, idSupplier, newValue);
+    }
+
+    public boolean setNama(String idSupplier, String newNama) {
         return this.setDataSupplier(idSupplier, "NAMA_SUPPLIER", newNama);
     }
-    
-    public boolean setNoTelp(String idSupplier, String newNoTelp){
+
+    public boolean setNoTelp(String idSupplier, String newNoTelp) {
         return this.setDataSupplier(idSupplier, "NO_TELP", newNoTelp);
     }
-    
-    public boolean setAlamat(String idSupplier, String newAlamat){
+
+    public boolean setAlamat(String idSupplier, String newAlamat) {
         return this.setDataSupplier(idSupplier, "ALAMAT", newAlamat);
     }
-    
-    
-    public static void main(String[] args) {
+
+    protected String getLastIDnew(String level, String primary) {
+        try {
+            this.startConnection();
+            String query = String.format("SELECT * FROM %s ORDER BY %s DESC LIMIT 0,1", level, primary);
+            this.res = this.stat.executeQuery(query);
+            if (this.res.next()) {
+                return this.res.getString(primary);
+            }
+        } catch (SQLException ex) {
+            Message.showException(this, "Terjadi kesalahan\n" + ex.getMessage(), ex, true);
+        }
+        return null;
+    }
+
+    private String createIDnew(String level, String primary) {
+        String lastID = this.getLastIDnew(level, primary), nomor;
         
+        if (lastID != null) {
+            nomor = lastID.substring(2);
+        } else {
+            nomor = "000";
+        }
+
+        // mengecek nilai dari nomor adalah number atau tidak
+        if (text.isNumber(nomor)) {
+            // jika id user belum exist maka id akan 
+            switch (level) {
+//                case "KARYAWAN" : return String.format("PG%03d", Integer.parseInt(nomor)+1); // level admin dan karyawan
+                case "SUPPLIER":
+                    return String.format("SP%03d", Integer.parseInt(nomor) + 1);
+                default:
+                    System.out.println("Error!");
+            }
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+
         Log.createLog();
         Supplier supplier = new Supplier();
 //        System.out.println(supplier.createID());

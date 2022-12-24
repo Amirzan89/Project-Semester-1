@@ -127,7 +127,7 @@ public class detailLaporanBeli extends javax.swing.JDialog {
                 obj[rows][5] = trb.res.getString("nama_barang");
                 obj[rows][6] = trb.res.getString("jenis_barang");
                 obj[rows][7] = text.toMoneyCase(Integer.toString(trb.res.getInt("harga_beli")));
-                obj[rows][8] = text.toMoneyCase(Integer.toString(trb.res.getInt("jumlah")));
+                obj[rows][8] = Integer.toString(trb.res.getInt("jumlah"));
                 obj[rows][9] = text.toMoneyCase(Integer.toString(trb.res.getInt("total_harga")));
                 rows++;
             }
@@ -146,7 +146,7 @@ public class detailLaporanBeli extends javax.swing.JDialog {
                 }
         ) {
             boolean[] canEdit = new boolean[]{
-                false, false, false, false, false
+                false, false, false, false, false,false,false,false,false,false
             };
 
             @Override

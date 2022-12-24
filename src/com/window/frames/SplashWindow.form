@@ -97,14 +97,14 @@
               <Color blue="79" green="df" red="a" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Simple Buy"/>
+            <Property name="text" type="java.lang.String" value="Buku Bu Hermin"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblLogoApp">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/resources/image/icons/ic-splashwindow-logosmkn1kts.png"/>
+              <Image iconType="3" name="/resources/image/icons/app-splashwindow.png"/>
             </Property>
           </Properties>
         </Component>

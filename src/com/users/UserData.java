@@ -8,16 +8,13 @@ package com.users;
  */
 public enum UserData {
     
-//    ID_USER,
     USERNAME,
     ID_KARYAWAN,
-//    ID_SUPPLIER,
-//    ID_PEMBELI,
+    ID_SUPPLIER,
     PASSWORD,
     LEVEL,
     NAMA_KARYAWAN,
     NAMA_SUPPLIER,
-    NAMA_PEMBELI,
     NO_TELP,
     ALAMAT,
 }

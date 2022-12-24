@@ -124,7 +124,7 @@ public class detailLaporanJual extends javax.swing.JDialog {
                 obj[rows][3] = trj.res.getString("nama_barang");
                 obj[rows][4] = trj.res.getString("jenis_barang");
                 obj[rows][5] = text.toMoneyCase(Integer.toString(trj.res.getInt("harga")));
-                obj[rows][6] = text.toMoneyCase(Integer.toString(trj.res.getInt("jumlah")));
+                obj[rows][6] = Integer.toString(trj.res.getInt("jumlah"));
                 obj[rows][7] = text.toMoneyCase(Integer.toString(trj.res.getInt("total_harga")));
                 rows++;
             }
@@ -143,7 +143,7 @@ public class detailLaporanJual extends javax.swing.JDialog {
                 }
         ) {
             boolean[] canEdit = new boolean[]{
-                false, false, false, false, false
+                false, false, false, false, false,false,false,false
             };
 
             @Override
@@ -157,12 +157,12 @@ public class detailLaporanJual extends javax.swing.JDialog {
         // mendapatkan data-data
         this.idPd = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 0).toString();
         this.idTr = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 1).toString();
-        this.IDBarang = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 4).toString();
-        this.namaBarang = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 5).toString();
-        this.jenisBarang = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 6).toString();
-        this.harga = text.toIntCase(this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 7).toString());
-        this.jumlahBarang = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 8).toString();
-        this.totalHrg = text.toIntCase(this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 9).toString());
+        this.IDBarang = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 2).toString();
+        this.namaBarang = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 3).toString();
+        this.jenisBarang = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 4).toString();
+        this.harga = text.toIntCase(this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 5).toString());
+        this.jumlahBarang = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 6).toString();
+        this.totalHrg = text.toIntCase(this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 7).toString());
 
         // menampilkan data-data
         this.valIDPemasukan.setText("<html><p>:&nbsp;" + this.idPd + "</p></html>");
@@ -260,7 +260,7 @@ public class detailLaporanJual extends javax.swing.JDialog {
         valJenis.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         valJenis.setForeground(new java.awt.Color(0, 0, 0));
         valJenis.setText(": ");
-        pnlMain.add(valJenis, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 170, 230, 36));
+        pnlMain.add(valJenis, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 173, 230, 36));
 
         valTotalHarga.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         valTotalHarga.setForeground(new java.awt.Color(0, 0, 0));
@@ -271,7 +271,7 @@ public class detailLaporanJual extends javax.swing.JDialog {
         valJumlah.setForeground(new java.awt.Color(0, 0, 0));
         valJumlah.setText(": ");
         valJumlah.setName(""); // NOI18N
-        pnlMain.add(valJumlah, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 237, 230, 32));
+        pnlMain.add(valJumlah, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 226, 230, 36));
 
         valTotal.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valTotal.setForeground(new java.awt.Color(0, 0, 0));
@@ -302,11 +302,11 @@ public class detailLaporanJual extends javax.swing.JDialog {
 
             },
             new String [] {
-                "ID Pengeluaran", "ID Transaksi Beli", "ID Supplier", "Nama Supplier", "ID Barang", "Nama Barang", "Jenis Barang", "Harga Beli", "Jumlah", "Total Harga"
+                "ID Pengeluaran", "ID Transaksi Beli", "ID Barang", "Nama Barang", "Jenis Barang", "Harga Beli", "Jumlah", "Total Harga"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -329,7 +329,7 @@ public class detailLaporanJual extends javax.swing.JDialog {
         });
         lpSemua.setViewportView(tabelData);
         if (tabelData.getColumnModel().getColumnCount() > 0) {
-            tabelData.getColumnModel().getColumn(9).setResizable(false);
+            tabelData.getColumnModel().getColumn(7).setResizable(false);
         }
 
         pnlMain.add(lpSemua, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 332, 1040, 300));

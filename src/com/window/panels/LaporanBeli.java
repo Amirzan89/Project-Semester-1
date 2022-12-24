@@ -314,8 +314,8 @@ public class LaporanBeli extends javax.swing.JPanel {
         try {
             Object[][] obj;
             Date tanggalData = new Date();
-            int rows = 0;
-            String sql = "SELECT id_tr_beli, id_karyawan, total_hrg, tanggal FROM transaksi_beli " + keyword + " ORDER BY id_tr_beli DESC";
+            int rows = 0,hari_1 = 0,bulan_1 = -1,tahun_1 = 0;
+            String sql = "SELECT id_tr_beli, id_karyawan, total_hrg, tanggal FROM transaksi_beli " + keyword + " ORDER BY id_tr_beli DESC",tanggalPenuh;
             obj = new Object[trb.getJumlahData("transaksi_beli", keyword)][6];
             // mengeksekusi query
             trb.res = trb.stat.executeQuery(sql);
@@ -327,7 +327,11 @@ public class LaporanBeli extends javax.swing.JPanel {
                 obj[rows][2] = this.karyawan.getNama(trb.res.getString("id_karyawan"));
                 obj[rows][3] = text.toMoneyCase(trb.res.getString("total_hrg"));
                 tanggalData = tanggalMilis.parse(trb.res.getString("tanggal"));
-                obj[rows][4] = date.format(tanggalData);
+                tanggalPenuh = date.format(tanggalData);
+                hari_1 = Integer.parseInt(tanggalPenuh.substring(0,2));
+                bulan_1 = Integer.parseInt(tanggalPenuh.substring(3, 5));
+                tahun_1 = Integer.parseInt(tanggalPenuh.substring(6));
+                obj[rows][4] = hari1 +"-"+ this.waktu.getNamaBulan(bulan_1-1)+"-"+tahun_1;
                 obj[rows][5] = time.format(tanggalData);
                 rows++;
             }
@@ -347,7 +351,7 @@ public class LaporanBeli extends javax.swing.JPanel {
                 }
         ) {
             boolean[] canEdit = new boolean[]{
-                false, false, false, false, false
+                false, false, false, false, false,false
             };
 
             @Override

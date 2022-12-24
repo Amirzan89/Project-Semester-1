@@ -311,8 +311,8 @@ public class LaporanJual extends javax.swing.JPanel {
         try {
             Object[][] obj;
             Date tanggalData = new Date();
-            int rows = 0;
-            String sql = "SELECT id_tr_jual, id_karyawan, total_hrg, keuntungan, tanggal FROM transaksi_jual " + keyword + " ORDER BY id_tr_jual DESC";
+            int rows = 0,hari_1 = 0, bulan_1 = -1,tahun_1  = 0;
+            String sql = "SELECT id_tr_jual, id_karyawan, total_hrg, keuntungan, tanggal FROM transaksi_jual " + keyword + " ORDER BY id_tr_jual DESC",tanggalPenuh;
             obj = new Object[trj.getJumlahData("transaksi_jual", keyword)][7];
             // mengeksekusi query
             trj.res = trj.stat.executeQuery(sql);
@@ -324,8 +324,12 @@ public class LaporanJual extends javax.swing.JPanel {
                 obj[rows][2] = this.karyawan.getNama(trj.res.getString("id_karyawan"));
                 obj[rows][3] = text.toMoneyCase(trj.res.getString("total_hrg"));
                 obj[rows][4] = text.toMoneyCase(trj.res.getString("keuntungan"));
-                tanggalData = tanggalMilis.parse(trj.res.getString("tanggal"));
-                obj[rows][5] = date.format(tanggalData);
+                tanggalPenuh = date.format(tanggalData);
+                hari_1 = Integer.parseInt(tanggalPenuh.substring(0,2));
+                bulan_1 = Integer.parseInt(tanggalPenuh.substring(3, 5));
+                tahun_1 = Integer.parseInt(tanggalPenuh.substring(6));
+                System.out.println("tahunn  "+tahun_1);
+                obj[rows][5] = hari1 +"-"+ this.waktu.getNamaBulan(bulan_1-1)+"-"+tahun_1;
                 obj[rows][6] = time.format(tanggalData);
                 rows++;
             }
@@ -345,7 +349,7 @@ public class LaporanJual extends javax.swing.JPanel {
                 }
         ) {
             boolean[] canEdit = new boolean[]{
-                false, false, false, false, false
+                false, false, false, false, false,false,false
             };
 
             @Override

@@ -9,11 +9,12 @@ import com.media.Audio;
 import com.media.Gambar;
 import com.users.UserLevels;
 import com.users.Users;
-import com.window.MainWindowMe;
-
+import com.window.frames.SplashWindow;
 import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.Cursor;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -22,7 +23,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
- * Digunakan untuk login bagi admin, petugas dan siswa.
+ * Digunakan untuk login bagi admin, karyawan.
  *
  * @author Amirzan fikri
  * @since 2020-11-22
@@ -38,10 +39,6 @@ public class LoginWindow extends javax.swing.JFrame {
 
         this.setLocationRelativeTo(null);
         this.setIconImage(Gambar.getWindowIcon());
-//        this.lblKembali.setVisible(false);
-//        this.lblNamaTeam.setText(Application.getAuthor());
-//        this.lblLogoApp.setIcon(Gambar.scaleImage(new java.io.File("src\\resources\\image\\icons\\app-logo.png"), 160, 160));
-//        this.btnLogin.setUI(new javax.swing.plaf.basic.BasicButtonUI());
     }
 
     @SuppressWarnings("unchecked")
@@ -49,11 +46,13 @@ public class LoginWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         pnlMain = new javax.swing.JPanel();
+        lblEye = new javax.swing.JLabel();
         inpUsername = new javax.swing.JTextField();
         lblMinimaze = new javax.swing.JLabel();
         lblClose = new javax.swing.JLabel();
         inpPassword = new javax.swing.JPasswordField();
         btnLogin = new javax.swing.JLabel();
+        btnLupa = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -75,6 +74,21 @@ public class LoginWindow extends javax.swing.JFrame {
 
         pnlMain.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        lblEye.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblEye.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/icons/ic-login-eye-close.png"))); // NOI18N
+        lblEye.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblEyeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblEyeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblEyeMouseExited(evt);
+            }
+        });
+        pnlMain.add(lblEye, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 307, -1, -1));
+
         inpUsername.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         inpUsername.setOpaque(false);
         inpUsername.addActionListener(new java.awt.event.ActionListener() {
@@ -82,7 +96,7 @@ public class LoginWindow extends javax.swing.JFrame {
                 inpUsernameActionPerformed(evt);
             }
         });
-        pnlMain.add(inpUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 253, 250, 30));
+        pnlMain.add(inpUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 250, 30));
 
         lblMinimaze.setBackground(new java.awt.Color(50, 50, 55));
         lblMinimaze.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -127,7 +141,7 @@ public class LoginWindow extends javax.swing.JFrame {
                 inpPasswordActionPerformed(evt);
             }
         });
-        pnlMain.add(inpPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 312, 250, 30));
+        pnlMain.add(inpPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 305, 250, 30));
 
         btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/btn-login-075.png"))); // NOI18N
         btnLogin.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -143,6 +157,20 @@ public class LoginWindow extends javax.swing.JFrame {
             }
         });
         pnlMain.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(335, 363, -1, -1));
+
+        btnLupa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/btn-lupaPassword-075.png"))); // NOI18N
+        btnLupa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLupaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLupaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLupaMouseExited(evt);
+            }
+        });
+        pnlMain.add(btnLupa, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 340, -1, -1));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar/app-login-050.png"))); // NOI18N
         pnlMain.add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -225,11 +253,7 @@ public class LoginWindow extends javax.swing.JFrame {
                     java.awt.EventQueue.invokeLater(new Runnable() {
                         @Override
                         public void run() {
-                            try {
-                                new MainWindowMe().setVisible(true);
-                            } catch (ParseException ex) {
-                                Logger.getLogger(LoginWindow.class.getName()).log(Level.SEVERE, null, ex);
-                            }
+                            new SplashWindow().setVisible(true);
                         }
                     });
 
@@ -262,6 +286,43 @@ public class LoginWindow extends javax.swing.JFrame {
         this.btnLogin.setIcon(Gambar.getBiasaIcon(this.btnLogin.getIcon().toString()));
     }//GEN-LAST:event_btnLoginMouseExited
 
+    private void btnLupaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLupaMouseEntered
+        this.btnLupa.setIcon(Gambar.getAktiveIcon(this.btnLupa.getIcon().toString()));
+    }//GEN-LAST:event_btnLupaMouseEntered
+
+    private void btnLupaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLupaMouseExited
+        this.btnLupa.setIcon(Gambar.getBiasaIcon(this.btnLupa.getIcon().toString()));
+    }//GEN-LAST:event_btnLupaMouseExited
+
+    private void btnLupaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLupaMouseClicked
+        // TODO add your handling code here:
+        user.closeConnection();
+        this.dispose();
+        java.awt.EventQueue.invokeLater(new Runnable(){
+
+                @Override
+                public void run(){
+                    new com.window.frames.LupaWindow().setVisible(true);
+                }
+            });
+    }//GEN-LAST:event_btnLupaMouseClicked
+
+    private void lblEyeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEyeMouseClicked
+
+    }//GEN-LAST:event_lblEyeMouseClicked
+
+    private void lblEyeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEyeMouseEntered
+        this.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        this.lblEye.setIcon(Gambar.getIcon("ic-login-eye-open.png"));
+        this.inpPassword.setEchoChar((char)0);
+    }//GEN-LAST:event_lblEyeMouseEntered
+
+    private void lblEyeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEyeMouseExited
+        this.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        this.lblEye.setIcon(Gambar.getIcon("ic-login-eye-close.png"));
+        this.inpPassword.setEchoChar('•');
+    }//GEN-LAST:event_lblEyeMouseExited
+
     public static void main(String args[]) {
 
         try {
@@ -287,9 +348,11 @@ public class LoginWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
     private javax.swing.JLabel btnLogin;
+    private javax.swing.JLabel btnLupa;
     private javax.swing.JPasswordField inpPassword;
     private javax.swing.JTextField inpUsername;
     private javax.swing.JLabel lblClose;
+    private javax.swing.JLabel lblEye;
     private javax.swing.JLabel lblMinimaze;
     private javax.swing.JPanel pnlMain;
     // End of variables declaration//GEN-END:variables

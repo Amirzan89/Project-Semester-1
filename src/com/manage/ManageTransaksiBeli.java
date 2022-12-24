@@ -133,7 +133,7 @@ public class ManageTransaksiBeli extends Database{
         return false;
     }
     
-    public boolean validateAddTransaksiBeli(String idTrj, String namaTrJual, String idPetugas, String idSupplier, String idBarang, String jmlBrg, String ttlHarga, String tanggal){
+    public boolean validateAddTransaksiBeli(String idTrj, String namaTrJual, String idKaryawan, String idSupplier, String idBarang, String jmlBrg, String ttlHarga, String tanggal){
         boolean vIdTrj, vNamaTrJual = true, vIdPetugas, vIdSupplier, vIdBarang, vJmlBrg, vMetodeByr, vTtlHarga, vTanggal;
         
         // mengecek id transaksi valid atau tidak
@@ -144,10 +144,10 @@ public class ManageTransaksiBeli extends Database{
         }
         
         // mengecek apakah id petugas valid atau tidak
-        if(Validation.isIdPetugas(idPetugas)){
+        if(Validation.isIdKaryawan(idKaryawan)){
             vIdPetugas = true;
         }else{
-            throw new InValidUserDataException("'" + idPetugas + "'ID Petugas tersebut tidak valid.");
+            throw new InValidUserDataException("'" + idKaryawan + "'ID Petugas tersebut tidak valid.");
         }
         
         // mengecek apakah id supplier valid atau tidak

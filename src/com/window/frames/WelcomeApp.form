@@ -143,14 +143,14 @@
               <Color blue="79" green="df" red="a" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Simple Buy"/>
+            <Property name="text" type="java.lang.String" value="Buku Bu Hermin"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblIconSekolah">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/resources/image/icons/ic-app-splashwindow.png"/>
+              <Image iconType="3" name="/resources/image/icons/app-splashwindow.png"/>
             </Property>
           </Properties>
         </Component>
@@ -163,7 +163,7 @@
               <Color blue="27" green="27" red="e2" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Aplikasi Manajemen Bisnis"/>
+            <Property name="text" type="java.lang.String" value="Aplikasi Manajamen Bisnis"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblVersi">
@@ -179,7 +179,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="fd" green="e2" red="de" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Copyright &#xa9; 2021. Gemastik. All Rights Reserved."/>
+            <Property name="text" type="java.lang.String" value="Copyright &#xa9; 2022. A3 Team. All Rights Reserved."/>
           </Properties>
         </Component>
       </SubComponents>
