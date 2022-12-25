@@ -11,7 +11,6 @@ import com.media.Gambar;
 import com.sun.glass.events.KeyEvent;
 import com.users.Karyawan;
 import com.users.Users;
-import com.window.dialogs.KonfirmasiPembayaran;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.sql.Connection;

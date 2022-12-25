@@ -1,7 +1,6 @@
 package com.window.panels;
 
 import com.data.db.DatabaseTables;
-import com.manage.Internet;
 import com.manage.Message;
 import com.manage.Text;
 import com.media.Audio;
@@ -27,7 +26,6 @@ public class DataKaryawan extends javax.swing.JPanel {
     
     private final Karyawan karyawan = new Karyawan();
     
-    private final Internet net = new Internet();
     
     private final Text text = new Text();
     
@@ -89,10 +87,10 @@ public class DataKaryawan extends javax.swing.JPanel {
             karyawan.startConnection();
             Object[][] obj;
             int rows = 0;
-            String sql = "SELECT karyawan.id_karyawan, nama_karyawan,level FROM karyawan INNER JOIN users ON karyawan.id_karyawan = users.id_karyawan "+ this.keyword;
+            String sql = "SELECT karyawan.id_karyawan, nama_karyawan,level FROM karyawan INNER JOIN users ON karyawan.id_karyawan = users.id_karyawan "+ this.keyword+" ORDER BY karyawan.id_karyawan";
             // mendefinisikan object berdasarkan total rows dan cols yang ada didalam tabel
-            System.out.println("baris "+karyawan.getJumlahData(DatabaseTables.KARYAWAN.name()));
-            obj = new Object[karyawan.getJumlahData(DatabaseTables.KARYAWAN.name())][3];
+//            System.out.println(sql);
+            obj = new Object[karyawan.getJumlahData(DatabaseTables.KARYAWAN.name(),this.keyword)][3];
             // mengeksekusi query
             karyawan.res = karyawan.stat.executeQuery(sql);
             // mendapatkan semua data yang ada didalam tabel
@@ -199,8 +197,15 @@ public class DataKaryawan extends javax.swing.JPanel {
         inpCari.setBackground(new java.awt.Color(255, 255, 255));
         inpCari.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         inpCari.setForeground(new java.awt.Color(0, 0, 0));
-        inpCari.setOpaque(false);
+        inpCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inpCariActionPerformed(evt);
+            }
+        });
         inpCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                inpCariKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 inpCariKeyTyped(evt);
             }
@@ -333,7 +338,7 @@ public class DataKaryawan extends javax.swing.JPanel {
                     case JOptionPane.YES_OPTION:
                         // menghapus data karyawan
                         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-                        delete = this.karyawan.deletePetugas(this.idSelected);
+                        delete = this.karyawan.deleteKaryawan(this.idSelected);
                         // mengecek apakah data karyawan berhasil terhapus atau tidak
                         if (delete) {
                             Message.showInformation(this, "Data berhasil dihapus!");
@@ -425,26 +430,15 @@ public class DataKaryawan extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDelMouseExited
 
     private void valNoTelpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_valNoTelpMouseClicked
-        String nomor = this.noTelp.substring(1).replaceAll(" ", "").replaceAll("-", "");
-        if(net.isConnectInternet()){
-            try {
-                net.openLink("https://wa.me/"+nomor);
-            } catch (IOException | URISyntaxException ex) {
-                Message.showException(this, ex, true);
-            }
-        }else{
-            Message.showWarning(this, "Tidak terhubung ke Internet!", true);
-        }
+//
     }//GEN-LAST:event_valNoTelpMouseClicked
 
     private void valNoTelpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_valNoTelpMouseEntered
-        this.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        this.valNoTelp.setText("<html><p style=\"text-decoration:underline; color:rgb(15,98,230);\">:&nbsp;"+noTelp+"</p></html>");
+//
     }//GEN-LAST:event_valNoTelpMouseEntered
 
     private void valNoTelpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_valNoTelpMouseExited
-        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-        this.valNoTelp.setText("<html><p style=\"text-decoration:underline; color:rgb(0,0,0);\">:&nbsp;"+noTelp+"</p></html>");
+//
     }//GEN-LAST:event_valNoTelpMouseExited
 
     private void tabelDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataMouseClicked
@@ -469,9 +463,21 @@ public class DataKaryawan extends javax.swing.JPanel {
 
     private void inpCariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inpCariKeyTyped
         String key = this.inpCari.getText();
-        this.keyword = "WHERE id_karyawan LIKE '%"+key+"%' OR nama_karyawan LIKE '%"+key+"%'";
+        this.keyword = "WHERE karyawan.id_karyawan LIKE '%"+key+"%' OR karyawan.nama_karyawan LIKE '%"+key+"%'";
         this.updateTabel();
     }//GEN-LAST:event_inpCariKeyTyped
+
+    private void inpCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inpCariActionPerformed
+        String key = this.inpCari.getText();
+        this.keyword = "WHERE karyawan.id_karyawan LIKE '%"+key+"%' OR karyawan.nama_karyawan LIKE '%"+key+"%'";
+        this.updateTabel();
+    }//GEN-LAST:event_inpCariActionPerformed
+
+    private void inpCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inpCariKeyReleased
+        String key = this.inpCari.getText();
+        this.keyword = "WHERE karyawan.id_karyawan LIKE '%"+key+"%' OR karyawan.nama_karyawan LIKE '%"+key+"%'";
+        this.updateTabel();
+    }//GEN-LAST:event_inpCariKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

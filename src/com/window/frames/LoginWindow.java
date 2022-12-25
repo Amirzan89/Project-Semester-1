@@ -280,18 +280,22 @@ public class LoginWindow extends javax.swing.JFrame {
 
     private void btnLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseEntered
         this.btnLogin.setIcon(Gambar.getAktiveIcon(this.btnLogin.getIcon().toString()));
+        this.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     }//GEN-LAST:event_btnLoginMouseEntered
 
     private void btnLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseExited
         this.btnLogin.setIcon(Gambar.getBiasaIcon(this.btnLogin.getIcon().toString()));
+        this.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btnLoginMouseExited
 
     private void btnLupaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLupaMouseEntered
         this.btnLupa.setIcon(Gambar.getAktiveIcon(this.btnLupa.getIcon().toString()));
+        this.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     }//GEN-LAST:event_btnLupaMouseEntered
 
     private void btnLupaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLupaMouseExited
         this.btnLupa.setIcon(Gambar.getBiasaIcon(this.btnLupa.getIcon().toString()));
+        this.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btnLupaMouseExited
 
     private void btnLupaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLupaMouseClicked

@@ -312,7 +312,7 @@ public class LaporanJual extends javax.swing.JPanel {
             Object[][] obj;
             Date tanggalData = new Date();
             int rows = 0,hari_1 = 0, bulan_1 = -1,tahun_1  = 0;
-            String sql = "SELECT id_tr_jual, id_karyawan, total_hrg, keuntungan, tanggal FROM transaksi_jual " + keyword + " ORDER BY id_tr_jual DESC",tanggalPenuh;
+            String sql = "SELECT id_tr_jual, id_karyawan, total_hrg, keuntungan, tanggal FROM transaksi_jual " + keyword + " ORDER BY id_tr_jual DESC",tanggalPenuh,tanggalPenuh1;
             obj = new Object[trj.getJumlahData("transaksi_jual", keyword)][7];
             // mengeksekusi query
             trj.res = trj.stat.executeQuery(sql);
@@ -324,13 +324,14 @@ public class LaporanJual extends javax.swing.JPanel {
                 obj[rows][2] = this.karyawan.getNama(trj.res.getString("id_karyawan"));
                 obj[rows][3] = text.toMoneyCase(trj.res.getString("total_hrg"));
                 obj[rows][4] = text.toMoneyCase(trj.res.getString("keuntungan"));
-                tanggalPenuh = date.format(tanggalData);
-                hari_1 = Integer.parseInt(tanggalPenuh.substring(0,2));
-                bulan_1 = Integer.parseInt(tanggalPenuh.substring(3, 5));
-                tahun_1 = Integer.parseInt(tanggalPenuh.substring(6));
-                System.out.println("tahunn  "+tahun_1);
+                tanggalPenuh = trj.res.getString("tanggal");
+                tanggalData = tanggalMilis.parse(tanggalPenuh);
+                tanggalPenuh1 = date.format(tanggalData);
+                hari_1 = Integer.parseInt(tanggalPenuh1.substring(0,2));
+                bulan_1 = Integer.parseInt(tanggalPenuh1.substring(3, 5));
+                tahun_1 = Integer.parseInt(tanggalPenuh1.substring(6));
                 obj[rows][5] = hari1 +"-"+ this.waktu.getNamaBulan(bulan_1-1)+"-"+tahun_1;
-                obj[rows][6] = time.format(tanggalData);
+                obj[rows][6] = tanggalPenuh.substring(11,19);
                 rows++;
             }
             return obj;
@@ -345,7 +346,7 @@ public class LaporanJual extends javax.swing.JPanel {
         tabel.setModel(new javax.swing.table.DefaultTableModel(
                 getData(),
                 new String[]{
-                    "ID Pengeluaran", "ID Karyawan", "Nama Karyawan", "Total Harga", "Total pemasukan", "Tanggal", "Waktu"
+                    "ID Pemasukan", "ID Karyawan", "Nama Karyawan", "Total Harga", "Total pemasukan", "Tanggal", "Waktu"
                 }
         ) {
             boolean[] canEdit = new boolean[]{

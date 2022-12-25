@@ -8,9 +8,6 @@ package com.users;
  */
 public enum UserLevels {
     USERS,
-//    PETUGAS,
     ADMIN,
     KARYAWAN,
-//    PEMBELI,
-//    SUPPLIER
 }

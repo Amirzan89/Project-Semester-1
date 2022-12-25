@@ -2,14 +2,15 @@ package com.manage;
 
 import com.media.Audio;
 import javax.swing.JOptionPane;
-
+import com.data.db.Database;
+import com.data.db.DatabaseTables;
 /**
  *
  * @author Achmad Baihaqi
  * @since 2021-03-15
  */
 public class Validation {
-    
+    private static Database db = new Database();
     /**
      * Digunakan untuk mengecek apakah didalam sebuah text mengandung sebuah angka atau tidak
      * 
@@ -66,12 +67,12 @@ public class Validation {
      * @param username
      * @return 
      */
-    public static boolean isIdUser(String username){
-        if(username.length() <= 20){
+    public static boolean isIdUser(String idUser){
+        if(idUser.length() <= 20){
             return true;
         }else{
             Audio.play(Audio.SOUND_WARNING);
-            JOptionPane.showMessageDialog(null, "'" + username + "' username tersebut tidak valid!", "Pesan", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "'" + idUser + "' idUser tersebut tidak valid!", "Pesan", JOptionPane.WARNING_MESSAGE);
         }
         return false;
     }

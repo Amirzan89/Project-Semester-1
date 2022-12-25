@@ -77,7 +77,7 @@ public class WelcomeApp extends javax.swing.JFrame {
         lblNamaAplikasi.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblNamaAplikasi.setForeground(new java.awt.Color(10, 223, 121));
         lblNamaAplikasi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNamaAplikasi.setText("Buku Bu Hermin");
+        lblNamaAplikasi.setText("Hermin Book");
 
         lblIconSekolah.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblIconSekolah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/icons/app-splashwindow.png"))); // NOI18N

@@ -143,7 +143,7 @@
               <Color blue="79" green="df" red="a" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Buku Bu Hermin"/>
+            <Property name="text" type="java.lang.String" value="Hermin Book"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblIconSekolah">

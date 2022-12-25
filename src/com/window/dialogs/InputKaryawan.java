@@ -1,9 +1,11 @@
 package com.window.dialogs;
 
+import com.data.app.Log;
 import com.manage.Message;
 import com.media.Gambar;
 import com.users.Karyawan;
 import com.users.UserLevels;
+import com.users.Users;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Frame;
@@ -14,7 +16,7 @@ import javax.swing.ImageIcon;
  * @author Achmad Baihaqi
  */
 public class InputKaryawan extends javax.swing.JDialog {
-
+    private boolean tambah = false, edit = false;
     private final Karyawan karyawan = new Karyawan();
     
     public int option;
@@ -23,12 +25,12 @@ public class InputKaryawan extends javax.swing.JDialog {
     
     private final String idKaryawan;
     
-    private String nama, noTelp, alamat, pass, newNama, newNoTelp, newAlamat, newPass,username;
+    private String nama, noTelp, alamat, pass, newNama, newNoTelp, newAlamat, newPass,username,newUsername, Level = "", newlevel;
     
     private UserLevels level, newLevel;
     
     private boolean isUpdated = false;
-    
+    private Users user = new Users();
     /**
      * Creates new form TambahPetugas
      * @param parent
@@ -40,6 +42,7 @@ public class InputKaryawan extends javax.swing.JDialog {
         initComponents();
         this.setIconImage(Gambar.getWindowIcon());
         if(idKaryawan == null){
+            this.tambah = true;
             // menyetting window untuk tambah data
             this.option = 1;
             this.idKaryawan = this.karyawan.createID();
@@ -48,7 +51,9 @@ public class InputKaryawan extends javax.swing.JDialog {
             ImageIcon icon2 = new ImageIcon("src\\resources\\image\\gambar_icon\\btn-tambahK-075.png");
             this.background.setIcon(icon1);
             this.btnSimpan.setIcon(icon2);
+            this.inpUsername.setEditable(true);
         } else {
+            this.edit = true;
             // menyetting window untuk edit data
             this.option = 2;
             this.idKaryawan = idKaryawan;
@@ -59,17 +64,19 @@ public class InputKaryawan extends javax.swing.JDialog {
             this.btnSimpan.setIcon(icon2);
 
             // mendapatkan data-data karyawan
+            this.username = this.karyawan.getUsername(this.idKaryawan);
             this.nama = this.karyawan.getNama(this.idKaryawan);
             this.alamat = this.karyawan.getAlamat(this.idKaryawan);
             this.noTelp = this.karyawan.getNoTelp(this.idKaryawan);
-//            this.pass = this.karyawan.getPassword(this.idKaryawan);
             this.level = this.karyawan.getLevel1(this.idKaryawan);
             
             // menampilkan data-data karyawan ke input text
+            this.inpUsername.setEditable(false);
+            this.inpUsername.setText(this.username);
             this.inpNama.setText(this.nama);
             this.inpNoTelp.setText(this.noTelp);
             this.inpAlamat.setText(this.alamat);
-            this.inpPassword.setText("-");
+            this.inpPassword.setText("");
             
             switch(level.name().toUpperCase()){
                 case "ADMIN" : this.inpLevel.setSelectedIndex(1);  break;
@@ -99,6 +106,7 @@ public class InputKaryawan extends javax.swing.JDialog {
      * 
      */
     private void addData(){
+        boolean error = false;
         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
         // mendapatkan data dari textfield
         this.username = this.inpUsername.getText();
@@ -110,12 +118,33 @@ public class InputKaryawan extends javax.swing.JDialog {
         // mendapatkan data level
         switch(this.inpLevel.getSelectedIndex()){
             case 0 : level = null; break;
-            case 1 : level = UserLevels.ADMIN;
-            case 2 : level = UserLevels.KARYAWAN;
+            case 1 : level = UserLevels.ADMIN; break;
+            case 2 : level = UserLevels.KARYAWAN; break;
         }
-        
+        System.out.println("level "+this.inpLevel.getSelectedIndex());
+        System.out.println("level "+level);
         // cek apakah user sudah memilih level atau belum
-        if(level != null){
+        if (this.username.equals("")) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Username harus Di isi !");
+        } else if (this.nama.equals("")) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Nama Karyawan harus Di isi !");
+        } else if (this.alamat.equals("")) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Alamat harus Di isi !");
+        } else if (this.pass.equals("")) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Password harus Di isi !");
+        }else if(level == null){
+            error = true;
+            Message.showWarning(this, "Level harus Di isi !");
+        }
+        if(!error){
             // menambahkan data karyawan ke database
             boolean save = this.karyawan.addKaryawan(nama, noTelp, alamat, pass, level,this.username);
 
@@ -138,10 +167,11 @@ public class InputKaryawan extends javax.swing.JDialog {
      * 
      */
     private void editData(){
-        boolean eNama, eNoTelp, eAlamat, ePass, eLevel;
+        boolean eNama, eNoTelp, eAlamat, ePass, eLevel,error = false;
         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
 
         // mendapakan data dari textfield
+        this.newUsername = this.inpUsername.getText();
         this.newNama = this.inpNama.getText();
         this.newNoTelp = this.inpNoTelp.getText();
         this.newAlamat = this.inpAlamat.getText();
@@ -153,11 +183,27 @@ public class InputKaryawan extends javax.swing.JDialog {
             case 1: newLevel = UserLevels.ADMIN; break;
             case 2: newLevel = UserLevels.KARYAWAN; break;
         }
-
+        if (this.newUsername.equals("")) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Username harus Di isi !");
+        } else if (this.newNama.equals("")) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Nama Karyawan harus Di isi !");
+        } else if (this.newAlamat.equals("")) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Alamat harus Di isi !");
+        } else if (this.newPass.equals("")) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Password harus Di isi !");
+        }
         // cek apakah user sudah memilih level atau belum
         if (this.newLevel != null) {
             // validasi data
-            if (this.karyawan.validateDataKaryawan(this.idKaryawan, this.newNama, this.newNoTelp, this.newAlamat, this.newPass, this.newLevel)) {
+            if (this.karyawan.validateDataKaryawan(this.idKaryawan, this.newNama, this.newNoTelp, this.newAlamat, this.newPass, this.newLevel, this.newUsername)) {
                 // mengedit data
                 eNama = this.karyawan.setNama(this.idKaryawan, this.newNama);
                 eNoTelp = this.karyawan.setNoTelp(this.idKaryawan, this.newNoTelp);
@@ -253,6 +299,11 @@ public class InputKaryawan extends javax.swing.JDialog {
         inpUsername.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         inpUsername.setCaretColor(new java.awt.Color(213, 8, 8));
         inpUsername.setOpaque(false);
+        inpUsername.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                inpUsernameMouseClicked(evt);
+            }
+        });
         pnlMain.add(inpUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 257, 344, 29));
 
         inpPassword.setBackground(new java.awt.Color(255, 255, 255));
@@ -267,7 +318,7 @@ public class InputKaryawan extends javax.swing.JDialog {
         inpLevel.setBackground(new java.awt.Color(255, 255, 255));
         inpLevel.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         inpLevel.setForeground(new java.awt.Color(0, 0, 0));
-        inpLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "                            Pilih Level", "                               Admin", "                             Karyawan" }));
+        inpLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "                            Pilih Level", "                              Admin", "                           Karyawan" }));
         inpLevel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         inpLevel.setOpaque(false);
         pnlMain.add(inpLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 324, 350, 34));
@@ -347,27 +398,27 @@ public class InputKaryawan extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSimpanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSimpanMouseEntered
-        this.btnSimpan.setBackground(this.btnSimpan.getBackground().darker());
+        this.btnSimpan.setIcon(Gambar.getAktiveIcon(this.btnSimpan.getIcon().toString()));
     }//GEN-LAST:event_btnSimpanMouseEntered
 
     private void btnSimpanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSimpanMouseExited
-        this.btnSimpan.setBackground(new Color(34,119,237));
+        this.btnSimpan.setIcon(Gambar.getBiasaIcon(this.btnSimpan.getIcon().toString()));
     }//GEN-LAST:event_btnSimpanMouseExited
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
         // action button sesuai opsi tambah atau edit
         switch(option){
             case ADD_OPTION : this.addData(); break;
-            case EDIT_OPTION : this.editData(); break;
+            case EDIT_OPTION : this.editData();  break;
         }
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnCancelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseEntered
-        this.btnCancel.setBackground(this.btnCancel.getBackground().darker());
+        this.btnCancel.setIcon(Gambar.getAktiveIcon(this.btnCancel.getIcon().toString()));
     }//GEN-LAST:event_btnCancelMouseEntered
 
     private void btnCancelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseExited
-        this.btnCancel.setBackground(new Color(220,41,41));
+        this.btnCancel.setIcon(Gambar.getBiasaIcon(this.btnCancel.getIcon().toString()));
     }//GEN-LAST:event_btnCancelMouseExited
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -395,8 +446,15 @@ public class InputKaryawan extends javax.swing.JDialog {
         this.inpPassword.setEchoChar('•');
     }//GEN-LAST:event_lblEyeMouseExited
 
-    public static void main(String args[]) {
+    private void inpUsernameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inpUsernameMouseClicked
+        // TODO add your handling code here:
+        if(edit){
+            Message.showWarning(this, "ID Petugas tidak bisa diedit!");
+        }
+    }//GEN-LAST:event_inpUsernameMouseClicked
 
+    public static void main(String args[]) {
+        Log.createLog();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {

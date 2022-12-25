@@ -3,7 +3,6 @@ package com.window.panels;
 import com.data.db.Database;
 import com.data.db.DatabaseTables;
 import com.manage.Barang;
-import com.manage.Internet;
 import com.manage.Message;
 import com.manage.Text;
 import com.media.Audio;
@@ -35,8 +34,6 @@ public class DataSupplier extends javax.swing.JPanel {
     private final Supplier supplier = new Supplier();
 
     private final Barang barang = new Barang();
-
-    private final Internet net = new Internet();
 
     private final Text text = new Text();
 
@@ -517,26 +514,15 @@ public class DataSupplier extends javax.swing.JPanel {
     }//GEN-LAST:event_tabelDataKeyPressed
 
     private void valNoTelpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_valNoTelpMouseClicked
-        String nomor = this.noTelp.substring(1).replaceAll(" ", "").replaceAll("-", "");
-        if (net.isConnectInternet()) {
-            try {
-                net.openLink("https://wa.me/" + nomor);
-            } catch (IOException | URISyntaxException ex) {
-                Message.showException(this, ex, true);
-            }
-        } else {
-            Message.showWarning(this, "Tidak terhubung ke Internet!", true);
-        }
+//
     }//GEN-LAST:event_valNoTelpMouseClicked
 
     private void valNoTelpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_valNoTelpMouseEntered
-        this.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        this.valNoTelp.setText("<html><p style=\"text-decoration:underline; color:rgb(15,98,230);\">:&nbsp;" + noTelp + "</p></html>");
+//
     }//GEN-LAST:event_valNoTelpMouseEntered
 
     private void valNoTelpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_valNoTelpMouseExited
-        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-        this.valNoTelp.setText("<html><p style=\"text-decoration:underline; color:rgb(0,0,0);\">:&nbsp;" + noTelp + "</p></html>");
+
     }//GEN-LAST:event_valNoTelpMouseExited
 
     private void inpCariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inpCariKeyTyped

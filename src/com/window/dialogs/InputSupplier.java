@@ -15,19 +15,20 @@ import javax.swing.ImageIcon;
 public class InputSupplier extends javax.swing.JDialog {
 
     private final Supplier supplier = new Supplier();
-    
+
     public int option;
-    
+
     public static final int ADD_OPTION = 1, EDIT_OPTION = 2;
-    
+
     private final String idSupplier;
-    
+
     private String nama, noTelp, alamat, newNama, newNoTelp, newAlamat;
-    
+
     private boolean isUpdated = false;
-    
+
     /**
      * Creates new form TambahSupplier
+     *
      * @param parent
      * @param modal
      * @param idSupplier
@@ -36,7 +37,7 @@ public class InputSupplier extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setIconImage(Gambar.getWindowIcon());
-        if(idSupplier == null){
+        if (idSupplier == null) {
             // menyetting window untuk tambah data
             this.option = 1;
             this.idSupplier = this.supplier.createID();
@@ -59,7 +60,7 @@ public class InputSupplier extends javax.swing.JDialog {
             this.nama = this.supplier.getNama(this.idSupplier);
             this.alamat = this.supplier.getAlamat(this.idSupplier);
             this.noTelp = this.supplier.getNoTelp(this.idSupplier);
-            
+
             // menampilkan data-data supplier ke input text
             this.inpNama.setText(this.nama);
             this.inpNoTelp.setText(this.noTelp);
@@ -67,75 +68,105 @@ public class InputSupplier extends javax.swing.JDialog {
         }
 
         this.setLocationRelativeTo(null);
-        
+
         this.inpId.setText(this.idSupplier);
         this.btnSimpan.setUI(new javax.swing.plaf.basic.BasicButtonUI());
         this.btnCancel.setUI(new javax.swing.plaf.basic.BasicButtonUI());
     }
-    
+
     /**
      * Mengecek apakah user menekan tombol simpan / tambah atau tidak
-     * 
-     * @return <strong>True</strong> jika user menekan tombol simpan / tambah. <br>
-     *         <strong>False</strong> jika user menekan tombol kembali / close.
+     *
+     * @return <strong>True</strong> jika user menekan tombol simpan / tambah.
+     * <br>
+     * <strong>False</strong> jika user menekan tombol kembali / close.
      */
-    public boolean isUpdated(){
+    public boolean isUpdated() {
         return this.isUpdated;
     }
-    
+
     /**
      * Digunakan untuk menambahkan data supplier ke Database.
-     * 
+     *
      */
-    private void addData(){
+    private void addData() {
+        boolean error = false;
         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
         // mendapatkan data dari textfield
         this.nama = this.inpNama.getText();
         this.noTelp = this.inpNoTelp.getText();
         this.alamat = this.inpAlamat.getText();
-        
-        // menambahkan data supplier supplier ke database
-        boolean save = this.supplier.addSupplier(nama, noTelp, alamat);
-        
-        // mengecek data berhasil disimpan atau belum
-        if(save){
-            Message.showInformation(this, "Data berhasil disimpan!");
-            this.isUpdated = true;
-            this.supplier.closeConnection();
-            this.dispose();
+        if (this.nama.equals("")) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Nama Supplier harus Di isi !");
+        } else if (this.noTelp.equals("")) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "No Telepon harus Di isi !");
+        } else if (this.alamat.equals("")) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Alamat harus Di isi !");
         }
-        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-    }
-    
-    /**
-     * Digunakan untuk mengedit data dari supplier
-     * 
-     */
-    private void editData(){
-        boolean eNama, eNoTelp, eAlamat;
-        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-        
-        // mendapakan data dari textfield
-        this.newNama = this.inpNama.getText();
-        this.newNoTelp = this.inpNoTelp.getText();
-        this.newAlamat = this.inpAlamat.getText();
-        
-        // validasi data
-        if(this.supplier.validateAddSupplier(this.idSupplier, this.newNama, this.newNoTelp, this.newAlamat)){
-            // mengedit data
-            eNama = this.supplier.setNama(this.idSupplier, this.newNama);
-            eNoTelp = this.supplier.setNoTelp(this.idSupplier, this.newNoTelp);
-            eAlamat = this.supplier.setAlamat(this.idSupplier, this.newAlamat);
-            
-            // mengecek apa data berhasil disave atau tidak
-            if(eNama && eNoTelp && eAlamat){
-                Message.showInformation(this, "Data berhasil diedit!");
+        if (!error) {
+            // menambahkan data supplier supplier ke database
+            boolean save = this.supplier.addSupplier(nama, noTelp, alamat);
+
+            // mengecek data berhasil disimpan atau belum
+            if (save) {
+                Message.showInformation(this, "Data berhasil disimpan!");
                 this.isUpdated = true;
                 this.supplier.closeConnection();
                 this.dispose();
             }
         }
         this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }
+
+    /**
+     * Digunakan untuk mengedit data dari supplier
+     *
+     */
+    private void editData() {
+        boolean eNama, eNoTelp, eAlamat, error = false;
+        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+
+        // mendapakan data dari textfield
+        this.newNama = this.inpNama.getText();
+        this.newNoTelp = this.inpNoTelp.getText();
+        this.newAlamat = this.inpAlamat.getText();
+        if (this.newNama.equals("")) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Nama Supplier harus Di isi !");
+        } else if (this.newNoTelp.equals("")) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "No Telepon harus Di isi !");
+        } else if (this.newAlamat.equals("")) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Alamat harus Di isi !");
+        }
+        if (!error) {
+            // validasi data
+            if (this.supplier.validateAddSupplier(this.idSupplier, this.newNama, this.newNoTelp, this.newAlamat)) {
+                // mengedit data
+                eNama = this.supplier.setNama(this.idSupplier, this.newNama);
+                eNoTelp = this.supplier.setNoTelp(this.idSupplier, this.newNoTelp);
+                eAlamat = this.supplier.setAlamat(this.idSupplier, this.newAlamat);
+
+                // mengecek apa data berhasil disave atau tidak
+                if (eNama && eNoTelp && eAlamat) {
+                    Message.showInformation(this, "Data berhasil diedit!");
+                    this.isUpdated = true;
+                    this.supplier.closeConnection();
+                    this.dispose();
+                }
+            }
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -268,9 +299,13 @@ public class InputSupplier extends javax.swing.JDialog {
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
         // action button sesuai opsi tambah atau edit
-        switch(option){
-            case ADD_OPTION : this.addData(); break;
-            case EDIT_OPTION : this.editData(); break;
+        switch (option) {
+            case ADD_OPTION:
+                this.addData();
+                break;
+            case EDIT_OPTION:
+                this.editData();
+                break;
         }
     }//GEN-LAST:event_btnSimpanActionPerformed
 
