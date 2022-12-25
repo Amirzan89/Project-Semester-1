@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
  * Digunakan untuk ganti password bagi admin, karyawan.
  *
  * @author Amirzan fikri
- * @since 2020-11-22
+ * @since 2022-12-24
  */
 public class LupaWindow extends javax.swing.JFrame {
 
@@ -261,7 +261,6 @@ public class LupaWindow extends javax.swing.JFrame {
             }
             if (!kosong) {
                 JOptionPane.showMessageDialog(this, "Mohon tunggu sebentar\nSedang Memeriksa Username dan Password");
-//                if()
                 boolean check = user.validateSetPassword(this.username, this.passwordLama);
                 if (check) {
                     boolean ganti = user.setPassword(this.username, this.passwordBaru);
@@ -305,10 +304,12 @@ public class LupaWindow extends javax.swing.JFrame {
 
     private void btnLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseEntered
         this.btnLogin.setIcon(Gambar.getAktiveIcon(this.btnLogin.getIcon().toString()));
+        this.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     }//GEN-LAST:event_btnLoginMouseEntered
 
     private void btnLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseExited
         this.btnLogin.setIcon(Gambar.getBiasaIcon(this.btnLogin.getIcon().toString()));
+        this.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btnLoginMouseExited
 
     private void inpPasswordBaruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inpPasswordBaruActionPerformed
@@ -337,13 +338,13 @@ public class LupaWindow extends javax.swing.JFrame {
 
     private void lblEye1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEye1MouseEntered
         this.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        this.lblEye.setIcon(Gambar.getIcon("ic-login-eye-open.png"));
+        this.lblEye1.setIcon(Gambar.getIcon("ic-login-eye-open.png"));
         this.inpPasswordBaru.setEchoChar((char)0);
     }//GEN-LAST:event_lblEye1MouseEntered
 
     private void lblEye1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEye1MouseExited
         this.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        this.lblEye.setIcon(Gambar.getIcon("ic-login-eye-close.png"));
+        this.lblEye1.setIcon(Gambar.getIcon("ic-login-eye-close.png"));
         this.inpPasswordBaru.setEchoChar('•');
     }//GEN-LAST:event_lblEye1MouseExited
 

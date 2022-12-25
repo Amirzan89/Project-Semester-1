@@ -26,7 +26,7 @@ public final class Application {
      * Informasi-informasi mengenai aplikasi.
      */
     private static final String VERSION = "1.0.0",
-                                APP_NAME = "Buku Bu Hermin",
+                                APP_NAME = "Hermin Book",
                                 AUTHOR = "Kelompok A3",
                                 COMPANY = "Politeknik Negeri Jember",
                                 APP_ICON_old = "src\\resources\\image\\icons\\app-logo.png",

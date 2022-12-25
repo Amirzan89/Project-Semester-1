@@ -129,7 +129,7 @@ public class Chart {
         int tahun1,tahun2,tahun3,tahun4,tahun5,tahun6,bulan1,bulan2,bulan3,bulan4,bulan5,bulan6,hari1,hari2,hari3,hari4,hari5,hari6;
 //        Object[] obj = waktu.getMinggu(bulan, tahun);
         if (obj.length == 4) {
-            System.out.println("minggu ada 4");
+//            System.out.println("minggu ada 4");
             m1h1 = obj[0].toString().substring(0,10);
             m1h2 = obj[0].toString().substring(11,21);
             hari1 = Integer.parseInt(m1h2.substring(8));
@@ -153,7 +153,7 @@ public class Chart {
             hari4 = Integer.parseInt(m4h2.substring(8));
             bulan4 = Integer.parseInt(m4h2.substring(5,7));
             tahun4 = Integer.parseInt(m4h2.substring(0,4));
-            
+            //ambil data dari database
             int minggu1 = getTotal("transaksi_jual", "keuntungan", "WHERE tanggal >= '"+ m1h1 +"' AND tanggal <= '"+ String.format("%s-%s-%s",tahun1,bulan1,hari1+1)+"'");
             int minggu2 = getTotal("transaksi_jual", "keuntungan", "WHERE tanggal >= '"+ m2h1 +"' AND tanggal <= '"+ String.format("%s-%s-%s",tahun2,bulan2,hari2+1)+"'");
             int minggu3 = getTotal("transaksi_jual", "keuntungan", "WHERE tanggal >= '"+ m3h1 +"' AND tanggal <= '"+ String.format("%s-%s-%s",tahun3,bulan3,hari3+1)+"'");
@@ -180,7 +180,7 @@ public class Chart {
                 dataset.addValue(0, "Amount", "Minggu 4");
             }
         }else if (obj.length == 5) {
-            System.out.println("minggu ada 5");
+//            System.out.println("minggu ada 5");
             m1h1 = obj[0].toString().substring(0,10);
             m1h2 = obj[0].toString().substring(11,21);
             hari1 = Integer.parseInt(m1h2.substring(8));
@@ -210,16 +210,7 @@ public class Chart {
             hari5 = Integer.parseInt(m5h2.substring(8));
             bulan5 = Integer.parseInt(m5h2.substring(5,7));
             tahun5 = Integer.parseInt(m5h2.substring(0,4));
-//            System.out.println(m1h1);
-//            System.out.println(m1h2);
-//            System.out.println(m2h1);
-//            System.out.println(m2h2);
-//            System.out.println(m3h1);
-//            System.out.println(m3h2);
-//            System.out.println(m4h1);
-//            System.out.println(m4h2);
-//            System.out.println(m5h1);
-//            System.out.println(m5h2);
+            
             int minggu1 = getTotal("transaksi_jual", "keuntungan", "WHERE tanggal >= '"+ m1h1 +"' AND tanggal <= '"+ String.format("%s-%s-%s",tahun1,bulan1,hari1+1)+"'");
             int minggu2 = getTotal("transaksi_jual", "keuntungan", "WHERE tanggal >= '"+ m2h1 +"' AND tanggal <= '"+ String.format("%s-%s-%s",tahun2,bulan2,hari2+1)+"'");
             int minggu3 = getTotal("transaksi_jual", "keuntungan", "WHERE tanggal >= '"+ m3h1 +"' AND tanggal <= '"+ String.format("%s-%s-%s",tahun3,bulan3,hari3+1)+"'");
@@ -252,7 +243,7 @@ public class Chart {
                 dataset.addValue(0, "Amount", "Minggu 5");
             }
         }else if (obj.length == 6) {
-            System.out.println("minggu ada 6");
+//            System.out.println("minggu ada 6");
             m1h1 = obj[0].toString().substring(0,10);
             m1h2 = obj[0].toString().substring(11,21);
             hari1 = Integer.parseInt(m1h2.substring(8));

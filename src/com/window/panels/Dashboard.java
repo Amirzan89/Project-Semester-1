@@ -167,10 +167,9 @@ public class Dashboard extends javax.swing.JPanel {
     private void updateTabel() throws ParseException {
         try {
             DefaultTableModel tabelModel = (DefaultTableModel) tabelData.getModel();
-            Date tanggalData = null;
-            Date tanggalData1 = null;
+            Date tanggalData;
             int hari1 = 0, bulan1 = -1, tahun1 = 0;
-            String kolom[] = {"No", "Id transaksi ", "Total Harga", "Jenis Transaksi", "Tanggal", "Waktu"}, waktu, tanggalPenuh, total, jenis, data[] = new String[6];
+            String kolom[] = {"No", "Id transaksi ", "Total Harga", "Jenis Transaksi", "Tanggal", "Waktu"}, waktu, tanggalPenuh,tanggalPenuh1, total, jenis, data[] = new String[6];
             TableModel model;
             String sql = "SELECT id_tr_beli AS id,total_hrg AS total, tanggal FROM transaksi_beli UNION SELECT id_tr_jual,total_hrg,tanggal FROM transaksi_jual ORDER BY tanggal DESC";
             db.res = db.stat.executeQuery(sql);
@@ -188,15 +187,14 @@ public class Dashboard extends javax.swing.JPanel {
                     data[2] = text.toMoneyCase("-" + total);
                     data[3] = "Pembelian";
                 }
-                tanggalData = tanggalMilis.parse(db.res.getString("tanggal"));
-                tanggalPenuh = date.format(tanggalData);
-                hari1 = Integer.parseInt(tanggalPenuh.substring(0,2));
-                bulan1 = Integer.parseInt(tanggalPenuh.substring(3, 5));
-                tahun1 = Integer.parseInt(tanggalPenuh.substring(6));
+                tanggalPenuh = db.res.getString("tanggal");
+                tanggalData = tanggalMilis.parse(tanggalPenuh);
+                tanggalPenuh1 = date.format(tanggalData);
+                hari1 = Integer.parseInt(tanggalPenuh1.substring(0,2));
+                bulan1 = Integer.parseInt(tanggalPenuh1.substring(3, 5));
+                tahun1 = Integer.parseInt(tanggalPenuh1.substring(6));
                 data[4] = hari1 +"-"+ this.waktu.getNamaBulan(bulan1-1)+"-"+tahun1;
-                waktu = time12.format(tanggalData);
-                tanggalData1 = time12.parse(waktu);
-                data[5] = time.format(tanggalData1);
+                data[5] = tanggalPenuh.substring(11,19);
                 tabelModel.addRow(data);
             }
             tabelData.setModel(tabelModel);
@@ -249,7 +247,7 @@ public class Dashboard extends javax.swing.JPanel {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -272,16 +270,16 @@ public class Dashboard extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(tabelData);
         if (tabelData.getColumnModel().getColumnCount() > 0) {
-            tabelData.getColumnModel().getColumn(0).setMinWidth(35);
-            tabelData.getColumnModel().getColumn(0).setMaxWidth(35);
-            tabelData.getColumnModel().getColumn(2).setMinWidth(150);
-            tabelData.getColumnModel().getColumn(2).setMaxWidth(150);
-            tabelData.getColumnModel().getColumn(3).setMinWidth(100);
-            tabelData.getColumnModel().getColumn(3).setMaxWidth(100);
-            tabelData.getColumnModel().getColumn(4).setMinWidth(150);
-            tabelData.getColumnModel().getColumn(4).setMaxWidth(150);
-            tabelData.getColumnModel().getColumn(5).setMinWidth(150);
-            tabelData.getColumnModel().getColumn(5).setMaxWidth(150);
+            tabelData.getColumnModel().getColumn(0).setMinWidth(40);
+            tabelData.getColumnModel().getColumn(0).setMaxWidth(40);
+            tabelData.getColumnModel().getColumn(2).setMinWidth(200);
+            tabelData.getColumnModel().getColumn(2).setMaxWidth(200);
+            tabelData.getColumnModel().getColumn(3).setMinWidth(200);
+            tabelData.getColumnModel().getColumn(3).setMaxWidth(200);
+            tabelData.getColumnModel().getColumn(4).setMinWidth(200);
+            tabelData.getColumnModel().getColumn(4).setMaxWidth(200);
+            tabelData.getColumnModel().getColumn(5).setMinWidth(200);
+            tabelData.getColumnModel().getColumn(5).setMaxWidth(200);
         }
 
         add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, 940, 260));

@@ -96,7 +96,7 @@ public class Supplier extends Database {
     }
 
     public boolean deleteSupplier(String idSupplier) {
-        Log.addLog("Menghapus akun dengan username '" + idSupplier + "'.");
+        Log.addLog("Menghapus akun dengan ID Supplier '" + idSupplier + "'.");
         return this.deleteData(DatabaseTables.SUPPLIER.name(), "id_supplier", idSupplier);
     }
 

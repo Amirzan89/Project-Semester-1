@@ -34,7 +34,7 @@ import javax.swing.event.ChangeEvent;
  * @author Amirzan fikri 
  */
 public class LaporanBeli extends javax.swing.JPanel {
-
+    //deklarasi variabel 
     private final Database db = new Database();
     private final String namadb = Database.DB_NAME;
     private final ManageTransaksiBeli trb = new ManageTransaksiBeli();
@@ -51,8 +51,6 @@ public class LaporanBeli extends javax.swing.JPanel {
     private final DateFormat tanggalFull = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss ");
     private final DateFormat date = new SimpleDateFormat("dd-MM-yyyy");
     private final DateFormat date1 = new SimpleDateFormat("yyyy-MM-dd");
-    private final DateFormat time = new SimpleDateFormat("hh:mm:ss");
-    private final DateFormat timeMillis = new SimpleDateFormat("ss.SSS:mm:hh");
 
     private int hari, hari1, bulan, bulan1, tahun, tahun1, bulanan, tahunan;
     private Date tHarian1, tHarian2, tHarian3,tHarian2_old,tHarian3_old;
@@ -269,7 +267,7 @@ public class LaporanBeli extends javax.swing.JPanel {
         }
         return null;
     }
-
+    //digunakan untuk menghitung total dari jumlah barang di tabel detail transaksi beli dengan kondisi id transaksi beli dan jenis barang
     private int getJenis(String field) {
         try {
             Statement stat = getStat();
@@ -309,13 +307,13 @@ public class LaporanBeli extends javax.swing.JPanel {
         }
         return -1;
     }
-
+    //digunakan untuk mengambil data tabel transaksi beli dari database dengan kondisi dari value variabel keyword lalu diurutkan berdasaarkan id transaksi beli 
     private Object[][] getData() throws ParseException {
         try {
             Object[][] obj;
             Date tanggalData = new Date();
             int rows = 0,hari_1 = 0,bulan_1 = -1,tahun_1 = 0;
-            String sql = "SELECT id_tr_beli, id_karyawan, total_hrg, tanggal FROM transaksi_beli " + keyword + " ORDER BY id_tr_beli DESC",tanggalPenuh;
+            String sql = "SELECT id_tr_beli, id_karyawan, total_hrg, tanggal FROM transaksi_beli " + keyword + " ORDER BY id_tr_beli DESC",tanggalPenuh = "",tanggalPenuh1;
             obj = new Object[trb.getJumlahData("transaksi_beli", keyword)][6];
             // mengeksekusi query
             trb.res = trb.stat.executeQuery(sql);
@@ -326,13 +324,14 @@ public class LaporanBeli extends javax.swing.JPanel {
                 obj[rows][1] = trb.res.getString("id_karyawan");
                 obj[rows][2] = this.karyawan.getNama(trb.res.getString("id_karyawan"));
                 obj[rows][3] = text.toMoneyCase(trb.res.getString("total_hrg"));
-                tanggalData = tanggalMilis.parse(trb.res.getString("tanggal"));
-                tanggalPenuh = date.format(tanggalData);
-                hari_1 = Integer.parseInt(tanggalPenuh.substring(0,2));
-                bulan_1 = Integer.parseInt(tanggalPenuh.substring(3, 5));
-                tahun_1 = Integer.parseInt(tanggalPenuh.substring(6));
+                tanggalPenuh = trb.res.getString("tanggal");
+                tanggalData = tanggalMilis.parse(tanggalPenuh);
+                tanggalPenuh1 = date.format(tanggalData);
+                hari_1 = Integer.parseInt(tanggalPenuh1.substring(0,2));
+                bulan_1 = Integer.parseInt(tanggalPenuh1.substring(3, 5));
+                tahun_1 = Integer.parseInt(tanggalPenuh1.substring(6));
                 obj[rows][4] = hari1 +"-"+ this.waktu.getNamaBulan(bulan_1-1)+"-"+tahun_1;
-                obj[rows][5] = time.format(tanggalData);
+                obj[rows][5] = tanggalPenuh.substring(11,19);
                 rows++;
             }
             return obj;
@@ -342,43 +341,68 @@ public class LaporanBeli extends javax.swing.JPanel {
         }
         return null;
     }
-
+    //digunakan untuk ubah tabel dengan 
     private void updateTabel(JTable tabel) throws ParseException {
         tabel.setModel(new javax.swing.table.DefaultTableModel(
-                getData(),
+                getData(), //mengambil data 
                 new String[]{
+                    //untuk mengatur header tabel 
                     "ID Pengeluaran", "ID Karyawan", "Nama Karyawan", "Total Pengeluaran", "Tanggal", "Waktu"
                 }
         ) {
+            //deklarasi dan inisialisasi variabel
             boolean[] canEdit = new boolean[]{
                 false, false, false, false, false,false
             };
 
             @Override
+            //method yang digunakan untuk kolom kolom tabel supaya bisa di edit atau tidak berdasarkan variabel canEdit
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit[columnIndex];
             }
         });
     }
-
+    //mehtod showData digunakan untuk menampilkan data dari tabel data ke menu
     private void showData(JTable tabel) throws ParseException {
+        // deklarasi variabel
+        int hari_1 = 0,bulan_1 = -1,tahun_1 = 0;
         // mendapatkan data-data
+        //mendapatkan id tranksaksi dari tabel data diubah ke String lalu char "LPG" diubah menjadi "TRB"
         this.idTr = tabel.getValueAt(tabel.getSelectedRow(), 0).toString().replace("LPG", "TRB");
+        //mendapatkan id pengeluaran dari tabel data diubah ke String lalu char "TRB" diubah menjadi "LPG"
         this.idPd = this.idTr.replace("TRB", "LPG");
+        //mendapatkan id karyawan dari tabel data diubah ke String
         this.IDKaryawan = tabel.getValueAt(tabel.getSelectedRow(), 1).toString();
+        //mendapatkan nama karyawan dari tabel data diubah ke String
         this.namaKaryawan = tabel.getValueAt(tabel.getSelectedRow(), 2).toString();
+        //mendapatkan pengeluaran dari tabel data lalu diubah ke String lalu diubah ke int 
         this.totalHrg = text.toIntCase(tabel.getValueAt(tabel.getSelectedRow(), 3).toString());
+        //mendapatkan tanggal berdasarkan id transaksi 
         String tanggal1 = this.trb.getTanggal(this.idTr);
+        //mengubah variabel tipe data string ke tipe data Date 
         Date d = tanggalMilis.parse(tanggal1);
+        //mengubah variabel tipe data Date ke tipe data string dengan format 
         this.tanggal = date.format(d);
-
+        //mendapatkan hari dari variabel tanggal 
+        hari_1 = Integer.parseInt(this.tanggal.substring(0,2));
+        //mendapatkan bulan dari variabel tanggal 
+        bulan_1 = Integer.parseInt(this.tanggal.substring(3, 5));
+        //mendapatkan tahun dari variabel tanggal 
+        tahun_1 = Integer.parseInt(this.tanggal.substring(6));
+                
         // menampilkan data-data
+        //menampilkan id transaksi 
         this.valIDTransaksi.setText("<html><p>:&nbsp;" + this.idTr + "</p></html>");
+        //menampilkan id pengeluaran  
         this.valIDPengeluaran.setText("<html><p>:&nbsp;" + this.idPd + "</p></html>");
+        //menampilkan id karyawan  
         this.valIDKaryawan.setText("<html><p>:&nbsp;" + this.IDKaryawan + "</p></html>");
+        //menampilkan nama karyawan  
         this.valNamaKaryawan.setText("<html><p>:&nbsp;" + this.namaKaryawan + "</p></html>");
-        this.valHarga.setText("<html><p>:&nbsp;" + this.totalHrg + "</p></html>");
-        this.valTanggal.setText("<html><p>:&nbsp;" + this.tanggal + "</p></html>");
+        //menampilkan pengeluaran dengan variabel totalHrg diubah ke string diubah ke format rupiah
+        this.valHarga.setText("<html><p>:&nbsp;" + text.toMoneyCase(Integer.toString(this.totalHrg)) + "</p></html>");
+        //menampilkan tanggal 
+        this.valTanggal.setText("<html><p>:&nbsp;" + hari1 +"-"+ this.waktu.getNamaBulan(bulan_1-1)+"-"+tahun_1 + "</p></html>");
     }
 
     @SuppressWarnings("unchecked")
