@@ -2,7 +2,6 @@ package com.users;
 
 import com.data.app.Log;
 import com.data.app.Storage;
-import com.data.db.AES;
 import com.data.db.Database;
 import com.data.db.DatabaseTables;
 import com.error.AuthenticationException;
@@ -641,6 +640,16 @@ public class Users extends Database{
         return this.getUserData1(idKaryawan, UserLevels.USERS, data, UserData.ID_KARYAWAN);         
     }
     
+    protected boolean setUserDataKaryawan(String idKaryawan, UserLevels level, UserData data, UserData primary, String newValue){
+        Log.addLog("Mengedit data '" + data.name().toLowerCase() + "' dari akun dengan idKaryawan '" + idKaryawan + "'.");
+        // mengecek apakah id karyawan exist atau tidak
+        if(this.isExistUser1(idKaryawan)){
+            // mengedit data dari karyawann
+            return super.setData(level.name(), data.name(), primary.name(), idKaryawan, newValue);
+        }
+        // akan menghasilkan error jika id user tidak ditemukan
+        throw new InValidUserDataException("'" +idKaryawan + "' ID User tersebut tidak dapat ditemukan.");
+    }
     protected boolean setUserData(String idUser, UserLevels level, UserData data, UserData primary, String newValue){
         Log.addLog("Mengedit data '" + data.name().toLowerCase() + "' dari akun dengan username '" + idUser + "'.");
         // mengecek apakah id user exist atau tidak
@@ -783,14 +792,14 @@ public class Users extends Database{
      * method {@code isLevel(String level)} yang ada didalam class {@code Validation}. Jika Level tidak valid
      * maka method akan menghasilkan exception {@code InValidUserDataException}.
      * 
-     * @param idUser ID User yang ingin diedit levelnya
+     * @param username username yang ingin diedit levelnya
      * @param newLevel data Password yang baru.
      * @return <strong>True</strong> jika data berhasil diedit. <br>
      *         <strong>False</strong> jika data tidak berhasil diedit.
      */
-    public boolean setLevel(String idKaryawan, UserLevels newLevel){
+    public boolean setLevel(String username, UserLevels newLevel){
         if(Validation.isLevel(newLevel)){
-            return this.setUserData(idKaryawan, UserData.LEVEL, newLevel.name());
+            return this.setUserData(username, UserData.LEVEL, newLevel.name());
         }
         // akan menghasilkan error jika password tidak valid
         throw new InValidUserDataException("'" + newLevel + "' Level tersebut tidak valid.");

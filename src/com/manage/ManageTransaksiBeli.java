@@ -21,9 +21,9 @@ public class ManageTransaksiBeli extends Database{
         JUMLAH_BRG, METODE_BYR, TOTAL_HRG, TANGGAL
     };
     
-    private enum LPB{
-        ID_LAPORAN_PGLRN, NAMA_LAPORAN_PGLRN, ID_TR_BELI, TANGGAL, TOTAL_HARGA
-    };
+//    private enum LPB{
+//        ID_LAPORAN_PGLRN, NAMA_LAPORAN_PGLRN, ID_TR_BELI, TANGGAL, TOTAL_HARGA
+//    };
     
     public final Text txt = new Text();
     
@@ -91,7 +91,6 @@ public class ManageTransaksiBeli extends Database{
                 pst.setString(4, idSupplier);
                 pst.setString(5, idBarang);
                 pst.setInt(6, Integer.parseInt(jmlBrg));
-//                pst.setString(7, metodeByr);
                 pst.setInt(7, Integer.parseInt(ttlHarga));
                 pst.setString(8, waktu.getCurrentDateTime());
   
@@ -99,35 +98,12 @@ public class ManageTransaksiBeli extends Database{
                 if(pst.executeUpdate() > 0){
                     // menambahkan laporan pendapatan
                     System.out.println("Sudah membuat transaksi beli");
-                    //commenc kode ini jika tidak menggunakan laporan 
-//                    boolean valid = this.addLaporanPengeluaran(idLaporan, namaTrJual, idTrb, tanggal, ttlHarga);
                     valid = true;
                     System.out.println("valid pembayaran "+valid);
                     return valid;
                 }
             }
         } catch (SQLException | InValidUserDataException ex) {
-            System.out.println("Error Message : " + ex.getMessage());
-        }
-        return false;
-    }
-    
-    private boolean addLaporanPengeluaran(String idLaporan, String namaLaporan, String idTrj, String tanggal, String ttlHarga){
-        PreparedStatement pst;
-        try{
-            Log.addLog(String.format("Menambahkan data laporan pendapatan dengan ID Transaksi '%s' ", idTrj));
-            pst = this.conn.prepareStatement("INSERT INTO laporan_pengeluaran VALUES (?, ?, ?, ?, ?)");
-            pst.setString(1, idLaporan);
-            pst.setString(2, namaLaporan);
-            pst.setString(3, idTrj);
-            pst.setString(4, waktu.getCurrentDateTime());
-            pst.setInt(5, Integer.parseInt(ttlHarga));
-            if(pst.executeUpdate()>0){
-                System.out.println("Sudah membuat laporan pengeluaran");
-                return true;
-            }
-//            return pst.executeUpdate() > 0;
-        }catch(SQLException ex){
             System.out.println("Error Message : " + ex.getMessage());
         }
         return false;
@@ -170,13 +146,6 @@ public class ManageTransaksiBeli extends Database{
         }else{
             throw new InValidUserDataException("'" + jmlBrg + "'Jumlah barang tersebut tidak valid.");
         }
-        
-        // mengecek apakah metode bayar valid atau tidak
-//        if(Validation.isMetodeBayar(metodeByr)){
-//            vMetodeByr = true;
-//        }else{
-//            throw new InValidUserDataException("'" + metodeByr + "'Metode bayar tersebut tidak valid.");
-//        }
         
         // mengecek apakah total harga valid atau tidak
         if(Validation.isNumber(ttlHarga)){

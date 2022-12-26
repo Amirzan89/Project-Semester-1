@@ -93,10 +93,14 @@ public class DataSupplier extends javax.swing.JPanel {
                 }
             });
 
-//        this.updateTabelHistori();
         }
         this.updateTabel();
         this.valNoTelp.setText("");
+    }
+    public void closeKoneksi(){
+        db.closeConnection();
+        supplier.closeConnection();
+        barang.closeConnection();
     }
     private int getJumlahData(String tabel, String kondisi){
         try{

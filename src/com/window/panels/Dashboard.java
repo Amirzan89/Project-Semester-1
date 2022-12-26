@@ -36,12 +36,7 @@ public class Dashboard extends javax.swing.JPanel {
 
     private final Database db = new Database();
 
-//    private final Statement stat = db.stat;
-    private final ManageTransaksiBeli trb = new ManageTransaksiBeli();
 
-    private final ManageTransaksiJual trj = new ManageTransaksiJual();
-
-    private final Barang barang = new Barang();
     private final Chart chart = new Chart();
 
     private final Waktu waktu = new Waktu();
@@ -62,7 +57,9 @@ public class Dashboard extends javax.swing.JPanel {
     public Dashboard() throws ParseException {
         initComponents();
         db.startConnection();
+        System.out.println("dahsboard");
         updateTabel();
+        
         this.hari = waktu.getTanggal();
         this.bulan = waktu.getBulan() + 1;
         this.tahun = waktu.getTahun();
@@ -96,7 +93,10 @@ public class Dashboard extends javax.swing.JPanel {
             }
         }).start();
     }
-
+    public void closeKoneksi(){
+        this.chart.closeKoneksi();
+        db.closeConnection();
+    }
     private int getJenis(String field) {
         try {
             int data = 0;

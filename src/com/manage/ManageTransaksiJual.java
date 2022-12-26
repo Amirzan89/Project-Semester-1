@@ -19,9 +19,9 @@ public class ManageTransaksiJual extends Database{
         JUMLAH_BRG, METODE_BYR, TOTAL_HRG, TANGGAL
     };
     
-    private enum LPJ{
-        ID_LAPORAN_PDPTN, NAMA_LAPORAN_PDPTN, ID_TR_JUAL, TANGGAL, TOTAL_HARGA
-    };
+//    private enum LPJ{
+//        ID_LAPORAN_PDPTN, NAMA_LAPORAN_PDPTN, ID_TR_JUAL, TANGGAL, TOTAL_HARGA
+//    };
     
     public final Text txt = new Text();
     
@@ -90,7 +90,6 @@ public class ManageTransaksiJual extends Database{
                 pst.setString(4, idPembeli);
                 pst.setString(5, idBarang);
                 pst.setInt(6, Integer.parseInt(jmlBrg));
-//                pst.setString(7, metodeByr);
                 pst.setInt(7, Integer.parseInt(ttlHarga));
                 pst.setString(8, waktu.getCurrentDateTime());
                 System.out.println(pst);
@@ -99,8 +98,6 @@ public class ManageTransaksiJual extends Database{
                     // menambahkan laporan pendapatan
                 System.out.println(pst);
                     System.out.println("Sudah membuat transaksi jual");
-                    //comment kode ini jika tidak menggunakan laporan
-//                    boolean valid = this.addLaporanPendapatan(idLaporan, namaTrJual, idTrj, tanggal, ttlHarga);
                     valid = true;
                     System.out.println("valid pembayaran "+valid);
                     return valid;
@@ -113,26 +110,6 @@ public class ManageTransaksiJual extends Database{
         return false;
     }
     
-    private boolean addLaporanPendapatan(String idLaporan, String namaLaporan, String idTrj, String tanggal, String ttlHarga){
-        PreparedStatement pst;
-        try{
-            Log.addLog(String.format("Menambahkan data laporan pendapatan dengan ID Transaksi '%s' ", idTrj));
-            pst = this.conn.prepareStatement("INSERT INTO laporan_pendapatan VALUES (?, ?, ?, ?, ?)");
-            pst.setString(1, idLaporan);
-            pst.setString(2, namaLaporan);
-            pst.setString(3, idTrj);
-            pst.setString(4, waktu.getCurrentDateTime());
-            pst.setInt(5, Integer.parseInt(ttlHarga));
-            if(pst.executeUpdate()>0){
-                System.out.println("Sudah membuat laporan pendapatan");
-                return true;
-            }
-//            return pst.executeUpdate() > 0;
-        }catch(SQLException ex){
-            System.out.println("Error Message : " + ex.getMessage());
-        }
-        return false;
-    }
     
     public boolean validateAddTransaksiJual(String idTrj, String namaTrJual, String idKaryawan, String idPembeli, String idBarang, String jmlBrg, String ttlHarga, String tanggal){
         boolean vIdTrj, vNamaTrJual = true, vIdPetugas, vIdPembeli, vIdBarang, vJmlBrg, vMetodeByr, vTtlHarga, vTanggal;

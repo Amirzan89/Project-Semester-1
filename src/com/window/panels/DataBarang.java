@@ -99,7 +99,9 @@ public class DataBarang extends javax.swing.JPanel {
         
         this.updateTabel();
     }
-    
+    public void closeKoneksi(){
+        barang.closeConnection();
+    }
     private String gachaMinggu(){
         int max = barang.sumData(DatabaseTables.DETAIL_TRANSAKSI_JUAL.name(), "jumlah", String.format("where id_barang = '%s'", this.idSelected));
 //        System.out.println("jumlah barangg "+max);

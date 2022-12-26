@@ -15,10 +15,12 @@ import java.sql.SQLException;
  * @author Achmad Baihaqi
  */
 public class Supplier extends Database {
-//    private final Database db = new Database();
 
     private final Text text = new Text();
-
+    
+    public Supplier(){
+        this.startConnection();
+    }
     public String createID() {
         return this.createIDnew("SUPPLIER", "ID_SUPPLIER");
     }
