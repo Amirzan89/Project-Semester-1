@@ -208,8 +208,8 @@ public class InputKaryawan extends javax.swing.JDialog {
                 eNama = this.karyawan.setNama(this.idKaryawan, this.newNama);
                 eNoTelp = this.karyawan.setNoTelp(this.idKaryawan, this.newNoTelp);
                 eAlamat = this.karyawan.setAlamat(this.idKaryawan, this.newAlamat);
-                ePass = this.karyawan.setPassword(this.idKaryawan, this.newPass);
-                eLevel = this.karyawan.setLevel(this.idKaryawan, this.newLevel);
+                ePass = this.karyawan.setPassword(this.karyawan.getUsername(this.idKaryawan), this.newPass);
+                eLevel = this.karyawan.setLevel(this.karyawan.getUsername(this.idKaryawan), this.newLevel);
 
                 // mengecek apa data berhasil disave atau tidak
                 if (eNama && eNoTelp && eAlamat && ePass && eLevel) {

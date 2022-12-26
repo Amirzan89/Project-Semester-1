@@ -16,6 +16,7 @@ import com.users.Supplier;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.awt.print.PrinterException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -41,9 +42,7 @@ public class LaporanBeli extends javax.swing.JPanel {
 
     private final Karyawan karyawan = new Karyawan();
 
-    private final Supplier supplier = new Supplier();
     private final Chart chart = new Chart();
-    private final Barang barang = new Barang();
 
     private final Text text = new Text();
 
@@ -59,6 +58,10 @@ public class LaporanBeli extends javax.swing.JPanel {
     private int selectedIndex = 1, totalHrg;
     private String idSelected = "", keyword = "", idTr, idPd, IDKaryawan, namaKaryawan, tanggal, tanggalDipilih1, tanggalDipilih2, tanggalDipilih3;
 
+    private Connection con;
+    private Statement stmt;
+    private ResultSet res;
+    
     public LaporanBeli() throws ParseException {
         this.tanggalDipilih1 = waktu.getCurrentDate();
         tHarian1 = date1.parse(this.tanggalDipilih1);
@@ -254,28 +257,50 @@ public class LaporanBeli extends javax.swing.JPanel {
         tbTahunan.setVisible(false);
         tbTahunan.setEnabled(false);
     }
-
-    private Statement getStat() {
+    
+    private void koneksi() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
+            this.con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/" + this.namadb, "root", "");
-            Statement stmt = con.createStatement();
-            return stmt;
+            this.stmt = con.createStatement();
+            db.jumlahKoneksi++;
+            System.out.println("jumlah koneksi : "+db.jumlahKoneksi);
         } catch (Exception e) {
             System.out.println(e);
         }
-        return null;
+    }
+    public void closeKoneksi() {
+        try {
+            // Mengecek apakah conn kosong atau tidak, jika tidak maka akan diclose
+            if (this.con != null) {
+                this.con.close();
+            }
+            // Mengecek apakah stat kosong atau tidak, jika tidak maka akan diclose
+            if (this.stmt != null) {
+                this.stmt.close();
+            }
+            // Mengecek apakah res koson atau tidak, jika tidak maka akan diclose
+            if (this.res != null) {
+                this.res.close();
+            }
+            db.jumlahKoneksi--;
+            db.closeConnection();
+            trb.closeConnection();
+            karyawan.closeConnection();
+        } catch (SQLException ex) {
+            Logger.getLogger(LaporanJual.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     //digunakan untuk menghitung total dari jumlah barang di tabel detail transaksi beli dengan kondisi id transaksi beli dan jenis barang
     private int getJenis(String field) {
         try {
-            Statement stat = getStat();
+            koneksi();
             int data = 0;
             String sql = "SELECT SUM(jumlah) AS total FROM detail_transaksi_beli WHERE id_tr_beli = '" + this.idTr + "' AND jenis_barang = '" + field + "'";
-            ResultSet res = stat.executeQuery(sql);
-            while (res.next()) {
-                data = res.getInt("total");
+            this.res = this.stmt.executeQuery(sql);
+            while (this.res.next()) {
+                data = this.res.getInt("total");
             }
             return data;
         } catch (SQLException ex) {
@@ -290,12 +315,12 @@ public class LaporanBeli extends javax.swing.JPanel {
 
     private int getTotal(String table, String kolom, String kondisi) {
         try {
-            Statement stat = getStat();
+            koneksi();
             int data = 0;
             String sql = "SELECT SUM(" + kolom + ") AS total FROM " + table + " " + kondisi;
-            ResultSet res = stat.executeQuery(sql);
-            while (res.next()) {
-                data = res.getInt("total");
+            this.res = this.stmt.executeQuery(sql);
+            while (this.res.next()) {
+                data = this.res.getInt("total");
             }
             return data;
         } catch (SQLException ex) {
@@ -313,7 +338,7 @@ public class LaporanBeli extends javax.swing.JPanel {
             Object[][] obj;
             Date tanggalData = new Date();
             int rows = 0,hari_1 = 0,bulan_1 = -1,tahun_1 = 0;
-            String sql = "SELECT id_tr_beli, id_karyawan, total_hrg, tanggal FROM transaksi_beli " + keyword + " ORDER BY id_tr_beli DESC",tanggalPenuh = "",tanggalPenuh1;
+            String sql = "SELECT id_tr_beli, id_karyawan, nama_karyawan, total_hrg, tanggal FROM transaksi_beli " + keyword + " ORDER BY id_tr_beli DESC",tanggalPenuh = "",tanggalPenuh1;
             obj = new Object[trb.getJumlahData("transaksi_beli", keyword)][6];
             // mengeksekusi query
             trb.res = trb.stat.executeQuery(sql);
@@ -322,7 +347,7 @@ public class LaporanBeli extends javax.swing.JPanel {
                 // menyimpan data dari tabel ke object
                 obj[rows][0] = trb.res.getString("id_tr_beli").replace("TRB", "LPG");
                 obj[rows][1] = trb.res.getString("id_karyawan");
-                obj[rows][2] = this.karyawan.getNama(trb.res.getString("id_karyawan"));
+                obj[rows][2] = trb.res.getString("nama_karyawan");
                 obj[rows][3] = text.toMoneyCase(trb.res.getString("total_hrg"));
                 tanggalPenuh = trb.res.getString("tanggal");
                 tanggalData = tanggalMilis.parse(tanggalPenuh);
@@ -416,6 +441,7 @@ public class LaporanBeli extends javax.swing.JPanel {
         valHarga = new javax.swing.JLabel();
         valTanggal = new javax.swing.JLabel();
         btnDetail = new javax.swing.JLabel();
+        btnCetak = new javax.swing.JLabel();
         txtAwal = new javax.swing.JLabel();
         txtAkhir = new javax.swing.JLabel();
         inpCari = new javax.swing.JTextField();
@@ -496,6 +522,20 @@ public class LaporanBeli extends javax.swing.JPanel {
             }
         });
         add(btnDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 710, -1, -1));
+
+        btnCetak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/btn-print-075.png"))); // NOI18N
+        btnCetak.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCetakMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCetakMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCetakMouseExited(evt);
+            }
+        });
+        add(btnCetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 710, -1, -1));
 
         txtAwal.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         txtAwal.setForeground(new java.awt.Color(255, 255, 255));
@@ -1210,6 +1250,55 @@ public class LaporanBeli extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tbMinggu2PropertyChange
 
+    private void btnCetakMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCetakMouseClicked
+        try {
+            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            switch (this.selectedIndex) {
+                case 1:
+                tabelDataS.print();
+                this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                break;
+                case 2:
+                if (tabelDataH.getRowCount() > 0) {
+                    tabelDataH.print();
+                    this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                } else {
+                    this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    Message.showWarning(this, "Tabel kosong !");
+                }
+                break;
+                case 3:
+                if (tabelDataB.getRowCount() > 0) {
+                    tabelDataH.print();
+                    this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                } else {
+                    this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    Message.showWarning(this, "Tabel kosong !");
+                }
+                break;
+                case 4:
+                if (tabelDataM.getRowCount() > 0) {
+                    tabelDataH.print();
+                    this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                } else {
+                    this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    Message.showWarning(this, "Tabel kosong !");
+                }
+                break;
+            }
+        } catch (PrinterException ex) {
+            Logger.getLogger(LaporanJual.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnCetakMouseClicked
+
+    private void btnCetakMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCetakMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCetakMouseEntered
+
+    private void btnCetakMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCetakMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCetakMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel LPBULANAN;
@@ -1217,6 +1306,7 @@ public class LaporanBeli extends javax.swing.JPanel {
     private javax.swing.JPanel LPRentang;
     private javax.swing.JPanel LPSEMUA;
     private javax.swing.JLabel background;
+    private javax.swing.JLabel btnCetak;
     private javax.swing.JLabel btnDetail;
     private javax.swing.JTextField inpCari;
     private javax.swing.JScrollPane lpBulanan;

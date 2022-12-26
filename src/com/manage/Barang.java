@@ -20,7 +20,6 @@ public class Barang extends Database{
     public Barang(){
         super.startConnection();
     }
-    
     public String createID(){
         String lastID = this.getLastID(), nomor;
         

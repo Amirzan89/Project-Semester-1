@@ -1,18 +1,22 @@
 package com.window.panels;
 
+import com.data.app.Log;
 import com.data.db.Database;
+import static com.data.db.Database.DB_NAME;
 import com.window.dialogs.*;
 import com.manage.Message;
 import com.media.Gambar;
 import com.manage.Barang;
 import com.manage.ManageTransaksiJual;
 import com.manage.Text;
+import com.media.Audio;
 import com.users.Karyawan;
 import com.users.Supplier;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Frame;
 import java.awt.event.KeyEvent;
+import java.awt.print.PrinterException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -25,6 +29,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -32,7 +37,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Amirzan
  */
 public class detailLaporanJual extends javax.swing.JDialog {
-
+    private final Database db = new Database();
     private final Barang barang = new Barang();
     private final String namadb = Database.DB_NAME;
     private final Karyawan karyawan = new Karyawan();
@@ -40,7 +45,9 @@ public class detailLaporanJual extends javax.swing.JDialog {
     public int option;
     
     public static final int ADD_OPTION = 1, EDIT_OPTION = 2;
-    
+    private static Connection con;
+    private static Statement stmt;
+    private static ResultSet res;
     private final Text text = new Text();
 
     DateFormat tanggalMilis = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
@@ -74,27 +81,48 @@ public class detailLaporanJual extends javax.swing.JDialog {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
     
-    private Statement getStat() {
+    private void koneksi() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
+            this.con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/" + this.namadb, "root", "");
-            Statement stmt = con.createStatement();
-            return stmt;
+            this.stmt = con.createStatement();
+            db.jumlahKoneksi++;
+            System.out.println("jumlah koneksi : "+db.jumlahKoneksi);
         } catch (Exception e) {
             System.out.println(e);
         }
-        return null;
+    }
+    private void closeKoneksi(){
+        try{
+            // Mengecek apakah conn kosong atau tidak, jika tidak maka akan diclose
+            if(this.con != null){
+                this.con.close();
+            }
+            // Mengecek apakah stat kosong atau tidak, jika tidak maka akan diclose
+            if(this.stmt != null){
+                this.stmt.close();
+            }
+            // Mengecek apakah res koson atau tidak, jika tidak maka akan diclose
+            if(this.res != null){
+                this.res.close();
+            }
+            db.jumlahKoneksi--;
+        Log.addLog(String.format("Berhasil memutus koneksi dari Database '%s'.", DB_NAME));
+        }catch(SQLException ex){
+            Audio.play(Audio.SOUND_ERROR);
+            JOptionPane.showMessageDialog(null, "Terjadi Kesalahan!\n\nError message : "+ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+        }
     }
     private int getTotal(String table, String kolom, String kondisi) {
         try {
-            Statement stat = getStat();
+            koneksi();
             int data = 0;
             String sql = "SELECT SUM(" + kolom + ") AS total FROM " + table + " " + kondisi;
-            System.out.println(sql);
-            ResultSet res = stat.executeQuery(sql);
-            while (res.next()) {
-                data = res.getInt("total");
+//            System.out.println(sql);
+            this.res = this.stmt.executeQuery(sql);
+            while (this.res.next()) {
+                data = this.res.getInt("total");
             }
             return data;
         } catch (SQLException ex) {
@@ -181,6 +209,8 @@ public class detailLaporanJual extends javax.swing.JDialog {
      *         <strong>False</strong> jika user menekan tombol kembali / close.
      */
     public boolean isUpdated(){
+        trj.closeConnection();
+        closeKoneksi();
         return this.isUpdated;
     }
 
@@ -191,6 +221,7 @@ public class detailLaporanJual extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         pnlMain = new javax.swing.JPanel();
         btnKembali = new javax.swing.JButton();
+        btnCetak = new javax.swing.JLabel();
         valIDPemasukan = new javax.swing.JLabel();
         valIDTransaksi = new javax.swing.JLabel();
         valNamaBarang = new javax.swing.JLabel();
@@ -231,6 +262,20 @@ public class detailLaporanJual extends javax.swing.JDialog {
             }
         });
         pnlMain.add(btnKembali, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 710, 160, 40));
+
+        btnCetak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/btn-print-075.png"))); // NOI18N
+        btnCetak.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCetakMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCetakMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCetakMouseExited(evt);
+            }
+        });
+        pnlMain.add(btnCetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 710, -1, -1));
 
         valIDPemasukan.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         valIDPemasukan.setForeground(new java.awt.Color(0, 0, 0));
@@ -429,6 +474,28 @@ public class detailLaporanJual extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tabelDataKeyPressed
 
+    private void btnCetakMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCetakMouseClicked
+        try {
+            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            if (tabelData.getRowCount() > 0) {
+                tabelData.print();
+            } else {
+                this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                Message.showWarning(this, "Tabel kosong !");
+            }
+        } catch (PrinterException ex) {
+            Logger.getLogger(LaporanJual.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnCetakMouseClicked
+
+    private void btnCetakMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCetakMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCetakMouseEntered
+
+    private void btnCetakMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCetakMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCetakMouseExited
+
     public static void main(String args[]) {
 
         try {
@@ -459,6 +526,7 @@ public class detailLaporanJual extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
+    private javax.swing.JLabel btnCetak;
     private javax.swing.JButton btnKembali;
     private javax.swing.JTextField inpCari;
     private javax.swing.JScrollPane jScrollPane1;

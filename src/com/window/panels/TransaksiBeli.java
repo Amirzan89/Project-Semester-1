@@ -101,7 +101,14 @@ public class TransaksiBeli extends javax.swing.JPanel {
             }
         }).start();
     }
-
+    public void closeKoneksi(){
+        db.closeConnection();
+        user.closeConnection();
+        karyawan.closeConnection();
+        supplier.closeConnection();
+        barang.closeConnection();
+        trb.closeConnection();
+    }
     private int getTotal(String table, String kolom, String kondisi) {
         try {
             int data = 0;
@@ -182,31 +189,6 @@ public class TransaksiBeli extends javax.swing.JPanel {
         });
     }
 
-    private void TabelBarang() {
-        try {
-            Object data[] = new Object[5];
-            DefaultTableModel model = (DefaultTableModel) tabelDataBarang.getModel();
-            Object obj[][];
-            int rows = 0;
-            String sql = "SELECT id_barang, nama_barang, jenis_barang, stok, harga_beli FROM barang " + keywordBarang;
-            // mendefinisikan object berdasarkan total rows dan cols yang ada didalam tabel
-            obj = new Object[barang.getJumlahData("barang", keywordBarang)][5];
-            // mengeksekusi query
-            barang.res = barang.stat.executeQuery(sql);
-            // mendapatkan semua data yang ada didalam tabel
-            while (barang.res.next()) {
-                // menyimpan data dari tabel ke object
-                data[0] = barang.res.getString("id_barang");
-                data[1] = barang.res.getString("nama_barang");
-                data[2] = text.toCapitalize(barang.res.getString("jenis_barang"));
-                data[3] = barang.res.getInt("stok");
-                data[4] = text.toMoneyCase(barang.res.getString("harga_beli"));
-                model.addRow(data);
-            }
-        } catch (SQLException ex) {
-            Message.showException(this, "Terjadi kesalahan saat mengambil data dari database\n" + ex.getMessage(), ex, true);
-        }
-    }
 
     private Object[][] getDataBarang() {
         try {
@@ -708,11 +690,12 @@ public class TransaksiBeli extends javax.swing.JPanel {
                 switch (status) {
                     case JOptionPane.YES_OPTION: {
                         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-                        pst1 = db.conn.prepareStatement("INSERT INTO transaksi_beli VALUES (?, ?, ?, ?)");
+                        pst1 = db.conn.prepareStatement("INSERT INTO transaksi_beli VALUES (?, ?, ?, ?, ?)");
                         pst1.setString(1, idTr);
                         pst1.setString(2, idKaryawan);
-                        pst1.setInt(3, text.toIntCase(txtTotal.getText()));
-                        pst1.setString(4, waktu.getCurrentDateTime());
+                        pst1.setString(3, this.karyawan.getNama(idKaryawan));
+                        pst1.setInt(4, text.toIntCase(txtTotal.getText()));
+                        pst1.setString(5, waktu.getCurrentDateTime());
                         if (pst1.executeUpdate() > 0) {
                             System.out.println("Sudah membuat Transaksi Beli");
                         }

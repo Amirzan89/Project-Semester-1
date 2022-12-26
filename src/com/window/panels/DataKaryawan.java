@@ -7,6 +7,7 @@ import com.media.Audio;
 import com.media.Gambar;
 import com.sun.glass.events.KeyEvent;
 import com.users.Karyawan;
+import com.users.Users;
 import com.window.dialogs.InputKaryawan;
 
 import java.awt.Color;
@@ -20,81 +21,85 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Amirzan Fikri 
+ * @author Amirzan Fikri
  */
 public class DataKaryawan extends javax.swing.JPanel {
-    
+
     private final Karyawan karyawan = new Karyawan();
-    
-    
+    private final Users user = new Users();
+
     private final Text text = new Text();
-    
+
     private String idSelected = "", keyword = "", namaPetugas, noTelp, alamat, level;
-    
+
     public DataKaryawan() {
         initComponents();
-//        this.showPieChart();
-        
+
         this.btnAdd.setUI(new javax.swing.plaf.basic.BasicButtonUI());
         this.btnEdit.setUI(new javax.swing.plaf.basic.BasicButtonUI());
         this.btnDel.setUI(new javax.swing.plaf.basic.BasicButtonUI());
-        
+
         this.tabelData.setRowHeight(29);
-        this.tabelData.getTableHeader().setBackground(new java.awt.Color(255,255,255));
+        this.tabelData.getTableHeader().setBackground(new java.awt.Color(255, 255, 255));
         this.tabelData.getTableHeader().setForeground(new java.awt.Color(0, 0, 0));
-        
+
         JLabel[] values = {
-          this.valIDKaryawan, this.valNamaKaryawan, this.valNoTelp, this.valAlamat, 
-          this.valLevel
+            this.valIDKaryawan, this.valNamaKaryawan, this.valNoTelp, this.valAlamat,
+            this.valLevel
         };
-        
-        for(JLabel lbl : values){
+
+        for (JLabel lbl : values) {
             lbl.addMouseListener(new java.awt.event.MouseListener() {
 
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    
+
                 }
 
                 @Override
                 public void mousePressed(MouseEvent e) {
-                    
+
                 }
 
                 @Override
                 public void mouseReleased(MouseEvent e) {
-                    
+
                 }
 
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     setCursor(new Cursor(Cursor.HAND_CURSOR));
-                    lbl.setForeground(new Color(15,98,230));
+                    lbl.setForeground(new Color(15, 98, 230));
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
                     setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                    lbl.setForeground(new Color(0,0,0));
+                    lbl.setForeground(new Color(0, 0, 0));
                 }
             });
         }
         this.updateTabel();
     }
 
-    private Object[][] getData(){
-        try{
+    public void closeKoneksi() {
+        karyawan.closeConnection();
+        user.closeConnection();
+    }
+
+    private Object[][] getData() {
+        try {
             karyawan.startConnection();
             Object[][] obj;
             int rows = 0;
-            String sql = "SELECT karyawan.id_karyawan, nama_karyawan,level FROM karyawan INNER JOIN users ON karyawan.id_karyawan = users.id_karyawan "+ this.keyword+" ORDER BY karyawan.id_karyawan";
+            String sql = "SELECT karyawan.id_karyawan, nama_karyawan,level FROM karyawan INNER JOIN users ON karyawan.id_karyawan = users.id_karyawan " + this.keyword + " ORDER BY karyawan.id_karyawan";
             // mendefinisikan object berdasarkan total rows dan cols yang ada didalam tabel
 //            System.out.println(sql);
-            obj = new Object[karyawan.getJumlahData(DatabaseTables.KARYAWAN.name(),this.keyword)][3];
+            obj = new Object[karyawan.getJumlahData(DatabaseTables.KARYAWAN.name(), this.keyword)][3];
             // mengeksekusi query
             karyawan.res = karyawan.stat.executeQuery(sql);
             // mendapatkan semua data yang ada didalam tabel
-            while(karyawan.res.next()){
+            while (karyawan.res.next()) {
                 // menyimpan data dari tabel ke object
                 obj[rows][0] = karyawan.res.getString("karyawan.id_karyawan");
                 obj[rows][1] = karyawan.res.getString("nama_karyawan");
@@ -102,45 +107,45 @@ public class DataKaryawan extends javax.swing.JPanel {
                 rows++; // rows akan bertambah 1 setiap selesai membaca 1 row pada tabel
             }
             return obj;
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             Message.showException(this, "Terjadi kesalahan saat mengambil data dari database\n", ex, true);
         }
         return null;
     }
-    
-    private void updateTabel(){
+
+    private void updateTabel() {
         this.tabelData.setModel(new javax.swing.table.DefaultTableModel(
-            getData(),
-            new String [] {
-                "ID Karyawan", "Nama Karyawan", "Level"
-            }
+                getData(),
+                new String[]{
+                    "ID Karyawan", "Nama Karyawan", "Level"
+                }
         ) {
-            boolean[] canEdit = new boolean [] {
+            boolean[] canEdit = new boolean[]{
                 false, false, false
             };
 
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
     }
-    
-    public void showData(){
+
+    public void showData() {
         // mendapatkan data
         this.namaPetugas = karyawan.getNama(this.idSelected);
         this.noTelp = text.toTelephoneCase(karyawan.getNoTelp(this.idSelected));
         this.alamat = karyawan.getAlamat(this.idSelected);
         this.level = text.toCapitalize(karyawan.getLevel1(this.idSelected).name());
-        
+
         // menampilkan data
-        this.valIDKaryawan.setText("<html><p>:&nbsp;"+idSelected+"</p></html>");
-        this.valNamaKaryawan.setText("<html><p>:&nbsp;"+namaPetugas+"</p></html>");
-        this.valNoTelp.setText("<html><p style=\"text-decoration:underline; color:rgb(0,0,0);\">:&nbsp;"+noTelp+"</p></html>");
-        this.valAlamat.setText("<html><p>:&nbsp;"+alamat+"</p></html>");
-        this.valLevel.setText("<html><p>:&nbsp;"+level+"</p></html>");
+        this.valIDKaryawan.setText("<html><p>:&nbsp;" + idSelected + "</p></html>");
+        this.valNamaKaryawan.setText("<html><p>:&nbsp;" + namaPetugas + "</p></html>");
+        this.valNoTelp.setText("<html><p style=\"text-decoration:underline; color:rgb(0,0,0);\">:&nbsp;" + noTelp + "</p></html>");
+        this.valAlamat.setText("<html><p>:&nbsp;" + alamat + "</p></html>");
+        this.valLevel.setText("<html><p>:&nbsp;" + level + "</p></html>");
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -325,42 +330,46 @@ public class DataKaryawan extends javax.swing.JPanel {
         boolean delete;
 
         // mengecek apakah user memiliki level admin
-        if(karyawan.isAdmin()){
+        if (karyawan.isAdmin()) {
             // mengecek apakah ada data yang dipilih atau tidak
             if (tabelData.getSelectedRow() > -1) {
-                // membuka confirm dialog untuk menghapus data
-                Audio.play(Audio.SOUND_INFO);
-                status = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus '" + this.namaPetugas + "' ?", "Confirm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
-
-                // mengecek pilihan dari karyawan
-                switch (status) {
-                    // jika yes maka data akan dihapus
-                    case JOptionPane.YES_OPTION:
-                        // menghapus data karyawan
-                        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-                        delete = this.karyawan.deleteKaryawan(this.idSelected);
-                        // mengecek apakah data karyawan berhasil terhapus atau tidak
-                        if (delete) {
-                            Message.showInformation(this, "Data berhasil dihapus!");
-                            // mengupdate tabel
-                            this.updateTabel();
-                        } else {
-                            Message.showInformation(this, "Data gagal dihapus!");
-                        }
-                        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                        break;
-                }       
-        }else{
-            Message.showWarning(this, "Tidak ada data yang dipilih!!", true);
-        }
-        }else{
+                //mengecek apakah id karyawan yang dipilih sama dengan id karyawan yang sekarang login
+                if (this.idSelected.equals(this.karyawan.getIdKaryawan(this.user.getCurrentLogin()))) {
+                    Message.showWarning(this, "Anda tidak bisa menghapus data Anda sendiri!");
+                } else {
+                    // membuka confirm dialog untuk menghapus data
+                    Audio.play(Audio.SOUND_INFO);
+                    status = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus '" + this.namaPetugas + "' ?", "Confirm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    // mengecek pilihan dari karyawan
+                    switch (status) {
+                        // jika yes maka data akan dihapus
+                        case JOptionPane.YES_OPTION:
+                            // menghapus data karyawan
+                            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+                            delete = this.karyawan.deleteKaryawan(this.idSelected);
+                            // mengecek apakah data karyawan berhasil terhapus atau tidak
+                            if (delete) {
+                                Message.showInformation(this, "Data berhasil dihapus!");
+                                // mengupdate tabel
+                                this.updateTabel();
+                            } else {
+                                Message.showInformation(this, "Data gagal dihapus!");
+                            }
+                            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                            break;
+                    }
+                }
+            } else {
+                Message.showWarning(this, "Tidak ada data yang dipilih!!", true);
+            }
+        } else {
             Message.showWarning(this, "Access Denied!\nAnda bukan Admin!");
         }
     }//GEN-LAST:event_btnDelActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // mengecek apakah user memiliki level admin
-        if(karyawan.isAdmin()){
+        if (karyawan.isAdmin()) {
             // membuka window input karyawan
             Audio.play(Audio.SOUND_INFO);
             InputKaryawan tbh = new InputKaryawan(null, true, null);
@@ -368,22 +377,22 @@ public class DataKaryawan extends javax.swing.JPanel {
 
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             // mengecek apakah karyawan jadi menambahkan data atau tidak
-            if(tbh.isUpdated()){
+            if (tbh.isUpdated()) {
                 // mengupdate tabel
                 this.updateTabel();
-                this.tabelData.setRowSelectionInterval(this.tabelData.getRowCount()-1, this.tabelData.getRowCount()-1);
+                this.tabelData.setRowSelectionInterval(this.tabelData.getRowCount() - 1, this.tabelData.getRowCount() - 1);
             }
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-        }else{
+        } else {
             Message.showWarning(this, "Access Denied!\nAnda bukan Admin!");
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // mengecek apakah user memiliki level admin
-        if(karyawan.isAdmin()){
+        if (karyawan.isAdmin()) {
             // mengecek apakah ada data yang dipilih atau tidak
-            if(tabelData.getSelectedRow() > -1){
+            if (tabelData.getSelectedRow() > -1) {
                 // membuka window input karyawan
                 Audio.play(Audio.SOUND_INFO);
                 InputKaryawan tbh = new InputKaryawan(null, true, this.idSelected);
@@ -391,15 +400,15 @@ public class DataKaryawan extends javax.swing.JPanel {
 
                 this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
                 // mengecek apakah karyawan jadi mengedit data atau tidak
-                if(tbh.isUpdated()){
+                if (tbh.isUpdated()) {
                     // mengupdate tabel dan menampilkan ulang data
                     this.updateTabel();
                     this.showData();
                 }
-            }else{
-                    Message.showWarning(this, "Tidak ada data yang dipilih!!", true);
+            } else {
+                Message.showWarning(this, "Tidak ada data yang dipilih!!", true);
             }
-        }else{
+        } else {
             Message.showWarning(this, "Access Denied!\nAnda bukan Admin!");
         }
         this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -451,10 +460,10 @@ public class DataKaryawan extends javax.swing.JPanel {
 
     private void tabelDataKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDataKeyPressed
         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-        if(evt.getKeyCode() == KeyEvent.VK_UP){
+        if (evt.getKeyCode() == KeyEvent.VK_UP) {
             this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow() - 1, 0).toString();
             this.showData();
-        }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
+        } else if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
             this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow() + 1, 0).toString();
             this.showData();
         }
@@ -463,19 +472,19 @@ public class DataKaryawan extends javax.swing.JPanel {
 
     private void inpCariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inpCariKeyTyped
         String key = this.inpCari.getText();
-        this.keyword = "WHERE karyawan.id_karyawan LIKE '%"+key+"%' OR karyawan.nama_karyawan LIKE '%"+key+"%'";
+        this.keyword = "WHERE karyawan.id_karyawan LIKE '%" + key + "%' OR karyawan.nama_karyawan LIKE '%" + key + "%'";
         this.updateTabel();
     }//GEN-LAST:event_inpCariKeyTyped
 
     private void inpCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inpCariActionPerformed
         String key = this.inpCari.getText();
-        this.keyword = "WHERE karyawan.id_karyawan LIKE '%"+key+"%' OR karyawan.nama_karyawan LIKE '%"+key+"%'";
+        this.keyword = "WHERE karyawan.id_karyawan LIKE '%" + key + "%' OR karyawan.nama_karyawan LIKE '%" + key + "%'";
         this.updateTabel();
     }//GEN-LAST:event_inpCariActionPerformed
 
     private void inpCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inpCariKeyReleased
         String key = this.inpCari.getText();
-        this.keyword = "WHERE karyawan.id_karyawan LIKE '%"+key+"%' OR karyawan.nama_karyawan LIKE '%"+key+"%'";
+        this.keyword = "WHERE karyawan.id_karyawan LIKE '%" + key + "%' OR karyawan.nama_karyawan LIKE '%" + key + "%'";
         this.updateTabel();
     }//GEN-LAST:event_inpCariKeyReleased
 

@@ -171,20 +171,20 @@ public class Karyawan extends Users {
         return this.getDataPetugas(idKaryawan, UserData.ALAMAT);
     }
 
-    private boolean setDataPetugas(String idKaryawan, UserData data, String newValue) {
-        return super.setUserData(idKaryawan, UserLevels.KARYAWAN, data, UserData.ID_KARYAWAN, newValue);
+    private boolean setDataKaryawan(String idKaryawan, UserData data, String newValue) {
+        return super.setUserDataKaryawan(idKaryawan, UserLevels.KARYAWAN, data, UserData.ID_KARYAWAN, newValue);
     }
 
     public boolean setNama(String idKaryawan, String newNama) {
-        return this.setDataPetugas(idKaryawan, UserData.NAMA_KARYAWAN, newNama);
+        return this.setDataKaryawan(idKaryawan, UserData.NAMA_KARYAWAN, newNama);
     }
 
     public boolean setNoTelp(String idKaryawan, String newNoTelp) {
-        return this.setDataPetugas(idKaryawan, UserData.NO_TELP, newNoTelp);
+        return this.setDataKaryawan(idKaryawan, UserData.NO_TELP, newNoTelp);
     }
 
     public boolean setAlamat(String idKaryawan, String newAlamat) {
-        return this.setDataPetugas(idKaryawan, UserData.ALAMAT, newAlamat);
+        return this.setDataKaryawan(idKaryawan, UserData.ALAMAT, newAlamat);
     }
 
     public static void main(String[] args) {

@@ -91,16 +91,12 @@ public class TransaksiJual extends javax.swing.JPanel {
             }
         }).start();
     }
-
-    private void setrowtotabeldetail(Object[] dataRow, int baris) {
-        DefaultTableModel model = (DefaultTableModel) tabelData.getModel();
-        model.setValueAt(dataRow[0], baris, 0);
-        model.setValueAt(dataRow[1], baris, 1);
-        model.setValueAt(dataRow[2], baris, 2);
-        model.setValueAt(dataRow[3], baris, 3);
-        model.setValueAt(dataRow[4], baris, 4);
-        model.setValueAt(dataRow[5], baris, 5);
-        model.setValueAt(dataRow[6], baris, 6);
+    public void closeKoneksi(){
+        db.closeConnection();
+        user.closeConnection();
+        karyawan.closeConnection();
+        barang.closeConnection();
+        trj.closeConnection();
     }
 
     private Object[][] getDataBarang() {
@@ -1096,14 +1092,15 @@ public class TransaksiJual extends javax.swing.JPanel {
                         System.out.println("total " + txtTotal.getText());
                         System.out.println("tanggal " + waktu.getCurrentDateTime());
                         System.out.println("keuntungan  " + keuntungan);
-                        sql1 = "INSERT INTO transaksi_jual(`id_tr_jual`, `id_karyawan`, `total_hrg`, `keuntungan`, `tanggal`) VALUES (?, ?, ?, ?, ?)";
+                        sql1 = "INSERT INTO transaksi_jual(`id_tr_jual`, `id_karyawan`, `nama_karyawan`, `total_hrg`, `keuntungan`, `tanggal`) VALUES (?, ?, ?, ?, ?, ?)";
                         System.out.println("is connect ? " + db.conn.isClosed());
                         pst = db.conn.prepareStatement(sql1);
                         pst.setString(1, this.idTr);
                         pst.setString(2, idKaryawan);
-                        pst.setInt(3, text.toIntCase(txtTotal.getText()));
-                        pst.setInt(4, keuntungan);
-                        pst.setString(5, waktu.getCurrentDateTime());
+                        pst.setString(3, this.karyawan.getNama(idKaryawan));
+                        pst.setInt(4, text.toIntCase(txtTotal.getText()));
+                        pst.setInt(5, keuntungan);
+                        pst.setString(6, waktu.getCurrentDateTime());
                         if (pst.executeUpdate() > 0) {
                             System.out.println("Sudah membuat Transaksi jual");
                         }
