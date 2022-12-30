@@ -32,18 +32,20 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Amirzan
  */
 public class detailLaporanJual extends javax.swing.JDialog {
+
     private final Database db = new Database();
     private final Barang barang = new Barang();
     private final String namadb = Database.DB_NAME;
     private final Karyawan karyawan = new Karyawan();
     private final ManageTransaksiJual trj = new ManageTransaksiJual();
     public int option;
-    
+
     public static final int ADD_OPTION = 1, EDIT_OPTION = 2;
     private static Connection con;
     private static Statement stmt;
@@ -56,64 +58,67 @@ public class detailLaporanJual extends javax.swing.JDialog {
     private final DateFormat date1 = new SimpleDateFormat("dd-MM-yyyy");
     private final DateFormat time = new SimpleDateFormat("hh:mm:ss");
     private final DateFormat timeMillis = new SimpleDateFormat("ss.SSS:mm:hh");
-    
-    private String idTrSelected = "", idSelected = "", keyword = "", idTr, idPd,IDBarang, namaBarang, jenisBarang, jumlahBarang;
-    private int selectedIndex, totalHrg,harga;
+    private int jumlahKoneksi = 0;
+    private String idTrSelected = "", idSelected = "", keyword = "", idTr, idPd, IDBarang, namaBarang, jenisBarang, jumlahBarang;
+    private int selectedIndex, totalHrg, harga;
     private boolean isUpdated = false;
-    
-    public detailLaporanJual(Frame parent, boolean modal,String idtr) throws ParseException {
+
+    public detailLaporanJual(Frame parent, boolean modal, String idtr) throws ParseException {
         super(parent, modal);
         initComponents();
         this.idTrSelected = idtr;
         this.tabelData.setRowHeight(29);
         this.tabelData.getTableHeader().setBackground(new java.awt.Color(255, 255, 255));
         this.tabelData.getTableHeader().setForeground(new java.awt.Color(0, 0, 0));
-        
+
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        keyword = "WHERE id_tr_jual = '"+this.idTrSelected+"'";
+        keyword = "WHERE id_tr_jual = '" + this.idTrSelected + "'";
         this.updateTabel();
-        valTotal.setText(text.toMoneyCase(Integer.toString(getTotal("detail_transaksi_jual", "total_harga", "WHERE id_tr_jual = '"+this.idTrSelected+"'"))));
+        valTotal.setText(text.toMoneyCase(Integer.toString(getTotal("detail_transaksi_jual", "total_harga", "WHERE id_tr_jual = '" + this.idTrSelected + "'"))));
         this.btnKembali.setUI(new javax.swing.plaf.basic.BasicButtonUI());
     }
 
 //    detailLaporanBeli(Object object, boolean b, Object object0) {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
-    
     private void koneksi() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             this.con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/" + this.namadb, "root", "");
             this.stmt = con.createStatement();
-            db.jumlahKoneksi++;
-            System.out.println("jumlah koneksi : "+db.jumlahKoneksi);
+            this.jumlahKoneksi++;
+//            System.out.println("jumlah koneksi : "+db.jumlahKoneksi);
         } catch (Exception e) {
             System.out.println(e);
         }
     }
-    private void closeKoneksi(){
-        try{
-            // Mengecek apakah conn kosong atau tidak, jika tidak maka akan diclose
-            if(this.con != null){
-                this.con.close();
+
+    private void closeKoneksi() {
+        try {
+            for (int i = 0; i < this.jumlahKoneksi; i++) {
+
+                // Mengecek apakah conn kosong atau tidak, jika tidak maka akan diclose
+                if (this.con != null) {
+                    this.con.close();
+                }
+                // Mengecek apakah stat kosong atau tidak, jika tidak maka akan diclose
+                if (this.stmt != null) {
+                    this.stmt.close();
+                }
+                // Mengecek apakah res koson atau tidak, jika tidak maka akan diclose
+                if (this.res != null) {
+                    this.res.close();
+                }
+                Log.addLog(String.format("Berhasil memutus koneksi dari Database '%s'.", DB_NAME));
             }
-            // Mengecek apakah stat kosong atau tidak, jika tidak maka akan diclose
-            if(this.stmt != null){
-                this.stmt.close();
-            }
-            // Mengecek apakah res koson atau tidak, jika tidak maka akan diclose
-            if(this.res != null){
-                this.res.close();
-            }
-            db.jumlahKoneksi--;
-        Log.addLog(String.format("Berhasil memutus koneksi dari Database '%s'.", DB_NAME));
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             Audio.play(Audio.SOUND_ERROR);
-            JOptionPane.showMessageDialog(null, "Terjadi Kesalahan!\n\nError message : "+ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Terjadi Kesalahan!\n\nError message : " + ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
         }
     }
+
     private int getTotal(String table, String kolom, String kondisi) {
         try {
             koneksi();
@@ -134,6 +139,7 @@ public class detailLaporanJual extends javax.swing.JDialog {
         }
         return -1;
     }
+
     private Object[][] getData() throws ParseException {
         try {
             Object[][] obj;
@@ -163,15 +169,16 @@ public class detailLaporanJual extends javax.swing.JDialog {
         }
         return null;
     }
+
     private void updateTabel() throws ParseException {
         this.tabelData.setModel(new javax.swing.table.DefaultTableModel(
                 getData(),
                 new String[]{
-                    "ID Pengeluaran","ID Transaksi Beli", "ID Barang", "Nama Barang", "Jenis Brang", "Harga Jual", "Jumlah", "Total Harga"
+                    "ID Pengeluaran", "ID Transaksi Beli", "ID Barang", "Nama Barang", "Jenis Brang", "Harga Jual", "Jumlah", "Total Harga"
                 }
         ) {
             boolean[] canEdit = new boolean[]{
-                false, false, false, false, false,false,false,false
+                false, false, false, false, false, false, false, false
             };
 
             @Override
@@ -202,13 +209,15 @@ public class detailLaporanJual extends javax.swing.JDialog {
         this.valTotalHarga.setText("<html><p>:&nbsp;" + this.totalHrg + "</p></html>");
         this.valJumlah.setText("<html><p>:&nbsp;" + this.jumlahBarang + "</p></html>");
     }
+
     /**
      * Mengecek apakah user menekan tombol simpan / tambah atau tidak
-     * 
-     * @return <strong>True</strong> jika user menekan tombol simpan / tambah. <br>
-     *         <strong>False</strong> jika user menekan tombol kembali / close.
+     *
+     * @return <strong>True</strong> jika user menekan tombol simpan / tambah.
+     * <br>
+     * <strong>False</strong> jika user menekan tombol kembali / close.
      */
-    public boolean isUpdated(){
+    public boolean isUpdated() {
         trj.closeConnection();
         closeKoneksi();
         return this.isUpdated;
@@ -419,7 +428,7 @@ public class detailLaporanJual extends javax.swing.JDialog {
     private void inpCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inpCariActionPerformed
         try {
             String key = this.inpCari.getText();
-            this.keyword = "WHERE id_tr_jual = '"+this.idTrSelected+"' AND (id_barang LIKE '%"+key+"%' OR nama_barang LIKE '%"+key+"%')";
+            this.keyword = "WHERE id_tr_jual = '" + this.idTrSelected + "' AND (id_barang LIKE '%" + key + "%' OR nama_barang LIKE '%" + key + "%')";
             this.updateTabel();
         } catch (ParseException ex) {
             Logger.getLogger(detailLaporanJual.class.getName()).log(Level.SEVERE, null, ex);
@@ -429,8 +438,8 @@ public class detailLaporanJual extends javax.swing.JDialog {
     private void inpCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inpCariKeyReleased
         try {
             String key = this.inpCari.getText();
-            this.keyword = "WHERE id_tr_jual = '"+this.idTrSelected +"' AND (id_barang LIKE '%"+key+"%' OR nama_barang LIKE '%"+key+"%')";
-            
+            this.keyword = "WHERE id_tr_jual = '" + this.idTrSelected + "' AND (id_barang LIKE '%" + key + "%' OR nama_barang LIKE '%" + key + "%')";
+
             this.updateTabel();
         } catch (ParseException ex) {
             Logger.getLogger(detailLaporanJual.class.getName()).log(Level.SEVERE, null, ex);
@@ -440,7 +449,7 @@ public class detailLaporanJual extends javax.swing.JDialog {
     private void inpCariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inpCariKeyTyped
         try {
             String key = this.inpCari.getText();
-            this.keyword = "WHERE id_tr_beli = '" + this.idTrSelected +"' AND (id_barang LIKE '%"+key+"%' OR nama_barang LIKE '%"+key+"%')";
+            this.keyword = "WHERE id_tr_beli = '" + this.idTrSelected + "' AND (id_barang LIKE '%" + key + "%' OR nama_barang LIKE '%" + key + "%')";
             this.updateTabel();
         } catch (ParseException ex) {
             Logger.getLogger(detailLaporanJual.class.getName()).log(Level.SEVERE, null, ex);

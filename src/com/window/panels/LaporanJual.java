@@ -57,7 +57,7 @@ public class LaporanJual extends javax.swing.JPanel {
     private Date tHarian1, tHarian2, tHarian3, tHarian2_old, tHarian3_old;
     private final Waktu waktu = new Waktu();
     private String tPemasukan;
-    private int selectedIndex = 1, totalHrg, keuntungan;
+    private int selectedIndex = 1, totalHrg, keuntungan, jumlahKoneksi = 0;
     private String idSelected = "", keyword = "", idTr, idPd, IDKaryawan, namaKaryawan, tanggal, tanggalDipilih1, tanggalDipilih2, tanggalDipilih3;
 
     private Connection con;
@@ -266,8 +266,8 @@ public class LaporanJual extends javax.swing.JPanel {
             this.con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/" + this.namadb, "root", "");
             this.stmt = con.createStatement();
-            db.jumlahKoneksi++;
-            System.out.println("jumlah koneksi : " + db.jumlahKoneksi);
+            this.jumlahKoneksi++;
+//            System.out.println("jumlah koneksi : " + db.jumlahKoneksi);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -275,19 +275,21 @@ public class LaporanJual extends javax.swing.JPanel {
 
     public void closeKoneksi() {
         try {
-            // Mengecek apakah conn kosong atau tidak, jika tidak maka akan diclose
-            if (this.con != null) {
-                this.con.close();
+            for (int i = 0; i < this.jumlahKoneksi; i++) {
+
+                // Mengecek apakah conn kosong atau tidak, jika tidak maka akan diclose
+                if (this.con != null) {
+                    this.con.close();
+                }
+                // Mengecek apakah stat kosong atau tidak, jika tidak maka akan diclose
+                if (this.stmt != null) {
+                    this.stmt.close();
+                }
+                // Mengecek apakah res koson atau tidak, jika tidak maka akan diclose
+                if (this.res != null) {
+                    this.res.close();
+                }
             }
-            // Mengecek apakah stat kosong atau tidak, jika tidak maka akan diclose
-            if (this.stmt != null) {
-                this.stmt.close();
-            }
-            // Mengecek apakah res koson atau tidak, jika tidak maka akan diclose
-            if (this.res != null) {
-                this.res.close();
-            }
-            db.jumlahKoneksi--;
             db.closeConnection();
 
             karyawan.closeConnection();
@@ -641,7 +643,7 @@ public class LaporanJual extends javax.swing.JPanel {
         valTotalS.setText(":");
         LPSEMUA.add(valTotalS, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 233, 290, 36));
 
-        pengeluaranS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/laporan-pengeluaran-075.png"))); // NOI18N
+        pengeluaranS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/laporan-pemasukan-075.png"))); // NOI18N
         pengeluaranS.setText("lbll");
         LPSEMUA.add(pengeluaranS, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 233, 490, -1));
 
@@ -691,7 +693,7 @@ public class LaporanJual extends javax.swing.JPanel {
         valTotalH.setText(":");
         LPHARIAN.add(valTotalH, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 233, 290, 36));
 
-        pengeluaranH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/laporan-pengeluaran-075.png"))); // NOI18N
+        pengeluaranH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/laporan-pemasukan-075.png"))); // NOI18N
         pengeluaranH.setText("lbll");
         LPHARIAN.add(pengeluaranH, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 233, 490, -1));
 
@@ -741,7 +743,7 @@ public class LaporanJual extends javax.swing.JPanel {
         valTotalB.setText(":");
         LPBULANAN.add(valTotalB, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 233, 290, 36));
 
-        pengeluaranB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/laporan-pengeluaran-075.png"))); // NOI18N
+        pengeluaranB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/laporan-pemasukan-075.png"))); // NOI18N
         pengeluaranB.setText("lbll");
         LPBULANAN.add(pengeluaranB, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 233, 490, -1));
 
@@ -794,7 +796,7 @@ public class LaporanJual extends javax.swing.JPanel {
         valTotalM.setText(":");
         LPRentang.add(valTotalM, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 233, 290, 36));
 
-        pengeluaranM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/laporan-pengeluaran-075.png"))); // NOI18N
+        pengeluaranM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/laporan-pemasukan-075.png"))); // NOI18N
         pengeluaranM.setText("lbll");
         LPRentang.add(pengeluaranM, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 233, 490, -1));
 
