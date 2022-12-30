@@ -59,7 +59,7 @@ public class detailLaporanBeli extends javax.swing.JDialog {
     private final DateFormat date1 = new SimpleDateFormat("dd-MM-yyyy");
     private final DateFormat time = new SimpleDateFormat("hh:mm:ss");
     private final DateFormat timeMillis = new SimpleDateFormat("ss.SSS:mm:hh");
-
+    private int jumlahKoneksi = 0;
     private String idTrSelected = "", idSelected = "", keyword = "", idTr, idPd, IDSupplier, namaSupplier, IDBarang, namaBarang, jenisBarang, jumlahBarang;
     private int selectedIndex, totalHrg, harga;
     private boolean isUpdated = false;
@@ -89,7 +89,7 @@ public class detailLaporanBeli extends javax.swing.JDialog {
             this.con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/" + this.namadb, "root", "");
             this.stmt = con.createStatement();
-            db.jumlahKoneksi++;
+            this.jumlahKoneksi++;
 //            System.out.println("jumlah koneksi : " + db.jumlahKoneksi);
         } catch (Exception e) {
             System.out.println(e);
@@ -98,20 +98,22 @@ public class detailLaporanBeli extends javax.swing.JDialog {
 
     private void closeKoneksi() {
         try {
-            // Mengecek apakah conn kosong atau tidak, jika tidak maka akan diclose
-            if (this.con != null) {
-                this.con.close();
+            for (int i = 0; i < this.jumlahKoneksi; i++) {
+
+                // Mengecek apakah conn kosong atau tidak, jika tidak maka akan diclose
+                if (this.con != null) {
+                    this.con.close();
+                }
+                // Mengecek apakah stat kosong atau tidak, jika tidak maka akan diclose
+                if (this.stmt != null) {
+                    this.stmt.close();
+                }
+                // Mengecek apakah res koson atau tidak, jika tidak maka akan diclose
+                if (this.res != null) {
+                    this.res.close();
+                }
+                Log.addLog(String.format("Berhasil memutus koneksi dari Database '%s'.", DB_NAME));
             }
-            // Mengecek apakah stat kosong atau tidak, jika tidak maka akan diclose
-            if (this.stmt != null) {
-                this.stmt.close();
-            }
-            // Mengecek apakah res koson atau tidak, jika tidak maka akan diclose
-            if (this.res != null) {
-                this.res.close();
-            }
-            db.jumlahKoneksi--;
-            Log.addLog(String.format("Berhasil memutus koneksi dari Database '%s'.", DB_NAME));
         } catch (SQLException ex) {
             Audio.play(Audio.SOUND_ERROR);
             JOptionPane.showMessageDialog(null, "Terjadi Kesalahan!\n\nError message : " + ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);

@@ -41,12 +41,21 @@ public class MainWindow extends javax.swing.JFrame {
 
     private final Users user = new Users();
     private final Database db = new Database();
-    private boolean dashboard1 = false, barang1 = false, karyawan1 = false, supplier1 = false, laporanB = false, laporanJ = false, trB = false, trJ = false;
     private JLabel activated;
     private boolean selected[] = new boolean[8];
     private JLabel[] btns;
 
-    public MainWindow() throws ParseException {
+   public MainWindow() throws ParseException {
+        //close connection
+        dashboardP.closeKoneksi();
+        karyawanP.closeKoneksi();
+        supplierP.closeKoneksi();
+        barangP.closeKoneksi();
+        laporanBp.closeKoneksi();
+        laporanJp.closeKoneksi();
+        trBp.closeKoneksi();
+        trJp.closeKoneksi();
+        //
         initComponents();
         this.setTitle("Dashboard");
         this.setIconImage(Gambar.getWindowIcon());

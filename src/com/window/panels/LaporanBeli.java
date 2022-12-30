@@ -32,9 +32,10 @@ import javax.swing.event.ChangeEvent;
 
 /**
  *
- * @author Amirzan fikri 
+ * @author Amirzan fikri
  */
 public class LaporanBeli extends javax.swing.JPanel {
+
     //deklarasi variabel 
     private final Database db = new Database();
     private final String namadb = Database.DB_NAME;
@@ -51,8 +52,8 @@ public class LaporanBeli extends javax.swing.JPanel {
     private final DateFormat date = new SimpleDateFormat("dd-MM-yyyy");
     private final DateFormat date1 = new SimpleDateFormat("yyyy-MM-dd");
 
-    private int hari, hari1, bulan, bulan1, tahun, tahun1, bulanan, tahunan;
-    private Date tHarian1, tHarian2, tHarian3,tHarian2_old,tHarian3_old;
+    private int hari, hari1, bulan, bulan1, tahun, tahun1, bulanan, tahunan, jumlahKoneksi = 0;
+    private Date tHarian1, tHarian2, tHarian3, tHarian2_old, tHarian3_old;
     private final Waktu waktu = new Waktu();
     private String tPengeluaran;
     private int selectedIndex = 1, totalHrg;
@@ -61,7 +62,7 @@ public class LaporanBeli extends javax.swing.JPanel {
     private Connection con;
     private Statement stmt;
     private ResultSet res;
-    
+
     public LaporanBeli() throws ParseException {
         this.tanggalDipilih1 = waktu.getCurrentDate();
         tHarian1 = date1.parse(this.tanggalDipilih1);
@@ -86,7 +87,7 @@ public class LaporanBeli extends javax.swing.JPanel {
         tbHarian.setDate(date1.parse(this.tanggalDipilih1));
         tbMinggu1.setDate(date1.parse(this.tanggalDipilih1));
         tbMinggu2.setDate(date1.parse(this.tanggalDipilih1));
-        
+
         tabPengeluaran.addChangeListener(new javax.swing.event.ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
@@ -108,7 +109,7 @@ public class LaporanBeli extends javax.swing.JPanel {
                         tbBulanan.setEnabled(false);
                         tbTahunan.setVisible(false);
                         tbTahunan.setEnabled(false);
-                        
+
                         System.out.println("Menampilkan Panel semua");
                         tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "")));
                         valTotalS.setText(tPengeluaran);
@@ -129,7 +130,7 @@ public class LaporanBeli extends javax.swing.JPanel {
                         txtAwal.setText("Pilih Hari : ");
                         tbHarian.setVisible(true);
                         tbHarian.setEnabled(true);
-                        
+
                         System.out.println("Menampilkan Panel harian");
                         tPengeluaran = text.toMoneyCase(Integer.toString(getTotal("transaksi_beli", "total_hrg", "WHERE tanggal >= '" + tanggalDipilih1 + "' AND tanggal <= '" + String.format("%s-%s-%s", tahun, bulan, hari + 1) + "'")));
                         valTotalH.setText(tPengeluaran);
@@ -257,34 +258,37 @@ public class LaporanBeli extends javax.swing.JPanel {
         tbTahunan.setVisible(false);
         tbTahunan.setEnabled(false);
     }
-    
+
     private void koneksi() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             this.con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/" + this.namadb, "root", "");
             this.stmt = con.createStatement();
-            db.jumlahKoneksi++;
-            System.out.println("jumlah koneksi : "+db.jumlahKoneksi);
+            this.jumlahKoneksi++;
+//            System.out.println("jumlah koneksi : "+db.jumlahKoneksi);
         } catch (Exception e) {
             System.out.println(e);
         }
     }
+
     public void closeKoneksi() {
         try {
-            // Mengecek apakah conn kosong atau tidak, jika tidak maka akan diclose
-            if (this.con != null) {
-                this.con.close();
+            for (int i = 0; i < this.jumlahKoneksi; i++) {
+
+                // Mengecek apakah conn kosong atau tidak, jika tidak maka akan diclose
+                if (this.con != null) {
+                    this.con.close();
+                }
+                // Mengecek apakah stat kosong atau tidak, jika tidak maka akan diclose
+                if (this.stmt != null) {
+                    this.stmt.close();
+                }
+                // Mengecek apakah res koson atau tidak, jika tidak maka akan diclose
+                if (this.res != null) {
+                    this.res.close();
+                }
             }
-            // Mengecek apakah stat kosong atau tidak, jika tidak maka akan diclose
-            if (this.stmt != null) {
-                this.stmt.close();
-            }
-            // Mengecek apakah res koson atau tidak, jika tidak maka akan diclose
-            if (this.res != null) {
-                this.res.close();
-            }
-            db.jumlahKoneksi--;
             db.closeConnection();
             trb.closeConnection();
             karyawan.closeConnection();
@@ -292,6 +296,7 @@ public class LaporanBeli extends javax.swing.JPanel {
             Logger.getLogger(LaporanJual.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     //digunakan untuk menghitung total dari jumlah barang di tabel detail transaksi beli dengan kondisi id transaksi beli dan jenis barang
     private int getJenis(String field) {
         try {
@@ -332,13 +337,14 @@ public class LaporanBeli extends javax.swing.JPanel {
         }
         return -1;
     }
+
     //digunakan untuk mengambil data tabel transaksi beli dari database dengan kondisi dari value variabel keyword lalu diurutkan berdasaarkan id transaksi beli 
     private Object[][] getData() throws ParseException {
         try {
             Object[][] obj;
             Date tanggalData = new Date();
-            int rows = 0,hari_1 = 0,bulan_1 = -1,tahun_1 = 0;
-            String sql = "SELECT id_tr_beli, id_karyawan, nama_karyawan, total_hrg, tanggal FROM transaksi_beli " + keyword + " ORDER BY id_tr_beli DESC",tanggalPenuh = "",tanggalPenuh1;
+            int rows = 0, hari_1 = 0, bulan_1 = -1, tahun_1 = 0;
+            String sql = "SELECT id_tr_beli, id_karyawan, nama_karyawan, total_hrg, tanggal FROM transaksi_beli " + keyword + " ORDER BY id_tr_beli DESC", tanggalPenuh = "", tanggalPenuh1;
             obj = new Object[trb.getJumlahData("transaksi_beli", keyword)][6];
             // mengeksekusi query
             trb.res = trb.stat.executeQuery(sql);
@@ -352,11 +358,11 @@ public class LaporanBeli extends javax.swing.JPanel {
                 tanggalPenuh = trb.res.getString("tanggal");
                 tanggalData = tanggalMilis.parse(tanggalPenuh);
                 tanggalPenuh1 = date.format(tanggalData);
-                hari_1 = Integer.parseInt(tanggalPenuh1.substring(0,2));
+                hari_1 = Integer.parseInt(tanggalPenuh1.substring(0, 2));
                 bulan_1 = Integer.parseInt(tanggalPenuh1.substring(3, 5));
                 tahun_1 = Integer.parseInt(tanggalPenuh1.substring(6));
-                obj[rows][4] = hari1 +"-"+ this.waktu.getNamaBulan(bulan_1-1)+"-"+tahun_1;
-                obj[rows][5] = tanggalPenuh.substring(11,19);
+                obj[rows][4] = hari1 + "-" + this.waktu.getNamaBulan(bulan_1 - 1) + "-" + tahun_1;
+                obj[rows][5] = tanggalPenuh.substring(11, 19);
                 rows++;
             }
             return obj;
@@ -366,6 +372,7 @@ public class LaporanBeli extends javax.swing.JPanel {
         }
         return null;
     }
+
     //digunakan untuk ubah tabel dengan 
     private void updateTabel(JTable tabel) throws ParseException {
         tabel.setModel(new javax.swing.table.DefaultTableModel(
@@ -377,7 +384,7 @@ public class LaporanBeli extends javax.swing.JPanel {
         ) {
             //deklarasi dan inisialisasi variabel
             boolean[] canEdit = new boolean[]{
-                false, false, false, false, false,false
+                false, false, false, false, false, false
             };
 
             @Override
@@ -387,10 +394,11 @@ public class LaporanBeli extends javax.swing.JPanel {
             }
         });
     }
+
     //mehtod showData digunakan untuk menampilkan data dari tabel data ke menu
     private void showData(JTable tabel) throws ParseException {
         // deklarasi variabel
-        int hari_1 = 0,bulan_1 = -1,tahun_1 = 0;
+        int hari_1 = 0, bulan_1 = -1, tahun_1 = 0;
         // mendapatkan data-data
         //mendapatkan id tranksaksi dari tabel data diubah ke String lalu char "LPG" diubah menjadi "TRB"
         this.idTr = tabel.getValueAt(tabel.getSelectedRow(), 0).toString().replace("LPG", "TRB");
@@ -409,12 +417,12 @@ public class LaporanBeli extends javax.swing.JPanel {
         //mengubah variabel tipe data Date ke tipe data string dengan format 
         this.tanggal = date.format(d);
         //mendapatkan hari dari variabel tanggal 
-        hari_1 = Integer.parseInt(this.tanggal.substring(0,2));
+        hari_1 = Integer.parseInt(this.tanggal.substring(0, 2));
         //mendapatkan bulan dari variabel tanggal 
         bulan_1 = Integer.parseInt(this.tanggal.substring(3, 5));
         //mendapatkan tahun dari variabel tanggal 
         tahun_1 = Integer.parseInt(this.tanggal.substring(6));
-                
+
         // menampilkan data-data
         //menampilkan id transaksi 
         this.valIDTransaksi.setText("<html><p>:&nbsp;" + this.idTr + "</p></html>");
@@ -427,7 +435,7 @@ public class LaporanBeli extends javax.swing.JPanel {
         //menampilkan pengeluaran dengan variabel totalHrg diubah ke string diubah ke format rupiah
         this.valHarga.setText("<html><p>:&nbsp;" + text.toMoneyCase(Integer.toString(this.totalHrg)) + "</p></html>");
         //menampilkan tanggal 
-        this.valTanggal.setText("<html><p>:&nbsp;" + hari1 +"-"+ this.waktu.getNamaBulan(bulan_1-1)+"-"+tahun_1 + "</p></html>");
+        this.valTanggal.setText("<html><p>:&nbsp;" + hari1 + "-" + this.waktu.getNamaBulan(bulan_1 - 1) + "-" + tahun_1 + "</p></html>");
     }
 
     @SuppressWarnings("unchecked")
@@ -1255,36 +1263,36 @@ public class LaporanBeli extends javax.swing.JPanel {
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             switch (this.selectedIndex) {
                 case 1:
-                tabelDataS.print();
-                this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                break;
+                    tabelDataS.print();
+                    this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    break;
                 case 2:
-                if (tabelDataH.getRowCount() > 0) {
-                    tabelDataH.print();
-                    this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                } else {
-                    this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                    Message.showWarning(this, "Tabel kosong !");
-                }
-                break;
+                    if (tabelDataH.getRowCount() > 0) {
+                        tabelDataH.print();
+                        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    } else {
+                        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                        Message.showWarning(this, "Tabel kosong !");
+                    }
+                    break;
                 case 3:
-                if (tabelDataB.getRowCount() > 0) {
-                    tabelDataH.print();
-                    this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                } else {
-                    this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                    Message.showWarning(this, "Tabel kosong !");
-                }
-                break;
+                    if (tabelDataB.getRowCount() > 0) {
+                        tabelDataH.print();
+                        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    } else {
+                        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                        Message.showWarning(this, "Tabel kosong !");
+                    }
+                    break;
                 case 4:
-                if (tabelDataM.getRowCount() > 0) {
-                    tabelDataH.print();
-                    this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                } else {
-                    this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                    Message.showWarning(this, "Tabel kosong !");
-                }
-                break;
+                    if (tabelDataM.getRowCount() > 0) {
+                        tabelDataH.print();
+                        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    } else {
+                        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                        Message.showWarning(this, "Tabel kosong !");
+                    }
+                    break;
             }
         } catch (PrinterException ex) {
             Logger.getLogger(LaporanJual.class.getName()).log(Level.SEVERE, null, ex);

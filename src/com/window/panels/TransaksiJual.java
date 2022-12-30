@@ -1219,8 +1219,8 @@ public class TransaksiJual extends javax.swing.JPanel {
                 inpTotalHarga.setText(text.toMoneyCase(Integer.toString(this.totalHarga)));
             }
         } catch (NumberFormatException e) {
-            System.out.println("harus angka ");
-            Message.showWarning(this, "Jumlah Barang Harus Angka !");
+//            System.out.println("harus angka ");
+//            Message.showWarning(this, "Jumlah Barang Harus Angka !");
         }
     }//GEN-LAST:event_inpJumlahKeyPressed
 

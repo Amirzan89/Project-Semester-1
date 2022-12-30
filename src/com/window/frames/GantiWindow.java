@@ -10,11 +10,10 @@ import com.media.Gambar;
 import com.users.UserLevels;
 import com.users.Users;
 import com.window.frames.SplashWindow;
+
 import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.Cursor;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -23,18 +22,18 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
- * Digunakan untuk login bagi admin, karyawan.
+ * Digunakan untuk ganti password bagi admin, karyawan.
  *
  * @author Amirzan fikri
- * @since 2020-11-22
+ * @since 2022-12-24
  */
-public class LoginWindow extends javax.swing.JFrame {
+public class GantiWindow extends javax.swing.JFrame {
 
     private final Users user = new Users();
-    private String username, password;
+    private String username, passwordLama, passwordBaru;
     private int x, y;
 
-    public LoginWindow() {
+    public GantiWindow() {
         initComponents();
 
         this.setLocationRelativeTo(null);
@@ -47,12 +46,14 @@ public class LoginWindow extends javax.swing.JFrame {
 
         pnlMain = new javax.swing.JPanel();
         lblEye = new javax.swing.JLabel();
+        lblEye1 = new javax.swing.JLabel();
         inpUsername = new javax.swing.JTextField();
         lblMinimaze = new javax.swing.JLabel();
         lblClose = new javax.swing.JLabel();
-        inpPassword = new javax.swing.JPasswordField();
+        inpPasswordLama = new javax.swing.JPasswordField();
+        inpPasswordBaru = new javax.swing.JPasswordField();
         btnLogin = new javax.swing.JLabel();
-        btnGanti = new javax.swing.JLabel();
+        btnKembali = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -87,7 +88,22 @@ public class LoginWindow extends javax.swing.JFrame {
                 lblEyeMouseExited(evt);
             }
         });
-        pnlMain.add(lblEye, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 307, -1, -1));
+        pnlMain.add(lblEye, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 290, -1, -1));
+
+        lblEye1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblEye1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/icons/ic-login-eye-close.png"))); // NOI18N
+        lblEye1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblEye1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblEye1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblEye1MouseExited(evt);
+            }
+        });
+        pnlMain.add(lblEye1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 337, -1, -1));
 
         inpUsername.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         inpUsername.setOpaque(false);
@@ -96,7 +112,7 @@ public class LoginWindow extends javax.swing.JFrame {
                 inpUsernameActionPerformed(evt);
             }
         });
-        pnlMain.add(inpUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 250, 30));
+        pnlMain.add(inpUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 240, 250, 30));
 
         lblMinimaze.setBackground(new java.awt.Color(50, 50, 55));
         lblMinimaze.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -134,14 +150,23 @@ public class LoginWindow extends javax.swing.JFrame {
         });
         pnlMain.add(lblClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 0, 31, 28));
 
-        inpPassword.setBorder(null);
-        inpPassword.setOpaque(false);
-        inpPassword.addActionListener(new java.awt.event.ActionListener() {
+        inpPasswordLama.setBorder(null);
+        inpPasswordLama.setOpaque(false);
+        inpPasswordLama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inpPasswordActionPerformed(evt);
+                inpPasswordLamaActionPerformed(evt);
             }
         });
-        pnlMain.add(inpPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 305, 250, 30));
+        pnlMain.add(inpPasswordLama, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 289, 250, 28));
+
+        inpPasswordBaru.setBorder(null);
+        inpPasswordBaru.setOpaque(false);
+        inpPasswordBaru.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inpPasswordBaruActionPerformed(evt);
+            }
+        });
+        pnlMain.add(inpPasswordBaru, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 335, 250, 29));
 
         btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/btn-login-075.png"))); // NOI18N
         btnLogin.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -156,23 +181,23 @@ public class LoginWindow extends javax.swing.JFrame {
                 btnLoginMouseExited(evt);
             }
         });
-        pnlMain.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(335, 363, -1, -1));
+        pnlMain.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 385, -1, -1));
 
-        btnGanti.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/btn-gantiPassword-075.png"))); // NOI18N
-        btnGanti.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnKembali.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/btn-kembaliLogin-075.png"))); // NOI18N
+        btnKembali.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnGantiMouseClicked(evt);
+                btnKembaliMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnGantiMouseEntered(evt);
+                btnKembaliMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnGantiMouseExited(evt);
+                btnKembaliMouseExited(evt);
             }
         });
-        pnlMain.add(btnGanti, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 340, -1, -1));
+        pnlMain.add(btnKembali, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 367, -1, -1));
 
-        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar/app-login-050.png"))); // NOI18N
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar/app-gantiPassword-050.png"))); // NOI18N
         pnlMain.add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         getContentPane().add(pnlMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 510));
@@ -222,59 +247,73 @@ public class LoginWindow extends javax.swing.JFrame {
         this.lblMinimaze.setIcon(Gambar.getIcon("ic-login-minimaze.png"));
     }//GEN-LAST:event_lblMinimazeMouseExited
 
-    private void inpPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inpPasswordActionPerformed
+    private void inpPasswordLamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inpPasswordLamaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_inpPasswordActionPerformed
+    }//GEN-LAST:event_inpPasswordLamaActionPerformed
 
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
         try {
             boolean kosong = false;
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             this.username = this.inpUsername.getText();
-            this.password = this.inpPassword.getText();
+            this.passwordLama = this.inpPasswordLama.getText();
+            this.passwordBaru = this.inpPasswordBaru.getText();
             if (this.username.isEmpty()) {
                 kosong = true;
                 System.out.println("Username tidak boleh kosong");
                 this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                 Message.showWarning(this, "Username harus Di isi !");
-            } else if (this.password.isEmpty()) {
+            } else if (this.passwordLama.isEmpty()) {
                 kosong = true;
-                System.out.println("Password tidak boleh kosong");
+                System.out.println("Password Lama tidak boleh kosong");
                 this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                Message.showWarning(this, "Password harus Di isi !");
+                Message.showWarning(this, "Password Lama harus Di isi !");
+            } else if (this.passwordBaru.isEmpty()) {
+                kosong = true;
+                System.out.println("Password Baru tidak boleh kosong");
+                this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                Message.showWarning(this, "Password Baru harus Di isi !");
             }
             if (!kosong) {
                 JOptionPane.showMessageDialog(this, "Mohon tunggu sebentar\nSedang Memeriksa Username dan Password");
-                boolean login = user.login(this.username, password);
-                if (login) {
-                    Audio.play(Audio.SOUND_INFO);
-                    JOptionPane.showMessageDialog(this, "Login Berhasil!\n\nSelamat datang " + user.getData(UserLevels.KARYAWAN.name(), "nama_karyawan", "WHERE id_karyawan = '" + user.getData(UserLevels.USERS.name(), "id_karyawan", "WHERE username = '" + this.username + "'") + "'"));
-                    // membuka window dashboard
-                    java.awt.EventQueue.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            new SplashWindow().setVisible(true);
-                        }
-                    });
+                boolean check = user.validateSetPassword(this.username, this.passwordLama);
+                if (check) {
+                    boolean ganti = user.setPassword(this.username, this.passwordBaru);
+                    if (ganti) {
+                        JOptionPane.showMessageDialog(this, "Ganti Password berhasil \nSedang mengubah password !");
+                        boolean login = user.login(this.username, passwordBaru);
+                        if (login) {
+                            Audio.play(Audio.SOUND_INFO);
+                            JOptionPane.showMessageDialog(this, "Login Berhasil!\n\nSelamat datang " + user.getData(UserLevels.KARYAWAN.name(), "nama_karyawan", "WHERE id_karyawan = '" + user.getData(UserLevels.USERS.name(), "id_karyawan", "WHERE username = '" + this.username + "'") + "'"));
+                            // membuka window dashboard
+                            java.awt.EventQueue.invokeLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    new SplashWindow().setVisible(true);
+                                }
+                            });
 
-                    // menutup koneksi dan window
-                    user.closeConnection();
-                    this.dispose();
-                } else {
-                    this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                    // mereset textfield jika login gagal
-                    this.inpUsername.setText("");
-                    this.inpPassword.setText("");
+                            // menutup koneksi dan window
+                            user.closeConnection();
+                            this.dispose();
+                        } else {
+                            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                            // mereset textfield jika login gagal
+                            this.inpUsername.setText("");
+                            this.inpPasswordLama.setText("");
+                        }
+                    }
                 }
             }
         } catch (IOException | AuthenticationException | InValidUserDataException | SQLException ex) {
             this.inpUsername.setText("");
-            this.inpPassword.setText("");
+            this.inpPasswordLama.setText("");
+            this.inpPasswordBaru.setText("");
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             // menampilkan pesan error
             Message.showException(this, ex, true);
         } catch (Exception ex) {
-            Logger.getLogger(LoginWindow.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GantiWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnLoginMouseClicked
 
@@ -288,28 +327,9 @@ public class LoginWindow extends javax.swing.JFrame {
         this.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btnLoginMouseExited
 
-    private void btnGantiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGantiMouseEntered
-        this.btnGanti.setIcon(Gambar.getAktiveIcon(this.btnGanti.getIcon().toString()));
-        this.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_btnGantiMouseEntered
-
-    private void btnGantiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGantiMouseExited
-        this.btnGanti.setIcon(Gambar.getBiasaIcon(this.btnGanti.getIcon().toString()));
-        this.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-    }//GEN-LAST:event_btnGantiMouseExited
-
-    private void btnGantiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGantiMouseClicked
+    private void inpPasswordBaruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inpPasswordBaruActionPerformed
         // TODO add your handling code here:
-        user.closeConnection();
-        this.dispose();
-        java.awt.EventQueue.invokeLater(new Runnable(){
-
-                @Override
-                public void run(){
-                    new com.window.frames.GantiWindow().setVisible(true);
-                }
-            });
-    }//GEN-LAST:event_btnGantiMouseClicked
+    }//GEN-LAST:event_inpPasswordBaruActionPerformed
 
     private void lblEyeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEyeMouseClicked
 
@@ -318,14 +338,53 @@ public class LoginWindow extends javax.swing.JFrame {
     private void lblEyeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEyeMouseEntered
         this.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         this.lblEye.setIcon(Gambar.getIcon("ic-login-eye-open.png"));
-        this.inpPassword.setEchoChar((char)0);
+        this.inpPasswordLama.setEchoChar((char)0);
     }//GEN-LAST:event_lblEyeMouseEntered
 
     private void lblEyeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEyeMouseExited
         this.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         this.lblEye.setIcon(Gambar.getIcon("ic-login-eye-close.png"));
-        this.inpPassword.setEchoChar('•');
+        this.inpPasswordLama.setEchoChar('•');
     }//GEN-LAST:event_lblEyeMouseExited
+
+    private void lblEye1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEye1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblEye1MouseClicked
+
+    private void lblEye1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEye1MouseEntered
+        this.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        this.lblEye1.setIcon(Gambar.getIcon("ic-login-eye-open.png"));
+        this.inpPasswordBaru.setEchoChar((char)0);
+    }//GEN-LAST:event_lblEye1MouseEntered
+
+    private void lblEye1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEye1MouseExited
+        this.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        this.lblEye1.setIcon(Gambar.getIcon("ic-login-eye-close.png"));
+        this.inpPasswordBaru.setEchoChar('•');
+    }//GEN-LAST:event_lblEye1MouseExited
+
+    private void btnKembaliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKembaliMouseClicked
+        // TODO add your handling code here:
+        user.closeConnection();
+        this.dispose();
+        java.awt.EventQueue.invokeLater(new Runnable(){
+
+            @Override
+            public void run(){
+                new com.window.frames.LoginWindow().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_btnKembaliMouseClicked
+
+    private void btnKembaliMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKembaliMouseEntered
+        this.btnKembali.setIcon(Gambar.getAktiveIcon(this.btnKembali.getIcon().toString()));
+        this.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnKembaliMouseEntered
+
+    private void btnKembaliMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKembaliMouseExited
+        this.btnKembali.setIcon(Gambar.getBiasaIcon(this.btnKembali.getIcon().toString()));
+        this.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_btnKembaliMouseExited
 
     public static void main(String args[]) {
 
@@ -337,26 +396,28 @@ public class LoginWindow extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GantiWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             @Override
             public void run() {
-                new LoginWindow().setVisible(true);
+                new GantiWindow().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
-    private javax.swing.JLabel btnGanti;
+    private javax.swing.JLabel btnKembali;
     private javax.swing.JLabel btnLogin;
-    private javax.swing.JPasswordField inpPassword;
+    private javax.swing.JPasswordField inpPasswordBaru;
+    private javax.swing.JPasswordField inpPasswordLama;
     private javax.swing.JTextField inpUsername;
     private javax.swing.JLabel lblClose;
     private javax.swing.JLabel lblEye;
+    private javax.swing.JLabel lblEye1;
     private javax.swing.JLabel lblMinimaze;
     private javax.swing.JPanel pnlMain;
     // End of variables declaration//GEN-END:variables
