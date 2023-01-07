@@ -52,7 +52,6 @@ public class Dashboard extends javax.swing.JPanel {
     private final DateFormat time12 = new SimpleDateFormat("hh:mm:ss");
     private final DateFormat time = new SimpleDateFormat("hh:mm:ss");
     private final DateFormat timeMillis = new SimpleDateFormat("ss.SSS:mm:hh");
-    private String keyword = "";
     private Object[] obj;
     public Dashboard() throws ParseException {
         initComponents();
@@ -136,7 +135,7 @@ public class Dashboard extends javax.swing.JPanel {
         return -1;
     }
 
-    public int getJumlahData(String tabel, String kondisi) {
+    private int getJumlahData(String tabel, String kondisi) {
         try {
             String query = "SELECT COUNT(*) AS total FROM " + tabel + " " + kondisi;
             db.res = db.stat.executeQuery(query);

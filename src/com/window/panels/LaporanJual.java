@@ -887,21 +887,26 @@ public class LaporanJual extends javax.swing.JPanel {
         try {
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                this.idSelected = this.tabelDataB.getValueAt(tabelDataB.getSelectedRow() - 1, 0).toString();
-                this.showData(tabelDataB);
-                int pMakanan = getJenis("MAKANAN");
-                int pMinuman = getJenis("MINUMAN");
-                int pSnack = getJenis("SNACK");
-                int pAtk = getJenis("ATK");
-                this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
-            } else if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                this.idSelected = this.tabelDataB.getValueAt(tabelDataB.getSelectedRow() + 1, 0).toString();
-                this.showData(tabelDataB);
-                int pMakanan = getJenis("MAKANAN");
-                int pMinuman = getJenis("MINUMAN");
-                int pSnack = getJenis("SNACK");
-                int pAtk = getJenis("ATK");
-                this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
+                if (this.tabelDataB.getSelectedRow() >= 1) {
+                    this.idSelected = this.tabelDataB.getValueAt(tabelDataB.getSelectedRow() - 1, 0).toString();
+                    this.showData(tabelDataB);
+                    int pMakanan = getJenis("MAKANAN");
+                    int pMinuman = getJenis("MINUMAN");
+                    int pSnack = getJenis("SNACK");
+                    int pAtk = getJenis("ATK");
+                    this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
+                }
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                if (this.tabelDataB.getSelectedRow() < (this.tabelDataB.getRowCount() - 1)) {
+                    this.idSelected = this.tabelDataB.getValueAt(tabelDataB.getSelectedRow() + 1, 0).toString();
+                    this.showData(tabelDataB);
+                    int pMakanan = getJenis("MAKANAN");
+                    int pMinuman = getJenis("MINUMAN");
+                    int pSnack = getJenis("SNACK");
+                    int pAtk = getJenis("ATK");
+                    this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
+                }
             }
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         } catch (ParseException ex) {
@@ -931,21 +936,26 @@ public class LaporanJual extends javax.swing.JPanel {
         try {
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                this.idSelected = this.tabelDataM.getValueAt(tabelDataM.getSelectedRow() - 1, 0).toString();
-                this.showData(tabelDataM);
-                int pMakanan = getJenis("MAKANAN");
-                int pMinuman = getJenis("MINUMAN");
-                int pSnack = getJenis("SNACK");
-                int pAtk = getJenis("ATK");
-                this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
-            } else if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                this.idSelected = this.tabelDataM.getValueAt(tabelDataM.getSelectedRow() + 1, 0).toString();
-                this.showData(tabelDataM);
-                int pMakanan = getJenis("MAKANAN");
-                int pMinuman = getJenis("MINUMAN");
-                int pSnack = getJenis("SNACK");
-                int pAtk = getJenis("ATK");
-                this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
+                if (this.tabelDataM.getSelectedRow() >= 1) {
+                    this.idSelected = this.tabelDataM.getValueAt(tabelDataM.getSelectedRow() - 1, 0).toString();
+                    this.showData(tabelDataM);
+                    int pMakanan = getJenis("MAKANAN");
+                    int pMinuman = getJenis("MINUMAN");
+                    int pSnack = getJenis("SNACK");
+                    int pAtk = getJenis("ATK");
+                    this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
+                }
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                if (this.tabelDataM.getSelectedRow() < (this.tabelDataM.getRowCount() - 1)) {
+                    this.idSelected = this.tabelDataM.getValueAt(tabelDataM.getSelectedRow() + 1, 0).toString();
+                    this.showData(tabelDataM);
+                    int pMakanan = getJenis("MAKANAN");
+                    int pMinuman = getJenis("MINUMAN");
+                    int pSnack = getJenis("SNACK");
+                    int pAtk = getJenis("ATK");
+                    this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
+                }
             }
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         } catch (ParseException ex) {
@@ -973,21 +983,26 @@ public class LaporanJual extends javax.swing.JPanel {
         try {
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                this.idSelected = this.tabelDataH.getValueAt(tabelDataH.getSelectedRow() - 1, 0).toString();
-                this.showData(tabelDataH);
-                int pMakanan = getJenis("MAKANAN");
-                int pMinuman = getJenis("MINUMAN");
-                int pSnack = getJenis("SNACK");
-                int pAtk = getJenis("ATK");
-                this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
-            } else if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                this.idSelected = this.tabelDataH.getValueAt(tabelDataH.getSelectedRow() + 1, 0).toString();
-                this.showData(tabelDataH);
-                int pMakanan = getJenis("MAKANAN");
-                int pMinuman = getJenis("MINUMAN");
-                int pSnack = getJenis("SNACK");
-                int pAtk = getJenis("ATK");
-                this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
+                if (this.tabelDataH.getSelectedRow() >= 1) {
+                    this.idSelected = this.tabelDataH.getValueAt(tabelDataH.getSelectedRow() - 1, 0).toString();
+                    this.showData(tabelDataH);
+                    int pMakanan = getJenis("MAKANAN");
+                    int pMinuman = getJenis("MINUMAN");
+                    int pSnack = getJenis("SNACK");
+                    int pAtk = getJenis("ATK");
+                    this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
+                }
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                if (this.tabelDataH.getSelectedRow() < (this.tabelDataH.getRowCount() - 1)) {
+                    this.idSelected = this.tabelDataH.getValueAt(tabelDataH.getSelectedRow() + 1, 0).toString();
+                    this.showData(tabelDataH);
+                    int pMakanan = getJenis("MAKANAN");
+                    int pMinuman = getJenis("MINUMAN");
+                    int pSnack = getJenis("SNACK");
+                    int pAtk = getJenis("ATK");
+                    this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
+                }
             }
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         } catch (ParseException ex) {
@@ -1016,21 +1031,26 @@ public class LaporanJual extends javax.swing.JPanel {
         try {
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                this.idSelected = this.tabelDataS.getValueAt(tabelDataS.getSelectedRow() - 1, 0).toString();
-                this.showData(tabelDataS);
-                int pMakanan = getJenis("MAKANAN");
-                int pMinuman = getJenis("MINUMAN");
-                int pSnack = getJenis("SNACK");
-                int pAtk = getJenis("ATK");
-                this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
-            } else if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                this.idSelected = this.tabelDataS.getValueAt(tabelDataS.getSelectedRow() + 1, 0).toString();
-                this.showData(tabelDataS);
-                int pMakanan = getJenis("MAKANAN");
-                int pMinuman = getJenis("MINUMAN");
-                int pSnack = getJenis("SNACK");
-                int pAtk = getJenis("ATK");
-                this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
+                if (this.tabelDataS.getSelectedRow() >= 1) {
+                    this.idSelected = this.tabelDataS.getValueAt(tabelDataS.getSelectedRow() - 1, 0).toString();
+                    this.showData(tabelDataS);
+                    int pMakanan = getJenis("MAKANAN");
+                    int pMinuman = getJenis("MINUMAN");
+                    int pSnack = getJenis("SNACK");
+                    int pAtk = getJenis("ATK");
+                    this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
+                }
+            }
+            if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+                if (this.tabelDataS.getSelectedRow() < (this.tabelDataS.getRowCount() - 1)) {
+                    this.idSelected = this.tabelDataS.getValueAt(tabelDataS.getSelectedRow() + 1, 0).toString();
+                    this.showData(tabelDataS);
+                    int pMakanan = getJenis("MAKANAN");
+                    int pMinuman = getJenis("MINUMAN");
+                    int pSnack = getJenis("SNACK");
+                    int pAtk = getJenis("ATK");
+                    this.chart.showPieChart(this.pnlPieChart, "", pMakanan, pMinuman, pSnack, pAtk);
+                }
             }
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         } catch (ParseException ex) {
