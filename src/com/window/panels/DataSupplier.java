@@ -30,6 +30,7 @@ import javax.swing.JOptionPane;
  * @author Gemastik Lightning
  */
 public class DataSupplier extends javax.swing.JPanel {
+
     private final Database db = new Database();
     private final Supplier supplier = new Supplier();
 
@@ -97,23 +98,26 @@ public class DataSupplier extends javax.swing.JPanel {
         this.updateTabel();
         this.valNoTelp.setText("");
     }
-    public void closeKoneksi(){
+
+    public void closeKoneksi() {
         db.closeConnection();
         supplier.closeConnection();
         barang.closeConnection();
     }
-    private int getJumlahData(String tabel, String kondisi){
-        try{
+
+    private int getJumlahData(String tabel, String kondisi) {
+        try {
             String query = "SELECT COUNT(*) AS total FROM " + tabel + " " + kondisi;
             db.res = db.stat.executeQuery(query);
-            if(db.res.next()){
+            if (db.res.next()) {
                 return db.res.getInt("total");
             }
-        }catch(SQLException ex){
-            Message.showException(this, "Terjadi Kesalahan!\n\nError message : "+ex.getMessage(), ex, true);
+        } catch (SQLException ex) {
+            Message.showException(this, "Terjadi Kesalahan!\n\nError message : " + ex.getMessage(), ex, true);
         }
         return -1;
     }
+
     private Object[][] getData() {
         try {
             Object[][] obj;
@@ -157,7 +161,7 @@ public class DataSupplier extends javax.swing.JPanel {
         });
     }
 
-    public void showData() throws ParseException {
+    private void showData() throws ParseException {
         // mendapatkan data
         String tanggalPenuh;
         Date tanggal = new Date();
@@ -183,6 +187,16 @@ public class DataSupplier extends javax.swing.JPanel {
         this.valBrgSupplier.setText("<html><p>:&nbsp;" + ttBrg + " Barang</p></html>");
         this.valUang.setText("<html><p>:&nbsp;" + ttlUang + "</p></html>");
         this.valLast.setText("<html><p>:&nbsp;" + last + "</p></html>");
+    }
+
+    private void resetData() {
+        this.valIDSupplier.setText("<html><p>:&nbsp;</p></html>");
+        this.valNamaSupplier.setText("<html><p>:&nbsp;</p></html>");
+        this.valNoTelp.setText("<html><p>:&nbsp;</p></html>");
+        this.valAlamat.setText("<html><p>:&nbsp;</p></html>");
+        this.valBrgSupplier.setText("<html><p>:&nbsp;</p></html>");
+        this.valUang.setText("<html><p>:&nbsp;</p></html>");
+        this.valLast.setText("<html><p>:&nbsp;</p></html>");
     }
 
     @SuppressWarnings("unchecked")
@@ -409,6 +423,7 @@ public class DataSupplier extends javax.swing.JPanel {
                         Message.showInformation(this, "Data berhasil dihapus!");
                         // mengupdate tabel
                         this.updateTabel();
+                        this.resetData();
                     } else {
                         Message.showInformation(this, "Data gagal dihapus!");
                     }
@@ -500,18 +515,23 @@ public class DataSupplier extends javax.swing.JPanel {
     private void tabelDataKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDataKeyPressed
         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
         if (evt.getKeyCode() == KeyEvent.VK_UP) {
-            try {
-                this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow() - 1, 0).toString();
-                this.showData();
-            } catch (ParseException ex) {
-                Logger.getLogger(DataSupplier.class.getName()).log(Level.SEVERE, null, ex);
+            if (this.tabelData.getSelectedRow() >= 1) {
+                try {
+                    this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow() - 1, 0).toString();
+                    this.showData();
+                } catch (ParseException ex) {
+                    Logger.getLogger(DataSupplier.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        } else if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-            try {
-                this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow() + 1, 0).toString();
-                this.showData();
-            } catch (ParseException ex) {
-                Logger.getLogger(DataSupplier.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (this.tabelData.getSelectedRow() < (this.tabelData.getRowCount() - 1)) {
+                try {
+                    this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow() + 1, 0).toString();
+                    this.showData();
+                } catch (ParseException ex) {
+                    Logger.getLogger(DataSupplier.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));

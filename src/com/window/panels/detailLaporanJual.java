@@ -471,11 +471,15 @@ public class detailLaporanJual extends javax.swing.JDialog {
         try {
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
-                this.idSelected = this.tabelData.getValueAt(this.tabelData.getSelectedRow() - 1, 0).toString();
-                this.showData();
+                if (this.tabelData.getSelectedRow() >= 1) {
+                    this.idSelected = this.tabelData.getValueAt(this.tabelData.getSelectedRow() - 1, 0).toString();
+                    this.showData();
+                }
             } else if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-                this.idSelected = this.tabelData.getValueAt(this.tabelData.getSelectedRow() + 1, 0).toString();
-                this.showData();
+                if (this.tabelData.getSelectedRow() < (this.tabelData.getRowCount() - 1)) {
+                    this.idSelected = this.tabelData.getValueAt(this.tabelData.getSelectedRow() + 1, 0).toString();
+                    this.showData();
+                }
             }
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         } catch (ParseException ex) {

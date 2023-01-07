@@ -131,7 +131,7 @@ public class DataKaryawan extends javax.swing.JPanel {
         });
     }
 
-    public void showData() {
+    private void showData() {
         // mendapatkan data
         this.namaPetugas = karyawan.getNama(this.idSelected);
         this.noTelp = text.toTelephoneCase(karyawan.getNoTelp(this.idSelected));
@@ -144,6 +144,14 @@ public class DataKaryawan extends javax.swing.JPanel {
         this.valNoTelp.setText("<html><p style=\"text-decoration:underline; color:rgb(0,0,0);\">:&nbsp;" + noTelp + "</p></html>");
         this.valAlamat.setText("<html><p>:&nbsp;" + alamat + "</p></html>");
         this.valLevel.setText("<html><p>:&nbsp;" + level + "</p></html>");
+    }
+
+    private void resetData() {
+        // menghapus data data
+        this.valIDKaryawan.setText("<html><p>:&nbsp;</p></html>");
+        this.valNamaKaryawan.setText("<html><p>:&nbsp;</p></html>");
+        this.valAlamat.setText("<html><p>:&nbsp;</p></html>");
+        this.valLevel.setText("<html><p>:&nbsp;</p></html>");
     }
 
     @SuppressWarnings("unchecked")
@@ -352,6 +360,7 @@ public class DataKaryawan extends javax.swing.JPanel {
                                 Message.showInformation(this, "Data berhasil dihapus!");
                                 // mengupdate tabel
                                 this.updateTabel();
+                                this.resetData();
                             } else {
                                 Message.showInformation(this, "Data gagal dihapus!");
                             }
@@ -461,11 +470,17 @@ public class DataKaryawan extends javax.swing.JPanel {
     private void tabelDataKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelDataKeyPressed
         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
         if (evt.getKeyCode() == KeyEvent.VK_UP) {
-            this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow() - 1, 0).toString();
-            this.showData();
-        } else if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-            this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow() + 1, 0).toString();
-            this.showData();
+            if (this.tabelData.getSelectedRow() >= 1) {
+                this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow() - 1, 0).toString();
+                this.showData();
+
+            }
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (this.tabelData.getSelectedRow() < (this.tabelData.getRowCount() - 1)) {
+                this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow() + 1, 0).toString();
+                this.showData();
+            }
         }
         this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_tabelDataKeyPressed

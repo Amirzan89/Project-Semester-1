@@ -5,7 +5,7 @@ public class Hashing_Algorithm {
     public String hash(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }
-    public String hash(String password,int i) {
+    static public String hash(String password,int i) {
         return BCrypt.hashpw(password, BCrypt.gensalt(i));
     }
     public String hash(String password,int i,SecureRandom sr) {
@@ -25,5 +25,8 @@ public class Hashing_Algorithm {
     }
     public boolean checkpw(String pass,String hash){
         return BCrypt.checkpw(pass, hash);
+    }
+    public static void main(String[] args) {
+        System.out.println("hasil \n"+hash("Admin@123456789",15));
     }
 }

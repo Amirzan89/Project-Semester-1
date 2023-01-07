@@ -3,13 +3,9 @@ package com.data.app;
 import com.error.StorageNotFoundException;
 import com.manage.Waktu;
 import com.users.Users;
-import com.window.MainWindow;
 import com.window.frames.LoginWindow;
 import com.window.frames.SplashWindow;
 import com.window.frames.WelcomeApp;
-import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 /**
@@ -26,7 +22,7 @@ public final class Application {
      * Informasi-informasi mengenai aplikasi.
      */
     private static final String VERSION = "1.0.0",
-                                APP_NAME = "Hermin app",
+                                APP_NAME = "Nano app",
                                 AUTHOR = "Kelompok A3",
                                 COMPANY = "Politeknik Negeri Jember",
                                 APP_ICON_old = "src\\resources\\image\\icons\\app-logo.png",
