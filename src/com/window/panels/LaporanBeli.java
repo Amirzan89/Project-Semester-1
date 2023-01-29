@@ -12,7 +12,6 @@ import com.media.Audio;
 import com.media.Gambar;
 import com.sun.glass.events.KeyEvent;
 import com.users.Karyawan;
-import com.users.Supplier;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
@@ -396,20 +395,20 @@ public class LaporanBeli extends javax.swing.JPanel {
     }
 
     //mehtod showData digunakan untuk menampilkan data dari tabel data ke menu
-    private void showData(JTable tabel) throws ParseException {
+    private void showData(JTable tabel, int index) throws ParseException {
         // deklarasi variabel
         int hari_1 = 0, bulan_1 = -1, tahun_1 = 0;
         // mendapatkan data-data
         //mendapatkan id tranksaksi dari tabel data diubah ke String lalu char "LPG" diubah menjadi "TRB"
-        this.idTr = tabel.getValueAt(tabel.getSelectedRow(), 0).toString().replace("LPG", "TRB");
+        this.idTr = this.idSelected.replace("LPG", "TRB");
         //mendapatkan id pengeluaran dari tabel data diubah ke String lalu char "TRB" diubah menjadi "LPG"
-        this.idPd = this.idTr.replace("TRB", "LPG");
+        this.idPd = this.idSelected;
         //mendapatkan id karyawan dari tabel data diubah ke String
-        this.IDKaryawan = tabel.getValueAt(tabel.getSelectedRow(), 1).toString();
+        this.IDKaryawan = tabel.getValueAt(index, 1).toString();
         //mendapatkan nama karyawan dari tabel data diubah ke String
-        this.namaKaryawan = tabel.getValueAt(tabel.getSelectedRow(), 2).toString();
+        this.namaKaryawan = tabel.getValueAt(index, 2).toString();
         //mendapatkan pengeluaran dari tabel data lalu diubah ke String lalu diubah ke int 
-        this.totalHrg = text.toIntCase(tabel.getValueAt(tabel.getSelectedRow(), 3).toString());
+        this.totalHrg = text.toIntCase(tabel.getValueAt(index, 3).toString());
         //mendapatkan tanggal berdasarkan id transaksi 
         String tanggal1 = this.trb.getTanggal(this.idTr);
         //mengubah variabel tipe data string ke tipe data Date 
@@ -548,7 +547,7 @@ public class LaporanBeli extends javax.swing.JPanel {
         txtAwal.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         txtAwal.setForeground(new java.awt.Color(255, 255, 255));
         txtAwal.setText("Awal :");
-        add(txtAwal, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 90, 40));
+        add(txtAwal, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 100, 40));
 
         txtAkhir.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         txtAkhir.setForeground(new java.awt.Color(255, 255, 255));
@@ -595,7 +594,7 @@ public class LaporanBeli extends javax.swing.JPanel {
                 tbMinggu1PropertyChange(evt);
             }
         });
-        add(tbMinggu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 350, 130, 40));
+        add(tbMinggu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 350, 120, 40));
 
         tbBulanan.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         tbBulanan.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -628,7 +627,7 @@ public class LaporanBeli extends javax.swing.JPanel {
                 tbHarianPropertyChange(evt);
             }
         });
-        add(tbHarian, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 350, 130, 40));
+        add(tbHarian, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 350, 120, 40));
 
         LPSEMUA.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -847,7 +846,6 @@ public class LaporanBeli extends javax.swing.JPanel {
             if (key.contains("TRB") || key.contains("LPG") || key.contains("trb") || key.contains("lpg")) {
                 data = "TRB" + key.substring(3, key.length());
             }
-            System.out.println("id " + data);
             this.keyword = "WHERE id_tr_beli LIKE '%" + data + "%'";
             JTable tabel = new JTable();
             switch (selectedIndex) {
@@ -877,7 +875,6 @@ public class LaporanBeli extends javax.swing.JPanel {
             if (key.contains("TRB") || key.contains("LPG") || key.contains("trb") || key.contains("lpg")) {
                 data = "TRB" + key.substring(3, key.length());
             }
-            System.out.println("id " + data);
             this.keyword = "WHERE id_tr_beli LIKE '%" + data + "%'";
             JTable tabel = new JTable();
             switch (selectedIndex) {
@@ -906,7 +903,7 @@ public class LaporanBeli extends javax.swing.JPanel {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 if (this.tabelDataB.getSelectedRow() >= 1) {
                     this.idSelected = this.tabelDataB.getValueAt(tabelDataB.getSelectedRow() - 1, 0).toString();
-                    this.showData(tabelDataB);
+                    this.showData(tabelDataB,tabelDataB.getSelectedRow()-1);
                     int pMakanan = getJenis("MAKANAN");
                     int pMinuman = getJenis("MINUMAN");
                     int pSnack = getJenis("SNACK");
@@ -917,7 +914,7 @@ public class LaporanBeli extends javax.swing.JPanel {
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 if (this.tabelDataB.getSelectedRow() < (this.tabelDataB.getRowCount() - 1)) {
                     this.idSelected = this.tabelDataB.getValueAt(tabelDataB.getSelectedRow() + 1, 0).toString();
-                    this.showData(tabelDataB);
+                    this.showData(tabelDataB,tabelDataB.getSelectedRow()+1);
                     int pMakanan = getJenis("MAKANAN");
                     int pMinuman = getJenis("MINUMAN");
                     int pSnack = getJenis("SNACK");
@@ -934,10 +931,10 @@ public class LaporanBeli extends javax.swing.JPanel {
     private void tabelDataBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataBMouseClicked
         try {
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-            // menampilkan data pembeli
+            // menampilkan data 
             this.idSelected = this.tabelDataB.getValueAt(tabelDataB.getSelectedRow(), 0).toString();
-            System.out.println("baris : " + tabelDataB.getSelectedRow());
-            this.showData(tabelDataB);
+//            System.out.println("baris : " + (tabelDataB.getSelectedRow()+1));
+            this.showData(tabelDataB,tabelDataB.getSelectedRow());
             int pMakanan = getJenis("MAKANAN");
             int pMinuman = getJenis("MINUMAN");
             int pSnack = getJenis("SNACK");
@@ -955,7 +952,7 @@ public class LaporanBeli extends javax.swing.JPanel {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 if (this.tabelDataM.getSelectedRow() >= 1) {
                     this.idSelected = this.tabelDataM.getValueAt(tabelDataM.getSelectedRow() - 1, 0).toString();
-                    this.showData(tabelDataM);
+                    this.showData(tabelDataM,tabelDataM.getSelectedRow()-1);
                     int pMakanan = getJenis("MAKANAN");
                     int pMinuman = getJenis("MINUMAN");
                     int pSnack = getJenis("SNACK");
@@ -966,7 +963,7 @@ public class LaporanBeli extends javax.swing.JPanel {
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 if (this.tabelDataM.getSelectedRow() < (this.tabelDataM.getRowCount() - 1)) {
                     this.idSelected = this.tabelDataM.getValueAt(tabelDataM.getSelectedRow() + 1, 0).toString();
-                    this.showData(tabelDataM);
+                    this.showData(tabelDataM,tabelDataM.getSelectedRow()+1);
                     int pMakanan = getJenis("MAKANAN");
                     int pMinuman = getJenis("MINUMAN");
                     int pSnack = getJenis("SNACK");
@@ -984,7 +981,7 @@ public class LaporanBeli extends javax.swing.JPanel {
         try {
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             this.idSelected = this.tabelDataM.getValueAt(tabelDataM.getSelectedRow(), 0).toString();
-            this.showData(tabelDataM);
+            this.showData(tabelDataM,tabelDataM.getSelectedRow());
             int pMakanan = getJenis("MAKANAN");
             int pMinuman = getJenis("MINUMAN");
             int pSnack = getJenis("SNACK");
@@ -1002,7 +999,7 @@ public class LaporanBeli extends javax.swing.JPanel {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 if (this.tabelDataH.getSelectedRow() >= 1) {
                     this.idSelected = this.tabelDataH.getValueAt(tabelDataH.getSelectedRow() - 1, 0).toString();
-                    this.showData(tabelDataH);
+                    this.showData(tabelDataH,tabelDataH.getSelectedRow()-1);
                     int pMakanan = getJenis("MAKANAN");
                     int pMinuman = getJenis("MINUMAN");
                     int pSnack = getJenis("SNACK");
@@ -1013,7 +1010,7 @@ public class LaporanBeli extends javax.swing.JPanel {
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 if (this.tabelDataH.getSelectedRow() < (this.tabelDataH.getRowCount() - 1)) {
                     this.idSelected = this.tabelDataH.getValueAt(tabelDataH.getSelectedRow() + 1, 0).toString();
-                    this.showData(tabelDataH);
+                    this.showData(tabelDataH,tabelDataH.getSelectedRow()+1);
                     int pMakanan = getJenis("MAKANAN");
                     int pMinuman = getJenis("MINUMAN");
                     int pSnack = getJenis("SNACK");
@@ -1031,8 +1028,8 @@ public class LaporanBeli extends javax.swing.JPanel {
         try {
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             this.idSelected = this.tabelDataH.getValueAt(tabelDataH.getSelectedRow(), 0).toString();
-            this.showData(tabelDataH);
-            System.out.println("baris : " + tabelDataH.getSelectedRow());
+            this.showData(tabelDataH,tabelDataH.getSelectedRow());
+//            System.out.println("baris : " + tabelDataH.getSelectedRow());
             int pMakanan = getJenis("MAKANAN");
             int pMinuman = getJenis("MINUMAN");
             int pSnack = getJenis("SNACK");
@@ -1050,7 +1047,8 @@ public class LaporanBeli extends javax.swing.JPanel {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 if (this.tabelDataS.getSelectedRow() >= 1) {
                     this.idSelected = this.tabelDataS.getValueAt(tabelDataS.getSelectedRow() - 1, 0).toString();
-                    this.showData(tabelDataS);
+                    this.showData(tabelDataS,tabelDataS.getSelectedRow()-1);
+//                    System.out.println("baris : " + (tabelDataS.getSelectedRow()) +"-id laporan "+this.idSelected);
                     int pMakanan = getJenis("MAKANAN");
                     int pMinuman = getJenis("MINUMAN");
                     int pSnack = getJenis("SNACK");
@@ -1060,8 +1058,9 @@ public class LaporanBeli extends javax.swing.JPanel {
             }
             if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 if (this.tabelDataS.getSelectedRow() < (this.tabelDataS.getRowCount() - 1)) {
-                    this.idSelected = this.tabelDataS.getValueAt(tabelDataS.getSelectedRow() + 1, 0).toString();
-                    this.showData(tabelDataS);
+                    this.idSelected = this.tabelDataS.getValueAt(tabelDataS.getSelectedRow()+1 , 0).toString();
+                    this.showData(tabelDataS,tabelDataS.getSelectedRow()+1);
+//                    System.out.println("baris : " + (tabelDataS.getSelectedRow()+2)+" Id laporan "+this.idSelected);
                     int pMakanan = getJenis("MAKANAN");
                     int pMinuman = getJenis("MINUMAN");
                     int pSnack = getJenis("SNACK");
@@ -1079,8 +1078,8 @@ public class LaporanBeli extends javax.swing.JPanel {
         try {
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             this.idSelected = this.tabelDataS.getValueAt(tabelDataS.getSelectedRow(), 0).toString();
-            this.showData(tabelDataS);
-            System.out.println("baris : " + tabelDataS.getSelectedRow());
+            this.showData(tabelDataS,tabelDataS.getSelectedRow());
+//            System.out.println("baris : " + tabelDataS.getSelectedRow());
             int pMakanan = getJenis("MAKANAN");
             int pMinuman = getJenis("MINUMAN");
             int pSnack = getJenis("SNACK");

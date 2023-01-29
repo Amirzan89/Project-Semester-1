@@ -8,6 +8,7 @@ import com.media.Audio;
 import com.media.Gambar;
 import com.sun.glass.events.KeyEvent;
 import com.manage.Barang;
+import com.manage.Waktu;
 import com.window.dialogs.InputBarang;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -22,10 +23,10 @@ import javax.swing.JOptionPane;
  * @author Amirzan Fikri
  */
 public class DataBarang extends javax.swing.JPanel {
-
+    private final Waktu waktu = new Waktu();
     private final Database db = new Database();
     private final Barang barang = new Barang();
-
+    private int tahun, bulan;
     private final Text text = new Text();
 
     private String idSelected = "", keyword = "", namaBarang, jenis, stok, hargaBeli, hargaJual, ttlPenjulan, penjMing, penghasilan;
@@ -36,6 +37,8 @@ public class DataBarang extends javax.swing.JPanel {
      */
     public DataBarang() {
         initComponents();
+        this.bulan = waktu.getBulan() + 1;
+        this.tahun = waktu.getTahun();
         db.startConnection();
         this.btnAdd.setUI(new javax.swing.plaf.basic.BasicButtonUI());
         this.btnEdit.setUI(new javax.swing.plaf.basic.BasicButtonUI());
@@ -89,15 +92,40 @@ public class DataBarang extends javax.swing.JPanel {
         barang.closeConnection();
         db.closeConnection();
     }
-
-    private String gachaMinggu() {
+    private int getJumlahData(String tabel, String kondisi) {
+        try {
+            String query = "SELECT COUNT(*) AS total FROM " + tabel + " " + kondisi;
+            db.res = db.stat.executeQuery(query);
+            if (db.res.next()) {
+                return db.res.getInt("total");
+            }
+        } catch (SQLException ex) {
+            Message.showException(this, "Terjadi Kesalahan!\n\nError message : " + ex.getMessage(), ex, true);
+        } catch (NullPointerException n) {
+//            n.printStackTrace();
+            System.out.println("errorr ");
+            return 0;
+        }
+        return -1;
+    }
+    private String gachaBulan() {
+        try{
+            
         int max = barang.sumData(DatabaseTables.DETAIL_TRANSAKSI_JUAL.name(), "jumlah", String.format("where id_barang = '%s'", this.idSelected));
 //        System.out.println("jumlah barangg "+max);
-        if (max <= 1) {
+        String query = "SELECT COUNT(*) AS total FROM detail_transaksi_jual INNER JOIN transaksi_jual ON transaksi_jual.id_tr_jual = detail_transaksi_jual.id_tr_jual WHERE id_barang = '"+this.idSelected+"' AND YEAR(tanggal) ='"+this.tahun+"' AND MONTH(tanggal) = '"+this.bulan+"'";
+        db.res = db.stat.executeQuery(query);
+        if (db.res.next()) {
+            return db.res.getString("total");
+            }
+        } catch (SQLException ex) {
+            Message.showException(this, "Terjadi Kesalahan!\n\nError message : " + ex.getMessage(), ex, true);
+        } catch (NullPointerException n) {
+//            n.printStackTrace();
+            System.out.println("errorr ");
             return "0";
-        } else {
-            return Integer.toString(new Random().nextInt(--max));
         }
+        return "-1";
     }
 
     private void showData() {
@@ -124,7 +152,7 @@ public class DataBarang extends javax.swing.JPanel {
         this.valHargaJual.setText("<html><p>:&nbsp;" + hargaJual + "</p></html>");
         this.valHargaBeli.setText("<html><p>:&nbsp;" + hargaBeli + "</p></html>");
         this.valPjln.setText("<html><p>:&nbsp;" + ttlPenjulan + " Penjualan</p></html>");
-        this.valPjlnMinggu.setText("<html><p>:&nbsp;" + gachaMinggu() + " Penjualan</p></html>");
+        this.valPjlnMinggu.setText("<html><p>:&nbsp;" + gachaBulan() + " Penjualan</p></html>");
         this.valPenghasilan.setText("<html><p>:&nbsp;" + penghasilan + "</p></html>");
     }
 
@@ -335,7 +363,7 @@ public class DataBarang extends javax.swing.JPanel {
 
     private void tabelDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataMouseClicked
         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-        // menampilkan data pembeli
+        // menampilkan data barang
         this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow(), 0).toString();
         this.showData();
         this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));

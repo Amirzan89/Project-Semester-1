@@ -771,6 +771,14 @@ public class TransaksiBeli extends javax.swing.JPanel {
                     this.totalHarga = Integer.parseInt(inpJumlah.getText()) * hargaBeli;
                     inpTotalHarga.setText(text.toMoneyCase(Integer.toString(this.totalHarga)));
                     this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                }else{
+                    this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+                    // menampilkan data barang
+                    this.idSelectedBarang = this.tabelDataBarang.getValueAt(tabelDataBarang.getSelectedRow(), 0).toString();
+                    this.showDataBarang();
+                    this.totalHarga = Integer.parseInt(inpJumlah.getText()) * hargaBeli;
+                    inpTotalHarga.setText(text.toMoneyCase(Integer.toString(this.totalHarga)));
+                    this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                 }
             }
         }
@@ -788,6 +796,13 @@ public class TransaksiBeli extends javax.swing.JPanel {
                             this.totalHarga = Integer.parseInt(inpJumlah.getText()) * hargaBeli;
                             inpTotalHarga.setText(text.toMoneyCase(Integer.toString(this.totalHarga)));
                             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                        }else{
+                            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+                            this.idSelectedBarang = this.tabelDataBarang.getValueAt(tabelDataBarang.getSelectedRow() - 1, 0).toString();
+                            this.showDataBarang();
+                            this.totalHarga = Integer.parseInt(inpJumlah.getText()) * hargaBeli;
+                            inpTotalHarga.setText(text.toMoneyCase(Integer.toString(this.totalHarga)));
+                            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                         }
                     }
                 }
@@ -797,6 +812,13 @@ public class TransaksiBeli extends javax.swing.JPanel {
                 if (!inpJumlah.getText().isEmpty()) {
                     if (text.isNumber(inpJumlah.getText())) {
                         if (Integer.parseInt(inpJumlah.getText()) > 0) {
+                            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+                            this.idSelectedBarang = this.tabelDataBarang.getValueAt(tabelDataBarang.getSelectedRow() + 1, 0).toString();
+                            this.showDataBarang();
+                            this.totalHarga = Integer.parseInt(inpJumlah.getText()) * hargaBeli;
+                            inpTotalHarga.setText(text.toMoneyCase(Integer.toString(this.totalHarga)));
+                            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                        }else{
                             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
                             this.idSelectedBarang = this.tabelDataBarang.getValueAt(tabelDataBarang.getSelectedRow() + 1, 0).toString();
                             this.showDataBarang();
