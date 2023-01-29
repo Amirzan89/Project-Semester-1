@@ -174,7 +174,7 @@ public class detailLaporanJual extends javax.swing.JDialog {
         this.tabelData.setModel(new javax.swing.table.DefaultTableModel(
                 getData(),
                 new String[]{
-                    "ID Pengeluaran", "ID Transaksi Beli", "ID Barang", "Nama Barang", "Jenis Brang", "Harga Jual", "Jumlah", "Total Harga"
+                    "ID Pemasukan", "ID Transaksi Jual", "ID Barang", "Nama Barang", "Jenis Brang", "Harga Jual", "Jumlah", "Total Harga"
                 }
         ) {
             boolean[] canEdit = new boolean[]{
@@ -188,16 +188,16 @@ public class detailLaporanJual extends javax.swing.JDialog {
         });
     }
 
-    private void showData() throws ParseException {
+    private void showData(int index) throws ParseException {
         // mendapatkan data-data
-        this.idPd = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 0).toString();
-        this.idTr = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 1).toString();
-        this.IDBarang = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 2).toString();
-        this.namaBarang = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 3).toString();
-        this.jenisBarang = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 4).toString();
-        this.harga = text.toIntCase(this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 5).toString());
-        this.jumlahBarang = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 6).toString();
-        this.totalHrg = text.toIntCase(this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 7).toString());
+        this.idPd = this.tabelData.getValueAt(index, 0).toString();
+        this.idTr = this.tabelData.getValueAt(index, 1).toString();
+        this.IDBarang = this.tabelData.getValueAt(index, 2).toString();
+        this.namaBarang = this.tabelData.getValueAt(index, 3).toString();
+        this.jenisBarang = this.tabelData.getValueAt(index, 4).toString();
+        this.harga = text.toIntCase(this.tabelData.getValueAt(index, 5).toString());
+        this.jumlahBarang = this.tabelData.getValueAt(index, 6).toString();
+        this.totalHrg = text.toIntCase(this.tabelData.getValueAt(index, 7).toString());
 
         // menampilkan data-data
         this.valIDPemasukan.setText("<html><p>:&nbsp;" + this.idPd + "</p></html>");
@@ -356,7 +356,7 @@ public class detailLaporanJual extends javax.swing.JDialog {
 
             },
             new String [] {
-                "ID Pengeluaran", "ID Transaksi Beli", "ID Barang", "Nama Barang", "Jenis Barang", "Harga Beli", "Jumlah", "Total Harga"
+                "ID Pemasukan", "ID Transaksi Jual", "ID Barang", "Nama Barang", "Jenis Barang", "Harga Beli", "Jumlah", "Total Harga"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -382,9 +382,6 @@ public class detailLaporanJual extends javax.swing.JDialog {
             }
         });
         lpSemua.setViewportView(tabelData);
-        if (tabelData.getColumnModel().getColumnCount() > 0) {
-            tabelData.getColumnModel().getColumn(7).setResizable(false);
-        }
 
         pnlMain.add(lpSemua, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 332, 1040, 300));
 
@@ -449,7 +446,7 @@ public class detailLaporanJual extends javax.swing.JDialog {
     private void inpCariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inpCariKeyTyped
         try {
             String key = this.inpCari.getText();
-            this.keyword = "WHERE id_tr_beli = '" + this.idTrSelected + "' AND (id_barang LIKE '%" + key + "%' OR nama_barang LIKE '%" + key + "%')";
+            this.keyword = "WHERE id_tr_jual = '" + this.idTrSelected + "' AND (id_barang LIKE '%" + key + "%' OR nama_barang LIKE '%" + key + "%')";
             this.updateTabel();
         } catch (ParseException ex) {
             Logger.getLogger(detailLaporanJual.class.getName()).log(Level.SEVERE, null, ex);
@@ -460,7 +457,7 @@ public class detailLaporanJual extends javax.swing.JDialog {
         try {
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             this.idSelected = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 0).toString();
-            this.showData();
+            this.showData(this.tabelData.getSelectedRow());
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         } catch (ParseException ex) {
             Logger.getLogger(LaporanBeli.class.getName()).log(Level.SEVERE, null, ex);
@@ -473,12 +470,12 @@ public class detailLaporanJual extends javax.swing.JDialog {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 if (this.tabelData.getSelectedRow() >= 1) {
                     this.idSelected = this.tabelData.getValueAt(this.tabelData.getSelectedRow() - 1, 0).toString();
-                    this.showData();
+                    this.showData(this.tabelData.getSelectedRow() - 1);
                 }
             } else if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 if (this.tabelData.getSelectedRow() < (this.tabelData.getRowCount() - 1)) {
                     this.idSelected = this.tabelData.getValueAt(this.tabelData.getSelectedRow() + 1, 0).toString();
-                    this.showData();
+                    this.showData(this.tabelData.getSelectedRow() + 1);
                 }
             }
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));

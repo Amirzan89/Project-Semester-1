@@ -55,7 +55,7 @@ public class Database {
      * Attribute yang digunakan untuk menghubungkan Aplikasi ke <B>Database
      * MySQL</B>
      */
-    public static final String DB_NAME = "umkm";
+    public static final String DB_NAME = "umkm_barang";
     private static final String //                                DB_NAME = "gemastik_lightning",
             URL = "jdbc:mysql://localhost/" + DB_NAME,
             USER = "root",
@@ -179,8 +179,6 @@ public class Database {
             String query = "SELECT SUM(" + field + ") AS total FROM " + tabel + " " + kondisi;
             res = stat.executeQuery(query);
             if (res.next()) {
-                System.out.println("Query telah dieksekusi " + res.getInt("total"));
-                System.out.println("total nya adalah " + res.getInt("total"));
                 return res.getInt("total");
             }
         } catch (SQLException ex) {

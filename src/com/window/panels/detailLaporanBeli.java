@@ -191,18 +191,18 @@ public class detailLaporanBeli extends javax.swing.JDialog {
         });
     }
 
-    private void showData() throws ParseException {
+    private void showData(int index) throws ParseException {
         // mendapatkan data-data
-        this.idPd = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 0).toString();
-        this.idTr = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 1).toString();
-        this.IDSupplier = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 2).toString();
-        this.namaSupplier = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 3).toString();
-        this.IDBarang = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 4).toString();
-        this.namaBarang = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 5).toString();
-        this.jenisBarang = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 6).toString();
-        this.harga = text.toIntCase(this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 7).toString());
-        this.jumlahBarang = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 8).toString();
-        this.totalHrg = text.toIntCase(this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 9).toString());
+        this.idPd = this.tabelData.getValueAt(index, 0).toString();
+        this.idTr = this.tabelData.getValueAt(index, 1).toString();
+        this.IDSupplier = this.tabelData.getValueAt(index, 2).toString();
+        this.namaSupplier = this.tabelData.getValueAt(index, 3).toString();
+        this.IDBarang = this.tabelData.getValueAt(index, 4).toString();
+        this.namaBarang = this.tabelData.getValueAt(index, 5).toString();
+        this.jenisBarang = this.tabelData.getValueAt(index, 6).toString();
+        this.harga = text.toIntCase(this.tabelData.getValueAt(index, 7).toString());
+        this.jumlahBarang = this.tabelData.getValueAt(index, 8).toString();
+        this.totalHrg = text.toIntCase(this.tabelData.getValueAt(index, 9).toString());
 
         // menampilkan data-data
         this.valIDPengeluaran.setText("<html><p>:&nbsp;" + this.idPd + "</p></html>");
@@ -479,7 +479,7 @@ public class detailLaporanBeli extends javax.swing.JDialog {
         try {
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             this.idSelected = this.tabelData.getValueAt(this.tabelData.getSelectedRow(), 0).toString();
-            this.showData();
+            this.showData(this.tabelData.getSelectedRow());
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         } catch (ParseException ex) {
             Logger.getLogger(LaporanBeli.class.getName()).log(Level.SEVERE, null, ex);
@@ -492,12 +492,12 @@ public class detailLaporanBeli extends javax.swing.JDialog {
             if (evt.getKeyCode() == KeyEvent.VK_UP) {
                 if (this.tabelData.getSelectedRow() >= 1) {
                     this.idSelected = this.tabelData.getValueAt(this.tabelData.getSelectedRow() - 1, 0).toString();
-                    this.showData();
+                    this.showData(this.tabelData.getSelectedRow() - 1);
                 }
             } else if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
                 if (this.tabelData.getSelectedRow() < (this.tabelData.getRowCount() - 1)) {
                     this.idSelected = this.tabelData.getValueAt(this.tabelData.getSelectedRow() + 1, 0).toString();
-                    this.showData();
+                    this.showData(this.tabelData.getSelectedRow() + 1);
                 }
             }
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
