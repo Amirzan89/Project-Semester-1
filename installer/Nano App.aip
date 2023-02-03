@@ -1,0 +1,1077 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DOCUMENT Type="Advanced Installer" CreateVersion="18.5" version="18.5" Modules="professional" RootPath="." Language="en" Id="{8B026AF3-59BE-45AA-A99C-82DE10DC6778}">
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
+    <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
+    <ROW Property="AI_CURRENT_YEAR" Value="2023" ValueLocId="-"/>
+    <ROW Property="AI_FINDEXE_TITLE" Value="Select the installation package for [|ProductName]" ValueLocId="AI.Property.FindExeTitle"/>
+    <ROW Property="AI_IA_APPLICATION_ID" Value="63bcfc1e3de829113c12051d"/>
+    <ROW Property="AI_IA_ENABLE" Value="1"/>
+    <ROW Property="AI_PREDEF_LCONDS_PROPS" Value="AI_DETECTED_ALL"/>
+    <ROW Property="AI_ThemeSteps" Value="radio" MsiKey="AI_ThemeSteps"/>
+    <ROW Property="ALLUSERS" Value="1"/>
+    <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
+    <ROW Property="ARPNOREPAIR" MultiBuildValue="DefaultBuild:1"/>
+    <ROW Property="ARPPRODUCTICON" Value="NanoApp64.exe" Type="8"/>
+    <ROW Property="CurrentJavaProductName" Value="CurrentJavaProductName"/>
+    <ROW Property="Manufacturer" Value="Nano Code TIF Kampus 3 PSDKU Polije"/>
+    <ROW Property="ProductCode" Value="1033:{D0B5DCA2-FEC4-48CF-BFE9-B8622C90CA81} " Type="16"/>
+    <ROW Property="ProductLanguage" Value="1033"/>
+    <ROW Property="ProductName" Value="Nano App"/>
+    <ROW Property="ProductVersion" Value="1.0.0" Type="32"/>
+    <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
+    <ROW Property="UpgradeCode" Value="{3FC075B2-6A51-44EF-92F5-C384286682A6}"/>
+    <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
+    <ROW Property="WindowsType9XDisplay" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT40" MultiBuildValue="DefaultBuild:Windows NT 4.0" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT40Display" MultiBuildValue="DefaultBuild:Windows NT 4.0" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT50" MultiBuildValue="DefaultBuild:Windows 2000" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT50Display" MultiBuildValue="DefaultBuild:Windows 2000" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT5X" MultiBuildValue="DefaultBuild:Windows XP/2003" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT5XDisplay" MultiBuildValue="DefaultBuild:Windows XP/2003" ValueLocId="-"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
+    <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
+    <ROW Directory="DesktopFolder" Directory_Parent="TARGETDIR" DefaultDir="DESKTO~1|DesktopFolder" IsPseudoRoot="1"/>
+    <ROW Directory="SHORTCUTDIR" Directory_Parent="TARGETDIR" DefaultDir="SHORTC~1|SHORTCUTDIR" IsPseudoRoot="1"/>
+    <ROW Directory="StartMenuFolder" Directory_Parent="TARGETDIR" DefaultDir="STARTM~1|StartMenuFolder" IsPseudoRoot="1"/>
+    <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
+    <ROW Directory="app_1_Dir" Directory_Parent="data_1_Dir" DefaultDir="app"/>
+    <ROW Directory="app_Dir" Directory_Parent="data_Dir" DefaultDir="app"/>
+    <ROW Directory="audio_1_Dir" Directory_Parent="resources_1_Dir" DefaultDir="audio"/>
+    <ROW Directory="audio_Dir" Directory_Parent="resources_Dir" DefaultDir="audio"/>
+    <ROW Directory="build_Dir" Directory_Parent="APPDIR" DefaultDir="build"/>
+    <ROW Directory="classes_Dir" Directory_Parent="build_Dir" DefaultDir="classes"/>
+    <ROW Directory="com_1_Dir" Directory_Parent="src_Dir" DefaultDir="com"/>
+    <ROW Directory="com_Dir" Directory_Parent="classes_Dir" DefaultDir="com"/>
+    <ROW Directory="data_1_Dir" Directory_Parent="com_1_Dir" DefaultDir="data"/>
+    <ROW Directory="data_Dir" Directory_Parent="com_Dir" DefaultDir="data"/>
+    <ROW Directory="db_1_Dir" Directory_Parent="APPDIR" DefaultDir="db"/>
+    <ROW Directory="db_2_Dir" Directory_Parent="data_1_Dir" DefaultDir="db"/>
+    <ROW Directory="db_Dir" Directory_Parent="data_Dir" DefaultDir="db"/>
+    <ROW Directory="dialogs_1_Dir" Directory_Parent="window_1_Dir" DefaultDir="dialogs"/>
+    <ROW Directory="dialogs_Dir" Directory_Parent="window_Dir" DefaultDir="dialogs"/>
+    <ROW Directory="dist_Dir" Directory_Parent="APPDIR" DefaultDir="dist"/>
+    <ROW Directory="error_1_Dir" Directory_Parent="com_1_Dir" DefaultDir="error"/>
+    <ROW Directory="error_Dir" Directory_Parent="com_Dir" DefaultDir="error"/>
+    <ROW Directory="frames_1_Dir" Directory_Parent="window_1_Dir" DefaultDir="frames"/>
+    <ROW Directory="frames_Dir" Directory_Parent="window_Dir" DefaultDir="frames"/>
+    <ROW Directory="gambar_1_Dir" Directory_Parent="image_1_Dir" DefaultDir="gambar"/>
+    <ROW Directory="gambar_Dir" Directory_Parent="image_Dir" DefaultDir="gambar"/>
+    <ROW Directory="gambar_icon_1_Dir" Directory_Parent="image_1_Dir" DefaultDir="GAMBAR~1|gambar_icon"/>
+    <ROW Directory="gambar_icon_Dir" Directory_Parent="image_Dir" DefaultDir="GAMBAR~1|gambar_icon"/>
+    <ROW Directory="icons_1_Dir" Directory_Parent="image_1_Dir" DefaultDir="icons"/>
+    <ROW Directory="icons_Dir" Directory_Parent="image_Dir" DefaultDir="icons"/>
+    <ROW Directory="image_1_Dir" Directory_Parent="resources_1_Dir" DefaultDir="image"/>
+    <ROW Directory="image_Dir" Directory_Parent="resources_Dir" DefaultDir="image"/>
+    <ROW Directory="lib_1_Dir" Directory_Parent="APPDIR" DefaultDir="lib"/>
+    <ROW Directory="lib_Dir" Directory_Parent="dist_Dir" DefaultDir="lib"/>
+    <ROW Directory="main_1_Dir" Directory_Parent="com_1_Dir" DefaultDir="main"/>
+    <ROW Directory="main_Dir" Directory_Parent="com_Dir" DefaultDir="main"/>
+    <ROW Directory="manage_1_Dir" Directory_Parent="com_1_Dir" DefaultDir="manage"/>
+    <ROW Directory="manage_Dir" Directory_Parent="com_Dir" DefaultDir="manage"/>
+    <ROW Directory="media_1_Dir" Directory_Parent="com_1_Dir" DefaultDir="media"/>
+    <ROW Directory="media_Dir" Directory_Parent="com_Dir" DefaultDir="media"/>
+    <ROW Directory="nbproject_Dir" Directory_Parent="APPDIR" DefaultDir="NBPROJ~1|nbproject"/>
+    <ROW Directory="panels_1_Dir" Directory_Parent="window_1_Dir" DefaultDir="panels"/>
+    <ROW Directory="panels_Dir" Directory_Parent="window_Dir" DefaultDir="panels"/>
+    <ROW Directory="private_Dir" Directory_Parent="nbproject_Dir" DefaultDir="private"/>
+    <ROW Directory="resources_1_Dir" Directory_Parent="src_Dir" DefaultDir="RESOUR~1|resources"/>
+    <ROW Directory="resources_Dir" Directory_Parent="classes_Dir" DefaultDir="RESOUR~1|resources"/>
+    <ROW Directory="src_Dir" Directory_Parent="APPDIR" DefaultDir="src"/>
+    <ROW Directory="users_1_Dir" Directory_Parent="com_1_Dir" DefaultDir="users"/>
+    <ROW Directory="users_Dir" Directory_Parent="com_Dir" DefaultDir="users"/>
+    <ROW Directory="window_1_Dir" Directory_Parent="com_1_Dir" DefaultDir="window"/>
+    <ROW Directory="window_Dir" Directory_Parent="com_Dir" DefaultDir="window"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
+    <ROW Component="AI_ExePath" ComponentId="{1596BDC7-F021-4579-AE8C-B0C73D68CB10}" Directory_="APPDIR" Attributes="4" KeyPath="AI_ExePath"/>
+    <ROW Component="AI_IA_ENABLE" ComponentId="{8082F343-49BA-45C6-9A7B-A5289FC49DC7}" Directory_="APPDIR" Attributes="4" KeyPath="AI_IA_ENABLE" Options="1"/>
+    <ROW Component="APPDIR" ComponentId="{33F920E8-4148-49FE-B2F6-7B561F508C20}" Directory_="APPDIR" Attributes="0"/>
+    <ROW Component="AbsoluteLayout.jar" ComponentId="{42F317A4-D656-48D4-A878-FD252BB12BFD}" Directory_="lib_Dir" Attributes="0" KeyPath="AbsoluteLayout.jar" Type="0"/>
+    <ROW Component="AbsoluteLayout.jar_1" ComponentId="{76A33FD7-2199-43B0-B6F0-BE379D731841}" Directory_="lib_1_Dir" Attributes="0" KeyPath="AbsoluteLayout.jar_1" Type="0"/>
+    <ROW Component="Application.java" ComponentId="{52FA8CB3-B7BA-431C-B028-3A0CF7F06AB1}" Directory_="app_1_Dir" Attributes="0" KeyPath="Application.java" Type="0"/>
+    <ROW Component="Application1.class" ComponentId="{39E05F72-FEC4-4A2C-B4AA-3997C7CAB39A}" Directory_="app_Dir" Attributes="0" KeyPath="Application1.class" Type="0"/>
+    <ROW Component="Audio.java" ComponentId="{4A649390-E589-4941-9746-4DCA3DBFE229}" Directory_="media_1_Dir" Attributes="0" KeyPath="Audio.java" Type="0"/>
+    <ROW Component="Audio1.class" ComponentId="{35363A59-8AFB-4CC2-9D25-E9B8585684BC}" Directory_="media_Dir" Attributes="0" KeyPath="Audio1.class" Type="0"/>
+    <ROW Component="AuthenticationException.class" ComponentId="{F5FB3D33-2568-4749-80C5-9A016C7F8F2E}" Directory_="error_Dir" Attributes="0" KeyPath="AuthenticationException.class" Type="0"/>
+    <ROW Component="AuthenticationException.java" ComponentId="{607C0150-2169-4A14-A369-8ADB9CB694C0}" Directory_="error_1_Dir" Attributes="0" KeyPath="AuthenticationException.java" Type="0"/>
+    <ROW Component="Barang.java" ComponentId="{099FBD9A-E019-49E2-832D-4C28D81ED56C}" Directory_="manage_1_Dir" Attributes="0" KeyPath="Barang.java" Type="0"/>
+    <ROW Component="BarangBRG.class" ComponentId="{6F6B51A1-AFF2-40FA-88DE-CC9F33F85BC1}" Directory_="manage_Dir" Attributes="0" KeyPath="BarangBRG.class" Type="0"/>
+    <ROW Component="ConfirmLogout.form" ComponentId="{A7A04832-6F93-4B87-9ACD-49E28756E409}" Directory_="dialogs_1_Dir" Attributes="0" KeyPath="ConfirmLogout.form" Type="0"/>
+    <ROW Component="ConfirmLogout.form_1" ComponentId="{8BF7A455-6512-4232-A012-8AB26266E6FC}" Directory_="dialogs_Dir" Attributes="0" KeyPath="ConfirmLogout.form_1" Type="0"/>
+    <ROW Component="ConfirmLogout1.class" ComponentId="{25B0F6C7-87A9-44D3-B72F-7B716945D993}" Directory_="dialogs_Dir" Attributes="0" KeyPath="ConfirmLogout1.class" Type="0"/>
+    <ROW Component="Dashboard.form" ComponentId="{7BEDD978-8D56-4C1E-86D8-2158CA552D94}" Directory_="panels_1_Dir" Attributes="0" KeyPath="Dashboard.form" Type="0"/>
+    <ROW Component="Dashboard.form_1" ComponentId="{8DFF9F6F-259F-428E-B129-D70749C8B117}" Directory_="panels_Dir" Attributes="0" KeyPath="Dashboard.form_1" Type="0"/>
+    <ROW Component="Dashboard1.class" ComponentId="{A9823AB5-C14D-4DCC-BFFD-31B8BF7552C6}" Directory_="panels_Dir" Attributes="0" KeyPath="Dashboard1.class" Type="0"/>
+    <ROW Component="Database.class" ComponentId="{5A82D0D2-5407-4AD2-B72C-A9680AB76768}" Directory_="db_Dir" Attributes="0" KeyPath="Database.class" Type="0"/>
+    <ROW Component="Database.java" ComponentId="{A8843FD3-119C-4FEE-B533-87315A620FC7}" Directory_="db_2_Dir" Attributes="0" KeyPath="Database.java" Type="0"/>
+    <ROW Component="GantiWindow.form" ComponentId="{BEB33069-AD1F-4353-A2FF-81731B26D5E7}" Directory_="frames_1_Dir" Attributes="0" KeyPath="GantiWindow.form" Type="0"/>
+    <ROW Component="GantiWindow.form_1" ComponentId="{1328B6F1-81AD-4826-9892-7CEA10D62347}" Directory_="frames_Dir" Attributes="0" KeyPath="GantiWindow.form_1" Type="0"/>
+    <ROW Component="GantiWindow1.class" ComponentId="{BD53B6B0-B7A9-4994-A733-9373BFC46106}" Directory_="frames_Dir" Attributes="0" KeyPath="GantiWindow1.class" Type="0"/>
+    <ROW Component="Karyawan.class" ComponentId="{EB753CB7-B34D-46DE-8313-B7BC9B463B55}" Directory_="users_Dir" Attributes="0" KeyPath="Karyawan.class" Type="0"/>
+    <ROW Component="Karyawan.java" ComponentId="{094FE5B8-9E97-4758-8E9B-D4C40859C242}" Directory_="users_1_Dir" Attributes="0" KeyPath="Karyawan.java" Type="0"/>
+    <ROW Component="Main.class" ComponentId="{D6D8D4DC-F931-47FB-BFCE-F4162C4C4338}" Directory_="main_Dir" Attributes="0" KeyPath="Main.class" Type="0"/>
+    <ROW Component="Main.java" ComponentId="{5CCDAEF0-C62E-4536-A89F-7B873DC55E02}" Directory_="main_1_Dir" Attributes="0" KeyPath="Main.java" Type="0"/>
+    <ROW Component="MainWindow.form" ComponentId="{928E24DF-9D4B-451D-92EF-D5A66B0A72F6}" Directory_="window_1_Dir" Attributes="0" KeyPath="MainWindow.form" Type="0"/>
+    <ROW Component="MainWindow.form_1" ComponentId="{DC9C38B3-DC30-4091-8114-4B326ADB6084}" Directory_="window_Dir" Attributes="0" KeyPath="MainWindow.form_1" Type="0"/>
+    <ROW Component="MainWindow1.class" ComponentId="{068948EE-0BC5-4646-BAF6-D99C4B1A9828}" Directory_="window_Dir" Attributes="0" KeyPath="MainWindow1.class" Type="0"/>
+    <ROW Component="NanoApp.exe" ComponentId="{7745106D-11A0-498D-96F6-EBF18E9BFF17}" Directory_="APPDIR" Attributes="0" KeyPath="NanoApp.exe"/>
+    <ROW Component="NanoApp1.exe" ComponentId="{87CA90C1-8F21-4B81-96B2-DD02116CE837}" Directory_="APPDIR" Attributes="0" Condition="VersionNT64" KeyPath="NanoApp1.exe"/>
+    <ROW Component="NanoDB.sql" ComponentId="{E0E78B80-7CAF-4994-A0AB-F2BD70145612}" Directory_="db_1_Dir" Attributes="0" KeyPath="NanoDB.sql" Type="0"/>
+    <ROW Component="ProductInformation" ComponentId="{D938B628-0BF8-4052-9B3D-743083481378}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
+    <ROW Component="README.TXT" ComponentId="{CC21BB52-3225-4CB9-B966-3C3B9147610C}" Directory_="dist_Dir" Attributes="0" KeyPath="README.TXT" Type="0"/>
+    <ROW Component="SHORTCUTDIR" ComponentId="{3C19202C-49DA-402F-B0DA-CB2C912E9CDC}" Directory_="SHORTCUTDIR" Attributes="0"/>
+    <ROW Component="appdashboard075testingaja.png" ComponentId="{F7F49233-B9F6-438E-B550-A27502E7B6B6}" Directory_="gambar_Dir" Attributes="0" KeyPath="appdashboard075testingaja.png" Type="0"/>
+    <ROW Component="appdashboard075testingaja.png_1" ComponentId="{94BDDE9E-EDBA-4D67-A178-B82A33BD4399}" Directory_="gambar_1_Dir" Attributes="0" KeyPath="appdashboard075testingaja.png_1" Type="0"/>
+    <ROW Component="appicon.ico" ComponentId="{C56E14FB-B506-4679-A5FF-C1F2E56ABF96}" Directory_="APPDIR" Attributes="0" KeyPath="appicon.ico" Type="0"/>
+    <ROW Component="appicon.png" ComponentId="{B954868F-072E-4AB2-8491-8DBBFF82507D}" Directory_="gambar_icon_Dir" Attributes="0" KeyPath="appicon.png" Type="0"/>
+    <ROW Component="appicon.png_1" ComponentId="{4DE2AAAF-01CE-4425-B8D6-6FAE6E9C6ACF}" Directory_="icons_Dir" Attributes="0" KeyPath="appicon.png_1" Type="0"/>
+    <ROW Component="appicon.png_2" ComponentId="{8481B8CB-E390-40E8-9CE6-E3CAF766E470}" Directory_="gambar_icon_1_Dir" Attributes="0" KeyPath="appicon.png_2" Type="0"/>
+    <ROW Component="appicon.png_3" ComponentId="{F73A131B-5DCB-4316-A79D-E7FAE043BB7F}" Directory_="icons_1_Dir" Attributes="0" KeyPath="appicon.png_3" Type="0"/>
+    <ROW Component="buildimpl.xml" ComponentId="{7F5261FF-BA33-4B3F-BF66-CF990AC9A572}" Directory_="nbproject_Dir" Attributes="0" KeyPath="buildimpl.xml" Type="0"/>
+    <ROW Component="builtjar.properties" ComponentId="{E45BF2E9-FD40-4D07-B2BF-AB24FB752EC6}" Directory_="build_Dir" Attributes="0" KeyPath="builtjar.properties" Type="0"/>
+    <ROW Component="netbeans_automatic_build" ComponentId="{4B66F447-62D9-4C57-ADBB-AC6A47D16FAF}" Directory_="classes_Dir" Attributes="0" KeyPath="netbeans_automatic_build" Type="0"/>
+    <ROW Component="private.properties" ComponentId="{05C7843A-AEBD-4674-9DE9-F1EE4A59A2B8}" Directory_="private_Dir" Attributes="0" KeyPath="private.properties" Type="0"/>
+    <ROW Component="sounderror.wav" ComponentId="{5E8F355D-35D7-45AF-BBA8-F0EBF21E8CDC}" Directory_="audio_Dir" Attributes="0" KeyPath="sounderror.wav" Type="0"/>
+    <ROW Component="sounderror.wav_1" ComponentId="{68E6968D-489F-468B-8E50-A2ED47C2E44D}" Directory_="audio_1_Dir" Attributes="0" KeyPath="sounderror.wav_1" Type="0"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
+    <ROW Feature="AI32BitFiles" Title="32-bit" Description="32-bit Executables and Libraries" Display="5" Level="1" Directory_="APPDIR" Attributes="0"/>
+    <ROW Feature="AI64BitFiles" Title="64-bit" Description="64-bit Executables and Libraries" Display="3" Level="1" Directory_="APPDIR" Attributes="0"/>
+    <ROW Feature="AIOtherFiles" Title="Common" Description="Shared Resource and Regular Files" Display="7" Level="1" Directory_="APPDIR" Attributes="0"/>
+    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0"/>
+    <ROW Feature="bit" Title="64bit" Description="Description" Display="9" Level="0" Directory_="APPDIR" Attributes="0"/>
+    <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
+    <ROW File="appicon.ico" Component_="appicon.ico" FileName="app-icon.ico" Attributes="0" SourcePath="..\..\..\..\..\umkm\app-icon.ico" SelfReg="false"/>
+    <ROW File="builtjar.properties" Component_="builtjar.properties" FileName="BUILT-~1.PRO|built-jar.properties" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\built-jar.properties" SelfReg="false"/>
+    <ROW File="Application1.class" Component_="Application1.class" FileName="APPLIC~1.CLA|Application$1.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\data\app\Application$1.class" SelfReg="false"/>
+    <ROW File="Application2.class" Component_="Application1.class" FileName="APPLIC~2.CLA|Application$2.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\data\app\Application$2.class" SelfReg="false"/>
+    <ROW File="Application3.class" Component_="Application1.class" FileName="APPLIC~3.CLA|Application$3.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\data\app\Application$3.class" SelfReg="false"/>
+    <ROW File="Application.class" Component_="Application1.class" FileName="APPLIC~4.CLA|Application.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\data\app\Application.class" SelfReg="false"/>
+    <ROW File="Log.class" Component_="Application1.class" FileName="LOG~1.CLA|Log.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\data\app\Log.class" SelfReg="false"/>
+    <ROW File="Storage.class" Component_="Application1.class" FileName="STORAG~1.CLA|Storage.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\data\app\Storage.class" SelfReg="false"/>
+    <ROW File="Database.class" Component_="Database.class" FileName="DATABA~1.CLA|Database.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\data\db\Database.class" SelfReg="false"/>
+    <ROW File="DatabaseTables.class" Component_="Database.class" FileName="DATABA~2.CLA|DatabaseTables.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\data\db\DatabaseTables.class" SelfReg="false"/>
+    <ROW File="Hashing_Algorithm.class" Component_="Database.class" FileName="HASHIN~1.CLA|Hashing_Algorithm.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\data\db\Hashing_Algorithm.class" SelfReg="false"/>
+    <ROW File="AuthenticationException.class" Component_="AuthenticationException.class" FileName="AUTHEN~1.CLA|AuthenticationException.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\error\AuthenticationException.class" SelfReg="false"/>
+    <ROW File="DatabaseError.class" Component_="AuthenticationException.class" FileName="DATABA~1.CLA|DatabaseError.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\error\DatabaseError.class" SelfReg="false"/>
+    <ROW File="InValidDataException.class" Component_="AuthenticationException.class" FileName="INVALI~1.CLA|InValidDataException.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\error\InValidDataException.class" SelfReg="false"/>
+    <ROW File="InValidUserDataException.class" Component_="AuthenticationException.class" FileName="INVALI~2.CLA|InValidUserDataException.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\error\InValidUserDataException.class" SelfReg="false"/>
+    <ROW File="StorageNotFoundException.class" Component_="AuthenticationException.class" FileName="STORAG~1.CLA|StorageNotFoundException.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\error\StorageNotFoundException.class" SelfReg="false"/>
+    <ROW File="Main.class" Component_="Main.class" FileName="MAIN~1.CLA|Main.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\main\Main.class" SelfReg="false"/>
+    <ROW File="BarangBRG.class" Component_="BarangBRG.class" FileName="BARANG~1.CLA|Barang$BRG.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\manage\Barang$BRG.class" SelfReg="false"/>
+    <ROW File="Barang.class" Component_="BarangBRG.class" FileName="BARANG~2.CLA|Barang.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\manage\Barang.class" SelfReg="false"/>
+    <ROW File="Chart.class" Component_="BarangBRG.class" FileName="CHART~1.CLA|Chart.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\manage\Chart.class" SelfReg="false"/>
+    <ROW File="FileManager.class" Component_="BarangBRG.class" FileName="FILEMA~1.CLA|FileManager.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\manage\FileManager.class" SelfReg="false"/>
+    <ROW File="ManageTransaksiBeliTRB.class" Component_="BarangBRG.class" FileName="MANAGE~1.CLA|ManageTransaksiBeli$TRB.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\manage\ManageTransaksiBeli$TRB.class" SelfReg="false"/>
+    <ROW File="ManageTransaksiBeli.class" Component_="BarangBRG.class" FileName="MANAGE~2.CLA|ManageTransaksiBeli.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\manage\ManageTransaksiBeli.class" SelfReg="false"/>
+    <ROW File="ManageTransaksiJualLaporanPendapatan.class" Component_="BarangBRG.class" FileName="MANAGE~3.CLA|ManageTransaksiJual$LaporanPendapatan.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\manage\ManageTransaksiJual$LaporanPendapatan.class" SelfReg="false"/>
+    <ROW File="ManageTransaksiJualTRJ.class" Component_="BarangBRG.class" FileName="MANAGE~4.CLA|ManageTransaksiJual$TRJ.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\manage\ManageTransaksiJual$TRJ.class" SelfReg="false"/>
+    <ROW File="ManageTransaksiJual.class" Component_="BarangBRG.class" FileName="MANAGE~5.CLA|ManageTransaksiJual.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\manage\ManageTransaksiJual.class" SelfReg="false"/>
+    <ROW File="Message.class" Component_="BarangBRG.class" FileName="MESSAG~1.CLA|Message.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\manage\Message.class" SelfReg="false"/>
+    <ROW File="Text.class" Component_="BarangBRG.class" FileName="TEXT~1.CLA|Text.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\manage\Text.class" SelfReg="false"/>
+    <ROW File="Validation.class" Component_="BarangBRG.class" FileName="VALIDA~1.CLA|Validation.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\manage\Validation.class" SelfReg="false"/>
+    <ROW File="Waktu1.class" Component_="BarangBRG.class" FileName="WAKTU$~1.CLA|Waktu$1.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\manage\Waktu$1.class" SelfReg="false"/>
+    <ROW File="Waktu.class" Component_="BarangBRG.class" FileName="WAKTU~1.CLA|Waktu.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\manage\Waktu.class" SelfReg="false"/>
+    <ROW File="Audio1.class" Component_="Audio1.class" FileName="AUDIO$~1.CLA|Audio$1.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\media\Audio$1.class" SelfReg="false"/>
+    <ROW File="Audio.class" Component_="Audio1.class" FileName="AUDIO~1.CLA|Audio.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\media\Audio.class" SelfReg="false"/>
+    <ROW File="Gambar.class" Component_="Audio1.class" FileName="GAMBAR~1.CLA|Gambar.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\media\Gambar.class" SelfReg="false"/>
+    <ROW File="Karyawan.class" Component_="Karyawan.class" FileName="KARYAW~1.CLA|Karyawan.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\users\Karyawan.class" SelfReg="false"/>
+    <ROW File="Supplier.class" Component_="Karyawan.class" FileName="SUPPLI~1.CLA|Supplier.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\users\Supplier.class" SelfReg="false"/>
+    <ROW File="UserData.class" Component_="Karyawan.class" FileName="USERDA~1.CLA|UserData.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\users\UserData.class" SelfReg="false"/>
+    <ROW File="UserLevels.class" Component_="Karyawan.class" FileName="USERLE~1.CLA|UserLevels.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\users\UserLevels.class" SelfReg="false"/>
+    <ROW File="Users.class" Component_="Karyawan.class" FileName="USERS~1.CLA|Users.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\users\Users.class" SelfReg="false"/>
+    <ROW File="ConfirmLogout1.class" Component_="ConfirmLogout1.class" FileName="CONFIR~1.CLA|ConfirmLogout$1.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\ConfirmLogout$1.class" SelfReg="false"/>
+    <ROW File="ConfirmLogout2.class" Component_="ConfirmLogout1.class" FileName="CONFIR~2.CLA|ConfirmLogout$2.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\ConfirmLogout$2.class" SelfReg="false"/>
+    <ROW File="ConfirmLogout3.class" Component_="ConfirmLogout1.class" FileName="CONFIR~3.CLA|ConfirmLogout$3.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\ConfirmLogout$3.class" SelfReg="false"/>
+    <ROW File="ConfirmLogout4.class" Component_="ConfirmLogout1.class" FileName="CONFIR~4.CLA|ConfirmLogout$4.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\ConfirmLogout$4.class" SelfReg="false"/>
+    <ROW File="ConfirmLogout5.class" Component_="ConfirmLogout1.class" FileName="CONFIR~5.CLA|ConfirmLogout$5.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\ConfirmLogout$5.class" SelfReg="false"/>
+    <ROW File="ConfirmLogout6.class" Component_="ConfirmLogout1.class" FileName="CONFIR~6.CLA|ConfirmLogout$6.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\ConfirmLogout$6.class" SelfReg="false"/>
+    <ROW File="ConfirmLogout71.class" Component_="ConfirmLogout1.class" FileName="CONFIR~7.CLA|ConfirmLogout$7$1.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\ConfirmLogout$7$1.class" SelfReg="false"/>
+    <ROW File="ConfirmLogout7.class" Component_="ConfirmLogout1.class" FileName="CONFIR~8.CLA|ConfirmLogout$7.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\ConfirmLogout$7.class" SelfReg="false"/>
+    <ROW File="ConfirmLogout.class" Component_="ConfirmLogout1.class" FileName="CONFIR~9.CLA|ConfirmLogout.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\ConfirmLogout.class" SelfReg="false"/>
+    <ROW File="InputBarang1.class" Component_="ConfirmLogout1.class" FileName="INPUTB~1.CLA|InputBarang$1.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputBarang$1.class" SelfReg="false"/>
+    <ROW File="InputBarang2.class" Component_="ConfirmLogout1.class" FileName="INPUTB~2.CLA|InputBarang$2.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputBarang$2.class" SelfReg="false"/>
+    <ROW File="InputBarang3.class" Component_="ConfirmLogout1.class" FileName="INPUTB~3.CLA|InputBarang$3.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputBarang$3.class" SelfReg="false"/>
+    <ROW File="InputBarang4.class" Component_="ConfirmLogout1.class" FileName="INPUTB~4.CLA|InputBarang$4.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputBarang$4.class" SelfReg="false"/>
+    <ROW File="InputBarang5.class" Component_="ConfirmLogout1.class" FileName="INPUTB~5.CLA|InputBarang$5.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputBarang$5.class" SelfReg="false"/>
+    <ROW File="InputBarang6.class" Component_="ConfirmLogout1.class" FileName="INPUTB~6.CLA|InputBarang$6.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputBarang$6.class" SelfReg="false"/>
+    <ROW File="InputBarang7.class" Component_="ConfirmLogout1.class" FileName="INPUTB~7.CLA|InputBarang$7.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputBarang$7.class" SelfReg="false"/>
+    <ROW File="InputBarang8.class" Component_="ConfirmLogout1.class" FileName="INPUTB~8.CLA|InputBarang$8.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputBarang$8.class" SelfReg="false"/>
+    <ROW File="InputBarang9.class" Component_="ConfirmLogout1.class" FileName="INPUTB~9.CLA|InputBarang$9.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputBarang$9.class" SelfReg="false"/>
+    <ROW File="InputBarang.class" Component_="ConfirmLogout1.class" FileName="INPUT~10.CLA|InputBarang.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputBarang.class" SelfReg="false"/>
+    <ROW File="InputKaryawan1.class" Component_="ConfirmLogout1.class" FileName="INPUTK~1.CLA|InputKaryawan$1.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputKaryawan$1.class" SelfReg="false"/>
+    <ROW File="InputKaryawan2.class" Component_="ConfirmLogout1.class" FileName="INPUTK~2.CLA|InputKaryawan$2.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputKaryawan$2.class" SelfReg="false"/>
+    <ROW File="InputKaryawan3.class" Component_="ConfirmLogout1.class" FileName="INPUTK~3.CLA|InputKaryawan$3.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputKaryawan$3.class" SelfReg="false"/>
+    <ROW File="InputKaryawan4.class" Component_="ConfirmLogout1.class" FileName="INPUTK~4.CLA|InputKaryawan$4.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputKaryawan$4.class" SelfReg="false"/>
+    <ROW File="InputKaryawan5.class" Component_="ConfirmLogout1.class" FileName="INPUTK~5.CLA|InputKaryawan$5.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputKaryawan$5.class" SelfReg="false"/>
+    <ROW File="InputKaryawan6.class" Component_="ConfirmLogout1.class" FileName="INPUTK~6.CLA|InputKaryawan$6.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputKaryawan$6.class" SelfReg="false"/>
+    <ROW File="InputKaryawan7.class" Component_="ConfirmLogout1.class" FileName="INPUTK~7.CLA|InputKaryawan$7.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputKaryawan$7.class" SelfReg="false"/>
+    <ROW File="InputKaryawan81.class" Component_="ConfirmLogout1.class" FileName="INPUTK~8.CLA|InputKaryawan$8$1.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputKaryawan$8$1.class" SelfReg="false"/>
+    <ROW File="InputKaryawan8.class" Component_="ConfirmLogout1.class" FileName="INPUTK~9.CLA|InputKaryawan$8.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputKaryawan$8.class" SelfReg="false"/>
+    <ROW File="InputKaryawan.class" Component_="ConfirmLogout1.class" FileName="INPUT~11.CLA|InputKaryawan.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputKaryawan.class" SelfReg="false"/>
+    <ROW File="InputSupplier1.class" Component_="ConfirmLogout1.class" FileName="INPUTS~1.CLA|InputSupplier$1.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputSupplier$1.class" SelfReg="false"/>
+    <ROW File="InputSupplier2.class" Component_="ConfirmLogout1.class" FileName="INPUTS~2.CLA|InputSupplier$2.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputSupplier$2.class" SelfReg="false"/>
+    <ROW File="InputSupplier3.class" Component_="ConfirmLogout1.class" FileName="INPUTS~3.CLA|InputSupplier$3.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputSupplier$3.class" SelfReg="false"/>
+    <ROW File="InputSupplier4.class" Component_="ConfirmLogout1.class" FileName="INPUTS~4.CLA|InputSupplier$4.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputSupplier$4.class" SelfReg="false"/>
+    <ROW File="InputSupplier5.class" Component_="ConfirmLogout1.class" FileName="INPUTS~5.CLA|InputSupplier$5.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputSupplier$5.class" SelfReg="false"/>
+    <ROW File="InputSupplier61.class" Component_="ConfirmLogout1.class" FileName="INPUTS~6.CLA|InputSupplier$6$1.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputSupplier$6$1.class" SelfReg="false"/>
+    <ROW File="InputSupplier6.class" Component_="ConfirmLogout1.class" FileName="INPUTS~7.CLA|InputSupplier$6.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputSupplier$6.class" SelfReg="false"/>
+    <ROW File="InputSupplier.class" Component_="ConfirmLogout1.class" FileName="INPUTS~8.CLA|InputSupplier.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputSupplier.class" SelfReg="false"/>
+    <ROW File="GantiWindow1.class" Component_="GantiWindow1.class" FileName="GANTIW~1.CLA|GantiWindow$1.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\GantiWindow$1.class" SelfReg="false"/>
+    <ROW File="GantiWindow10.class" Component_="GantiWindow1.class" FileName="GANTIW~2.CLA|GantiWindow$10.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\GantiWindow$10.class" SelfReg="false"/>
+    <ROW File="GantiWindow11.class" Component_="GantiWindow1.class" FileName="GANTIW~3.CLA|GantiWindow$11.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\GantiWindow$11.class" SelfReg="false"/>
+    <ROW File="GantiWindow12.class" Component_="GantiWindow1.class" FileName="GANTIW~4.CLA|GantiWindow$12.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\GantiWindow$12.class" SelfReg="false"/>
+    <ROW File="GantiWindow13.class" Component_="GantiWindow1.class" FileName="GANTIW~5.CLA|GantiWindow$13.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\GantiWindow$13.class" SelfReg="false"/>
+    <ROW File="GantiWindow2.class" Component_="GantiWindow1.class" FileName="GANTIW~6.CLA|GantiWindow$2.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\GantiWindow$2.class" SelfReg="false"/>
+    <ROW File="GantiWindow3.class" Component_="GantiWindow1.class" FileName="GANTIW~7.CLA|GantiWindow$3.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\GantiWindow$3.class" SelfReg="false"/>
+    <ROW File="GantiWindow4.class" Component_="GantiWindow1.class" FileName="GANTIW~8.CLA|GantiWindow$4.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\GantiWindow$4.class" SelfReg="false"/>
+    <ROW File="GantiWindow5.class" Component_="GantiWindow1.class" FileName="GANTIW~9.CLA|GantiWindow$5.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\GantiWindow$5.class" SelfReg="false"/>
+    <ROW File="GantiWindow6.class" Component_="GantiWindow1.class" FileName="GANTI~10.CLA|GantiWindow$6.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\GantiWindow$6.class" SelfReg="false"/>
+    <ROW File="GantiWindow7.class" Component_="GantiWindow1.class" FileName="GANTI~11.CLA|GantiWindow$7.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\GantiWindow$7.class" SelfReg="false"/>
+    <ROW File="GantiWindow8.class" Component_="GantiWindow1.class" FileName="GANTI~12.CLA|GantiWindow$8.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\GantiWindow$8.class" SelfReg="false"/>
+    <ROW File="GantiWindow9.class" Component_="GantiWindow1.class" FileName="GANTI~13.CLA|GantiWindow$9.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\GantiWindow$9.class" SelfReg="false"/>
+    <ROW File="GantiWindow.class" Component_="GantiWindow1.class" FileName="GANTI~14.CLA|GantiWindow.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\GantiWindow.class" SelfReg="false"/>
+    <ROW File="LoginWindow1.class" Component_="GantiWindow1.class" FileName="LOGINW~1.CLA|LoginWindow$1.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\LoginWindow$1.class" SelfReg="false"/>
+    <ROW File="LoginWindow10.class" Component_="GantiWindow1.class" FileName="LOGINW~2.CLA|LoginWindow$10.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\LoginWindow$10.class" SelfReg="false"/>
+    <ROW File="LoginWindow11.class" Component_="GantiWindow1.class" FileName="LOGINW~3.CLA|LoginWindow$11.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\LoginWindow$11.class" SelfReg="false"/>
+    <ROW File="LoginWindow2.class" Component_="GantiWindow1.class" FileName="LOGINW~4.CLA|LoginWindow$2.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\LoginWindow$2.class" SelfReg="false"/>
+    <ROW File="LoginWindow3.class" Component_="GantiWindow1.class" FileName="LOGINW~5.CLA|LoginWindow$3.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\LoginWindow$3.class" SelfReg="false"/>
+    <ROW File="LoginWindow4.class" Component_="GantiWindow1.class" FileName="LOGINW~6.CLA|LoginWindow$4.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\LoginWindow$4.class" SelfReg="false"/>
+    <ROW File="LoginWindow5.class" Component_="GantiWindow1.class" FileName="LOGINW~7.CLA|LoginWindow$5.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\LoginWindow$5.class" SelfReg="false"/>
+    <ROW File="LoginWindow6.class" Component_="GantiWindow1.class" FileName="LOGINW~8.CLA|LoginWindow$6.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\LoginWindow$6.class" SelfReg="false"/>
+    <ROW File="LoginWindow7.class" Component_="GantiWindow1.class" FileName="LOGINW~9.CLA|LoginWindow$7.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\LoginWindow$7.class" SelfReg="false"/>
+    <ROW File="LoginWindow8.class" Component_="GantiWindow1.class" FileName="LOGIN~10.CLA|LoginWindow$8.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\LoginWindow$8.class" SelfReg="false"/>
+    <ROW File="LoginWindow9.class" Component_="GantiWindow1.class" FileName="LOGIN~11.CLA|LoginWindow$9.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\LoginWindow$9.class" SelfReg="false"/>
+    <ROW File="LoginWindow.class" Component_="GantiWindow1.class" FileName="LOGIN~12.CLA|LoginWindow.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\LoginWindow.class" SelfReg="false"/>
+    <ROW File="SplashWindow11.class" Component_="GantiWindow1.class" FileName="SPLASH~1.CLA|SplashWindow$1$1.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\SplashWindow$1$1.class" SelfReg="false"/>
+    <ROW File="SplashWindow1.class" Component_="GantiWindow1.class" FileName="SPLASH~2.CLA|SplashWindow$1.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\SplashWindow$1.class" SelfReg="false"/>
+    <ROW File="SplashWindow2.class" Component_="GantiWindow1.class" FileName="SPLASH~3.CLA|SplashWindow$2.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\SplashWindow$2.class" SelfReg="false"/>
+    <ROW File="SplashWindow.class" Component_="GantiWindow1.class" FileName="SPLASH~4.CLA|SplashWindow.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\SplashWindow.class" SelfReg="false"/>
+    <ROW File="WelcomeApp1.class" Component_="GantiWindow1.class" FileName="WELCOM~1.CLA|WelcomeApp$1.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\WelcomeApp$1.class" SelfReg="false"/>
+    <ROW File="WelcomeApp2.class" Component_="GantiWindow1.class" FileName="WELCOM~2.CLA|WelcomeApp$2.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\WelcomeApp$2.class" SelfReg="false"/>
+    <ROW File="WelcomeApp3.class" Component_="GantiWindow1.class" FileName="WELCOM~3.CLA|WelcomeApp$3.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\WelcomeApp$3.class" SelfReg="false"/>
+    <ROW File="WelcomeApp4.class" Component_="GantiWindow1.class" FileName="WELCOM~4.CLA|WelcomeApp$4.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\WelcomeApp$4.class" SelfReg="false"/>
+    <ROW File="WelcomeApp.class" Component_="GantiWindow1.class" FileName="WELCOM~5.CLA|WelcomeApp.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\WelcomeApp.class" SelfReg="false"/>
+    <ROW File="MainWindow1.class" Component_="MainWindow1.class" FileName="MAINWI~1.CLA|MainWindow$1.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\MainWindow$1.class" SelfReg="false"/>
+    <ROW File="MainWindow10.class" Component_="MainWindow1.class" FileName="MAINWI~2.CLA|MainWindow$10.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\MainWindow$10.class" SelfReg="false"/>
+    <ROW File="MainWindow11.class" Component_="MainWindow1.class" FileName="MAINWI~3.CLA|MainWindow$11.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\MainWindow$11.class" SelfReg="false"/>
+    <ROW File="MainWindow2.class" Component_="MainWindow1.class" FileName="MAINWI~4.CLA|MainWindow$2.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\MainWindow$2.class" SelfReg="false"/>
+    <ROW File="MainWindow3.class" Component_="MainWindow1.class" FileName="MAINWI~5.CLA|MainWindow$3.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\MainWindow$3.class" SelfReg="false"/>
+    <ROW File="MainWindow4.class" Component_="MainWindow1.class" FileName="MAINWI~6.CLA|MainWindow$4.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\MainWindow$4.class" SelfReg="false"/>
+    <ROW File="MainWindow5.class" Component_="MainWindow1.class" FileName="MAINWI~7.CLA|MainWindow$5.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\MainWindow$5.class" SelfReg="false"/>
+    <ROW File="MainWindow6.class" Component_="MainWindow1.class" FileName="MAINWI~8.CLA|MainWindow$6.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\MainWindow$6.class" SelfReg="false"/>
+    <ROW File="MainWindow7.class" Component_="MainWindow1.class" FileName="MAINWI~9.CLA|MainWindow$7.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\MainWindow$7.class" SelfReg="false"/>
+    <ROW File="MainWindow8.class" Component_="MainWindow1.class" FileName="MAINW~10.CLA|MainWindow$8.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\MainWindow$8.class" SelfReg="false"/>
+    <ROW File="MainWindow9.class" Component_="MainWindow1.class" FileName="MAINW~11.CLA|MainWindow$9.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\MainWindow$9.class" SelfReg="false"/>
+    <ROW File="MainWindow.class" Component_="MainWindow1.class" FileName="MAINW~12.CLA|MainWindow.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\MainWindow.class" SelfReg="false"/>
+    <ROW File="Dashboard1.class" Component_="Dashboard1.class" FileName="DASHBO~1.CLA|Dashboard$1.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\Dashboard$1.class" SelfReg="false"/>
+    <ROW File="Dashboard2.class" Component_="Dashboard1.class" FileName="DASHBO~2.CLA|Dashboard$2.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\Dashboard$2.class" SelfReg="false"/>
+    <ROW File="Dashboard3.class" Component_="Dashboard1.class" FileName="DASHBO~3.CLA|Dashboard$3.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\Dashboard$3.class" SelfReg="false"/>
+    <ROW File="Dashboard4.class" Component_="Dashboard1.class" FileName="DASHBO~4.CLA|Dashboard$4.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\Dashboard$4.class" SelfReg="false"/>
+    <ROW File="Dashboard.class" Component_="Dashboard1.class" FileName="DASHBO~5.CLA|Dashboard.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\Dashboard.class" SelfReg="false"/>
+    <ROW File="DataBarang1.class" Component_="Dashboard1.class" FileName="DATABA~1.CLA|DataBarang$1.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataBarang$1.class" SelfReg="false"/>
+    <ROW File="DataBarang10.class" Component_="Dashboard1.class" FileName="DATABA~2.CLA|DataBarang$10.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataBarang$10.class" SelfReg="false"/>
+    <ROW File="DataBarang11.class" Component_="Dashboard1.class" FileName="DATABA~3.CLA|DataBarang$11.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataBarang$11.class" SelfReg="false"/>
+    <ROW File="DataBarang12.class" Component_="Dashboard1.class" FileName="DATABA~4.CLA|DataBarang$12.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataBarang$12.class" SelfReg="false"/>
+    <ROW File="DataBarang2.class" Component_="Dashboard1.class" FileName="DATABA~5.CLA|DataBarang$2.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataBarang$2.class" SelfReg="false"/>
+    <ROW File="DataBarang3.class" Component_="Dashboard1.class" FileName="DATABA~6.CLA|DataBarang$3.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataBarang$3.class" SelfReg="false"/>
+    <ROW File="DataBarang4.class" Component_="Dashboard1.class" FileName="DATABA~7.CLA|DataBarang$4.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataBarang$4.class" SelfReg="false"/>
+    <ROW File="DataBarang5.class" Component_="Dashboard1.class" FileName="DATABA~8.CLA|DataBarang$5.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataBarang$5.class" SelfReg="false"/>
+    <ROW File="DataBarang6.class" Component_="Dashboard1.class" FileName="DATABA~9.CLA|DataBarang$6.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataBarang$6.class" SelfReg="false"/>
+    <ROW File="DataBarang7.class" Component_="Dashboard1.class" FileName="DATAB~10.CLA|DataBarang$7.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataBarang$7.class" SelfReg="false"/>
+    <ROW File="DataBarang8.class" Component_="Dashboard1.class" FileName="DATAB~11.CLA|DataBarang$8.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataBarang$8.class" SelfReg="false"/>
+    <ROW File="DataBarang9.class" Component_="Dashboard1.class" FileName="DATAB~12.CLA|DataBarang$9.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataBarang$9.class" SelfReg="false"/>
+    <ROW File="DataBarang.class" Component_="Dashboard1.class" FileName="DATAB~13.CLA|DataBarang.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataBarang.class" SelfReg="false"/>
+    <ROW File="DataKaryawan1.class" Component_="Dashboard1.class" FileName="DATAKA~1.CLA|DataKaryawan$1.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataKaryawan$1.class" SelfReg="false"/>
+    <ROW File="DataKaryawan10.class" Component_="Dashboard1.class" FileName="DATAKA~2.CLA|DataKaryawan$10.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataKaryawan$10.class" SelfReg="false"/>
+    <ROW File="DataKaryawan11.class" Component_="Dashboard1.class" FileName="DATAKA~3.CLA|DataKaryawan$11.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataKaryawan$11.class" SelfReg="false"/>
+    <ROW File="DataKaryawan12.class" Component_="Dashboard1.class" FileName="DATAKA~4.CLA|DataKaryawan$12.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataKaryawan$12.class" SelfReg="false"/>
+    <ROW File="DataKaryawan13.class" Component_="Dashboard1.class" FileName="DATAKA~5.CLA|DataKaryawan$13.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataKaryawan$13.class" SelfReg="false"/>
+    <ROW File="DataKaryawan14.class" Component_="Dashboard1.class" FileName="DATAKA~6.CLA|DataKaryawan$14.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataKaryawan$14.class" SelfReg="false"/>
+    <ROW File="DataKaryawan2.class" Component_="Dashboard1.class" FileName="DATAKA~7.CLA|DataKaryawan$2.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataKaryawan$2.class" SelfReg="false"/>
+    <ROW File="DataKaryawan3.class" Component_="Dashboard1.class" FileName="DATAKA~8.CLA|DataKaryawan$3.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataKaryawan$3.class" SelfReg="false"/>
+    <ROW File="DataKaryawan4.class" Component_="Dashboard1.class" FileName="DATAKA~9.CLA|DataKaryawan$4.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataKaryawan$4.class" SelfReg="false"/>
+    <ROW File="DataKaryawan5.class" Component_="Dashboard1.class" FileName="DATAK~10.CLA|DataKaryawan$5.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataKaryawan$5.class" SelfReg="false"/>
+    <ROW File="DataKaryawan6.class" Component_="Dashboard1.class" FileName="DATAK~11.CLA|DataKaryawan$6.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataKaryawan$6.class" SelfReg="false"/>
+    <ROW File="DataKaryawan7.class" Component_="Dashboard1.class" FileName="DATAK~12.CLA|DataKaryawan$7.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataKaryawan$7.class" SelfReg="false"/>
+    <ROW File="DataKaryawan8.class" Component_="Dashboard1.class" FileName="DATAK~13.CLA|DataKaryawan$8.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataKaryawan$8.class" SelfReg="false"/>
+    <ROW File="DataKaryawan9.class" Component_="Dashboard1.class" FileName="DATAK~14.CLA|DataKaryawan$9.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataKaryawan$9.class" SelfReg="false"/>
+    <ROW File="DataKaryawan.class" Component_="Dashboard1.class" FileName="DATAK~15.CLA|DataKaryawan.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataKaryawan.class" SelfReg="false"/>
+    <ROW File="DataSupplier1.class" Component_="Dashboard1.class" FileName="DATASU~1.CLA|DataSupplier$1.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataSupplier$1.class" SelfReg="false"/>
+    <ROW File="DataSupplier10.class" Component_="Dashboard1.class" FileName="DATASU~2.CLA|DataSupplier$10.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataSupplier$10.class" SelfReg="false"/>
+    <ROW File="DataSupplier11.class" Component_="Dashboard1.class" FileName="DATASU~3.CLA|DataSupplier$11.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataSupplier$11.class" SelfReg="false"/>
+    <ROW File="DataSupplier12.class" Component_="Dashboard1.class" FileName="DATASU~4.CLA|DataSupplier$12.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataSupplier$12.class" SelfReg="false"/>
+    <ROW File="DataSupplier2.class" Component_="Dashboard1.class" FileName="DATASU~5.CLA|DataSupplier$2.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataSupplier$2.class" SelfReg="false"/>
+    <ROW File="DataSupplier3.class" Component_="Dashboard1.class" FileName="DATASU~6.CLA|DataSupplier$3.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataSupplier$3.class" SelfReg="false"/>
+    <ROW File="DataSupplier4.class" Component_="Dashboard1.class" FileName="DATASU~7.CLA|DataSupplier$4.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataSupplier$4.class" SelfReg="false"/>
+    <ROW File="DataSupplier5.class" Component_="Dashboard1.class" FileName="DATASU~8.CLA|DataSupplier$5.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataSupplier$5.class" SelfReg="false"/>
+    <ROW File="DataSupplier6.class" Component_="Dashboard1.class" FileName="DATASU~9.CLA|DataSupplier$6.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataSupplier$6.class" SelfReg="false"/>
+    <ROW File="DataSupplier7.class" Component_="Dashboard1.class" FileName="DATAS~10.CLA|DataSupplier$7.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataSupplier$7.class" SelfReg="false"/>
+    <ROW File="DataSupplier8.class" Component_="Dashboard1.class" FileName="DATAS~11.CLA|DataSupplier$8.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataSupplier$8.class" SelfReg="false"/>
+    <ROW File="DataSupplier9.class" Component_="Dashboard1.class" FileName="DATAS~12.CLA|DataSupplier$9.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataSupplier$9.class" SelfReg="false"/>
+    <ROW File="DataSupplier.class" Component_="Dashboard1.class" FileName="DATAS~13.CLA|DataSupplier.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataSupplier.class" SelfReg="false"/>
+    <ROW File="detailLaporanBeli1.class" Component_="Dashboard1.class" FileName="DETAIL~1.CLA|detailLaporanBeli$1.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\detailLaporanBeli$1.class" SelfReg="false"/>
+    <ROW File="detailLaporanBeli2.class" Component_="Dashboard1.class" FileName="DETAIL~2.CLA|detailLaporanBeli$2.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\detailLaporanBeli$2.class" SelfReg="false"/>
+    <ROW File="detailLaporanBeli3.class" Component_="Dashboard1.class" FileName="DETAIL~3.CLA|detailLaporanBeli$3.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\detailLaporanBeli$3.class" SelfReg="false"/>
+    <ROW File="detailLaporanBeli4.class" Component_="Dashboard1.class" FileName="DETAIL~4.CLA|detailLaporanBeli$4.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\detailLaporanBeli$4.class" SelfReg="false"/>
+    <ROW File="detailLaporanBeli5.class" Component_="Dashboard1.class" FileName="DETAIL~5.CLA|detailLaporanBeli$5.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\detailLaporanBeli$5.class" SelfReg="false"/>
+    <ROW File="detailLaporanBeli6.class" Component_="Dashboard1.class" FileName="DETAIL~6.CLA|detailLaporanBeli$6.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\detailLaporanBeli$6.class" SelfReg="false"/>
+    <ROW File="detailLaporanBeli7.class" Component_="Dashboard1.class" FileName="DETAIL~7.CLA|detailLaporanBeli$7.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\detailLaporanBeli$7.class" SelfReg="false"/>
+    <ROW File="detailLaporanBeli8.class" Component_="Dashboard1.class" FileName="DETAIL~8.CLA|detailLaporanBeli$8.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\detailLaporanBeli$8.class" SelfReg="false"/>
+    <ROW File="detailLaporanBeli9.class" Component_="Dashboard1.class" FileName="DETAIL~9.CLA|detailLaporanBeli$9.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\detailLaporanBeli$9.class" SelfReg="false"/>
+    <ROW File="detailLaporanBeli.class" Component_="Dashboard1.class" FileName="DETAI~10.CLA|detailLaporanBeli.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\detailLaporanBeli.class" SelfReg="false"/>
+    <ROW File="detailLaporanJual1.class" Component_="Dashboard1.class" FileName="DETAI~11.CLA|detailLaporanJual$1.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\detailLaporanJual$1.class" SelfReg="false"/>
+    <ROW File="detailLaporanJual2.class" Component_="Dashboard1.class" FileName="DETAI~12.CLA|detailLaporanJual$2.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\detailLaporanJual$2.class" SelfReg="false"/>
+    <ROW File="detailLaporanJual3.class" Component_="Dashboard1.class" FileName="DETAI~13.CLA|detailLaporanJual$3.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\detailLaporanJual$3.class" SelfReg="false"/>
+    <ROW File="detailLaporanJual4.class" Component_="Dashboard1.class" FileName="DETAI~14.CLA|detailLaporanJual$4.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\detailLaporanJual$4.class" SelfReg="false"/>
+    <ROW File="detailLaporanJual5.class" Component_="Dashboard1.class" FileName="DETAI~15.CLA|detailLaporanJual$5.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\detailLaporanJual$5.class" SelfReg="false"/>
+    <ROW File="detailLaporanJual6.class" Component_="Dashboard1.class" FileName="DETAI~16.CLA|detailLaporanJual$6.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\detailLaporanJual$6.class" SelfReg="false"/>
+    <ROW File="detailLaporanJual7.class" Component_="Dashboard1.class" FileName="DETAI~17.CLA|detailLaporanJual$7.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\detailLaporanJual$7.class" SelfReg="false"/>
+    <ROW File="detailLaporanJual8.class" Component_="Dashboard1.class" FileName="DETAI~18.CLA|detailLaporanJual$8.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\detailLaporanJual$8.class" SelfReg="false"/>
+    <ROW File="detailLaporanJual9.class" Component_="Dashboard1.class" FileName="DETAI~19.CLA|detailLaporanJual$9.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\detailLaporanJual$9.class" SelfReg="false"/>
+    <ROW File="detailLaporanJual.class" Component_="Dashboard1.class" FileName="DETAI~20.CLA|detailLaporanJual.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\detailLaporanJual.class" SelfReg="false"/>
+    <ROW File="LaporanBeli1.class" Component_="Dashboard1.class" FileName="LAPORA~1.CLA|LaporanBeli$1.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$1.class" SelfReg="false"/>
+    <ROW File="LaporanBeli10.class" Component_="Dashboard1.class" FileName="LAPORA~2.CLA|LaporanBeli$10.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$10.class" SelfReg="false"/>
+    <ROW File="LaporanBeli11.class" Component_="Dashboard1.class" FileName="LAPORA~3.CLA|LaporanBeli$11.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$11.class" SelfReg="false"/>
+    <ROW File="LaporanBeli12.class" Component_="Dashboard1.class" FileName="LAPORA~4.CLA|LaporanBeli$12.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$12.class" SelfReg="false"/>
+    <ROW File="LaporanBeli13.class" Component_="Dashboard1.class" FileName="LAPORA~5.CLA|LaporanBeli$13.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$13.class" SelfReg="false"/>
+    <ROW File="LaporanBeli14.class" Component_="Dashboard1.class" FileName="LAPORA~6.CLA|LaporanBeli$14.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$14.class" SelfReg="false"/>
+    <ROW File="LaporanBeli15.class" Component_="Dashboard1.class" FileName="LAPORA~7.CLA|LaporanBeli$15.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$15.class" SelfReg="false"/>
+    <ROW File="LaporanBeli16.class" Component_="Dashboard1.class" FileName="LAPORA~8.CLA|LaporanBeli$16.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$16.class" SelfReg="false"/>
+    <ROW File="LaporanBeli17.class" Component_="Dashboard1.class" FileName="LAPORA~9.CLA|LaporanBeli$17.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$17.class" SelfReg="false"/>
+    <ROW File="LaporanBeli18.class" Component_="Dashboard1.class" FileName="LAPOR~10.CLA|LaporanBeli$18.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$18.class" SelfReg="false"/>
+    <ROW File="LaporanBeli19.class" Component_="Dashboard1.class" FileName="LAPOR~11.CLA|LaporanBeli$19.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$19.class" SelfReg="false"/>
+    <ROW File="LaporanBeli2.class" Component_="Dashboard1.class" FileName="LAPOR~12.CLA|LaporanBeli$2.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$2.class" SelfReg="false"/>
+    <ROW File="LaporanBeli20.class" Component_="Dashboard1.class" FileName="LAPOR~13.CLA|LaporanBeli$20.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$20.class" SelfReg="false"/>
+    <ROW File="LaporanBeli21.class" Component_="Dashboard1.class" FileName="LAPOR~14.CLA|LaporanBeli$21.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$21.class" SelfReg="false"/>
+    <ROW File="LaporanBeli22.class" Component_="Dashboard1.class" FileName="LAPOR~15.CLA|LaporanBeli$22.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$22.class" SelfReg="false"/>
+    <ROW File="LaporanBeli23.class" Component_="Dashboard1.class" FileName="LAPOR~16.CLA|LaporanBeli$23.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$23.class" SelfReg="false"/>
+    <ROW File="LaporanBeli24.class" Component_="Dashboard1.class" FileName="LAPOR~17.CLA|LaporanBeli$24.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$24.class" SelfReg="false"/>
+    <ROW File="LaporanBeli25.class" Component_="Dashboard1.class" FileName="LAPOR~18.CLA|LaporanBeli$25.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$25.class" SelfReg="false"/>
+    <ROW File="LaporanBeli26.class" Component_="Dashboard1.class" FileName="LAPOR~19.CLA|LaporanBeli$26.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$26.class" SelfReg="false"/>
+    <ROW File="LaporanBeli27.class" Component_="Dashboard1.class" FileName="LAPOR~20.CLA|LaporanBeli$27.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$27.class" SelfReg="false"/>
+    <ROW File="LaporanBeli3.class" Component_="Dashboard1.class" FileName="LAPOR~21.CLA|LaporanBeli$3.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$3.class" SelfReg="false"/>
+    <ROW File="LaporanBeli4.class" Component_="Dashboard1.class" FileName="LAPOR~22.CLA|LaporanBeli$4.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$4.class" SelfReg="false"/>
+    <ROW File="LaporanBeli5.class" Component_="Dashboard1.class" FileName="LAPOR~23.CLA|LaporanBeli$5.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$5.class" SelfReg="false"/>
+    <ROW File="LaporanBeli6.class" Component_="Dashboard1.class" FileName="LAPOR~24.CLA|LaporanBeli$6.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$6.class" SelfReg="false"/>
+    <ROW File="LaporanBeli7.class" Component_="Dashboard1.class" FileName="LAPOR~25.CLA|LaporanBeli$7.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$7.class" SelfReg="false"/>
+    <ROW File="LaporanBeli8.class" Component_="Dashboard1.class" FileName="LAPOR~26.CLA|LaporanBeli$8.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$8.class" SelfReg="false"/>
+    <ROW File="LaporanBeli9.class" Component_="Dashboard1.class" FileName="LAPOR~27.CLA|LaporanBeli$9.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli$9.class" SelfReg="false"/>
+    <ROW File="LaporanBeli.class" Component_="Dashboard1.class" FileName="LAPOR~28.CLA|LaporanBeli.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli.class" SelfReg="false"/>
+    <ROW File="LaporanJual1.class" Component_="Dashboard1.class" FileName="LAPOR~29.CLA|LaporanJual$1.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$1.class" SelfReg="false"/>
+    <ROW File="LaporanJual10.class" Component_="Dashboard1.class" FileName="LAPOR~30.CLA|LaporanJual$10.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$10.class" SelfReg="false"/>
+    <ROW File="LaporanJual11.class" Component_="Dashboard1.class" FileName="LAPOR~31.CLA|LaporanJual$11.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$11.class" SelfReg="false"/>
+    <ROW File="LaporanJual12.class" Component_="Dashboard1.class" FileName="LAPOR~32.CLA|LaporanJual$12.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$12.class" SelfReg="false"/>
+    <ROW File="LaporanJual13.class" Component_="Dashboard1.class" FileName="LAPOR~33.CLA|LaporanJual$13.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$13.class" SelfReg="false"/>
+    <ROW File="LaporanJual14.class" Component_="Dashboard1.class" FileName="LAPOR~34.CLA|LaporanJual$14.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$14.class" SelfReg="false"/>
+    <ROW File="LaporanJual15.class" Component_="Dashboard1.class" FileName="LAPOR~35.CLA|LaporanJual$15.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$15.class" SelfReg="false"/>
+    <ROW File="LaporanJual16.class" Component_="Dashboard1.class" FileName="LAPOR~36.CLA|LaporanJual$16.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$16.class" SelfReg="false"/>
+    <ROW File="LaporanJual17.class" Component_="Dashboard1.class" FileName="LAPOR~37.CLA|LaporanJual$17.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$17.class" SelfReg="false"/>
+    <ROW File="LaporanJual18.class" Component_="Dashboard1.class" FileName="LAPOR~38.CLA|LaporanJual$18.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$18.class" SelfReg="false"/>
+    <ROW File="LaporanJual19.class" Component_="Dashboard1.class" FileName="LAPOR~39.CLA|LaporanJual$19.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$19.class" SelfReg="false"/>
+    <ROW File="LaporanJual2.class" Component_="Dashboard1.class" FileName="LAPOR~40.CLA|LaporanJual$2.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$2.class" SelfReg="false"/>
+    <ROW File="LaporanJual20.class" Component_="Dashboard1.class" FileName="LAPOR~41.CLA|LaporanJual$20.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$20.class" SelfReg="false"/>
+    <ROW File="LaporanJual21.class" Component_="Dashboard1.class" FileName="LAPOR~42.CLA|LaporanJual$21.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$21.class" SelfReg="false"/>
+    <ROW File="LaporanJual22.class" Component_="Dashboard1.class" FileName="LAPOR~43.CLA|LaporanJual$22.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$22.class" SelfReg="false"/>
+    <ROW File="LaporanJual23.class" Component_="Dashboard1.class" FileName="LAPOR~44.CLA|LaporanJual$23.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$23.class" SelfReg="false"/>
+    <ROW File="LaporanJual24.class" Component_="Dashboard1.class" FileName="LAPOR~45.CLA|LaporanJual$24.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$24.class" SelfReg="false"/>
+    <ROW File="LaporanJual25.class" Component_="Dashboard1.class" FileName="LAPOR~46.CLA|LaporanJual$25.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$25.class" SelfReg="false"/>
+    <ROW File="LaporanJual26.class" Component_="Dashboard1.class" FileName="LAPOR~47.CLA|LaporanJual$26.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$26.class" SelfReg="false"/>
+    <ROW File="LaporanJual27.class" Component_="Dashboard1.class" FileName="LAPOR~48.CLA|LaporanJual$27.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$27.class" SelfReg="false"/>
+    <ROW File="LaporanJual3.class" Component_="Dashboard1.class" FileName="LAPOR~49.CLA|LaporanJual$3.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$3.class" SelfReg="false"/>
+    <ROW File="LaporanJual4.class" Component_="Dashboard1.class" FileName="LAPOR~50.CLA|LaporanJual$4.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$4.class" SelfReg="false"/>
+    <ROW File="LaporanJual5.class" Component_="Dashboard1.class" FileName="LAPOR~51.CLA|LaporanJual$5.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$5.class" SelfReg="false"/>
+    <ROW File="LaporanJual6.class" Component_="Dashboard1.class" FileName="LAPOR~52.CLA|LaporanJual$6.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$6.class" SelfReg="false"/>
+    <ROW File="LaporanJual7.class" Component_="Dashboard1.class" FileName="LAPOR~53.CLA|LaporanJual$7.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$7.class" SelfReg="false"/>
+    <ROW File="LaporanJual8.class" Component_="Dashboard1.class" FileName="LAPOR~54.CLA|LaporanJual$8.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$8.class" SelfReg="false"/>
+    <ROW File="LaporanJual9.class" Component_="Dashboard1.class" FileName="LAPOR~55.CLA|LaporanJual$9.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual$9.class" SelfReg="false"/>
+    <ROW File="LaporanJual.class" Component_="Dashboard1.class" FileName="LAPOR~56.CLA|LaporanJual.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli1.class" Component_="Dashboard1.class" FileName="TRANSA~1.CLA|TransaksiBeli$1.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$1.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli10.class" Component_="Dashboard1.class" FileName="TRANSA~2.CLA|TransaksiBeli$10.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$10.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli11.class" Component_="Dashboard1.class" FileName="TRANSA~3.CLA|TransaksiBeli$11.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$11.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli12.class" Component_="Dashboard1.class" FileName="TRANSA~4.CLA|TransaksiBeli$12.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$12.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli13.class" Component_="Dashboard1.class" FileName="TRANSA~5.CLA|TransaksiBeli$13.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$13.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli14.class" Component_="Dashboard1.class" FileName="TRANSA~6.CLA|TransaksiBeli$14.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$14.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli15.class" Component_="Dashboard1.class" FileName="TRANSA~7.CLA|TransaksiBeli$15.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$15.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli16.class" Component_="Dashboard1.class" FileName="TRANSA~8.CLA|TransaksiBeli$16.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$16.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli17.class" Component_="Dashboard1.class" FileName="TRANSA~9.CLA|TransaksiBeli$17.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$17.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli18.class" Component_="Dashboard1.class" FileName="TRANS~10.CLA|TransaksiBeli$18.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$18.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli19.class" Component_="Dashboard1.class" FileName="TRANS~11.CLA|TransaksiBeli$19.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$19.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli2.class" Component_="Dashboard1.class" FileName="TRANS~12.CLA|TransaksiBeli$2.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$2.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli20.class" Component_="Dashboard1.class" FileName="TRANS~13.CLA|TransaksiBeli$20.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$20.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli21.class" Component_="Dashboard1.class" FileName="TRANS~14.CLA|TransaksiBeli$21.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$21.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli22.class" Component_="Dashboard1.class" FileName="TRANS~15.CLA|TransaksiBeli$22.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$22.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli23.class" Component_="Dashboard1.class" FileName="TRANS~16.CLA|TransaksiBeli$23.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$23.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli24.class" Component_="Dashboard1.class" FileName="TRANS~17.CLA|TransaksiBeli$24.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$24.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli25.class" Component_="Dashboard1.class" FileName="TRANS~18.CLA|TransaksiBeli$25.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$25.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli26.class" Component_="Dashboard1.class" FileName="TRANS~19.CLA|TransaksiBeli$26.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$26.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli27.class" Component_="Dashboard1.class" FileName="TRANS~20.CLA|TransaksiBeli$27.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$27.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli3.class" Component_="Dashboard1.class" FileName="TRANS~21.CLA|TransaksiBeli$3.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$3.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli4.class" Component_="Dashboard1.class" FileName="TRANS~22.CLA|TransaksiBeli$4.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$4.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli5.class" Component_="Dashboard1.class" FileName="TRANS~23.CLA|TransaksiBeli$5.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$5.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli6.class" Component_="Dashboard1.class" FileName="TRANS~24.CLA|TransaksiBeli$6.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$6.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli7.class" Component_="Dashboard1.class" FileName="TRANS~25.CLA|TransaksiBeli$7.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$7.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli8.class" Component_="Dashboard1.class" FileName="TRANS~26.CLA|TransaksiBeli$8.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$8.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli9.class" Component_="Dashboard1.class" FileName="TRANS~27.CLA|TransaksiBeli$9.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli$9.class" SelfReg="false"/>
+    <ROW File="TransaksiBeli.class" Component_="Dashboard1.class" FileName="TRANS~28.CLA|TransaksiBeli.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli.class" SelfReg="false"/>
+    <ROW File="TransaksiJual1.class" Component_="Dashboard1.class" FileName="TRANS~29.CLA|TransaksiJual$1.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiJual$1.class" SelfReg="false"/>
+    <ROW File="TransaksiJual10.class" Component_="Dashboard1.class" FileName="TRANS~30.CLA|TransaksiJual$10.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiJual$10.class" SelfReg="false"/>
+    <ROW File="TransaksiJual11.class" Component_="Dashboard1.class" FileName="TRANS~31.CLA|TransaksiJual$11.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiJual$11.class" SelfReg="false"/>
+    <ROW File="TransaksiJual12.class" Component_="Dashboard1.class" FileName="TRANS~32.CLA|TransaksiJual$12.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiJual$12.class" SelfReg="false"/>
+    <ROW File="TransaksiJual13.class" Component_="Dashboard1.class" FileName="TRANS~33.CLA|TransaksiJual$13.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiJual$13.class" SelfReg="false"/>
+    <ROW File="TransaksiJual14.class" Component_="Dashboard1.class" FileName="TRANS~34.CLA|TransaksiJual$14.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiJual$14.class" SelfReg="false"/>
+    <ROW File="TransaksiJual15.class" Component_="Dashboard1.class" FileName="TRANS~35.CLA|TransaksiJual$15.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiJual$15.class" SelfReg="false"/>
+    <ROW File="TransaksiJual16.class" Component_="Dashboard1.class" FileName="TRANS~36.CLA|TransaksiJual$16.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiJual$16.class" SelfReg="false"/>
+    <ROW File="TransaksiJual17.class" Component_="Dashboard1.class" FileName="TRANS~37.CLA|TransaksiJual$17.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiJual$17.class" SelfReg="false"/>
+    <ROW File="TransaksiJual18.class" Component_="Dashboard1.class" FileName="TRANS~38.CLA|TransaksiJual$18.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiJual$18.class" SelfReg="false"/>
+    <ROW File="TransaksiJual19.class" Component_="Dashboard1.class" FileName="TRANS~39.CLA|TransaksiJual$19.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiJual$19.class" SelfReg="false"/>
+    <ROW File="TransaksiJual2.class" Component_="Dashboard1.class" FileName="TRANS~40.CLA|TransaksiJual$2.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiJual$2.class" SelfReg="false"/>
+    <ROW File="TransaksiJual20.class" Component_="Dashboard1.class" FileName="TRANS~41.CLA|TransaksiJual$20.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiJual$20.class" SelfReg="false"/>
+    <ROW File="TransaksiJual21.class" Component_="Dashboard1.class" FileName="TRANS~42.CLA|TransaksiJual$21.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiJual$21.class" SelfReg="false"/>
+    <ROW File="TransaksiJual22.class" Component_="Dashboard1.class" FileName="TRANS~43.CLA|TransaksiJual$22.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiJual$22.class" SelfReg="false"/>
+    <ROW File="TransaksiJual23.class" Component_="Dashboard1.class" FileName="TRANS~44.CLA|TransaksiJual$23.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiJual$23.class" SelfReg="false"/>
+    <ROW File="TransaksiJual3.class" Component_="Dashboard1.class" FileName="TRANS~45.CLA|TransaksiJual$3.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiJual$3.class" SelfReg="false"/>
+    <ROW File="TransaksiJual4.class" Component_="Dashboard1.class" FileName="TRANS~46.CLA|TransaksiJual$4.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiJual$4.class" SelfReg="false"/>
+    <ROW File="TransaksiJual5.class" Component_="Dashboard1.class" FileName="TRANS~47.CLA|TransaksiJual$5.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiJual$5.class" SelfReg="false"/>
+    <ROW File="TransaksiJual6.class" Component_="Dashboard1.class" FileName="TRANS~48.CLA|TransaksiJual$6.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiJual$6.class" SelfReg="false"/>
+    <ROW File="TransaksiJual7.class" Component_="Dashboard1.class" FileName="TRANS~49.CLA|TransaksiJual$7.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiJual$7.class" SelfReg="false"/>
+    <ROW File="TransaksiJual8.class" Component_="Dashboard1.class" FileName="TRANS~50.CLA|TransaksiJual$8.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiJual$8.class" SelfReg="false"/>
+    <ROW File="TransaksiJual9.class" Component_="Dashboard1.class" FileName="TRANS~51.CLA|TransaksiJual$9.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiJual$9.class" SelfReg="false"/>
+    <ROW File="TransaksiJual.class" Component_="Dashboard1.class" FileName="TRANS~52.CLA|TransaksiJual.class" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiJual.class" SelfReg="false"/>
+    <ROW File="sounderror.wav" Component_="sounderror.wav" FileName="SOUND-~1.WAV|sound-error.wav" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\audio\sound-error.wav" SelfReg="false"/>
+    <ROW File="soundinfo.wav" Component_="sounderror.wav" FileName="SOUND-~2.WAV|sound-info.wav" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\audio\sound-info.wav" SelfReg="false"/>
+    <ROW File="soundwarning.wav" Component_="sounderror.wav" FileName="SOUND-~3.WAV|sound-warning.wav" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\audio\sound-warning.wav" SelfReg="false"/>
+    <ROW File="appdashboard075testingaja.png" Component_="appdashboard075testingaja.png" FileName="APP-DA~1.PNG|app-dashboard-075  testing aja.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar\app-dashboard-075  testing aja.png" SelfReg="false"/>
+    <ROW File="appdashboard075.png" Component_="appdashboard075testingaja.png" FileName="APP-DA~2.PNG|app-dashboard-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar\app-dashboard-075.png" SelfReg="false"/>
+    <ROW File="appdataBarang075.png" Component_="appdashboard075testingaja.png" FileName="APP-DA~3.PNG|app-dataBarang-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar\app-dataBarang-075.png" SelfReg="false"/>
+    <ROW File="appdataKaryawan075.png" Component_="appdashboard075testingaja.png" FileName="APP-DA~4.PNG|app-dataKaryawan-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar\app-dataKaryawan-075.png" SelfReg="false"/>
+    <ROW File="appdataPembeli075.png" Component_="appdashboard075testingaja.png" FileName="APP-DA~5.PNG|app-dataPembeli-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar\app-dataPembeli-075.png" SelfReg="false"/>
+    <ROW File="appdataSupplier075.png" Component_="appdashboard075testingaja.png" FileName="APP-DA~6.PNG|app-dataSupplier-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar\app-dataSupplier-075.png" SelfReg="false"/>
+    <ROW File="appgantiPassword050.png" Component_="appdashboard075testingaja.png" FileName="APP-GA~1.PNG|app-gantiPassword-050.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar\app-gantiPassword-050.png" SelfReg="false"/>
+    <ROW File="applaporanpemasukan075.png" Component_="appdashboard075testingaja.png" FileName="APP-LA~1.PNG|app-laporan-pemasukan-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar\app-laporan-pemasukan-075.png" SelfReg="false"/>
+    <ROW File="applaporanpengeluaran075.png" Component_="appdashboard075testingaja.png" FileName="APP-LA~2.PNG|app-laporan-pengeluaran-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar\app-laporan-pengeluaran-075.png" SelfReg="false"/>
+    <ROW File="applogin050.png" Component_="appdashboard075testingaja.png" FileName="APP-LO~1.PNG|app-login-050.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar\app-login-050.png" SelfReg="false"/>
+    <ROW File="applogin075.png" Component_="appdashboard075testingaja.png" FileName="APP-LO~2.PNG|app-login-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar\app-login-075.png" SelfReg="false"/>
+    <ROW File="appmainWindow075.png" Component_="appdashboard075testingaja.png" FileName="APP-MA~1.PNG|app-mainWindow-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar\app-mainWindow-075.png" SelfReg="false"/>
+    <ROW File="appsidebar075.png" Component_="appdashboard075testingaja.png" FileName="APP-SI~1.PNG|app-sidebar-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar\app-sidebar-075.png" SelfReg="false"/>
+    <ROW File="apptrbeli075.png" Component_="appdashboard075testingaja.png" FileName="APP-TR~1.PNG|app-tr-beli-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar\app-tr-beli-075.png" SelfReg="false"/>
+    <ROW File="apptransaksibeli075.png" Component_="appdashboard075testingaja.png" FileName="APP-TR~2.PNG|app-transaksi-beli-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar\app-transaksi-beli-075.png" SelfReg="false"/>
+    <ROW File="apptransaksibelinew075.png" Component_="appdashboard075testingaja.png" FileName="APP-TR~3.PNG|app-transaksi-beli-new-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar\app-transaksi-beli-new-075.png" SelfReg="false"/>
+    <ROW File="apptransaksijual075.png" Component_="appdashboard075testingaja.png" FileName="APP-TR~4.PNG|app-transaksi-jual-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar\app-transaksi-jual-075.png" SelfReg="false"/>
+    <ROW File="apptransaksijualnew075.png" Component_="appdashboard075testingaja.png" FileName="APP-TR~5.PNG|app-transaksi-jual-new-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar\app-transaksi-jual-new-075.png" SelfReg="false"/>
+    <ROW File="appwindowdetaillaporanpemasukan075.png" Component_="appdashboard075testingaja.png" FileName="APP-WI~1.PNG|app-window-detail-laporan-pemasukan-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar\app-window-detail-laporan-pemasukan-075.png" SelfReg="false"/>
+    <ROW File="appwindowdetaillaporanpengeluaran075.png" Component_="appdashboard075testingaja.png" FileName="APP-WI~2.PNG|app-window-detail-laporan-pengeluaran-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar\app-window-detail-laporan-pengeluaran-075.png" SelfReg="false"/>
+    <ROW File="appwindoweditBarang075.png" Component_="appdashboard075testingaja.png" FileName="APP-WI~3.PNG|app-window-editBarang-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar\app-window-editBarang-075.png" SelfReg="false"/>
+    <ROW File="appwindoweditKaryawan075.png" Component_="appdashboard075testingaja.png" FileName="APP-WI~4.PNG|app-window-editKaryawan-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar\app-window-editKaryawan-075.png" SelfReg="false"/>
+    <ROW File="appwindoweditSupplier075.png" Component_="appdashboard075testingaja.png" FileName="APP-WI~5.PNG|app-window-editSupplier-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar\app-window-editSupplier-075.png" SelfReg="false"/>
+    <ROW File="appwindowtambahBarang075.png" Component_="appdashboard075testingaja.png" FileName="APP-WI~6.PNG|app-window-tambahBarang-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar\app-window-tambahBarang-075.png" SelfReg="false"/>
+    <ROW File="appwindowtambahKaryawan075.png" Component_="appdashboard075testingaja.png" FileName="APP-WI~7.PNG|app-window-tambahKaryawan-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar\app-window-tambahKaryawan-075.png" SelfReg="false"/>
+    <ROW File="appwindowtambahSupplier075.png" Component_="appdashboard075testingaja.png" FileName="APP-WI~8.PNG|app-window-tambahSupplier-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar\app-window-tambahSupplier-075.png" SelfReg="false"/>
+    <ROW File="appicon.png" Component_="appicon.png" FileName="app-icon.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\app-icon.png" SelfReg="false"/>
+    <ROW File="applogo.jpg" Component_="appicon.png" FileName="app-logo.jpg" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\app-logo.jpg" SelfReg="false"/>
+    <ROW File="btnbatal075.png" Component_="appicon.png" FileName="BTN-BA~1.PNG|btn-batal-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-batal-075.png" SelfReg="false"/>
+    <ROW File="btnbatalaktif075.png" Component_="appicon.png" FileName="BTN-BA~2.PNG|btn-batal-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-batal-aktif-075.png" SelfReg="false"/>
+    <ROW File="btnbatalB075.png" Component_="appicon.png" FileName="BTN-BA~3.PNG|btn-batalB-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-batalB-075.png" SelfReg="false"/>
+    <ROW File="btnbatalBaktif075.png" Component_="appicon.png" FileName="BTN-BA~4.PNG|btn-batalB-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-batalB-aktif-075.png" SelfReg="false"/>
+    <ROW File="btnbatalK075.png" Component_="appicon.png" FileName="BTN-BA~5.PNG|btn-batalK-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-batalK-075.png" SelfReg="false"/>
+    <ROW File="btnbatalKaktif075.png" Component_="appicon.png" FileName="BTN-BA~6.PNG|btn-batalK-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-batalK-aktif-075.png" SelfReg="false"/>
+    <ROW File="btnbatalS075.png" Component_="appicon.png" FileName="BTN-BA~7.PNG|btn-batalS-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-batalS-075.png" SelfReg="false"/>
+    <ROW File="btnbatalSaktif075.png" Component_="appicon.png" FileName="BTN-BA~8.PNG|btn-batalS-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-batalS-aktif-075.png" SelfReg="false"/>
+    <ROW File="btnbayar075.png" Component_="appicon.png" FileName="BTN-BA~9.PNG|btn-bayar-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-bayar-075.png" SelfReg="false"/>
+    <ROW File="btnbayaraktif075.png" Component_="appicon.png" FileName="BTN-B~10.PNG|btn-bayar-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-bayar-aktif-075.png" SelfReg="false"/>
+    <ROW File="btndetail075.png" Component_="appicon.png" FileName="BTN-DE~1.PNG|btn-detail-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-detail-075.png" SelfReg="false"/>
+    <ROW File="btndetailaktif075.png" Component_="appicon.png" FileName="BTN-DE~2.PNG|btn-detail-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-detail-aktif-075.png" SelfReg="false"/>
+    <ROW File="btnedit075.png" Component_="appicon.png" FileName="BTN-ED~1.PNG|btn-edit-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-edit-075.png" SelfReg="false"/>
+    <ROW File="btneditaktif075.png" Component_="appicon.png" FileName="BTN-ED~2.PNG|btn-edit-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-edit-aktif-075.png" SelfReg="false"/>
+    <ROW File="btngantiPassword075.png" Component_="appicon.png" FileName="BTN-GA~1.PNG|btn-gantiPassword-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-gantiPassword-075.png" SelfReg="false"/>
+    <ROW File="btngantiPasswordaktif075.png" Component_="appicon.png" FileName="BTN-GA~2.PNG|btn-gantiPassword-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-gantiPassword-aktif-075.png" SelfReg="false"/>
+    <ROW File="btnhapus075.png" Component_="appicon.png" FileName="BTN-HA~1.PNG|btn-hapus-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-hapus-075.png" SelfReg="false"/>
+    <ROW File="btnhapusaktif075.png" Component_="appicon.png" FileName="BTN-HA~2.PNG|btn-hapus-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-hapus-aktif-075.png" SelfReg="false"/>
+    <ROW File="btnkembali075.png" Component_="appicon.png" FileName="BTN-KE~1.PNG|btn-kembali-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-kembali-075.png" SelfReg="false"/>
+    <ROW File="btnkembaliaktif075.png" Component_="appicon.png" FileName="BTN-KE~2.PNG|btn-kembali-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-kembali-aktif-075.png" SelfReg="false"/>
+    <ROW File="btnkembaliLogin075.png" Component_="appicon.png" FileName="BTN-KE~3.PNG|btn-kembaliLogin-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-kembaliLogin-075.png" SelfReg="false"/>
+    <ROW File="btnkembaliLoginaktif075.png" Component_="appicon.png" FileName="BTN-KE~4.PNG|btn-kembaliLogin-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-kembaliLogin-aktif-075.png" SelfReg="false"/>
+    <ROW File="btnlogin075.png" Component_="appicon.png" FileName="BTN-LO~1.PNG|btn-login-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-login-075.png" SelfReg="false"/>
+    <ROW File="btnloginaktif075.png" Component_="appicon.png" FileName="BTN-LO~2.PNG|btn-login-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-login-aktif-075.png" SelfReg="false"/>
+    <ROW File="btnprint075.png" Component_="appicon.png" FileName="BTN-PR~1.PNG|btn-print-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-print-075.png" SelfReg="false"/>
+    <ROW File="btnprintaktif075.png" Component_="appicon.png" FileName="BTN-PR~2.PNG|btn-print-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-print-aktif-075.png" SelfReg="false"/>
+    <ROW File="btnsimpanB075.png" Component_="appicon.png" FileName="BTN-SI~1.PNG|btn-simpanB-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-simpanB-075.png" SelfReg="false"/>
+    <ROW File="btnsimpanBaktif075.png" Component_="appicon.png" FileName="BTN-SI~2.PNG|btn-simpanB-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-simpanB-aktif-075.png" SelfReg="false"/>
+    <ROW File="btnsimpanK075.png" Component_="appicon.png" FileName="BTN-SI~3.PNG|btn-simpanK-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-simpanK-075.png" SelfReg="false"/>
+    <ROW File="btnsimpanKaktif075.png" Component_="appicon.png" FileName="BTN-SI~4.PNG|btn-simpanK-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-simpanK-aktif-075.png" SelfReg="false"/>
+    <ROW File="btnsimpanS075.png" Component_="appicon.png" FileName="BTN-SI~5.PNG|btn-simpanS-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-simpanS-075.png" SelfReg="false"/>
+    <ROW File="btnsimpanSaktif075.png" Component_="appicon.png" FileName="BTN-SI~6.PNG|btn-simpanS-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-simpanS-aktif-075.png" SelfReg="false"/>
+    <ROW File="btntambah075.png" Component_="appicon.png" FileName="BTN-TA~1.PNG|btn-tambah-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-tambah-075.png" SelfReg="false"/>
+    <ROW File="btntambahaktif075.png" Component_="appicon.png" FileName="BTN-TA~2.PNG|btn-tambah-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-tambah-aktif-075.png" SelfReg="false"/>
+    <ROW File="btntambahB075.png" Component_="appicon.png" FileName="BTN-TA~3.PNG|btn-tambahB-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-tambahB-075.png" SelfReg="false"/>
+    <ROW File="btntambahBaktif075.png" Component_="appicon.png" FileName="BTN-TA~4.PNG|btn-tambahB-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-tambahB-aktif-075.png" SelfReg="false"/>
+    <ROW File="btntambahK075.png" Component_="appicon.png" FileName="BTN-TA~5.PNG|btn-tambahK-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-tambahK-075.png" SelfReg="false"/>
+    <ROW File="btntambahKaktif075.png" Component_="appicon.png" FileName="BTN-TA~6.PNG|btn-tambahK-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-tambahK-aktif-075.png" SelfReg="false"/>
+    <ROW File="btntambahS075.png" Component_="appicon.png" FileName="BTN-TA~7.PNG|btn-tambahS-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-tambahS-075.png" SelfReg="false"/>
+    <ROW File="btntambahSaktif075.png" Component_="appicon.png" FileName="BTN-TA~8.PNG|btn-tambahS-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\btn-tambahS-aktif-075.png" SelfReg="false"/>
+    <ROW File="laporanpemasukan075.png" Component_="appicon.png" FileName="LAPORA~1.PNG|laporan-pemasukan-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\laporan-pemasukan-075.png" SelfReg="false"/>
+    <ROW File="laporanpengeluaran075.png" Component_="appicon.png" FileName="LAPORA~2.PNG|laporan-pengeluaran-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\laporan-pengeluaran-075.png" SelfReg="false"/>
+    <ROW File="sidebarDashboard075.png" Component_="appicon.png" FileName="SIDEBA~1.PNG|sidebar-Dashboard-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-Dashboard-075.png" SelfReg="false"/>
+    <ROW File="sidebarDashboardaktif075.png" Component_="appicon.png" FileName="SIDEBA~2.PNG|sidebar-Dashboard-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-Dashboard-aktif-075.png" SelfReg="false"/>
+    <ROW File="sidebarDashboardhover075.png" Component_="appicon.png" FileName="SIDEBA~3.PNG|sidebar-Dashboard-hover-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-Dashboard-hover-075.png" SelfReg="false"/>
+    <ROW File="sidebardataBarang075.png" Component_="appicon.png" FileName="SIDEBA~4.PNG|sidebar-dataBarang-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-dataBarang-075.png" SelfReg="false"/>
+    <ROW File="sidebardataBarangaktif075.png" Component_="appicon.png" FileName="SIDEBA~5.PNG|sidebar-dataBarang-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-dataBarang-aktif-075.png" SelfReg="false"/>
+    <ROW File="sidebardataBaranghover075.png" Component_="appicon.png" FileName="SIDEBA~6.PNG|sidebar-dataBarang-hover-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-dataBarang-hover-075.png" SelfReg="false"/>
+    <ROW File="sidebardataKaryawan075.png" Component_="appicon.png" FileName="SIDEBA~7.PNG|sidebar-dataKaryawan-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-dataKaryawan-075.png" SelfReg="false"/>
+    <ROW File="sidebardataKaryawanaktif075.png" Component_="appicon.png" FileName="SIDEBA~8.PNG|sidebar-dataKaryawan-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-dataKaryawan-aktif-075.png" SelfReg="false"/>
+    <ROW File="sidebardataKaryawanhover075.png" Component_="appicon.png" FileName="SIDEBA~9.PNG|sidebar-dataKaryawan-hover-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-dataKaryawan-hover-075.png" SelfReg="false"/>
+    <ROW File="sidebardataSupplier075.png" Component_="appicon.png" FileName="SIDEB~10.PNG|sidebar-dataSupplier-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-dataSupplier-075.png" SelfReg="false"/>
+    <ROW File="sidebardataSupplieraktif075.png" Component_="appicon.png" FileName="SIDEB~11.PNG|sidebar-dataSupplier-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-dataSupplier-aktif-075.png" SelfReg="false"/>
+    <ROW File="sidebardataSupplierhover075.png" Component_="appicon.png" FileName="SIDEB~12.PNG|sidebar-dataSupplier-hover-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-dataSupplier-hover-075.png" SelfReg="false"/>
+    <ROW File="sidebarLaporanpemasukan075.png" Component_="appicon.png" FileName="SIDEB~13.PNG|sidebar-Laporan-pemasukan-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-Laporan-pemasukan-075.png" SelfReg="false"/>
+    <ROW File="sidebarLaporanpemasukanaktif075.png" Component_="appicon.png" FileName="SIDEB~14.PNG|sidebar-Laporan-pemasukan-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-Laporan-pemasukan-aktif-075.png" SelfReg="false"/>
+    <ROW File="sidebarLaporanpemasukanhover075.png" Component_="appicon.png" FileName="SIDEB~15.PNG|sidebar-Laporan-pemasukan-hover-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-Laporan-pemasukan-hover-075.png" SelfReg="false"/>
+    <ROW File="sidebarLaporanpengeluaran075.png" Component_="appicon.png" FileName="SIDEB~16.PNG|sidebar-Laporan-pengeluaran-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-Laporan-pengeluaran-075.png" SelfReg="false"/>
+    <ROW File="sidebarLaporanpengeluaranaktif075.png" Component_="appicon.png" FileName="SIDEB~17.PNG|sidebar-Laporan-pengeluaran-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-Laporan-pengeluaran-aktif-075.png" SelfReg="false"/>
+    <ROW File="sidebarLaporanpengeluaranhover075.png" Component_="appicon.png" FileName="SIDEB~18.PNG|sidebar-Laporan-pengeluaran-hover-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-Laporan-pengeluaran-hover-075.png" SelfReg="false"/>
+    <ROW File="sidebarlogout075.png" Component_="appicon.png" FileName="SIDEB~19.PNG|sidebar-logout-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-logout-075.png" SelfReg="false"/>
+    <ROW File="sidebarlogoutaktif075.png" Component_="appicon.png" FileName="SIDEB~20.PNG|sidebar-logout-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-logout-aktif-075.png" SelfReg="false"/>
+    <ROW File="sidebarlogouthover075.png" Component_="appicon.png" FileName="SIDEB~21.PNG|sidebar-logout-hover-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-logout-hover-075.png" SelfReg="false"/>
+    <ROW File="sidebarTransaksibeli075.png" Component_="appicon.png" FileName="SIDEB~22.PNG|sidebar-Transaksi-beli-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-Transaksi-beli-075.png" SelfReg="false"/>
+    <ROW File="sidebarTransaksibeliaktif075.png" Component_="appicon.png" FileName="SIDEB~23.PNG|sidebar-Transaksi-beli-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-Transaksi-beli-aktif-075.png" SelfReg="false"/>
+    <ROW File="sidebarTransaksibelihover075.png" Component_="appicon.png" FileName="SIDEB~24.PNG|sidebar-Transaksi-beli-hover-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-Transaksi-beli-hover-075.png" SelfReg="false"/>
+    <ROW File="sidebarTransaksijual075.png" Component_="appicon.png" FileName="SIDEB~25.PNG|sidebar-Transaksi-jual-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-Transaksi-jual-075.png" SelfReg="false"/>
+    <ROW File="sidebarTransaksijualaktif075.png" Component_="appicon.png" FileName="SIDEB~26.PNG|sidebar-Transaksi-jual-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-Transaksi-jual-aktif-075.png" SelfReg="false"/>
+    <ROW File="sidebarTransaksijualhover075.png" Component_="appicon.png" FileName="SIDEB~27.PNG|sidebar-Transaksi-jual-hover-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\gambar_icon\sidebar-Transaksi-jual-hover-075.png" SelfReg="false"/>
+    <ROW File="appicon.png_1" Component_="appicon.png_1" FileName="app-icon.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\icons\app-icon.png" SelfReg="false"/>
+    <ROW File="applogo.png" Component_="appicon.png_1" FileName="app-logo.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\icons\app-logo.png" SelfReg="false"/>
+    <ROW File="appsplashwindow.png" Component_="appicon.png_1" FileName="APP-SP~1.PNG|app-splashwindow.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\icons\app-splashwindow.png" SelfReg="false"/>
+    <ROW File="icappcloseentered.png" Component_="appicon.png_1" FileName="IC-APP~1.PNG|ic-app-close-entered.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\icons\ic-app-close-entered.png" SelfReg="false"/>
+    <ROW File="icappclose.png" Component_="appicon.png_1" FileName="IC-APP~2.PNG|ic-app-close.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\icons\ic-app-close.png" SelfReg="false"/>
+    <ROW File="icapplogoutentered.png" Component_="appicon.png_1" FileName="IC-APP~3.PNG|ic-app-logout-entered.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\icons\ic-app-logout-entered.png" SelfReg="false"/>
+    <ROW File="icapplogout.png" Component_="appicon.png_1" FileName="IC-APP~4.PNG|ic-app-logout.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\icons\ic-app-logout.png" SelfReg="false"/>
+    <ROW File="icappminimazeentered.png" Component_="appicon.png_1" FileName="IC-APP~5.PNG|ic-app-minimaze-entered.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\icons\ic-app-minimaze-entered.png" SelfReg="false"/>
+    <ROW File="icappminimaze.png" Component_="appicon.png_1" FileName="IC-APP~6.PNG|ic-app-minimaze.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\icons\ic-app-minimaze.png" SelfReg="false"/>
+    <ROW File="iclogincloseentered.png" Component_="appicon.png_1" FileName="IC-LOG~1.PNG|ic-login-close-entered.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\icons\ic-login-close-entered.png" SelfReg="false"/>
+    <ROW File="icloginclose.png" Component_="appicon.png_1" FileName="IC-LOG~2.PNG|ic-login-close.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\icons\ic-login-close.png" SelfReg="false"/>
+    <ROW File="iclogineyeclose.png" Component_="appicon.png_1" FileName="IC-LOG~3.PNG|ic-login-eye-close.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\icons\ic-login-eye-close.png" SelfReg="false"/>
+    <ROW File="iclogineyeopen.png" Component_="appicon.png_1" FileName="IC-LOG~4.PNG|ic-login-eye-open.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\icons\ic-login-eye-open.png" SelfReg="false"/>
+    <ROW File="icloginminimazeentered.png" Component_="appicon.png_1" FileName="IC-LOG~5.PNG|ic-login-minimaze-entered.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\icons\ic-login-minimaze-entered.png" SelfReg="false"/>
+    <ROW File="icloginminimaze.png" Component_="appicon.png_1" FileName="IC-LOG~6.PNG|ic-login-minimaze.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\icons\ic-login-minimaze.png" SelfReg="false"/>
+    <ROW File="icpembayarancancelentered.png" Component_="appicon.png_1" FileName="IC-PEM~1.PNG|ic-pembayaran-cancel-entered.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\icons\ic-pembayaran-cancel-entered.png" SelfReg="false"/>
+    <ROW File="icpembayarancancel.png" Component_="appicon.png_1" FileName="IC-PEM~2.PNG|ic-pembayaran-cancel.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\icons\ic-pembayaran-cancel.png" SelfReg="false"/>
+    <ROW File="icpembayaranerrorentered.png" Component_="appicon.png_1" FileName="IC-PEM~3.PNG|ic-pembayaran-error-entered.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\icons\ic-pembayaran-error-entered.png" SelfReg="false"/>
+    <ROW File="icpembayaranerror.png" Component_="appicon.png_1" FileName="IC-PEM~4.PNG|ic-pembayaran-error.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\resources\image\icons\ic-pembayaran-error.png" SelfReg="false"/>
+    <ROW File="build.xml" Component_="appicon.ico" FileName="build.xml" Attributes="0" SourcePath="..\..\..\..\..\umkm\build.xml" SelfReg="false"/>
+    <ROW File="NanoDB.sql" Component_="NanoDB.sql" FileName="NANODB~1.SQL|Nano DB.sql" Attributes="0" SourcePath="..\..\..\..\..\umkm\db\Nano DB.sql" SelfReg="false"/>
+    <ROW File="AbsoluteLayout.jar" Component_="AbsoluteLayout.jar" FileName="ABSOLU~1.JAR|AbsoluteLayout.jar" Attributes="0" SourcePath="..\..\..\..\..\umkm\dist\lib\AbsoluteLayout.jar" SelfReg="false"/>
+    <ROW File="jBCrypt0.4.1.jar" Component_="AbsoluteLayout.jar" FileName="JBCRYP~1.JAR|jBCrypt-0.4.1.jar" Attributes="0" SourcePath="..\..\..\..\..\umkm\dist\lib\jBCrypt-0.4.1.jar" SelfReg="false"/>
+    <ROW File="jcalendar1.4.jar" Component_="AbsoluteLayout.jar" FileName="JCALEN~1.JAR|jcalendar-1.4.jar" Attributes="0" SourcePath="..\..\..\..\..\umkm\dist\lib\jcalendar-1.4.jar" SelfReg="false"/>
+    <ROW File="jcommon1.0.23.jar" Component_="AbsoluteLayout.jar" FileName="JCOMMO~1.JAR|jcommon-1.0.23.jar" Attributes="0" SourcePath="..\..\..\..\..\umkm\dist\lib\jcommon-1.0.23.jar" SelfReg="false"/>
+    <ROW File="jfreechart1.0.19.jar" Component_="AbsoluteLayout.jar" FileName="JFREEC~1.JAR|jfreechart-1.0.19.jar" Attributes="0" SourcePath="..\..\..\..\..\umkm\dist\lib\jfreechart-1.0.19.jar" SelfReg="false"/>
+    <ROW File="jl1.0.1.jar" Component_="AbsoluteLayout.jar" FileName="JL101~1.JAR|jl1.0.1.jar" Attributes="0" SourcePath="..\..\..\..\..\umkm\dist\lib\jl1.0.1.jar" SelfReg="false"/>
+    <ROW File="KGradientPanel.jar" Component_="AbsoluteLayout.jar" FileName="KGRADI~1.JAR|KGradientPanel.jar" Attributes="0" SourcePath="..\..\..\..\..\umkm\dist\lib\KGradientPanel.jar" SelfReg="false"/>
+    <ROW File="mail.jar" Component_="AbsoluteLayout.jar" FileName="mail.jar" Attributes="0" SourcePath="..\..\..\..\..\umkm\dist\lib\mail.jar" SelfReg="false"/>
+    <ROW File="miglayout4.0.jar" Component_="AbsoluteLayout.jar" FileName="MIGLAY~1.JAR|miglayout-4.0.jar" Attributes="0" SourcePath="..\..\..\..\..\umkm\dist\lib\miglayout-4.0.jar" SelfReg="false"/>
+    <ROW File="mysqlconnectorjava5.1.48.jar" Component_="AbsoluteLayout.jar" FileName="MYSQL-~1.JAR|mysql-connector-java-5.1.48.jar" Attributes="0" SourcePath="..\..\..\..\..\umkm\dist\lib\mysql-connector-java-5.1.48.jar" SelfReg="false"/>
+    <ROW File="TimingFramework0.55.jar" Component_="AbsoluteLayout.jar" FileName="TIMING~1.JAR|TimingFramework-0.55.jar" Attributes="0" SourcePath="..\..\..\..\..\umkm\dist\lib\TimingFramework-0.55.jar" SelfReg="false"/>
+    <ROW File="README.TXT" Component_="README.TXT" FileName="README.TXT" Attributes="0" SourcePath="..\..\..\..\..\umkm\dist\README.TXT" SelfReg="false"/>
+    <ROW File="umkm.jar" Component_="README.TXT" FileName="umkm.jar" Attributes="0" SourcePath="..\..\..\..\..\umkm\dist\umkm.jar" SelfReg="false"/>
+    <ROW File="launch4j.log" Component_="appicon.ico" FileName="launch4j.log" Attributes="0" SourcePath="..\..\..\..\..\umkm\launch4j.log" SelfReg="false"/>
+    <ROW File="AbsoluteLayout.jar_1" Component_="AbsoluteLayout.jar_1" FileName="ABSOLU~1.JAR|AbsoluteLayout.jar" Attributes="0" SourcePath="..\..\..\..\..\umkm\lib\AbsoluteLayout.jar" SelfReg="false"/>
+    <ROW File="jBCrypt0.4.1.jar_1" Component_="AbsoluteLayout.jar_1" FileName="JBCRYP~1.JAR|jBCrypt-0.4.1.jar" Attributes="0" SourcePath="..\..\..\..\..\umkm\lib\jBCrypt-0.4.1.jar" SelfReg="false"/>
+    <ROW File="jcalendar1.4.jar_1" Component_="AbsoluteLayout.jar_1" FileName="JCALEN~1.JAR|jcalendar-1.4.jar" Attributes="0" SourcePath="..\..\..\..\..\umkm\lib\jcalendar-1.4.jar" SelfReg="false"/>
+    <ROW File="jcommon1.0.23.jar_1" Component_="AbsoluteLayout.jar_1" FileName="JCOMMO~1.JAR|jcommon-1.0.23.jar" Attributes="0" SourcePath="..\..\..\..\..\umkm\lib\jcommon-1.0.23.jar" SelfReg="false"/>
+    <ROW File="jfreechart1.0.19.jar_1" Component_="AbsoluteLayout.jar_1" FileName="JFREEC~1.JAR|jfreechart-1.0.19.jar" Attributes="0" SourcePath="..\..\..\..\..\umkm\lib\jfreechart-1.0.19.jar" SelfReg="false"/>
+    <ROW File="jl1.0.1.jar_1" Component_="AbsoluteLayout.jar_1" FileName="JL101~1.JAR|jl1.0.1.jar" Attributes="0" SourcePath="..\..\..\..\..\umkm\lib\jl1.0.1.jar" SelfReg="false"/>
+    <ROW File="KGradientPanel.jar_1" Component_="AbsoluteLayout.jar_1" FileName="KGRADI~1.JAR|KGradientPanel.jar" Attributes="0" SourcePath="..\..\..\..\..\umkm\lib\KGradientPanel.jar" SelfReg="false"/>
+    <ROW File="mail.jar_1" Component_="AbsoluteLayout.jar_1" FileName="mail.jar" Attributes="0" SourcePath="..\..\..\..\..\umkm\lib\mail.jar" SelfReg="false"/>
+    <ROW File="miglayout4.0.jar_1" Component_="AbsoluteLayout.jar_1" FileName="MIGLAY~1.JAR|miglayout-4.0.jar" Attributes="0" SourcePath="..\..\..\..\..\umkm\lib\miglayout-4.0.jar" SelfReg="false"/>
+    <ROW File="mysqlconnectorjava5.1.48.jar_1" Component_="AbsoluteLayout.jar_1" FileName="MYSQL-~1.JAR|mysql-connector-java-5.1.48.jar" Attributes="0" SourcePath="..\..\..\..\..\umkm\lib\mysql-connector-java-5.1.48.jar" SelfReg="false"/>
+    <ROW File="TimingFramework0.55.jar_1" Component_="AbsoluteLayout.jar_1" FileName="TIMING~1.JAR|TimingFramework-0.55.jar" Attributes="0" SourcePath="..\..\..\..\..\umkm\lib\TimingFramework-0.55.jar" SelfReg="false"/>
+    <ROW File="manifest.mf" Component_="appicon.ico" FileName="manifest.mf" Attributes="0" SourcePath="..\..\..\..\..\umkm\manifest.mf" SelfReg="false"/>
+    <ROW File="NanoApp.exe" Component_="NanoApp.exe" FileName="NANOAP~1.EXE|Nano App.exe" Attributes="0" SourcePath="&lt;AI_STUBS&gt;aijclw.exe" SelfReg="false"/>
+    <ROW File="buildimpl.xml" Component_="buildimpl.xml" FileName="BUILD-~1.XML|build-impl.xml" Attributes="0" SourcePath="..\..\..\..\..\umkm\nbproject\build-impl.xml" SelfReg="false"/>
+    <ROW File="genfiles.properties" Component_="buildimpl.xml" FileName="GENFIL~1.PRO|genfiles.properties" Attributes="0" SourcePath="..\..\..\..\..\umkm\nbproject\genfiles.properties" SelfReg="false"/>
+    <ROW File="private.properties" Component_="private.properties" FileName="PRIVAT~1.PRO|private.properties" Attributes="0" SourcePath="..\..\..\..\..\umkm\nbproject\private\private.properties" SelfReg="false"/>
+    <ROW File="private.xml" Component_="private.properties" FileName="private.xml" Attributes="0" SourcePath="..\..\..\..\..\umkm\nbproject\private\private.xml" SelfReg="false"/>
+    <ROW File="project.properties" Component_="buildimpl.xml" FileName="PROJEC~1.PRO|project.properties" Attributes="0" SourcePath="..\..\..\..\..\umkm\nbproject\project.properties" SelfReg="false"/>
+    <ROW File="project.xml" Component_="buildimpl.xml" FileName="project.xml" Attributes="0" SourcePath="..\..\..\..\..\umkm\nbproject\project.xml" SelfReg="false"/>
+    <ROW File="Application.java" Component_="Application.java" FileName="APPLIC~1.JAV|Application.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\data\app\Application.java" SelfReg="false"/>
+    <ROW File="Log.java" Component_="Application.java" FileName="LOG~1.JAV|Log.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\data\app\Log.java" SelfReg="false"/>
+    <ROW File="Storage.java" Component_="Application.java" FileName="STORAG~1.JAV|Storage.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\data\app\Storage.java" SelfReg="false"/>
+    <ROW File="Database.java" Component_="Database.java" FileName="DATABA~1.JAV|Database.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\data\db\Database.java" SelfReg="false"/>
+    <ROW File="DatabaseTables.java" Component_="Database.java" FileName="DATABA~2.JAV|DatabaseTables.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\data\db\DatabaseTables.java" SelfReg="false"/>
+    <ROW File="Hashing_Algorithm.java" Component_="Database.java" FileName="HASHIN~1.JAV|Hashing_Algorithm.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\data\db\Hashing_Algorithm.java" SelfReg="false"/>
+    <ROW File="AuthenticationException.java" Component_="AuthenticationException.java" FileName="AUTHEN~1.JAV|AuthenticationException.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\error\AuthenticationException.java" SelfReg="false"/>
+    <ROW File="DatabaseError.java" Component_="AuthenticationException.java" FileName="DATABA~1.JAV|DatabaseError.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\error\DatabaseError.java" SelfReg="false"/>
+    <ROW File="InValidDataException.java" Component_="AuthenticationException.java" FileName="INVALI~1.JAV|InValidDataException.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\error\InValidDataException.java" SelfReg="false"/>
+    <ROW File="InvalidTransactionException.java" Component_="AuthenticationException.java" FileName="INVALI~2.JAV|InvalidTransactionException.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\error\InvalidTransactionException.java" SelfReg="false"/>
+    <ROW File="InValidUserDataException.java" Component_="AuthenticationException.java" FileName="INVALI~3.JAV|InValidUserDataException.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\error\InValidUserDataException.java" SelfReg="false"/>
+    <ROW File="StorageNotFoundException.java" Component_="AuthenticationException.java" FileName="STORAG~1.JAV|StorageNotFoundException.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\error\StorageNotFoundException.java" SelfReg="false"/>
+    <ROW File="Main.java" Component_="Main.java" FileName="MAIN~1.JAV|Main.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\main\Main.java" SelfReg="false"/>
+    <ROW File="Barang.java" Component_="Barang.java" FileName="BARANG~1.JAV|Barang.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\manage\Barang.java" SelfReg="false"/>
+    <ROW File="Chart.java" Component_="Barang.java" FileName="CHART~1.JAV|Chart.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\manage\Chart.java" SelfReg="false"/>
+    <ROW File="FileManager.java" Component_="Barang.java" FileName="FILEMA~1.JAV|FileManager.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\manage\FileManager.java" SelfReg="false"/>
+    <ROW File="ManageTransaksiBeli.java" Component_="Barang.java" FileName="MANAGE~1.JAV|ManageTransaksiBeli.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\manage\ManageTransaksiBeli.java" SelfReg="false"/>
+    <ROW File="ManageTransaksiJual.java" Component_="Barang.java" FileName="MANAGE~2.JAV|ManageTransaksiJual.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\manage\ManageTransaksiJual.java" SelfReg="false"/>
+    <ROW File="Message.java" Component_="Barang.java" FileName="MESSAG~1.JAV|Message.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\manage\Message.java" SelfReg="false"/>
+    <ROW File="Text.java" Component_="Barang.java" FileName="TEXT~1.JAV|Text.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\manage\Text.java" SelfReg="false"/>
+    <ROW File="Validation.java" Component_="Barang.java" FileName="VALIDA~1.JAV|Validation.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\manage\Validation.java" SelfReg="false"/>
+    <ROW File="Waktu.java" Component_="Barang.java" FileName="WAKTU~1.JAV|Waktu.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\manage\Waktu.java" SelfReg="false"/>
+    <ROW File="Audio.java" Component_="Audio.java" FileName="AUDIO~1.JAV|Audio.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\media\Audio.java" SelfReg="false"/>
+    <ROW File="Gambar.java" Component_="Audio.java" FileName="GAMBAR~1.JAV|Gambar.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\media\Gambar.java" SelfReg="false"/>
+    <ROW File="Karyawan.java" Component_="Karyawan.java" FileName="KARYAW~1.JAV|Karyawan.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\users\Karyawan.java" SelfReg="false"/>
+    <ROW File="Supplier.java" Component_="Karyawan.java" FileName="SUPPLI~1.JAV|Supplier.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\users\Supplier.java" SelfReg="false"/>
+    <ROW File="UserData.java" Component_="Karyawan.java" FileName="USERDA~1.JAV|UserData.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\users\UserData.java" SelfReg="false"/>
+    <ROW File="UserLevels.java" Component_="Karyawan.java" FileName="USERLE~1.JAV|UserLevels.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\users\UserLevels.java" SelfReg="false"/>
+    <ROW File="Users.java" Component_="Karyawan.java" FileName="USERS~1.JAV|Users.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\users\Users.java" SelfReg="false"/>
+    <ROW File="ConfirmLogout.form" Component_="ConfirmLogout.form" FileName="CONFIR~1.FOR|ConfirmLogout.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\dialogs\ConfirmLogout.form" SelfReg="false"/>
+    <ROW File="ConfirmLogout.java" Component_="ConfirmLogout.form" FileName="CONFIR~1.JAV|ConfirmLogout.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\dialogs\ConfirmLogout.java" SelfReg="false"/>
+    <ROW File="InputBarang.form" Component_="ConfirmLogout.form" FileName="INPUTB~1.FOR|InputBarang.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\dialogs\InputBarang.form" SelfReg="false"/>
+    <ROW File="InputBarang.java" Component_="ConfirmLogout.form" FileName="INPUTB~1.JAV|InputBarang.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\dialogs\InputBarang.java" SelfReg="false"/>
+    <ROW File="InputKaryawan.form" Component_="ConfirmLogout.form" FileName="INPUTK~1.FOR|InputKaryawan.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\dialogs\InputKaryawan.form" SelfReg="false"/>
+    <ROW File="InputKaryawan.java" Component_="ConfirmLogout.form" FileName="INPUTK~1.JAV|InputKaryawan.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\dialogs\InputKaryawan.java" SelfReg="false"/>
+    <ROW File="InputSupplier.form" Component_="ConfirmLogout.form" FileName="INPUTS~1.FOR|InputSupplier.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\dialogs\InputSupplier.form" SelfReg="false"/>
+    <ROW File="InputSupplier.java" Component_="ConfirmLogout.form" FileName="INPUTS~1.JAV|InputSupplier.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\dialogs\InputSupplier.java" SelfReg="false"/>
+    <ROW File="GantiWindow.form" Component_="GantiWindow.form" FileName="GANTIW~1.FOR|GantiWindow.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\frames\GantiWindow.form" SelfReg="false"/>
+    <ROW File="GantiWindow.java" Component_="GantiWindow.form" FileName="GANTIW~1.JAV|GantiWindow.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\frames\GantiWindow.java" SelfReg="false"/>
+    <ROW File="LoginWindow.form" Component_="GantiWindow.form" FileName="LOGINW~1.FOR|LoginWindow.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\frames\LoginWindow.form" SelfReg="false"/>
+    <ROW File="LoginWindow.java" Component_="GantiWindow.form" FileName="LOGINW~1.JAV|LoginWindow.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\frames\LoginWindow.java" SelfReg="false"/>
+    <ROW File="SplashWindow.form" Component_="GantiWindow.form" FileName="SPLASH~1.FOR|SplashWindow.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\frames\SplashWindow.form" SelfReg="false"/>
+    <ROW File="SplashWindow.java" Component_="GantiWindow.form" FileName="SPLASH~1.JAV|SplashWindow.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\frames\SplashWindow.java" SelfReg="false"/>
+    <ROW File="WelcomeApp.form" Component_="GantiWindow.form" FileName="WELCOM~1.FOR|WelcomeApp.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\frames\WelcomeApp.form" SelfReg="false"/>
+    <ROW File="WelcomeApp.java" Component_="GantiWindow.form" FileName="WELCOM~1.JAV|WelcomeApp.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\frames\WelcomeApp.java" SelfReg="false"/>
+    <ROW File="MainWindow.form" Component_="MainWindow.form" FileName="MAINWI~1.FOR|MainWindow.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\MainWindow.form" SelfReg="false"/>
+    <ROW File="MainWindow.java" Component_="MainWindow.form" FileName="MAINWI~1.JAV|MainWindow.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\MainWindow.java" SelfReg="false"/>
+    <ROW File="Dashboard.form" Component_="Dashboard.form" FileName="DASHBO~1.FOR|Dashboard.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\panels\Dashboard.form" SelfReg="false"/>
+    <ROW File="Dashboard.java" Component_="Dashboard.form" FileName="DASHBO~1.JAV|Dashboard.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\panels\Dashboard.java" SelfReg="false"/>
+    <ROW File="DataBarang.form" Component_="Dashboard.form" FileName="DATABA~1.FOR|DataBarang.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\panels\DataBarang.form" SelfReg="false"/>
+    <ROW File="DataBarang.java" Component_="Dashboard.form" FileName="DATABA~1.JAV|DataBarang.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\panels\DataBarang.java" SelfReg="false"/>
+    <ROW File="DataKaryawan.form" Component_="Dashboard.form" FileName="DATAKA~1.FOR|DataKaryawan.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\panels\DataKaryawan.form" SelfReg="false"/>
+    <ROW File="DataKaryawan.java" Component_="Dashboard.form" FileName="DATAKA~1.JAV|DataKaryawan.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\panels\DataKaryawan.java" SelfReg="false"/>
+    <ROW File="DataSupplier.form" Component_="Dashboard.form" FileName="DATASU~1.FOR|DataSupplier.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\panels\DataSupplier.form" SelfReg="false"/>
+    <ROW File="DataSupplier.java" Component_="Dashboard.form" FileName="DATASU~1.JAV|DataSupplier.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\panels\DataSupplier.java" SelfReg="false"/>
+    <ROW File="detailLaporanBeli.form" Component_="Dashboard.form" FileName="DETAIL~1.FOR|detailLaporanBeli.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\panels\detailLaporanBeli.form" SelfReg="false"/>
+    <ROW File="detailLaporanBeli.java" Component_="Dashboard.form" FileName="DETAIL~1.JAV|detailLaporanBeli.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\panels\detailLaporanBeli.java" SelfReg="false"/>
+    <ROW File="detailLaporanJual.form" Component_="Dashboard.form" FileName="DETAIL~2.FOR|detailLaporanJual.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\panels\detailLaporanJual.form" SelfReg="false"/>
+    <ROW File="detailLaporanJual.java" Component_="Dashboard.form" FileName="DETAIL~2.JAV|detailLaporanJual.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\panels\detailLaporanJual.java" SelfReg="false"/>
+    <ROW File="LaporanBeli.form" Component_="Dashboard.form" FileName="LAPORA~1.FOR|LaporanBeli.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\panels\LaporanBeli.form" SelfReg="false"/>
+    <ROW File="LaporanBeli.java" Component_="Dashboard.form" FileName="LAPORA~1.JAV|LaporanBeli.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\panels\LaporanBeli.java" SelfReg="false"/>
+    <ROW File="LaporanJual.form" Component_="Dashboard.form" FileName="LAPORA~2.FOR|LaporanJual.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\panels\LaporanJual.form" SelfReg="false"/>
+    <ROW File="LaporanJual.java" Component_="Dashboard.form" FileName="LAPORA~2.JAV|LaporanJual.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\panels\LaporanJual.java" SelfReg="false"/>
+    <ROW File="TransaksiBeli.form" Component_="Dashboard.form" FileName="TRANSA~1.FOR|TransaksiBeli.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\panels\TransaksiBeli.form" SelfReg="false"/>
+    <ROW File="TransaksiBeli.java" Component_="Dashboard.form" FileName="TRANSA~1.JAV|TransaksiBeli.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\panels\TransaksiBeli.java" SelfReg="false"/>
+    <ROW File="TransaksiJual.form" Component_="Dashboard.form" FileName="TRANSA~2.FOR|TransaksiJual.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\panels\TransaksiJual.form" SelfReg="false"/>
+    <ROW File="TransaksiJual.java" Component_="Dashboard.form" FileName="TRANSA~2.JAV|TransaksiJual.java" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\com\window\panels\TransaksiJual.java" SelfReg="false"/>
+    <ROW File="sounderror.wav_1" Component_="sounderror.wav_1" FileName="SOUND-~1.WAV|sound-error.wav" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\audio\sound-error.wav" SelfReg="false"/>
+    <ROW File="soundinfo.wav_1" Component_="sounderror.wav_1" FileName="SOUND-~2.WAV|sound-info.wav" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\audio\sound-info.wav" SelfReg="false"/>
+    <ROW File="soundwarning.wav_1" Component_="sounderror.wav_1" FileName="SOUND-~3.WAV|sound-warning.wav" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\audio\sound-warning.wav" SelfReg="false"/>
+    <ROW File="appdashboard075testingaja.png_1" Component_="appdashboard075testingaja.png_1" FileName="APP-DA~1.PNG|app-dashboard-075  testing aja.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar\app-dashboard-075  testing aja.png" SelfReg="false"/>
+    <ROW File="appdashboard075.png_1" Component_="appdashboard075testingaja.png_1" FileName="APP-DA~2.PNG|app-dashboard-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar\app-dashboard-075.png" SelfReg="false"/>
+    <ROW File="appdataBarang075.png_1" Component_="appdashboard075testingaja.png_1" FileName="APP-DA~3.PNG|app-dataBarang-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar\app-dataBarang-075.png" SelfReg="false"/>
+    <ROW File="appdataKaryawan075.png_1" Component_="appdashboard075testingaja.png_1" FileName="APP-DA~4.PNG|app-dataKaryawan-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar\app-dataKaryawan-075.png" SelfReg="false"/>
+    <ROW File="appdataPembeli075.png_1" Component_="appdashboard075testingaja.png_1" FileName="APP-DA~5.PNG|app-dataPembeli-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar\app-dataPembeli-075.png" SelfReg="false"/>
+    <ROW File="appdataSupplier075.png_1" Component_="appdashboard075testingaja.png_1" FileName="APP-DA~6.PNG|app-dataSupplier-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar\app-dataSupplier-075.png" SelfReg="false"/>
+    <ROW File="appgantiPassword050.png_1" Component_="appdashboard075testingaja.png_1" FileName="APP-GA~1.PNG|app-gantiPassword-050.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar\app-gantiPassword-050.png" SelfReg="false"/>
+    <ROW File="applaporanpemasukan075.png_1" Component_="appdashboard075testingaja.png_1" FileName="APP-LA~1.PNG|app-laporan-pemasukan-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar\app-laporan-pemasukan-075.png" SelfReg="false"/>
+    <ROW File="applaporanpengeluaran075.png_1" Component_="appdashboard075testingaja.png_1" FileName="APP-LA~2.PNG|app-laporan-pengeluaran-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar\app-laporan-pengeluaran-075.png" SelfReg="false"/>
+    <ROW File="applogin050.png_1" Component_="appdashboard075testingaja.png_1" FileName="APP-LO~1.PNG|app-login-050.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar\app-login-050.png" SelfReg="false"/>
+    <ROW File="applogin075.png_1" Component_="appdashboard075testingaja.png_1" FileName="APP-LO~2.PNG|app-login-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar\app-login-075.png" SelfReg="false"/>
+    <ROW File="appmainWindow075.png_1" Component_="appdashboard075testingaja.png_1" FileName="APP-MA~1.PNG|app-mainWindow-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar\app-mainWindow-075.png" SelfReg="false"/>
+    <ROW File="appsidebar075.png_1" Component_="appdashboard075testingaja.png_1" FileName="APP-SI~1.PNG|app-sidebar-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar\app-sidebar-075.png" SelfReg="false"/>
+    <ROW File="apptrbeli075.png_1" Component_="appdashboard075testingaja.png_1" FileName="APP-TR~1.PNG|app-tr-beli-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar\app-tr-beli-075.png" SelfReg="false"/>
+    <ROW File="apptransaksibeli075.png_1" Component_="appdashboard075testingaja.png_1" FileName="APP-TR~2.PNG|app-transaksi-beli-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar\app-transaksi-beli-075.png" SelfReg="false"/>
+    <ROW File="apptransaksibelinew075.png_1" Component_="appdashboard075testingaja.png_1" FileName="APP-TR~3.PNG|app-transaksi-beli-new-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar\app-transaksi-beli-new-075.png" SelfReg="false"/>
+    <ROW File="apptransaksijual075.png_1" Component_="appdashboard075testingaja.png_1" FileName="APP-TR~4.PNG|app-transaksi-jual-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar\app-transaksi-jual-075.png" SelfReg="false"/>
+    <ROW File="apptransaksijualnew075.png_1" Component_="appdashboard075testingaja.png_1" FileName="APP-TR~5.PNG|app-transaksi-jual-new-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar\app-transaksi-jual-new-075.png" SelfReg="false"/>
+    <ROW File="appwindowdetaillaporanpemasukan075.png_1" Component_="appdashboard075testingaja.png_1" FileName="APP-WI~1.PNG|app-window-detail-laporan-pemasukan-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar\app-window-detail-laporan-pemasukan-075.png" SelfReg="false"/>
+    <ROW File="appwindowdetaillaporanpengeluaran075.png_1" Component_="appdashboard075testingaja.png_1" FileName="APP-WI~2.PNG|app-window-detail-laporan-pengeluaran-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar\app-window-detail-laporan-pengeluaran-075.png" SelfReg="false"/>
+    <ROW File="appwindoweditBarang075.png_1" Component_="appdashboard075testingaja.png_1" FileName="APP-WI~3.PNG|app-window-editBarang-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar\app-window-editBarang-075.png" SelfReg="false"/>
+    <ROW File="appwindoweditKaryawan075.png_1" Component_="appdashboard075testingaja.png_1" FileName="APP-WI~4.PNG|app-window-editKaryawan-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar\app-window-editKaryawan-075.png" SelfReg="false"/>
+    <ROW File="appwindoweditSupplier075.png_1" Component_="appdashboard075testingaja.png_1" FileName="APP-WI~5.PNG|app-window-editSupplier-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar\app-window-editSupplier-075.png" SelfReg="false"/>
+    <ROW File="appwindowtambahBarang075.png_1" Component_="appdashboard075testingaja.png_1" FileName="APP-WI~6.PNG|app-window-tambahBarang-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar\app-window-tambahBarang-075.png" SelfReg="false"/>
+    <ROW File="appwindowtambahKaryawan075.png_1" Component_="appdashboard075testingaja.png_1" FileName="APP-WI~7.PNG|app-window-tambahKaryawan-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar\app-window-tambahKaryawan-075.png" SelfReg="false"/>
+    <ROW File="appwindowtambahSupplier075.png_1" Component_="appdashboard075testingaja.png_1" FileName="APP-WI~8.PNG|app-window-tambahSupplier-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar\app-window-tambahSupplier-075.png" SelfReg="false"/>
+    <ROW File="appicon.png_2" Component_="appicon.png_2" FileName="app-icon.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\app-icon.png" SelfReg="false"/>
+    <ROW File="applogo.jpg_1" Component_="appicon.png_2" FileName="app-logo.jpg" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\app-logo.jpg" SelfReg="false"/>
+    <ROW File="btnbatal075.png_1" Component_="appicon.png_2" FileName="BTN-BA~1.PNG|btn-batal-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-batal-075.png" SelfReg="false"/>
+    <ROW File="btnbatalaktif075.png_1" Component_="appicon.png_2" FileName="BTN-BA~2.PNG|btn-batal-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-batal-aktif-075.png" SelfReg="false"/>
+    <ROW File="btnbatalB075.png_1" Component_="appicon.png_2" FileName="BTN-BA~3.PNG|btn-batalB-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-batalB-075.png" SelfReg="false"/>
+    <ROW File="btnbatalBaktif075.png_1" Component_="appicon.png_2" FileName="BTN-BA~4.PNG|btn-batalB-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-batalB-aktif-075.png" SelfReg="false"/>
+    <ROW File="btnbatalK075.png_1" Component_="appicon.png_2" FileName="BTN-BA~5.PNG|btn-batalK-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-batalK-075.png" SelfReg="false"/>
+    <ROW File="btnbatalKaktif075.png_1" Component_="appicon.png_2" FileName="BTN-BA~6.PNG|btn-batalK-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-batalK-aktif-075.png" SelfReg="false"/>
+    <ROW File="btnbatalS075.png_1" Component_="appicon.png_2" FileName="BTN-BA~7.PNG|btn-batalS-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-batalS-075.png" SelfReg="false"/>
+    <ROW File="btnbatalSaktif075.png_1" Component_="appicon.png_2" FileName="BTN-BA~8.PNG|btn-batalS-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-batalS-aktif-075.png" SelfReg="false"/>
+    <ROW File="btnbayar075.png_1" Component_="appicon.png_2" FileName="BTN-BA~9.PNG|btn-bayar-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-bayar-075.png" SelfReg="false"/>
+    <ROW File="btnbayaraktif075.png_1" Component_="appicon.png_2" FileName="BTN-B~10.PNG|btn-bayar-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-bayar-aktif-075.png" SelfReg="false"/>
+    <ROW File="btndetail075.png_1" Component_="appicon.png_2" FileName="BTN-DE~1.PNG|btn-detail-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-detail-075.png" SelfReg="false"/>
+    <ROW File="btndetailaktif075.png_1" Component_="appicon.png_2" FileName="BTN-DE~2.PNG|btn-detail-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-detail-aktif-075.png" SelfReg="false"/>
+    <ROW File="btnedit075.png_1" Component_="appicon.png_2" FileName="BTN-ED~1.PNG|btn-edit-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-edit-075.png" SelfReg="false"/>
+    <ROW File="btneditaktif075.png_1" Component_="appicon.png_2" FileName="BTN-ED~2.PNG|btn-edit-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-edit-aktif-075.png" SelfReg="false"/>
+    <ROW File="btngantiPassword075.png_1" Component_="appicon.png_2" FileName="BTN-GA~1.PNG|btn-gantiPassword-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-gantiPassword-075.png" SelfReg="false"/>
+    <ROW File="btngantiPasswordaktif075.png_1" Component_="appicon.png_2" FileName="BTN-GA~2.PNG|btn-gantiPassword-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-gantiPassword-aktif-075.png" SelfReg="false"/>
+    <ROW File="btnhapus075.png_1" Component_="appicon.png_2" FileName="BTN-HA~1.PNG|btn-hapus-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-hapus-075.png" SelfReg="false"/>
+    <ROW File="btnhapusaktif075.png_1" Component_="appicon.png_2" FileName="BTN-HA~2.PNG|btn-hapus-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-hapus-aktif-075.png" SelfReg="false"/>
+    <ROW File="btnkembali075.png_1" Component_="appicon.png_2" FileName="BTN-KE~1.PNG|btn-kembali-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-kembali-075.png" SelfReg="false"/>
+    <ROW File="btnkembaliaktif075.png_1" Component_="appicon.png_2" FileName="BTN-KE~2.PNG|btn-kembali-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-kembali-aktif-075.png" SelfReg="false"/>
+    <ROW File="btnkembaliLogin075.png_1" Component_="appicon.png_2" FileName="BTN-KE~3.PNG|btn-kembaliLogin-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-kembaliLogin-075.png" SelfReg="false"/>
+    <ROW File="btnkembaliLoginaktif075.png_1" Component_="appicon.png_2" FileName="BTN-KE~4.PNG|btn-kembaliLogin-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-kembaliLogin-aktif-075.png" SelfReg="false"/>
+    <ROW File="btnlogin075.png_1" Component_="appicon.png_2" FileName="BTN-LO~1.PNG|btn-login-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-login-075.png" SelfReg="false"/>
+    <ROW File="btnloginaktif075.png_1" Component_="appicon.png_2" FileName="BTN-LO~2.PNG|btn-login-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-login-aktif-075.png" SelfReg="false"/>
+    <ROW File="btnprint075.png_1" Component_="appicon.png_2" FileName="BTN-PR~1.PNG|btn-print-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-print-075.png" SelfReg="false"/>
+    <ROW File="btnprintaktif075.png_1" Component_="appicon.png_2" FileName="BTN-PR~2.PNG|btn-print-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-print-aktif-075.png" SelfReg="false"/>
+    <ROW File="btnsimpanB075.png_1" Component_="appicon.png_2" FileName="BTN-SI~1.PNG|btn-simpanB-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-simpanB-075.png" SelfReg="false"/>
+    <ROW File="btnsimpanBaktif075.png_1" Component_="appicon.png_2" FileName="BTN-SI~2.PNG|btn-simpanB-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-simpanB-aktif-075.png" SelfReg="false"/>
+    <ROW File="btnsimpanK075.png_1" Component_="appicon.png_2" FileName="BTN-SI~3.PNG|btn-simpanK-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-simpanK-075.png" SelfReg="false"/>
+    <ROW File="btnsimpanKaktif075.png_1" Component_="appicon.png_2" FileName="BTN-SI~4.PNG|btn-simpanK-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-simpanK-aktif-075.png" SelfReg="false"/>
+    <ROW File="btnsimpanS075.png_1" Component_="appicon.png_2" FileName="BTN-SI~5.PNG|btn-simpanS-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-simpanS-075.png" SelfReg="false"/>
+    <ROW File="btnsimpanSaktif075.png_1" Component_="appicon.png_2" FileName="BTN-SI~6.PNG|btn-simpanS-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-simpanS-aktif-075.png" SelfReg="false"/>
+    <ROW File="btntambah075.png_1" Component_="appicon.png_2" FileName="BTN-TA~1.PNG|btn-tambah-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-tambah-075.png" SelfReg="false"/>
+    <ROW File="btntambahaktif075.png_1" Component_="appicon.png_2" FileName="BTN-TA~2.PNG|btn-tambah-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-tambah-aktif-075.png" SelfReg="false"/>
+    <ROW File="btntambahB075.png_1" Component_="appicon.png_2" FileName="BTN-TA~3.PNG|btn-tambahB-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-tambahB-075.png" SelfReg="false"/>
+    <ROW File="btntambahBaktif075.png_1" Component_="appicon.png_2" FileName="BTN-TA~4.PNG|btn-tambahB-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-tambahB-aktif-075.png" SelfReg="false"/>
+    <ROW File="btntambahK075.png_1" Component_="appicon.png_2" FileName="BTN-TA~5.PNG|btn-tambahK-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-tambahK-075.png" SelfReg="false"/>
+    <ROW File="btntambahKaktif075.png_1" Component_="appicon.png_2" FileName="BTN-TA~6.PNG|btn-tambahK-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-tambahK-aktif-075.png" SelfReg="false"/>
+    <ROW File="btntambahS075.png_1" Component_="appicon.png_2" FileName="BTN-TA~7.PNG|btn-tambahS-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-tambahS-075.png" SelfReg="false"/>
+    <ROW File="btntambahSaktif075.png_1" Component_="appicon.png_2" FileName="BTN-TA~8.PNG|btn-tambahS-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\btn-tambahS-aktif-075.png" SelfReg="false"/>
+    <ROW File="laporanpemasukan075.png_1" Component_="appicon.png_2" FileName="LAPORA~1.PNG|laporan-pemasukan-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\laporan-pemasukan-075.png" SelfReg="false"/>
+    <ROW File="laporanpengeluaran075.png_1" Component_="appicon.png_2" FileName="LAPORA~2.PNG|laporan-pengeluaran-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\laporan-pengeluaran-075.png" SelfReg="false"/>
+    <ROW File="sidebarDashboard075.png_1" Component_="appicon.png_2" FileName="SIDEBA~1.PNG|sidebar-Dashboard-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-Dashboard-075.png" SelfReg="false"/>
+    <ROW File="sidebarDashboardaktif075.png_1" Component_="appicon.png_2" FileName="SIDEBA~2.PNG|sidebar-Dashboard-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-Dashboard-aktif-075.png" SelfReg="false"/>
+    <ROW File="sidebarDashboardhover075.png_1" Component_="appicon.png_2" FileName="SIDEBA~3.PNG|sidebar-Dashboard-hover-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-Dashboard-hover-075.png" SelfReg="false"/>
+    <ROW File="sidebardataBarang075.png_1" Component_="appicon.png_2" FileName="SIDEBA~4.PNG|sidebar-dataBarang-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-dataBarang-075.png" SelfReg="false"/>
+    <ROW File="sidebardataBarangaktif075.png_1" Component_="appicon.png_2" FileName="SIDEBA~5.PNG|sidebar-dataBarang-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-dataBarang-aktif-075.png" SelfReg="false"/>
+    <ROW File="sidebardataBaranghover075.png_1" Component_="appicon.png_2" FileName="SIDEBA~6.PNG|sidebar-dataBarang-hover-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-dataBarang-hover-075.png" SelfReg="false"/>
+    <ROW File="sidebardataKaryawan075.png_1" Component_="appicon.png_2" FileName="SIDEBA~7.PNG|sidebar-dataKaryawan-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-dataKaryawan-075.png" SelfReg="false"/>
+    <ROW File="sidebardataKaryawanaktif075.png_1" Component_="appicon.png_2" FileName="SIDEBA~8.PNG|sidebar-dataKaryawan-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-dataKaryawan-aktif-075.png" SelfReg="false"/>
+    <ROW File="sidebardataKaryawanhover075.png_1" Component_="appicon.png_2" FileName="SIDEBA~9.PNG|sidebar-dataKaryawan-hover-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-dataKaryawan-hover-075.png" SelfReg="false"/>
+    <ROW File="sidebardataSupplier075.png_1" Component_="appicon.png_2" FileName="SIDEB~10.PNG|sidebar-dataSupplier-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-dataSupplier-075.png" SelfReg="false"/>
+    <ROW File="sidebardataSupplieraktif075.png_1" Component_="appicon.png_2" FileName="SIDEB~11.PNG|sidebar-dataSupplier-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-dataSupplier-aktif-075.png" SelfReg="false"/>
+    <ROW File="sidebardataSupplierhover075.png_1" Component_="appicon.png_2" FileName="SIDEB~12.PNG|sidebar-dataSupplier-hover-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-dataSupplier-hover-075.png" SelfReg="false"/>
+    <ROW File="sidebarLaporanpemasukan075.png_1" Component_="appicon.png_2" FileName="SIDEB~13.PNG|sidebar-Laporan-pemasukan-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-Laporan-pemasukan-075.png" SelfReg="false"/>
+    <ROW File="sidebarLaporanpemasukanaktif075.png_1" Component_="appicon.png_2" FileName="SIDEB~14.PNG|sidebar-Laporan-pemasukan-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-Laporan-pemasukan-aktif-075.png" SelfReg="false"/>
+    <ROW File="sidebarLaporanpemasukanhover075.png_1" Component_="appicon.png_2" FileName="SIDEB~15.PNG|sidebar-Laporan-pemasukan-hover-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-Laporan-pemasukan-hover-075.png" SelfReg="false"/>
+    <ROW File="sidebarLaporanpengeluaran075.png_1" Component_="appicon.png_2" FileName="SIDEB~16.PNG|sidebar-Laporan-pengeluaran-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-Laporan-pengeluaran-075.png" SelfReg="false"/>
+    <ROW File="sidebarLaporanpengeluaranaktif075.png_1" Component_="appicon.png_2" FileName="SIDEB~17.PNG|sidebar-Laporan-pengeluaran-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-Laporan-pengeluaran-aktif-075.png" SelfReg="false"/>
+    <ROW File="sidebarLaporanpengeluaranhover075.png_1" Component_="appicon.png_2" FileName="SIDEB~18.PNG|sidebar-Laporan-pengeluaran-hover-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-Laporan-pengeluaran-hover-075.png" SelfReg="false"/>
+    <ROW File="sidebarlogout075.png_1" Component_="appicon.png_2" FileName="SIDEB~19.PNG|sidebar-logout-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-logout-075.png" SelfReg="false"/>
+    <ROW File="sidebarlogoutaktif075.png_1" Component_="appicon.png_2" FileName="SIDEB~20.PNG|sidebar-logout-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-logout-aktif-075.png" SelfReg="false"/>
+    <ROW File="sidebarlogouthover075.png_1" Component_="appicon.png_2" FileName="SIDEB~21.PNG|sidebar-logout-hover-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-logout-hover-075.png" SelfReg="false"/>
+    <ROW File="sidebarTransaksibeli075.png_1" Component_="appicon.png_2" FileName="SIDEB~22.PNG|sidebar-Transaksi-beli-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-Transaksi-beli-075.png" SelfReg="false"/>
+    <ROW File="sidebarTransaksibeliaktif075.png_1" Component_="appicon.png_2" FileName="SIDEB~23.PNG|sidebar-Transaksi-beli-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-Transaksi-beli-aktif-075.png" SelfReg="false"/>
+    <ROW File="sidebarTransaksibelihover075.png_1" Component_="appicon.png_2" FileName="SIDEB~24.PNG|sidebar-Transaksi-beli-hover-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-Transaksi-beli-hover-075.png" SelfReg="false"/>
+    <ROW File="sidebarTransaksijual075.png_1" Component_="appicon.png_2" FileName="SIDEB~25.PNG|sidebar-Transaksi-jual-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-Transaksi-jual-075.png" SelfReg="false"/>
+    <ROW File="sidebarTransaksijualaktif075.png_1" Component_="appicon.png_2" FileName="SIDEB~26.PNG|sidebar-Transaksi-jual-aktif-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-Transaksi-jual-aktif-075.png" SelfReg="false"/>
+    <ROW File="sidebarTransaksijualhover075.png_1" Component_="appicon.png_2" FileName="SIDEB~27.PNG|sidebar-Transaksi-jual-hover-075.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\gambar_icon\sidebar-Transaksi-jual-hover-075.png" SelfReg="false"/>
+    <ROW File="appicon.png_3" Component_="appicon.png_3" FileName="app-icon.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\icons\app-icon.png" SelfReg="false"/>
+    <ROW File="applogo.png_1" Component_="appicon.png_3" FileName="app-logo.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\icons\app-logo.png" SelfReg="false"/>
+    <ROW File="appsplashwindow.png_1" Component_="appicon.png_3" FileName="APP-SP~1.PNG|app-splashwindow.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\icons\app-splashwindow.png" SelfReg="false"/>
+    <ROW File="icappcloseentered.png_1" Component_="appicon.png_3" FileName="IC-APP~1.PNG|ic-app-close-entered.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\icons\ic-app-close-entered.png" SelfReg="false"/>
+    <ROW File="icappclose.png_1" Component_="appicon.png_3" FileName="IC-APP~2.PNG|ic-app-close.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\icons\ic-app-close.png" SelfReg="false"/>
+    <ROW File="icapplogoutentered.png_1" Component_="appicon.png_3" FileName="IC-APP~3.PNG|ic-app-logout-entered.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\icons\ic-app-logout-entered.png" SelfReg="false"/>
+    <ROW File="icapplogout.png_1" Component_="appicon.png_3" FileName="IC-APP~4.PNG|ic-app-logout.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\icons\ic-app-logout.png" SelfReg="false"/>
+    <ROW File="icappminimazeentered.png_1" Component_="appicon.png_3" FileName="IC-APP~5.PNG|ic-app-minimaze-entered.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\icons\ic-app-minimaze-entered.png" SelfReg="false"/>
+    <ROW File="icappminimaze.png_1" Component_="appicon.png_3" FileName="IC-APP~6.PNG|ic-app-minimaze.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\icons\ic-app-minimaze.png" SelfReg="false"/>
+    <ROW File="iclogincloseentered.png_1" Component_="appicon.png_3" FileName="IC-LOG~1.PNG|ic-login-close-entered.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\icons\ic-login-close-entered.png" SelfReg="false"/>
+    <ROW File="icloginclose.png_1" Component_="appicon.png_3" FileName="IC-LOG~2.PNG|ic-login-close.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\icons\ic-login-close.png" SelfReg="false"/>
+    <ROW File="iclogineyeclose.png_1" Component_="appicon.png_3" FileName="IC-LOG~3.PNG|ic-login-eye-close.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\icons\ic-login-eye-close.png" SelfReg="false"/>
+    <ROW File="iclogineyeopen.png_1" Component_="appicon.png_3" FileName="IC-LOG~4.PNG|ic-login-eye-open.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\icons\ic-login-eye-open.png" SelfReg="false"/>
+    <ROW File="icloginminimazeentered.png_1" Component_="appicon.png_3" FileName="IC-LOG~5.PNG|ic-login-minimaze-entered.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\icons\ic-login-minimaze-entered.png" SelfReg="false"/>
+    <ROW File="icloginminimaze.png_1" Component_="appicon.png_3" FileName="IC-LOG~6.PNG|ic-login-minimaze.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\icons\ic-login-minimaze.png" SelfReg="false"/>
+    <ROW File="icpembayarancancelentered.png_1" Component_="appicon.png_3" FileName="IC-PEM~1.PNG|ic-pembayaran-cancel-entered.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\icons\ic-pembayaran-cancel-entered.png" SelfReg="false"/>
+    <ROW File="icpembayarancancel.png_1" Component_="appicon.png_3" FileName="IC-PEM~2.PNG|ic-pembayaran-cancel.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\icons\ic-pembayaran-cancel.png" SelfReg="false"/>
+    <ROW File="icpembayaranerrorentered.png_1" Component_="appicon.png_3" FileName="IC-PEM~3.PNG|ic-pembayaran-error-entered.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\icons\ic-pembayaran-error-entered.png" SelfReg="false"/>
+    <ROW File="icpembayaranerror.png_1" Component_="appicon.png_3" FileName="IC-PEM~4.PNG|ic-pembayaran-error.png" Attributes="0" SourcePath="..\..\..\..\..\umkm\src\resources\image\icons\ic-pembayaran-error.png" SelfReg="false"/>
+    <ROW File="umkm.jar_1" Component_="appicon.ico" FileName="umkm.jar" Attributes="0" SourcePath="..\..\..\..\..\umkm\umkm.jar" SelfReg="false"/>
+    <ROW File="netbeans_automatic_build" Component_="netbeans_automatic_build" FileName="NETBEA~1|.netbeans_automatic_build" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\.netbeans_automatic_build" SelfReg="false"/>
+    <ROW File="netbeans_update_resources" Component_="netbeans_automatic_build" FileName="NETBEA~2|.netbeans_update_resources" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\.netbeans_update_resources" SelfReg="false"/>
+    <ROW File="ConfirmLogout.form_1" Component_="ConfirmLogout.form_1" FileName="CONFIR~1.FOR|ConfirmLogout.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\ConfirmLogout.form" SelfReg="false"/>
+    <ROW File="InputBarang.form_1" Component_="ConfirmLogout.form_1" FileName="INPUTB~1.FOR|InputBarang.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputBarang.form" SelfReg="false"/>
+    <ROW File="InputKaryawan.form_1" Component_="ConfirmLogout.form_1" FileName="INPUTK~1.FOR|InputKaryawan.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputKaryawan.form" SelfReg="false"/>
+    <ROW File="InputSupplier.form_1" Component_="ConfirmLogout.form_1" FileName="INPUTS~1.FOR|InputSupplier.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\dialogs\InputSupplier.form" SelfReg="false"/>
+    <ROW File="GantiWindow.form_1" Component_="GantiWindow.form_1" FileName="GANTIW~1.FOR|GantiWindow.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\GantiWindow.form" SelfReg="false"/>
+    <ROW File="LoginWindow.form_1" Component_="GantiWindow.form_1" FileName="LOGINW~1.FOR|LoginWindow.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\LoginWindow.form" SelfReg="false"/>
+    <ROW File="SplashWindow.form_1" Component_="GantiWindow.form_1" FileName="SPLASH~1.FOR|SplashWindow.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\SplashWindow.form" SelfReg="false"/>
+    <ROW File="WelcomeApp.form_1" Component_="GantiWindow.form_1" FileName="WELCOM~1.FOR|WelcomeApp.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\frames\WelcomeApp.form" SelfReg="false"/>
+    <ROW File="MainWindow.form_1" Component_="MainWindow.form_1" FileName="MAINWI~1.FOR|MainWindow.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\MainWindow.form" SelfReg="false"/>
+    <ROW File="Dashboard.form_1" Component_="Dashboard.form_1" FileName="DASHBO~1.FOR|Dashboard.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\Dashboard.form" SelfReg="false"/>
+    <ROW File="DataBarang.form_1" Component_="Dashboard.form_1" FileName="DATABA~1.FOR|DataBarang.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataBarang.form" SelfReg="false"/>
+    <ROW File="DataKaryawan.form_1" Component_="Dashboard.form_1" FileName="DATAKA~1.FOR|DataKaryawan.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataKaryawan.form" SelfReg="false"/>
+    <ROW File="DataSupplier.form_1" Component_="Dashboard.form_1" FileName="DATASU~1.FOR|DataSupplier.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\DataSupplier.form" SelfReg="false"/>
+    <ROW File="detailLaporanBeli.form_1" Component_="Dashboard.form_1" FileName="DETAIL~1.FOR|detailLaporanBeli.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\detailLaporanBeli.form" SelfReg="false"/>
+    <ROW File="detailLaporanJual.form_1" Component_="Dashboard.form_1" FileName="DETAIL~2.FOR|detailLaporanJual.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\detailLaporanJual.form" SelfReg="false"/>
+    <ROW File="LaporanBeli.form_1" Component_="Dashboard.form_1" FileName="LAPORA~1.FOR|LaporanBeli.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanBeli.form" SelfReg="false"/>
+    <ROW File="LaporanJual.form_1" Component_="Dashboard.form_1" FileName="LAPORA~2.FOR|LaporanJual.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\LaporanJual.form" SelfReg="false"/>
+    <ROW File="TransaksiBeli.form_1" Component_="Dashboard.form_1" FileName="TRANSA~1.FOR|TransaksiBeli.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiBeli.form" SelfReg="false"/>
+    <ROW File="TransaksiJual.form_1" Component_="Dashboard.form_1" FileName="TRANSA~2.FOR|TransaksiJual.form" Attributes="0" SourcePath="..\..\..\..\..\umkm\build\classes\com\window\panels\TransaksiJual.form" SelfReg="false"/>
+    <ROW File="NanoApp1.exe" Component_="NanoApp1.exe" FileName="NANOAP~2.EXE|Nano App 64.exe" Attributes="0" SourcePath="&lt;AI_STUBS_64&gt;aijclw.exe" SelfReg="false" DigSign="true"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.custcomp.MsiEmbeddedUIComponent">
+    <ROW MsiEmbeddedUI="embeddeduiproxy" FileName="embeddeduiproxy.dll" Attributes="3" MessageFilter="201359327" Data="&lt;AI_HOME&gt;bin\x86\embeddeduiproxy.dll"/>
+    <ROW MsiEmbeddedUI="InstallerAnalytics" FileName="InstallerAnalytics.dll" Attributes="0" Data="&lt;AI_TEMPLATES&gt;PlaceHolder.dat"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.AiPersistentPropComponent">
+    <ROW Property="AI_IA_ENABLE" Registry="AI_IA_ENABLE" HklmSearch="AI_IA_ENABLE" HkcuSearch="AI_IA_ENABLE_1"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
+    <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.BootstrapperUISequenceComponent">
+    <ROW Action="AI_DetectSoftware" Sequence="151"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
+    <ROW BuildKey="BuildMacOS" BuildName="BuildMacOS" BuildOrder="2" BuildType="2" PackageFileName="Nano App Setup" Languages="en" MacDefaultMemorySize="128"/>
+    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFolder="Nano App\Setup Files" Languages="en" InstallationType="4" CabsLocation="1" PackageType="1" FilesInsideExe="true" ExeIconPath="..\..\..\..\..\umkm\app-icon.ico" ExtractionFolder="[AppDataFolder][|Manufacturer]\[|ProductName] [|ProductVersion]\install" ExtUI="true" UseLargeSchema="true" ExeName="Nano App Setup" MsiPackageType="AI_ALL"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
+    <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
+    <ROW Path="&lt;AI_DICTS&gt;ui_en.ail"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
+    <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>
+    <ROW Fragment="FolderDlg.aip" Path="&lt;AI_THEMES&gt;graphite\fragments\FolderDlg.aip"/>
+    <ROW Fragment="MaintenanceTypeDlg.aip" Path="&lt;AI_THEMES&gt;graphite\fragments\MaintenanceTypeDlg.aip"/>
+    <ROW Fragment="MaintenanceWelcomeDlg.aip" Path="&lt;AI_THEMES&gt;graphite\fragments\MaintenanceWelcomeDlg.aip"/>
+    <ROW Fragment="SequenceDialogs.aip" Path="&lt;AI_THEMES&gt;graphite\fragments\SequenceDialogs.aip"/>
+    <ROW Fragment="Sequences.aip" Path="&lt;AI_FRAGS&gt;Sequences.aip"/>
+    <ROW Fragment="StaticUIStrings.aip" Path="&lt;AI_FRAGS&gt;StaticUIStrings.aip"/>
+    <ROW Fragment="UI.aip" Path="&lt;AI_THEMES&gt;graphite\fragments\UI.aip"/>
+    <ROW Fragment="Validation.aip" Path="&lt;AI_FRAGS&gt;Validation.aip"/>
+    <ROW Fragment="VerifyRemoveDlg.aip" Path="&lt;AI_THEMES&gt;graphite\fragments\VerifyRemoveDlg.aip"/>
+    <ROW Fragment="VerifyRepairDlg.aip" Path="&lt;AI_THEMES&gt;graphite\fragments\VerifyRepairDlg.aip"/>
+    <ROW Fragment="WelcomeDlg.aip" Path="&lt;AI_THEMES&gt;graphite\fragments\WelcomeDlg.aip"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiActionTextComponent">
+    <ROW Action="AI_DeleteLzma" Description="Deleting files extracted from archive" DescriptionLocId="ActionText.Description.AI_DeleteLzma" TemplateLocId="-"/>
+    <ROW Action="AI_DeleteRLzma" Description="Deleting files extracted from archive" DescriptionLocId="ActionText.Description.AI_DeleteLzma" TemplateLocId="-"/>
+    <ROW Action="AI_ExtractFiles" Description="Extracting files from archive" DescriptionLocId="ActionText.Description.AI_ExtractLzma" TemplateLocId="-"/>
+    <ROW Action="AI_ExtractLzma" Description="Extracting files from archive" DescriptionLocId="ActionText.Description.AI_ExtractLzma" TemplateLocId="-"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiAppSearchComponent">
+    <ROW Property="AI_SETUPEXEPATH" Signature_="AI_EXE_PATH_LM" Builds="DefaultBuild"/>
+    <ROW Property="AI_SETUPEXEPATH" Signature_="AI_EXE_PATH_CU" Builds="DefaultBuild"/>
+    <ROW Property="AI_IA_ENABLE" Signature_="AI_IA_ENABLE"/>
+    <ROW Property="AI_IA_ENABLE" Signature_="AI_IA_ENABLE_1"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiBinaryComponent">
+    <ROW Name="InstallerAnalytics.dll" SourcePath="&lt;AI_CUSTACTS&gt;InstallerAnalytics.dll"/>
+    <ROW Name="Prereq.dll" SourcePath="&lt;AI_CUSTACTS&gt;Prereq.dll"/>
+    <ROW Name="SoftwareDetector.dll" SourcePath="&lt;AI_CUSTACTS&gt;SoftwareDetector.dll"/>
+    <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
+    <ROW Name="lzmaextractor.dll" SourcePath="&lt;AI_CUSTACTS&gt;lzmaextractor.dll"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiControlEventComponent">
+    <ROW Dialog_="WelcomeDlg" Control_="Next" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="FolderDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="FolderDlg" Control_="Back" Event="NewDialog" Argument="WelcomeDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_INSTALL" Ordering="197"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="MaintenanceWelcomeDlg" Control_="Next" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="99"/>
+    <ROW Dialog_="CustomizeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_MAINT" Ordering="101"/>
+    <ROW Dialog_="CustomizeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_MAINT" Ordering="198"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="202"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="Next" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="1401"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceWelcomeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="Next" Event="NewDialog" Argument="VerifyRemoveDlg" Condition="AI_MAINT AND MaintenanceTypeOption=&quot;Remove&quot;" Ordering="1403"/>
+    <ROW Dialog_="VerifyRemoveDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT AND MaintenanceTypeOption=&quot;Remove&quot;" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="Next" Event="NewDialog" Argument="VerifyRepairDlg" Condition="AI_MAINT AND MaintenanceTypeOption=&quot;Repair&quot;" Ordering="1402"/>
+    <ROW Dialog_="VerifyRepairDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT AND MaintenanceTypeOption=&quot;Repair&quot;" Ordering="1"/>
+    <ROW Dialog_="VerifyRepairDlg" Control_="Repair" Event="EndDialog" Argument="Return" Condition="AI_MAINT AND MaintenanceTypeOption=&quot;Repair&quot;" Ordering="399" Options="1"/>
+    <ROW Dialog_="VerifyRemoveDlg" Control_="Remove" Event="EndDialog" Argument="Return" Condition="AI_MAINT AND MaintenanceTypeOption=&quot;Remove&quot;" Ordering="299" Options="1"/>
+    <ROW Dialog_="PatchWelcomeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_PATCH" Ordering="201"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_PATCH" Ordering="199"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="PatchWelcomeDlg" Condition="AI_PATCH" Ordering="203"/>
+    <ROW Dialog_="ResumeDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_RESUME" Ordering="299"/>
+    <ROW Dialog_="CancelDlg" Control_="Yes" Event="DoAction" Argument="AI_IaLogPkgExitUserAbort" Condition="VersionMsi &lt; &quot;4.05&quot; OR UILevel = 2 OR LIMITUI = 1 OR UPGRADINGPRODUCTCODE" Ordering="101"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCreateFolderComponent">
+    <ROW Directory_="APPDIR" Component_="APPDIR" ManualDelete="true"/>
+    <ROW Directory_="SHORTCUTDIR" Component_="SHORTCUTDIR" ManualDelete="false"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCustActComponent">
+    <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Type="51" Source="AI_SETUPEXEPATH_ORIGINAL" Target="[AI_SETUPEXEPATH]"/>
+    <ROW Action="AI_DATA_SETTER" Type="51" Source="CustomActionData" Target="[AI_SETUPEXEPATH]"/>
+    <ROW Action="AI_DOWNGRADE" Type="19" Target="4010"/>
+    <ROW Action="AI_DeleteCadLzma" Type="51" Source="AI_DeleteLzma" Target="[AI_SETUPEXEPATH]"/>
+    <ROW Action="AI_DeleteLzma" Type="1025" Source="lzmaextractor.dll" Target="DeleteLZMAFiles"/>
+    <ROW Action="AI_DeleteRCadLzma" Type="51" Source="AI_DeleteRLzma" Target="[AI_SETUPEXEPATH]"/>
+    <ROW Action="AI_DeleteRLzma" Type="1281" Source="lzmaextractor.dll" Target="DeleteLZMAFiles"/>
+    <ROW Action="AI_DetectSoftware" Type="257" Source="SoftwareDetector.dll" Target="OnDetectSoftware"/>
+    <ROW Action="AI_DpiContentScale" Type="1" Source="aicustact.dll" Target="DpiContentScale"/>
+    <ROW Action="AI_EnableDebugLog" Type="321" Source="aicustact.dll" Target="EnableDebugLog"/>
+    <ROW Action="AI_ExtractCadLzma" Type="51" Source="AI_ExtractLzma" Target="[AI_SETUPEXEPATH]"/>
+    <ROW Action="AI_ExtractFiles" Type="1" Source="Prereq.dll" Target="ExtractSourceFiles" AdditionalSeq="AI_DATA_SETTER"/>
+    <ROW Action="AI_ExtractLzma" Type="1025" Source="lzmaextractor.dll" Target="ExtractLZMAFiles"/>
+    <ROW Action="AI_FindExeLzma" Type="1" Source="lzmaextractor.dll" Target="FindEXE"/>
+    <ROW Action="AI_IaLogInstallData" Type="65" Source="InstallerAnalytics.dll" Target="OnAnalyticsLogInstallData"/>
+    <ROW Action="AI_IaLogMachineInfo" Type="321" Source="InstallerAnalytics.dll" Target="OnAnalyticsLogMachineInfo"/>
+    <ROW Action="AI_IaLogPkgExitFatalError" Type="65" Source="InstallerAnalytics.dll" Target="OnAnalyticsLogFatalError"/>
+    <ROW Action="AI_IaLogPkgExitFinish" Type="65" Source="InstallerAnalytics.dll" Target="OnAnalyticsLogFinish"/>
+    <ROW Action="AI_IaLogPkgExitUserAbort" Type="65" Source="InstallerAnalytics.dll" Target="OnAnalyticsLogUserAbort" WithoutSeq="true"/>
+    <ROW Action="AI_IaLogPkgStarted" Type="321" Source="InstallerAnalytics.dll" Target="OnAnalyticsLogStart"/>
+    <ROW Action="AI_IaToggle" Type="65" Source="InstallerAnalytics.dll" Target="OnAnalyticsToggle"/>
+    <ROW Action="AI_InstallModeCheck" Type="1" Source="aicustact.dll" Target="UpdateInstallMode" WithoutSeq="true"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Type="65" Source="aicustact.dll" Target="PrepareUpgrade"/>
+    <ROW Action="AI_RESTORE_AI_SETUPEXEPATH" Type="51" Source="AI_SETUPEXEPATH" Target="[AI_SETUPEXEPATH_ORIGINAL]"/>
+    <ROW Action="AI_RESTORE_LOCATION" Type="65" Source="aicustact.dll" Target="RestoreLocation"/>
+    <ROW Action="AI_ResolveKnownFolders" Type="1" Source="aicustact.dll" Target="AI_ResolveKnownFolders"/>
+    <ROW Action="AI_SETPROGRAMFILES" Type="51" Source="AI_ProgramFiles" Target="[ProgramFilesFolder]"/>
+    <ROW Action="AI_SETPROGRAMFILES64" Type="51" Source="AI_ProgramFiles" Target="[ProgramFiles64Folder]"/>
+    <ROW Action="AI_SHOW_LOG" Type="65" Source="aicustact.dll" Target="LaunchLogFile" WithoutSeq="true"/>
+    <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
+    <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]" MultiBuildTarget="DefaultBuild:[AI_ProgramFiles][Manufacturer]\[ProductName]"/>
+    <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]"/>
+    <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatCompsComponent">
+    <ROW Feature_="MainFeature" Component_="APPDIR"/>
+    <ROW Feature_="MainFeature" Component_="ProductInformation"/>
+    <ROW Feature_="MainFeature" Component_="AI_ExePath"/>
+    <ROW Feature_="MainFeature" Component_="AI_IA_ENABLE"/>
+    <ROW Feature_="AIOtherFiles" Component_="Application1.class"/>
+    <ROW Feature_="AIOtherFiles" Component_="appicon.png"/>
+    <ROW Feature_="AIOtherFiles" Component_="ConfirmLogout1.class"/>
+    <ROW Feature_="AIOtherFiles" Component_="GantiWindow1.class"/>
+    <ROW Feature_="AIOtherFiles" Component_="Dashboard1.class"/>
+    <ROW Feature_="AIOtherFiles" Component_="MainWindow1.class"/>
+    <ROW Feature_="AIOtherFiles" Component_="appicon.ico"/>
+    <ROW Feature_="AIOtherFiles" Component_="Database.class"/>
+    <ROW Feature_="AIOtherFiles" Component_="appicon.png_1"/>
+    <ROW Feature_="AIOtherFiles" Component_="GantiWindow.form"/>
+    <ROW Feature_="AIOtherFiles" Component_="appicon.png_2"/>
+    <ROW Feature_="AIOtherFiles" Component_="builtjar.properties"/>
+    <ROW Feature_="AIOtherFiles" Component_="appdashboard075testingaja.png"/>
+    <ROW Feature_="AIOtherFiles" Component_="appicon.png_3"/>
+    <ROW Feature_="AIOtherFiles" Component_="AuthenticationException.java"/>
+    <ROW Feature_="AIOtherFiles" Component_="BarangBRG.class"/>
+    <ROW Feature_="AIOtherFiles" Component_="AbsoluteLayout.jar_1"/>
+    <ROW Feature_="AIOtherFiles" Component_="Database.java"/>
+    <ROW Feature_="AIOtherFiles" Component_="Dashboard.form"/>
+    <ROW Feature_="AIOtherFiles" Component_="AuthenticationException.class"/>
+    <ROW Feature_="AIOtherFiles" Component_="appdashboard075testingaja.png_1"/>
+    <ROW Feature_="AIOtherFiles" Component_="Barang.java"/>
+    <ROW Feature_="AIOtherFiles" Component_="README.TXT"/>
+    <ROW Feature_="AIOtherFiles" Component_="Audio1.class"/>
+    <ROW Feature_="AIOtherFiles" Component_="AbsoluteLayout.jar"/>
+    <ROW Feature_="AIOtherFiles" Component_="Karyawan.java"/>
+    <ROW Feature_="AIOtherFiles" Component_="ConfirmLogout.form"/>
+    <ROW Feature_="AIOtherFiles" Component_="sounderror.wav"/>
+    <ROW Feature_="AIOtherFiles" Component_="private.properties"/>
+    <ROW Feature_="AIOtherFiles" Component_="MainWindow.form"/>
+    <ROW Feature_="AIOtherFiles" Component_="Main.class"/>
+    <ROW Feature_="AIOtherFiles" Component_="buildimpl.xml"/>
+    <ROW Feature_="AIOtherFiles" Component_="Application.java"/>
+    <ROW Feature_="AIOtherFiles" Component_="Audio.java"/>
+    <ROW Feature_="AIOtherFiles" Component_="Karyawan.class"/>
+    <ROW Feature_="AIOtherFiles" Component_="Main.java"/>
+    <ROW Feature_="AIOtherFiles" Component_="sounderror.wav_1"/>
+    <ROW Feature_="AIOtherFiles" Component_="NanoDB.sql"/>
+    <ROW Feature_="AI32BitFiles" Component_="NanoApp.exe"/>
+    <ROW Feature_="AI32BitFiles" Component_="SHORTCUTDIR"/>
+    <ROW Feature_="MainFeature" Component_="NanoApp1.exe"/>
+    <ROW Feature_="AIOtherFiles" Component_="netbeans_automatic_build"/>
+    <ROW Feature_="AIOtherFiles" Component_="GantiWindow.form_1"/>
+    <ROW Feature_="AIOtherFiles" Component_="Dashboard.form_1"/>
+    <ROW Feature_="AIOtherFiles" Component_="ConfirmLogout.form_1"/>
+    <ROW Feature_="AIOtherFiles" Component_="MainWindow.form_1"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
+    <ROW Name="NanoApp64.exe" SourcePath="..\..\..\..\..\umkm\app-icon.ico" Index="0"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiIniFileComponent">
+    <ROW IniFile="ApplicationType" FileName="NANOAP~2.INI|Nano App.ini" DirProperty="APPDIR" Section="Application" Key="Application Type" Value="gui" Action="0" Component_="NanoApp.exe"/>
+    <ROW IniFile="ApplicationType_1" FileName="NANOAP~1.INI|Nano App (1).ini" DirProperty="APPDIR" Section="Application" Key="Application Type" Value="gui" Action="0" Component_="NanoApp1.exe"/>
+    <ROW IniFile="ClassPath" FileName="NANOAP~2.INI|Nano App.ini" DirProperty="APPDIR" Section="Class Path" Key="Class Path" Value="[#AbsoluteLayout.jar_1];[#jBCrypt0.4.1.jar_1];[#jcalendar1.4.jar_1];[#jcommon1.0.23.jar_1];[#jfreechart1.0.19.jar_1];[#jl1.0.1.jar_1];[#KGradientPanel.jar_1];[#mail.jar_1];[#miglayout4.0.jar_1];[#mysqlconnectorjava5.1.48.jar_1];[#TimingFramework0.55.jar_1];[#umkm.jar_1];" Action="0" Component_="NanoApp.exe"/>
+    <ROW IniFile="ClassPath_1" FileName="NANOAP~1.INI|Nano App (1).ini" DirProperty="APPDIR" Section="Class Path" Key="Class Path" Value="[#AbsoluteLayout.jar_1];[#jBCrypt0.4.1.jar_1];[#jcalendar1.4.jar_1];[#jcommon1.0.23.jar_1];[#jfreechart1.0.19.jar_1];[#jl1.0.1.jar_1];[#KGradientPanel.jar_1];[#mail.jar_1];[#miglayout4.0.jar_1];[#mysqlconnectorjava5.1.48.jar_1];[#TimingFramework0.55.jar_1];[#umkm.jar_1];" Action="0" Component_="NanoApp1.exe"/>
+    <ROW IniFile="EmbeddedJar" FileName="NANOAP~3.INI|Nano App 64.ini" DirProperty="APPDIR" Section="Application" Key="Embedded Jar" Value="yes" Action="0" Component_="appdashboard075testingaja.png_1"/>
+    <ROW IniFile="EmbeddedJar_1" FileName="NANOAP~2.INI|Nano App.ini" DirProperty="APPDIR" Section="Application" Key="Embedded Jar" Value="yes" Action="0" Component_="NanoApp.exe"/>
+    <ROW IniFile="FailureCheck" FileName="NANOAP~2.INI|Nano App.ini" DirProperty="APPDIR" Section="Application" Key="Failure Check" Value="yes" Action="0" Component_="NanoApp.exe"/>
+    <ROW IniFile="FailureCheck_1" FileName="NANOAP~1.INI|Nano App (1).ini" DirProperty="APPDIR" Section="Application" Key="Failure Check" Value="yes" Action="0" Component_="NanoApp1.exe"/>
+    <ROW IniFile="MainClass" FileName="NANOAP~2.INI|Nano App.ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="Main Class" Value="com.main.Main" Action="0" Component_="NanoApp.exe"/>
+    <ROW IniFile="MainClass_1" FileName="NANOAP~1.INI|Nano App (1).ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="Main Class" Value="com.main.Main" Action="0" Component_="NanoApp1.exe"/>
+    <ROW IniFile="MaximumVersion" FileName="NANOAP~2.INI|Nano App.ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="Maximum Version" Value="any" Action="0" Component_="NanoApp.exe"/>
+    <ROW IniFile="MaximumVersion_1" FileName="NANOAP~1.INI|Nano App (1).ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="Maximum Version" Value="any" Action="0" Component_="NanoApp1.exe"/>
+    <ROW IniFile="MinimumVersion" FileName="NANOAP~2.INI|Nano App.ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="Minimum Version" Value="1.4" Action="0" Component_="NanoApp.exe"/>
+    <ROW IniFile="MinimumVersion_1" FileName="NANOAP~1.INI|Nano App (1).ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="Minimum Version" Value="1.4" Action="0" Component_="NanoApp1.exe"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
+    <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>
+    <ROW Action="AI_DETECT_MODERNWIN" Condition="(VersionNT &gt;= 603)" Sequence="57" MsiKey="AI_DETECT_MODERNWIN"/>
+    <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="745"/>
+    <ROW Action="AI_STORE_LOCATION" Condition="(Not Installed) OR REINSTALL" Sequence="1501"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Condition="AI_UPGRADE=&quot;No&quot; AND (Not Installed)" Sequence="1397"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="56"/>
+    <ROW Action="AI_EnableDebugLog" Sequence="55"/>
+    <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Sequence="99" Builds="DefaultBuild"/>
+    <ROW Action="AI_RESTORE_AI_SETUPEXEPATH" Condition="AI_SETUPEXEPATH_ORIGINAL" Sequence="103" Builds="DefaultBuild"/>
+    <ROW Action="AI_DeleteCadLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="199" Builds="DefaultBuild"/>
+    <ROW Action="AI_DeleteRCadLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="198" Builds="DefaultBuild"/>
+    <ROW Action="AI_ExtractCadLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="197" Builds="DefaultBuild"/>
+    <ROW Action="AI_FindExeLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="196" Builds="DefaultBuild"/>
+    <ROW Action="AI_ExtractLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="1549" Builds="DefaultBuild"/>
+    <ROW Action="AI_DeleteRLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="1548" Builds="DefaultBuild"/>
+    <ROW Action="AI_DeleteLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="6599" Builds="DefaultBuild"/>
+    <ROW Action="AI_ExtractFiles" Sequence="1399" Builds="DefaultBuild"/>
+    <ROW Action="AI_DATA_SETTER" Sequence="1398"/>
+    <ROW Action="AI_IaToggle" Sequence="102"/>
+    <ROW Action="AI_IaLogPkgStarted" Condition="VersionMsi &lt; &quot;4.05&quot; OR UILevel = 2 OR LIMITUI = 1 OR UPGRADINGPRODUCTCODE" Sequence="54"/>
+    <ROW Action="AI_IaLogPkgExitFinish" Condition="VersionMsi &lt; &quot;4.05&quot; OR UILevel = 2 OR LIMITUI = 1 OR UPGRADINGPRODUCTCODE" Sequence="-1"/>
+    <ROW Action="AI_IaLogPkgExitFatalError" Condition="VersionMsi &lt; &quot;4.05&quot; OR UILevel = 2 OR LIMITUI = 1 OR UPGRADINGPRODUCTCODE" Sequence="-3"/>
+    <ROW Action="AI_IaLogPkgExitUserAbort" Condition="VersionMsi &lt; &quot;4.05&quot; OR UILevel = 2 OR LIMITUI = 1 OR UPGRADINGPRODUCTCODE" Sequence="-2"/>
+    <ROW Action="AI_IaLogInstallData" Sequence="1401"/>
+    <ROW Action="AI_IaLogMachineInfo" Sequence="399"/>
+    <ROW Action="AI_DetectSoftware" Sequence="101"/>
+    <ROW Action="AI_SETPROGRAMFILES64" Condition="VersionNT64" Sequence="746"/>
+    <ROW Action="AI_SETPROGRAMFILES" Condition="NOT VersionNT64" Sequence="747"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
+    <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="745"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="54"/>
+    <ROW Action="AI_DpiContentScale" Sequence="53"/>
+    <ROW Action="AI_EnableDebugLog" Sequence="52"/>
+    <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Sequence="98"/>
+    <ROW Action="AI_RESTORE_AI_SETUPEXEPATH" Condition="AI_SETUPEXEPATH_ORIGINAL" Sequence="102"/>
+    <ROW Action="AI_IaToggle" Sequence="99"/>
+    <ROW Action="AI_IaLogPkgStarted" Condition="VersionMsi &lt; &quot;4.05&quot; OR UILevel = 2 OR LIMITUI = 1 OR UPGRADINGPRODUCTCODE" Sequence="51"/>
+    <ROW Action="AI_IaLogMachineInfo" Sequence="399"/>
+    <ROW Action="AI_DetectSoftware" Sequence="101"/>
+    <ROW Action="AI_SETPROGRAMFILES64" Condition="VersionNT64" Sequence="746"/>
+    <ROW Action="AI_SETPROGRAMFILES" Condition="NOT VersionNT64" Sequence="747"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiJavaComponent">
+    <ROW Name="Nano App (1).exe" Launcher="NanoApp1.exe" MainClass="MainClass_1" ClassPath="ClassPath_1" JREMin="MinimumVersion_1" JREMax="MaximumVersion_1" IconPath="..\..\..\..\..\umkm\app-icon.ico" AppType="ApplicationType_1" PlusList="APPDIR;" MinusList="#NanoApp.exe;" MacVersion="10.0.0" MacDescription="[|CurrentJavaProductName] [|ProductVersion] © [|Manufacturer], Inc, 2023" MacBundleId="com.[|Manufacturer].[|ProductName].[|CurrentJavaProductName]" FailureCheck="FailureCheck_1" UACExecutionLevel="0" Platform64="true" EmbJarPath="..\..\..\..\..\umkm\umkm.jar" AnyPlatform="true" SynchMask="-15977278472195"/>
+    <ROW Name="Nano App.exe" Launcher="NanoApp.exe" MainClass="MainClass" ClassPath="ClassPath" JREMin="MinimumVersion" JREMax="MaximumVersion" IconPath="..\..\..\..\..\umkm\app-icon.ico" AppType="ApplicationType" PlusList="APPDIR;" MinusList="#NanoApp.exe;#NanoApp1.exe;" MacVersion="10.0.0" MacDescription="[|CurrentJavaProductName] [|ProductVersion] © [|Manufacturer], Inc, 2023" MacBundleId="com.[|Manufacturer].[|ProductName].[|CurrentJavaProductName]" FailureCheck="FailureCheck" UACExecutionLevel="0" EmbJarPath="..\..\..\..\..\umkm\umkm.jar" HasEmbJar="EmbeddedJar_1" AnyPlatform="true" Pair64="Nano App (1).exe" Children="Nano App (1).exe"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiLaunchConditionsComponent">
+    <ROW Condition="((VersionNT &lt;&gt; 501) AND (VersionNT &lt;&gt; 502))" Description="[ProductName] cannot be installed on [WindowsTypeNT5XDisplay]." DescriptionLocId="AI.LaunchCondition.NoNT5X" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="(VersionNT &lt;&gt; 400)" Description="[ProductName] cannot be installed on [WindowsTypeNT40Display]." DescriptionLocId="AI.LaunchCondition.NoNT40" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="(VersionNT &lt;&gt; 500)" Description="[ProductName] cannot be installed on [WindowsTypeNT50Display]." DescriptionLocId="AI.LaunchCondition.NoNT50" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="SETUPEXEDIR OR (REMOVE=&quot;ALL&quot;)" Description="This package can only be run from a bootstrapper." DescriptionLocId="AI.LaunchCondition.RequireBootstrapper" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]." DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="DefaultBuild"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiRegLocatorComponent">
+    <ROW Signature_="AI_EXE_PATH_CU" Root="1" Key="Software\Caphyon\Advanced Installer\LZMA\[ProductCode]\[ProductVersion]" Name="AI_ExePath" Type="2"/>
+    <ROW Signature_="AI_EXE_PATH_LM" Root="2" Key="Software\Caphyon\Advanced Installer\LZMA\[ProductCode]\[ProductVersion]" Name="AI_ExePath" Type="2"/>
+    <ROW Signature_="AI_IA_ENABLE" Root="2" Key="Software\[Manufacturer]\[ProductCode]" Name="AI_IA_ENABLE" Type="2"/>
+    <ROW Signature_="AI_IA_ENABLE_1" Root="1" Key="Software\[Manufacturer]\[ProductCode]" Name="AI_IA_ENABLE" Type="2"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiRegsComponent">
+    <ROW Registry="AI_ExePath" Root="-1" Key="Software\Caphyon\Advanced Installer\LZMA\[ProductCode]\[ProductVersion]" Name="AI_ExePath" Value="[AI_SETUPEXEPATH]" Component_="AI_ExePath"/>
+    <ROW Registry="AI_IA_ENABLE" Root="-1" Key="Software\[Manufacturer]\[ProductCode]" Name="AI_IA_ENABLE" Value="[AI_IA_ENABLE]" Component_="AI_IA_ENABLE"/>
+    <ROW Registry="Path" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Path" Value="[APPDIR]" Component_="ProductInformation"/>
+    <ROW Registry="Version" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Version" Value="[ProductVersion]" Component_="ProductInformation"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiShortsComponent">
+    <ROW Shortcut="NanoApp.exe" Directory_="SHORTCUTDIR" Name="NanoApp.exe" Component_="NanoApp.exe" Target="[#NanoApp.exe]" Description="NanoApp.exe" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="NanoApp.exe_1" Directory_="DesktopFolder" Name="NanoApp.exe" Component_="NanoApp.exe" Target="[#NanoApp.exe]" Description="NanoApp.exe" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="NanoApp.exe_2" Directory_="StartMenuFolder" Name="NanoApp.exe" Component_="NanoApp.exe" Target="[#NanoApp.exe]" Description="NanoApp.exe" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="NanoApp64" Directory_="SHORTCUTDIR" Name="NANOAP~1|Nano App 64" Component_="NanoApp1.exe" Target="[#NanoApp1.exe]" Description="[|CurrentJavaProductName] [|ProductVersion] © [|Manufacturer], Inc, 2023" Hotkey="0" Icon_="NanoApp64.exe" IconIndex="0" ShowCmd="1"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiThemeComponent">
+    <ATTRIBUTE name="UsedTheme" value="graphite"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiUpgradeComponent">
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="0.0.1" VersionMax="[|ProductVersion]" Attributes="257" ActionProperty="OLDPRODUCTS"/>
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="[|ProductVersion]" Attributes="2" ActionProperty="AI_NEWERPRODUCTFOUND"/>
+  </COMPONENT>
+</DOCUMENT>
