@@ -1,5 +1,5 @@
 package com.window.dialogs;
-
+import com.manage.Text;
 import com.manage.Message;
 import com.media.Gambar;
 import com.manage.Barang;
@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
 public class InputBarang extends javax.swing.JDialog {
 
     private final Barang barang = new Barang();
-    
+    private final Text text = new Text();
     public int option;
     
     public static final int ADD_OPTION = 1, EDIT_OPTION = 2;
@@ -115,19 +115,50 @@ public class InputBarang extends javax.swing.JDialog {
         if (this.nama.equals("")) {
             error = true;
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            Message.showWarning(this, "Username harus Di isi !");
+            Message.showWarning(this, "Nama Barang harus Di isi !");
+        } else if (text.containsNumbers(this.nama)) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Nama Barang harus Huruf !");
+        } else if (text.containsSymbols(this.nama)) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Nama Barang harus Huruf !");
         } else if (this.stok.equals("")) {
             error = true;
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             Message.showWarning(this, "Stok harus Di isi !");
+        } else if (text.containsCharacters(this.stok)) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Stok harus Angka !");
+        } else if (text.containsSymbols(this.stok)) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Stok harus Angka !");
         } else if (this.hargaBeli.equals("")) {
             error = true;
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            Message.showWarning(this, "Harga beli harus Di isi !");
+        } else if (text.containsCharacters(this.hargaBeli)) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Harga beli harus Angka !");
+        } else if (text.containsSymbols(this.hargaBeli)) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Harga beli harus Angka !");
         } else if (this.hargaJual.equals("")) {
             error = true;
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             Message.showWarning(this, "Harga Jual harus Di isi !");
+        } else if (text.containsCharacters(this.hargaJual)) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Harga Jual harus Angka !");
+        } else if (text.containsSymbols(this.hargaJual)) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Harga Jual harus Angka !");
         }else if(jenis == null){
             error = true;
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -180,19 +211,51 @@ public class InputBarang extends javax.swing.JDialog {
         if (this.newNama.equals("")) {
             error = true;
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            Message.showWarning(this, "Username harus Di isi !");
+            Message.showWarning(this, "Nama Barang harus Di isi !");
+        }else if (text.containsNumbers(this.newNama)) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Nama Barang harus Huruf !");
+        }else if (text.containsSymbols(this.newNama)) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Nama Barang harus Huruf !");
         } else if (this.newStok.equals("")) {
             error = true;
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             Message.showWarning(this, "Stok harus Di isi !");
+        } else if (text.containsSymbols(this.newStok)) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Stok harus Angka !");
+        } else if (text.containsCharacters(this.newStok)) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Stok harus Angka !");
         } else if (this.newHargaBeli.equals("")) {
             error = true;
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             Message.showWarning(this, "Harga beli harus Di isi !");
+        } else if (text.containsCharacters(this.newHargaBeli)) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Harga beli harus Angka !");
+        } else if (text.containsSymbols(this.newHargaBeli)) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Harga beli harus Angka !");
         } else if (this.newHargaJual.equals("")) {
             error = true;
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             Message.showWarning(this, "Harga Jual harus Di isi !");
+        } else if (text.containsCharacters(this.newHargaJual)) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Harga Jual harus Angka !");
+        } else if (text.containsSymbols(this.newHargaJual)) {
+            error = true;
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            Message.showWarning(this, "Harga Jual harus Angka !");
         }else if(newJenis == null){
             error = true;
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
