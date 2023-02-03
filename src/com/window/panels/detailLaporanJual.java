@@ -144,7 +144,7 @@ public class detailLaporanJual extends javax.swing.JDialog {
         try {
             Object[][] obj;
             int rows = 0;
-            String sql = "SELECT id_tr_jual, id_barang, nama_barang, jenis_barang, harga, jumlah, total_harga FROM detail_transaksi_jual " + keyword + " ORDER BY id_tr_jual DESC";
+            String sql = "SELECT id_tr_jual, id_barang, nama_barang, jenis_barang, harga, jumlah, total_harga FROM detail_transaksi_jual " + keyword + " ORDER BY jenis_barang DESC";
 //            System.out.println(sql);
             obj = new Object[trj.getJumlahData("detail_transaksi_jual", keyword)][8];
             // mengeksekusi query

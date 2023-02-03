@@ -55,7 +55,7 @@ public class Database {
      * Attribute yang digunakan untuk menghubungkan Aplikasi ke <B>Database
      * MySQL</B>
      */
-    public static final String DB_NAME = "umkm_barang";
+    public static final String DB_NAME = "umkm";
     private static final String //                                DB_NAME = "gemastik_lightning",
             URL = "jdbc:mysql://localhost/" + DB_NAME,
             USER = "root",
