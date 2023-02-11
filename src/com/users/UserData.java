@@ -1,7 +1,7 @@
 package com.users;
 
 /**
- * Field-field yang ada didalam tabel user pada <b>Database</b>.
+ * Field-field yang ada didalam tabel  pada <b>Database</b>.
  *
  * @author Achmad Baihaqi
  * @since 2021-06-14

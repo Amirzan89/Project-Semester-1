@@ -5,6 +5,7 @@ import com.manage.Message;
 import com.media.Audio;
 import com.media.Gambar;
 import com.users.Karyawan;
+import com.users.Supplier;
 import com.users.Users;
 import com.window.dialogs.ConfirmLogout;
 import com.window.panels.DataBarang;
@@ -28,15 +29,33 @@ import javax.swing.JLabel;
  */
 public class MainWindow extends javax.swing.JFrame {
 
+    private final Dashboard dashboardP = new Dashboard();
     private final Karyawan karyawan = new Karyawan();
+    private final DataKaryawan karyawanP = new DataKaryawan();
+    private final DataSupplier supplierP = new DataSupplier();
+    private final DataBarang barangP = new DataBarang();
+    private final LaporanBeli laporanBp = new LaporanBeli();
+    private final LaporanJual laporanJp = new LaporanJual();
+    private final TransaksiBeli trBp = new TransaksiBeli();
+    private final TransaksiJual trJp = new TransaksiJual();
+
     private final Users user = new Users();
     private final Database db = new Database();
-
     private JLabel activated;
-
+    private boolean selected[] = new boolean[8];
     private JLabel[] btns;
 
-    public MainWindow() throws ParseException {
+   public MainWindow() throws ParseException {
+        //close connection
+        dashboardP.closeKoneksi();
+        karyawanP.closeKoneksi();
+        supplierP.closeKoneksi();
+        barangP.closeKoneksi();
+        laporanBp.closeKoneksi();
+        laporanJp.closeKoneksi();
+        trBp.closeKoneksi();
+        trJp.closeKoneksi();
+        //
         initComponents();
         this.setTitle("Dashboard");
         this.setIconImage(Gambar.getWindowIcon());
@@ -62,6 +81,34 @@ public class MainWindow extends javax.swing.JFrame {
         this.hoverButton(btns);
         this.setResizable(false);
     }
+
+    private void closeKoneksi() {
+        if (selected[0]) {
+            dashboardP.closeKoneksi();
+        }
+        if (selected[1]) {
+            barangP.closeKoneksi();
+        }
+        if (selected[2]) {
+            karyawanP.closeKoneksi();
+        }
+        if (selected[3]) {
+            supplierP.closeKoneksi();
+        }
+        if (selected[4]) {
+            trBp.closeKoneksi();
+        }
+        if (selected[5]) {
+            trJp.closeKoneksi();
+        }
+        if (selected[6]) {
+            laporanBp.closeKoneksi();
+        }
+        if (selected[7]) {
+            laporanJp.closeKoneksi();
+        }
+    }
+
     //digunakan untuk mengubah icon button yang aktif
     private void setActivatedButton(JLabel activated) {
         this.activated = activated;
@@ -262,12 +309,17 @@ public class MainWindow extends javax.swing.JFrame {
         this.setTitle("Data Barang");
         this.setActivatedButton(this.btnBarang);
         // menghapus panel lama
-        db.closeConnection();
         pnlMenu.removeAll();
         pnlMenu.repaint();
         pnlMenu.revalidate();
-
-        db.startConnection();
+        //close koneksi
+        selected[1] = true;
+        for (boolean i : selected) {
+            if (i != selected[1]) {
+                i = false;
+            }
+        }
+        this.closeKoneksi();
         // menambahkan panel baru
         pnlMenu.add(new DataBarang());
         pnlMenu.repaint();
@@ -282,13 +334,18 @@ public class MainWindow extends javax.swing.JFrame {
             this.setActivatedButton(this.btnDashboard);
 
             // menghaspus panel lama
-            db.closeConnection();
             pnlMenu.removeAll();
             pnlMenu.repaint();
             pnlMenu.revalidate();
-
+            //close koneksi
+            selected[0] = true;
+            for (boolean i : selected) {
+                if (i != selected[0]) {
+                    i = false;
+                }
+            }
+            this.closeKoneksi();
             // menambahkan panel baru
-            db.startConnection();
             pnlMenu.add(new com.window.panels.Dashboard());
             pnlMenu.repaint();
             pnlMenu.revalidate();
@@ -299,25 +356,29 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDashboardMouseClicked
 
     private void btnKaryawanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKaryawanMouseClicked
-        if(this.user.isAdmin()){
-        this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-            
-        this.setTitle("Data Karyawan");
-        this.setActivatedButton(this.btnKaryawan);
+        if (this.user.isAdmin()) {
+            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            this.setTitle("Data Karyawan");
+            this.setActivatedButton(this.btnKaryawan);
 
-        // menghapus panel lama
-        db.closeConnection();
-        pnlMenu.removeAll();
-        pnlMenu.repaint();
-        pnlMenu.revalidate();
-
-        // menambahkan panel baru
-        db.startConnection();
-        pnlMenu.add(new DataKaryawan());
-        pnlMenu.repaint();
-        pnlMenu.revalidate();
-        this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-        }else{
+            // menghapus panel lama
+            pnlMenu.removeAll();
+            pnlMenu.repaint();
+            pnlMenu.revalidate();
+            //close koneksi
+            selected[2] = true;
+            for (boolean i : selected) {
+                if (i != selected[2]) {
+                    i = false;
+                }
+            }
+            this.closeKoneksi();
+            // menambahkan panel baru
+            pnlMenu.add(new DataKaryawan());
+            pnlMenu.repaint();
+            pnlMenu.revalidate();
+            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        } else {
             Message.showWarning(this, "Anda bukan Admin !");
         }
     }//GEN-LAST:event_btnKaryawanMouseClicked
@@ -331,7 +392,14 @@ public class MainWindow extends javax.swing.JFrame {
         pnlMenu.removeAll();
         pnlMenu.repaint();
         pnlMenu.revalidate();
-
+        //close koneksi
+        selected[3] = true;
+        for (boolean i : selected) {
+            if (i != selected[3]) {
+                i = false;
+            }
+        }
+        this.closeKoneksi();
         // menambahkan panel baru
         db.startConnection();
         pnlMenu.add(new DataSupplier());
@@ -346,11 +414,17 @@ public class MainWindow extends javax.swing.JFrame {
         this.setActivatedButton(this.btnTrBeli);
 
         // menghapus panel lama
-//        
         pnlMenu.removeAll();
         pnlMenu.repaint();
         pnlMenu.revalidate();
-
+        //close koneksi
+        selected[4] = true;
+        for (boolean i : selected) {
+            if (i != selected[4]) {
+                i = false;
+            }
+        }
+        this.closeKoneksi();
         // menambahkan panel baru
         pnlMenu.add(new TransaksiBeli());
         pnlMenu.repaint();
@@ -368,7 +442,14 @@ public class MainWindow extends javax.swing.JFrame {
         pnlMenu.removeAll();
         pnlMenu.repaint();
         pnlMenu.revalidate();
-
+        //close koneksi
+        selected[5] = true;
+        for (boolean i : selected) {
+            if (i != selected[5]) {
+                i = false;
+            }
+        }
+        this.closeKoneksi();
         // menambahkan panel baru
         pnlMenu.add(new TransaksiJual());
         pnlMenu.repaint();
@@ -379,23 +460,30 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void btnLpJualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLpJualMouseClicked
         try {
-            if(this.user.isAdmin()){
-                
-            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-            this.setTitle("Laporan Jual");
-            this.setActivatedButton(this.btnLpJual);
+            if (this.user.isAdmin()) {
 
-            // menghapus panel lama
-            pnlMenu.removeAll();
-            pnlMenu.repaint();
-            pnlMenu.revalidate();
+                this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+                this.setTitle("Laporan Jual");
+                this.setActivatedButton(this.btnLpJual);
 
-            // menambahkan panel baru
-            pnlMenu.add(new LaporanJual());
-            pnlMenu.repaint();
-            pnlMenu.revalidate();
-            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            }else{
+                // menghapus panel lama
+                pnlMenu.removeAll();
+                pnlMenu.repaint();
+                pnlMenu.revalidate();
+                //close koneksi
+                selected[6] = true;
+                for (boolean i : selected) {
+                    if (i != selected[6]) {
+                        i = false;
+                    }
+                }
+                this.closeKoneksi();
+                // menambahkan panel baru
+                pnlMenu.add(new LaporanJual());
+                pnlMenu.repaint();
+                pnlMenu.revalidate();
+                this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            } else {
                 Message.showWarning(this, "Anda bukan Admin !");
             }
         } catch (ParseException ex) {
@@ -405,23 +493,30 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void btnLpBeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLpBeliMouseClicked
         try {
-            if(this.user.isAdmin()){
-                
-            this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-            this.setTitle("Laporan Beli");
-            this.setActivatedButton(this.btnLpBeli);
+            if (this.user.isAdmin()) {
 
-            // menghapus panel lama
-            pnlMenu.removeAll();
-            pnlMenu.repaint();
-            pnlMenu.revalidate();
+                this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+                this.setTitle("Laporan Beli");
+                this.setActivatedButton(this.btnLpBeli);
 
-            // menambahkan panel baru
-            pnlMenu.add(new LaporanBeli());
-            pnlMenu.repaint();
-            pnlMenu.revalidate();
-            this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            }else{
+                // menghapus panel lama
+                pnlMenu.removeAll();
+                pnlMenu.repaint();
+                pnlMenu.revalidate();
+                //close koneksi
+                selected[7] = true;
+                for (boolean i : selected) {
+                    if (i != selected[7]) {
+                        i = false;
+                    }
+                }
+                this.closeKoneksi();
+                // menambahkan panel baru
+                pnlMenu.add(new LaporanBeli());
+                pnlMenu.repaint();
+                pnlMenu.revalidate();
+                this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            } else {
                 Message.showWarning(this, "Anda bukan Admin!");
             }
         } catch (ParseException ex) {

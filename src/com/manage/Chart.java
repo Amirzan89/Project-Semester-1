@@ -1,6 +1,9 @@
 package com.manage;
 
+import com.data.app.Log;
 import com.data.db.Database;
+import static com.data.db.Database.DB_NAME;
+import com.media.Audio;
 import com.window.panels.LaporanJual;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -15,6 +18,7 @@ import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -36,41 +40,60 @@ import org.jfree.data.statistics.HistogramDataset;
  * @since 2022-10-12
  */
 public class Chart {
-    
+    private final String namadb = Database.DB_NAME;
+    private Connection con;
+    private Statement stmt;
+    private ResultSet res;
     private final Color C_MAKANAN = new Color(10,255,108), C_MINUMAN = new Color(2,99,255), 
                         C_SNACK = new Color(255,51,102), C_ATK = new Color(255,233,35),
                         BG_CHART = Color.WHITE;
     
     private final Font F_PRODUK = new Font("Ebrima", 1, 22);
-    
-    private Statement getStat() {
-        String namadb = Database.DB_NAME;
+    public Chart(){
+        koneksi();
+    }
+    private void koneksi() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/" + namadb, "root", "");
-            Statement stmt = con.createStatement();
-
-//            ResultSet rs=stmt.executeQuery("show databases;");  
-//            System.out.println("Connected");  
-            return stmt;
+            this.con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/" + this.namadb, "root", "");
+            this.stmt = con.createStatement();
         } catch (Exception e) {
             System.out.println(e);
         }
-        return null;
+    }
+    public void closeKoneksi(){
+        try{
+            // Mengecek apakah conn kosong atau tidak, jika tidak maka akan diclose
+            if(this.con != null){
+                this.con.close();
+            }
+            // Mengecek apakah stat kosong atau tidak, jika tidak maka akan diclose
+            if(this.stmt != null){
+                this.stmt.close();
+            }
+            // Mengecek apakah res koson atau tidak, jika tidak maka akan diclose
+            if(this.res != null){
+                this.res.close();
+            }
+            
+        Log.addLog(String.format("Berhasil memutus koneksi dari Database '%s'.", DB_NAME));
+        }catch(SQLException ex){
+            Audio.play(Audio.SOUND_ERROR);
+            JOptionPane.showMessageDialog(null, "Terjadi Kesalahan!\n\nError message : "+ex.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+        }
     }
 
     private int getTotal(String table, String kolom, String kondisi) {
         try {
-            Statement stat = getStat();
+            koneksi();
             int data = 0;
             String sql = "SELECT SUM(" + kolom + ") AS total FROM " + table + " " + kondisi;
 //            System.out.println(sql);
-            ResultSet res = stat.executeQuery(sql);
-            while (res.next()) {
+            this.res = this.stmt.executeQuery(sql);
+            while (this.res.next()) {
 //                System.out.println("data ditemukan");
-                data = res.getInt("total");
-//                System.out.println("jumlahnya "+data);
+                data = this.res.getInt("total");
             }
             return data;
         } catch (SQLException ex) {
@@ -216,7 +239,6 @@ public class Chart {
             int minggu3 = getTotal("transaksi_jual", "keuntungan", "WHERE tanggal >= '"+ m3h1 +"' AND tanggal <= '"+ String.format("%s-%s-%s",tahun3,bulan3,hari3+1)+"'");
             int minggu4 = getTotal("transaksi_jual", "keuntungan", "WHERE tanggal >= '"+ m4h1 +"' AND tanggal <= '"+ String.format("%s-%s-%s",tahun4,bulan4,hari4+1)+"'");
             int minggu5 = getTotal("transaksi_jual", "keuntungan", "WHERE tanggal >= '"+ m5h1 +"' AND tanggal <= '"+ String.format("%s-%s-%s",tahun5,bulan5,hari5+1)+"'");
-            
             if(minggu1 > 0){
                 dataset.addValue(minggu1, "Amount", "Minggu 1");
             }else{

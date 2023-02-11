@@ -1,5 +1,6 @@
 package com.window.panels;
 
+import com.data.db.Database;
 import com.data.db.DatabaseTables;
 import com.manage.Message;
 import com.manage.Text;
@@ -7,113 +8,130 @@ import com.media.Audio;
 import com.media.Gambar;
 import com.sun.glass.events.KeyEvent;
 import com.manage.Barang;
-import com.manage.Chart;
-import com.manage.Validation;
+import com.manage.Waktu;
 import com.window.dialogs.InputBarang;
-
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
-
 import java.sql.SQLException;
 import java.awt.event.MouseEvent;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.renderer.category.LineAndShapeRenderer;
-import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
- * @author Amirzan Fikri 
+ * @author Amirzan Fikri
  */
 public class DataBarang extends javax.swing.JPanel {
-    
+    private final Waktu waktu = new Waktu();
+    private final Database db = new Database();
     private final Barang barang = new Barang();
-    
-    
+    private int tahun, bulan;
     private final Text text = new Text();
 
     private String idSelected = "", keyword = "", namaBarang, jenis, stok, hargaBeli, hargaJual, ttlPenjulan, penjMing, penghasilan;
     private Object[][] obj;
+
     /**
-     * Creates new form Dashboard
+     * Creates new form Data Barang
      */
     public DataBarang() {
         initComponents();
-//        this.showPieChart();
-        
+        this.bulan = waktu.getBulan() + 1;
+        this.tahun = waktu.getTahun();
+        db.startConnection();
         this.btnAdd.setUI(new javax.swing.plaf.basic.BasicButtonUI());
         this.btnEdit.setUI(new javax.swing.plaf.basic.BasicButtonUI());
         this.btnDel.setUI(new javax.swing.plaf.basic.BasicButtonUI());
-        
+
         this.tabelData.setRowHeight(29);
-        this.tabelData.getTableHeader().setBackground(new java.awt.Color(255,255,255));
+        this.tabelData.getTableHeader().setBackground(new java.awt.Color(255, 255, 255));
         this.tabelData.getTableHeader().setForeground(new java.awt.Color(0, 0, 0));
-        
+
         JLabel[] values = {
-          this.valIDBarang, this.valNamaBarang, this.valJenis, this.valStok, 
-          this.valHargaBeli, this.valHargaJual, this.valPjln, this.valPjlnMinggu, this.valPenghasilan
+            this.valIDBarang, this.valNamaBarang, this.valJenis, this.valStok,
+            this.valHargaBeli, this.valHargaJual, this.valPjln, this.valPjlnMinggu, this.valPenghasilan
         };
-        
-        for(JLabel lbl : values){
+
+        for (JLabel lbl : values) {
             lbl.addMouseListener(new java.awt.event.MouseListener() {
 
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    
+
                 }
 
                 @Override
                 public void mousePressed(MouseEvent e) {
-                    
+
                 }
 
                 @Override
                 public void mouseReleased(MouseEvent e) {
-                    
+
                 }
 
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     setCursor(new Cursor(Cursor.HAND_CURSOR));
-                    lbl.setForeground(new Color(15,98,230));
+                    lbl.setForeground(new Color(15, 98, 230));
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
                     setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                    lbl.setForeground(new Color(0,0,0));
+                    lbl.setForeground(new Color(0, 0, 0));
                 }
             });
         }
-        
-        this.showLineChart();
-        
+
         this.updateTabel();
     }
-    
-    private String gachaMinggu(){
+
+    public void closeKoneksi() {
+        barang.closeConnection();
+        db.closeConnection();
+    }
+    private int getJumlahData(String tabel, String kondisi) {
+        try {
+            String query = "SELECT COUNT(*) AS total FROM " + tabel + " " + kondisi;
+            db.res = db.stat.executeQuery(query);
+            if (db.res.next()) {
+                return db.res.getInt("total");
+            }
+        } catch (SQLException ex) {
+            Message.showException(this, "Terjadi Kesalahan!\n\nError message : " + ex.getMessage(), ex, true);
+        } catch (NullPointerException n) {
+//            n.printStackTrace();
+            System.out.println("errorr ");
+            return 0;
+        }
+        return -1;
+    }
+    private String gachaBulan() {
+        try{
+            
         int max = barang.sumData(DatabaseTables.DETAIL_TRANSAKSI_JUAL.name(), "jumlah", String.format("where id_barang = '%s'", this.idSelected));
 //        System.out.println("jumlah barangg "+max);
-        if(max <=1){
+        String query = "SELECT COUNT(*) AS total FROM detail_transaksi_jual INNER JOIN transaksi_jual ON transaksi_jual.id_tr_jual = detail_transaksi_jual.id_tr_jual WHERE id_barang = '"+this.idSelected+"' AND YEAR(tanggal) ='"+this.tahun+"' AND MONTH(tanggal) = '"+this.bulan+"'";
+        db.res = db.stat.executeQuery(query);
+        if (db.res.next()) {
+            return db.res.getString("total");
+            }
+        } catch (SQLException ex) {
+            Message.showException(this, "Terjadi Kesalahan!\n\nError message : " + ex.getMessage(), ex, true);
+        } catch (NullPointerException n) {
+//            n.printStackTrace();
+            System.out.println("errorr ");
             return "0";
-        }else{
-            return Integer.toString(new Random().nextInt(--max));
         }
+        return "-1";
     }
-    
-    private void showData(){
+
+    private void showData() {
         int baris = -1;
-        for(int i = 0; i<obj.length;i++){
-            if(this.obj[i][0].equals(this.idSelected)){
+        for (int i = 0; i < obj.length; i++) {
+            if (this.obj[i][0].equals(this.idSelected)) {
                 baris = i;
             }
         }
@@ -123,23 +141,35 @@ public class DataBarang extends javax.swing.JPanel {
         this.stok = barang.getStok(this.idSelected);
         this.hargaBeli = text.toMoneyCase(barang.getHargaBeli(this.idSelected));
         this.hargaJual = text.toMoneyCase(barang.getHargaJual(this.idSelected));
-        this.ttlPenjulan = ""+this.barang.sumData(DatabaseTables.DETAIL_TRANSAKSI_JUAL.name(), "jumlah", String.format("where id_barang = '%s'", this.idSelected));
+        this.ttlPenjulan = "" + this.db.getJumlahData(DatabaseTables.DETAIL_TRANSAKSI_JUAL.name(), "WHERE id_barang = '" + this.idSelected + "'");
 //        this.penghasilan = text.toMoneyCase(""+this.barang.sumData(DatabaseTables.TRANSAKSI_JUAL.name(), "total_hrg", String.format("where id_barang = '%s'", this.idSelected)));
-        this.penghasilan = text.toMoneyCase(""+Integer.toString((text.toIntCase(this.obj[baris][5].toString()) - text.toIntCase(this.obj[baris][4].toString()))*this.barang.sumData(DatabaseTables.DETAIL_TRANSAKSI_JUAL.name(), "jumlah", String.format("where id_barang = '%s'", this.idSelected))));
+        this.penghasilan = text.toMoneyCase("" + Integer.toString((text.toIntCase(this.obj[baris][5].toString()) - text.toIntCase(this.obj[baris][4].toString())) * this.barang.sumData(DatabaseTables.DETAIL_TRANSAKSI_JUAL.name(), "jumlah", String.format("where id_barang = '%s'", this.idSelected))));
         // menampilkan data
-        this.valIDBarang.setText("<html><p>:&nbsp;"+idSelected+"</p></html>");
-        this.valNamaBarang.setText("<html><p>:&nbsp;"+namaBarang+"</p></html>");
-        this.valJenis.setText("<html><p>:&nbsp;"+jenis+"</p></html>");
-        this.valStok.setText("<html><p>:&nbsp;"+stok+" Stok</p></html>");
-        this.valHargaJual.setText("<html><p>:&nbsp;"+hargaJual+"</p></html>");
-        this.valHargaBeli.setText("<html><p>:&nbsp;"+hargaBeli+"</p></html>");
-        this.valPjln.setText("<html><p>:&nbsp;"+ttlPenjulan+" Penjualan</p></html>");
-        this.valPjlnMinggu.setText("<html><p>:&nbsp;"+gachaMinggu()+" Penjualan</p></html>");
-        this.valPenghasilan.setText("<html><p>:&nbsp;"+penghasilan+"</p></html>");
+        this.valIDBarang.setText("<html><p>:&nbsp;" + idSelected + "</p></html>");
+        this.valNamaBarang.setText("<html><p>:&nbsp;" + namaBarang + "</p></html>");
+        this.valJenis.setText("<html><p>:&nbsp;" + jenis + "</p></html>");
+        this.valStok.setText("<html><p>:&nbsp;" + stok + " Stok</p></html>");
+        this.valHargaJual.setText("<html><p>:&nbsp;" + hargaJual + "</p></html>");
+        this.valHargaBeli.setText("<html><p>:&nbsp;" + hargaBeli + "</p></html>");
+        this.valPjln.setText("<html><p>:&nbsp;" + ttlPenjulan + " Penjualan</p></html>");
+        this.valPjlnMinggu.setText("<html><p>:&nbsp;" + gachaBulan() + " Penjualan</p></html>");
+        this.valPenghasilan.setText("<html><p>:&nbsp;" + penghasilan + "</p></html>");
     }
-    
-    private Object[][] getData(){
-        try{
+
+    private void resetData() {
+        this.valIDBarang.setText("<html><p>:&nbsp;</p></html>");
+        this.valNamaBarang.setText("<html><p>:&nbsp;</p></html>");
+        this.valJenis.setText("<html><p>:&nbsp;</p></html>");
+        this.valStok.setText("<html><p>:&nbsp;</p></html>");
+        this.valHargaJual.setText("<html><p>:&nbsp;</p></html>");
+        this.valHargaBeli.setText("<html><p>:&nbsp;</p></html>");
+        this.valPjln.setText("<html><p>:&nbsp;</p></html>");
+        this.valPjlnMinggu.setText("<html><p>:&nbsp;</p></html>");
+        this.valPenghasilan.setText("<html><p>:&nbsp;</p></html>");
+    }
+
+    private Object[][] getData() {
+        try {
 //            Object obj[][];
             int rows = 0;
             String sql = "SELECT id_barang, nama_barang, jenis_barang, stok, harga_beli, harga_jual FROM barang " + keyword;
@@ -148,7 +178,7 @@ public class DataBarang extends javax.swing.JPanel {
             // mengeksekusi query
             barang.res = barang.stat.executeQuery(sql);
             // mendapatkan semua data yang ada didalam tabel
-            while(barang.res.next()){
+            while (barang.res.next()) {
                 // menyimpan data dari tabel ke object
                 this.obj[rows][0] = barang.res.getString("id_barang");
                 this.obj[rows][1] = barang.res.getString("nama_barang");
@@ -159,61 +189,30 @@ public class DataBarang extends javax.swing.JPanel {
                 rows++; // rows akan bertambah 1 setiap selesai membaca 1 row pada tabel
             }
             return this.obj;
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             Message.showException(this, "Terjadi kesalahan saat mengambil data dari database\n" + ex.getMessage(), ex, true);
         }
         return null;
     }
-    
-    private void updateTabel(){
+
+    private void updateTabel() {
         this.tabelData.setModel(new javax.swing.table.DefaultTableModel(
-            getData(),
-            new String [] {
-                "ID Barang", "Nama Barang", "Jenis Barang", "Stok", "Harga Beli", "Harga Jual"
-            }
-        ){
-            boolean[] canEdit = new boolean [] {
+                getData(),
+                new String[]{
+                    "ID Barang", "Nama Barang", "Jenis Barang", "Stok", "Harga Beli", "Harga Jual"
+                }
+        ) {
+            boolean[] canEdit = new boolean[]{
                 false, false, false, false, false, false
             };
+
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
     }
-    
-    public void showLineChart(){
-        //create dataset for the graph
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.setValue(200, "Amount", "Kamis");
-        dataset.setValue(150, "Amount", "Jumat");
-        dataset.setValue(58, "Amount", "Sabtu");
-        dataset.setValue(30, "Amount", "Minggu");
-        dataset.setValue(180, "Amount", "Senin");
-        dataset.setValue(250, "Amount", "Selasa");
-        dataset.setValue(250, "Amount", "Rabu");
-        
-        //create chart
-        JFreeChart linechart = ChartFactory.createLineChart("Penjualan Minggu Ini","Hari","Jumlah", 
-                dataset, PlotOrientation.VERTICAL, false,true,false);
-        
-        //create plot object
-         CategoryPlot lineCategoryPlot = linechart.getCategoryPlot();
-        lineCategoryPlot.setRangeGridlinePaint(Color.BLUE);
-        lineCategoryPlot.setBackgroundPaint(Color.WHITE);
-        
-        //create render object to change the moficy the line properties like color
-        LineAndShapeRenderer lineRenderer = (LineAndShapeRenderer) lineCategoryPlot.getRenderer();
-        Color lineChartColor = new Color(255,2,9);
-        lineRenderer.setSeriesPaint(0, lineChartColor);
-        
-         //create chartPanel to display chart(graph)
-//        ChartPanel lineChartPanel = new ChartPanel(linechart);
-//        lineChart.removeAll();
-//        lineChart.add(lineChartPanel, BorderLayout.CENTER);
-//        lineChart.validate();
-    }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -253,10 +252,7 @@ public class DataBarang extends javax.swing.JPanel {
         tabelData.setForeground(new java.awt.Color(0, 0, 0));
         tabelData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "ID Barang", "Nama Barang", "Jenis", "Stok"
@@ -363,11 +359,11 @@ public class DataBarang extends javax.swing.JPanel {
         background.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
-        
+
 
     private void tabelDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataMouseClicked
         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-        // menampilkan data pembeli
+        // menampilkan data barang
         this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow(), 0).toString();
         this.showData();
         this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -375,7 +371,7 @@ public class DataBarang extends javax.swing.JPanel {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // mengecek apakah ada data yang dipilih atau tidak
-        if(tabelData.getSelectedRow() > -1){
+        if (tabelData.getSelectedRow() > -1) {
             // membuka window input pembeli
             Audio.play(Audio.SOUND_INFO);
             InputBarang tbh = new InputBarang(null, true, this.idSelected);
@@ -383,25 +379,30 @@ public class DataBarang extends javax.swing.JPanel {
 
             this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
             // mengecek apakah barang jadi mengedit data atau tidak
-            if(tbh.isUpdated()){
+            if (tbh.isUpdated()) {
                 // mengupdate tabel dan menampilkan ulang data
                 this.updateTabel();
                 this.showData();
             }
             this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            }else{
-                Message.showWarning(this, "Tidak ada data yang dipilih!!", true);
-            }
+        } else {
+            Message.showWarning(this, "Tidak ada data yang dipilih!!", true);
+        }
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void tablDataKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablDataKeyPressed
         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-        if(evt.getKeyCode() == KeyEvent.VK_UP){
-            this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow() - 1, 0).toString();
-            this.showData();
-        }else if(evt.getKeyCode() == KeyEvent.VK_DOWN){
-            this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow() + 1, 0).toString();
-            this.showData();
+        if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            if (this.tabelData.getSelectedRow() >= 1) {
+                this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow() - 1, 0).toString();
+                this.showData();
+            }
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (this.tabelData.getSelectedRow() < (this.tabelData.getRowCount() - 1)) {
+                this.idSelected = this.tabelData.getValueAt(tabelData.getSelectedRow() + 1, 0).toString();
+                this.showData();
+            }
         }
         this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_tablDataKeyPressed
@@ -416,13 +417,13 @@ public class DataBarang extends javax.swing.JPanel {
 
     private void inpCariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inpCariKeyTyped
         String key = this.inpCari.getText();
-        this.keyword = "WHERE id_barang LIKE '%"+key+"%' OR nama_barang LIKE '%"+key+"%'";
+        this.keyword = "WHERE id_barang LIKE '%" + key + "%' OR nama_barang LIKE '%" + key + "%'";
         this.updateTabel();
     }//GEN-LAST:event_inpCariKeyTyped
 
     private void inpCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inpCariKeyReleased
         String key = this.inpCari.getText();
-        this.keyword = "WHERE id_barang LIKE '%"+key+"%' OR nama_barang LIKE '%"+key+"%'";
+        this.keyword = "WHERE id_barang LIKE '%" + key + "%' OR nama_barang LIKE '%" + key + "%'";
         this.updateTabel();
     }//GEN-LAST:event_inpCariKeyReleased
 
@@ -430,29 +431,30 @@ public class DataBarang extends javax.swing.JPanel {
         int status;
         boolean delete;
         // mengecek apakah ada data yang dipilih atau tidak
-        if(tabelData.getSelectedRow() > -1){
+        if (tabelData.getSelectedRow() > -1) {
             // membuka confirm dialog untuk menghapus data
             Audio.play(Audio.SOUND_INFO);
             status = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus '" + this.namaBarang + "' ?", "Confirm", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE);
             // mengecek pilihan dari barang
-            switch(status){
+            switch (status) {
                 // jika yes maka data akan dihapus
-                case JOptionPane.YES_OPTION :
-                // menghapus data pembeli
-                this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-                delete = this.barang.deleteBarang(this.idSelected);
-                // mengecek apakah data pembeli berhasil terhapus atau tidak
-                if(delete){
-                    Message.showInformation(this, "Data berhasil dihapus!");
-                    // mengupdate tabel
-                    this.updateTabel();
-                }else{
-                    Message.showInformation(this, "Data gagal dihapus!");
-                }
-                this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                break;
+                case JOptionPane.YES_OPTION:
+                    // menghapus data pembeli
+                    this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+                    delete = this.barang.deleteBarang(this.idSelected);
+                    // mengecek apakah data pembeli berhasil terhapus atau tidak
+                    if (delete) {
+                        Message.showInformation(this, "Data berhasil dihapus!");
+                        // mengupdate tabel
+                        this.updateTabel();
+                        this.resetData();
+                    } else {
+                        Message.showInformation(this, "Data gagal dihapus!");
+                    }
+                    this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    break;
             }
-        }else{
+        } else {
             Message.showWarning(this, "Tidak ada data yang dipilih!!", true);
         }
     }//GEN-LAST:event_btnDelActionPerformed
@@ -467,7 +469,7 @@ public class DataBarang extends javax.swing.JPanel {
 
     private void inpCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inpCariActionPerformed
         String key = this.inpCari.getText();
-        this.keyword = "WHERE id_barang LIKE '%"+key+"%' OR nama_barang LIKE '%"+key+"%'";
+        this.keyword = "WHERE id_barang LIKE '%" + key + "%' OR nama_barang LIKE '%" + key + "%'";
         this.updateTabel();
     }//GEN-LAST:event_inpCariActionPerformed
 
@@ -479,10 +481,10 @@ public class DataBarang extends javax.swing.JPanel {
 
         this.setCursor(new Cursor(Cursor.WAIT_CURSOR));
         // mengecek apakah barang jadi menambahkan data atau tidak
-        if(tbh.isUpdated()){
+        if (tbh.isUpdated()) {
             // mengupdate tabel
             this.updateTabel();
-            this.tabelData.setRowSelectionInterval(this.tabelData.getRowCount()-1, this.tabelData.getRowCount()-1);
+            this.tabelData.setRowSelectionInterval(this.tabelData.getRowCount() - 1, this.tabelData.getRowCount() - 1);
         }
         this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btnAddActionPerformed
@@ -494,7 +496,7 @@ public class DataBarang extends javax.swing.JPanel {
     private void btnAddMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseEntered
         this.btnAdd.setIcon(Gambar.getAktiveIcon(this.btnAdd.getIcon().toString()));
     }//GEN-LAST:event_btnAddMouseEntered
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
     private javax.swing.JButton btnAdd;

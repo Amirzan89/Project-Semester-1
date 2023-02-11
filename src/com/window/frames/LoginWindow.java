@@ -52,7 +52,7 @@ public class LoginWindow extends javax.swing.JFrame {
         lblClose = new javax.swing.JLabel();
         inpPassword = new javax.swing.JPasswordField();
         btnLogin = new javax.swing.JLabel();
-        btnLupa = new javax.swing.JLabel();
+        btnGanti = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -158,19 +158,19 @@ public class LoginWindow extends javax.swing.JFrame {
         });
         pnlMain.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(335, 363, -1, -1));
 
-        btnLupa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/btn-lupaPassword-075.png"))); // NOI18N
-        btnLupa.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnGanti.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar_icon/btn-gantiPassword-075.png"))); // NOI18N
+        btnGanti.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnLupaMouseClicked(evt);
+                btnGantiMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnLupaMouseEntered(evt);
+                btnGantiMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnLupaMouseExited(evt);
+                btnGantiMouseExited(evt);
             }
         });
-        pnlMain.add(btnLupa, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 340, -1, -1));
+        pnlMain.add(btnGanti, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 340, -1, -1));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/gambar/app-login-050.png"))); // NOI18N
         pnlMain.add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -288,17 +288,17 @@ public class LoginWindow extends javax.swing.JFrame {
         this.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btnLoginMouseExited
 
-    private void btnLupaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLupaMouseEntered
-        this.btnLupa.setIcon(Gambar.getAktiveIcon(this.btnLupa.getIcon().toString()));
+    private void btnGantiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGantiMouseEntered
+        this.btnGanti.setIcon(Gambar.getAktiveIcon(this.btnGanti.getIcon().toString()));
         this.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_btnLupaMouseEntered
+    }//GEN-LAST:event_btnGantiMouseEntered
 
-    private void btnLupaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLupaMouseExited
-        this.btnLupa.setIcon(Gambar.getBiasaIcon(this.btnLupa.getIcon().toString()));
+    private void btnGantiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGantiMouseExited
+        this.btnGanti.setIcon(Gambar.getBiasaIcon(this.btnGanti.getIcon().toString()));
         this.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-    }//GEN-LAST:event_btnLupaMouseExited
+    }//GEN-LAST:event_btnGantiMouseExited
 
-    private void btnLupaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLupaMouseClicked
+    private void btnGantiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGantiMouseClicked
         // TODO add your handling code here:
         user.closeConnection();
         this.dispose();
@@ -306,10 +306,10 @@ public class LoginWindow extends javax.swing.JFrame {
 
                 @Override
                 public void run(){
-                    new com.window.frames.LupaWindow().setVisible(true);
+                    new com.window.frames.GantiWindow().setVisible(true);
                 }
             });
-    }//GEN-LAST:event_btnLupaMouseClicked
+    }//GEN-LAST:event_btnGantiMouseClicked
 
     private void lblEyeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEyeMouseClicked
 
@@ -351,8 +351,8 @@ public class LoginWindow extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
+    private javax.swing.JLabel btnGanti;
     private javax.swing.JLabel btnLogin;
-    private javax.swing.JLabel btnLupa;
     private javax.swing.JPasswordField inpPassword;
     private javax.swing.JTextField inpUsername;
     private javax.swing.JLabel lblClose;

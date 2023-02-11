@@ -36,12 +36,7 @@ public class Dashboard extends javax.swing.JPanel {
 
     private final Database db = new Database();
 
-//    private final Statement stat = db.stat;
-    private final ManageTransaksiBeli trb = new ManageTransaksiBeli();
 
-    private final ManageTransaksiJual trj = new ManageTransaksiJual();
-
-    private final Barang barang = new Barang();
     private final Chart chart = new Chart();
 
     private final Waktu waktu = new Waktu();
@@ -57,12 +52,13 @@ public class Dashboard extends javax.swing.JPanel {
     private final DateFormat time12 = new SimpleDateFormat("hh:mm:ss");
     private final DateFormat time = new SimpleDateFormat("hh:mm:ss");
     private final DateFormat timeMillis = new SimpleDateFormat("ss.SSS:mm:hh");
-    private String keyword = "";
     private Object[] obj;
     public Dashboard() throws ParseException {
         initComponents();
         db.startConnection();
+        System.out.println("dahsboard");
         updateTabel();
+        
         this.hari = waktu.getTanggal();
         this.bulan = waktu.getBulan() + 1;
         this.tahun = waktu.getTahun();
@@ -96,7 +92,10 @@ public class Dashboard extends javax.swing.JPanel {
             }
         }).start();
     }
-
+    public void closeKoneksi(){
+        this.chart.closeKoneksi();
+        db.closeConnection();
+    }
     private int getJenis(String field) {
         try {
             int data = 0;
@@ -136,7 +135,7 @@ public class Dashboard extends javax.swing.JPanel {
         return -1;
     }
 
-    public int getJumlahData(String tabel, String kondisi) {
+    private int getJumlahData(String tabel, String kondisi) {
         try {
             String query = "SELECT COUNT(*) AS total FROM " + tabel + " " + kondisi;
             db.res = db.stat.executeQuery(query);
